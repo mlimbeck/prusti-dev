@@ -3,7 +3,7 @@
 
 pub mod ast;
 pub mod cfg;
-pub(crate) mod derived_operations;
+// pub(crate) mod derived_operations;
 pub mod domain;
 pub mod program;
 

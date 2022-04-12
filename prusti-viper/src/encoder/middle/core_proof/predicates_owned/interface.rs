@@ -8,7 +8,7 @@ use crate::encoder::{
         predicates_memory_block::PredicatesMemoryBlockInterface,
         snapshots::{
             IntoSnapshot, SnapshotBytesInterface, SnapshotValidityInterface,
-            SnapshotValuesInterface,
+            SnapshotValuesInterface, IntoPureSnapshot,
         },
         type_layouts::TypeLayoutsInterface,
         types::TypesInterface,
@@ -18,7 +18,8 @@ use rustc_hash::FxHashSet;
 use std::borrow::Cow;
 use vir_crate::{
     common::expression::ExpressionIterator,
-    low::{self as vir_low, operations::ToLow},
+    low::{self as vir_low
+    },
     middle as vir_mid,
 };
 
@@ -133,7 +134,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                     }
                     let variant_type = &variant_type;
                     let acc = expr! {
-                        ([ discriminant_call.clone() ] == [ discriminant.clone().to_low(self)? ]) ==>
+                        ([ discriminant_call.clone() ] == [ discriminant.clone().to_pure_snapshot(self)? ]) ==>
                         (acc(OwnedNonAliased<variant_type>(
                             [variant_place], root_address, [variant_snapshot]
                         )))
@@ -200,7 +201,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                     }
                     let variant_type = &variant_type;
                     let acc = expr! {
-                        ([ discriminant_call.clone() ] == [ discriminant.clone().to_low(self)? ]) ==>
+                        ([ discriminant_call.clone() ] == [ discriminant.clone().to_pure_snapshot(self)? ]) ==>
                         (acc(OwnedNonAliased<variant_type>(
                             [variant_place], root_address, [variant_snapshot]
                         )))

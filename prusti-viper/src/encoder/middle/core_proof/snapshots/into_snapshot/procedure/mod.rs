@@ -14,13 +14,7 @@ use vir_crate::{
 
 mod traits;
 
-pub(in super::super::super) trait IntoProcedureSnapshot {
-    type Target;
-    fn create_snapshot<'p, 'v: 'p, 'tcx: 'v>(
-        &self,
-        lowerer: &mut Lowerer<'p, 'v, 'tcx>,
-    ) -> SpannedEncodingResult<Self::Target>;
-}
+pub(in super::super::super)  use self::traits::IntoProcedureSnapshot;
 
 struct ProcedureSnapshot;
 

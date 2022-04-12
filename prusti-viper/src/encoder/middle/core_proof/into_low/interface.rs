@@ -2,7 +2,7 @@ use crate::encoder::{
     errors::SpannedEncodingResult,
     middle::core_proof::{
         lowerer::Lowerer,
-        snapshots::{IntoSnapshot, SnapshotValuesInterface},
+        snapshots::{IntoSnapshot, SnapshotValuesInterface, IntoProcedureSnapshot},
     },
 };
 
@@ -33,7 +33,9 @@ impl<'p, 'v: 'p, 'tcx: 'v> IntoLowInterface for Lowerer<'p, 'v, 'tcx> {
         &mut self,
         expression: vir_mid::Expression,
     ) -> SpannedEncodingResult<vir_low::ast::expression::Expression> {
-        vir_low::operations::ToLowLowerer::to_low_expression(self, expression)
+        // TODO: Remove this method.
+        expression.to_procedure_snapshot(self)
+        // vir_low::operations::ToLowLowerer::to_low_expression(self, expression)
     }
     fn lower_expression_into_snapshot(
         &mut self,
@@ -49,6 +51,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> IntoLowInterface for Lowerer<'p, 'v, 'tcx> {
         self.obtain_constant_value(expression.get_type(), snapshot, expression.position())
     }
     fn lower_type(&mut self, ty: vir_mid::Type) -> SpannedEncodingResult<vir_low::ast::ty::Type> {
-        vir_low::operations::ToLowLowerer::to_low_type(self, ty)
+        ty.to_procedure_snapshot(self)
+        // vir_low::operations::ToLowLowerer::to_low_type(self, ty)
     }
 }

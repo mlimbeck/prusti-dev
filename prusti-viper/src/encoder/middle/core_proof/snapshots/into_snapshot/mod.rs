@@ -44,3 +44,8 @@ pub(in super::super) trait IntoSnapshot {
 mod common;
 mod procedure;
 mod pure;
+
+pub(in super::super) use self::{
+    procedure::IntoProcedureSnapshot,
+    pure::IntoPureSnapshot,
+};

@@ -10,7 +10,8 @@ use crate::encoder::{
 };
 use vir_crate::{
     common::identifier::WithIdentifier,
-    low::{self as vir_low, operations::ToLowLowerer},
+    low::{self as vir_low, //operations::ToLowLowerer
+    },
     middle::{self as vir_mid, operations::ty::Typed},
 };
 
@@ -147,11 +148,43 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
             _ => unimplemented!("constant: {:?}", constant),
         };
         let argument = vir_low::Expression::Constant(vir_low::expression::Constant {
-            value: lowerer.to_low_constant_value(constant.value.clone())?,
+            value: Self::constant_value_to_snapshot(lowerer, &constant.value)?,
             ty: low_type,
             position: constant.position,
         });
-        lowerer.construct_constant_snapshot(&constant.ty, argument, constant.position)
+        if matches!(constant.ty,
+            vir_mid::Type::MBool
+            | vir_mid::Type::MInt
+            | vir_mid::Type::MFloat32
+            | vir_mid::Type::MFloat64
+        ) {
+            Ok(argument)
+        } else
+        {lowerer.construct_constant_snapshot(&constant.ty, argument, constant.position)}
+    }
+
+    fn constant_value_to_snapshot(
+        _lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+        value: &vir_mid::expression::ConstantValue,
+    ) -> SpannedEncodingResult<vir_low::expression::ConstantValue> {
+        let low_value = match value {
+            vir_mid::expression::ConstantValue::Bool(value) => {
+                vir_low::expression::ConstantValue::Bool(*value)
+            }
+            vir_mid::expression::ConstantValue::Int(value) => {
+                vir_low::expression::ConstantValue::Int(*value)
+            }
+            vir_mid::expression::ConstantValue::BigInt(value) => {
+                vir_low::expression::ConstantValue::BigInt(value.clone())
+            }
+            vir_mid::expression::ConstantValue::Float(_value) => {
+                unimplemented!();
+            }
+            vir_mid::expression::ConstantValue::FnPtr => {
+                unimplemented!();
+            }
+        };
+        Ok(low_value)
     }
 
     fn unary_op_to_snapshot(
@@ -165,6 +198,16 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
             argument_snapshot,
             op.position,
         )
+    }
+
+    fn unary_op_kind_to_snapshot(
+        _lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+        op: &vir_mid::UnaryOpKind,
+    ) -> SpannedEncodingResult<vir_low::UnaryOpKind> {
+        Ok(match op {
+            vir_mid::UnaryOpKind::Not => vir_low::UnaryOpKind::Not,
+            vir_mid::UnaryOpKind::Minus => vir_low::UnaryOpKind::Minus,
+        })
     }
 
     fn binary_op_to_snapshot(
@@ -183,6 +226,28 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
             right_snapshot,
             op.position,
         )
+    }
+
+    fn binary_op_kind_to_snapshot(
+        _lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+        op: &vir_mid::BinaryOpKind,
+    ) -> SpannedEncodingResult<vir_low::BinaryOpKind> {
+        Ok(match op {
+            vir_mid::BinaryOpKind::EqCmp  => vir_low::BinaryOpKind::EqCmp,
+            vir_mid::BinaryOpKind::NeCmp  => vir_low::BinaryOpKind::NeCmp,
+            vir_mid::BinaryOpKind::GtCmp  => vir_low::BinaryOpKind::GtCmp,
+            vir_mid::BinaryOpKind::GeCmp  => vir_low::BinaryOpKind::GeCmp,
+            vir_mid::BinaryOpKind::LtCmp  => vir_low::BinaryOpKind::LtCmp,
+            vir_mid::BinaryOpKind::LeCmp  => vir_low::BinaryOpKind::LeCmp,
+            vir_mid::BinaryOpKind::Add  => vir_low::BinaryOpKind::Add,
+            vir_mid::BinaryOpKind::Sub  => vir_low::BinaryOpKind::Sub,
+            vir_mid::BinaryOpKind::Mul  => vir_low::BinaryOpKind::Mul,
+            vir_mid::BinaryOpKind::Div  => vir_low::BinaryOpKind::Div,
+            vir_mid::BinaryOpKind::Mod  => vir_low::BinaryOpKind::Mod,
+            vir_mid::BinaryOpKind::And  => vir_low::BinaryOpKind::And,
+            vir_mid::BinaryOpKind::Or  => vir_low::BinaryOpKind::Or,
+            vir_mid::BinaryOpKind::Implies  => vir_low::BinaryOpKind::Implies,
+        })
     }
 
     fn conditional_to_snapshot(

@@ -4,7 +4,7 @@ use crate::encoder::{
     middle::core_proof::{
         into_low::IntoLow,
         lowerer::{DomainsLowererInterface, Lowerer},
-        snapshots::IntoSnapshot,
+        snapshots::{IntoSnapshot, IntoPureSnapshot},
     },
 };
 use std::collections::BTreeMap;
@@ -51,8 +51,8 @@ impl<'p, 'v: 'p, 'tcx: 'v> FunctionsLowererInterface for Lowerer<'p, 'v, 'tcx> {
         // Clippy false positive: it does not realize that we need multiple mutable references to self here.
         if !self.functions_state.functions.contains_key(&function_name) {
             let (pres, posts) = self.encoder.get_pure_function_specs_mid(&function_name)?;
-            let pres = pres.into_low(self)?;
-            let posts = posts.into_low(self)?;
+            let pres = pres.to_pure_bool_expression(self)?;
+            let posts = posts.to_pure_bool_expression(self)?;
             let function = vir_low::FunctionDecl::new(
                 caller_function_name.clone(),
                 parameters.clone(),
@@ -84,7 +84,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> FunctionsLowererInterface for Lowerer<'p, 'v, 'tcx> {
             let function_decl = self.encoder.get_pure_function_decl_mid(&function_name)?;
             if let Some(body) = function_decl.body {
                 use vir_low::macros::*;
-                let body_snapshot = body.create_snapshot(self)?;
+                let body_snapshot = body.to_pure_snapshot(self)?;
                 let axiom_body = expr! {
                     [body_snapshot]
                 };

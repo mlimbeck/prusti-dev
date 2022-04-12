@@ -6,7 +6,7 @@ use crate::encoder::{
         lowerer::{DomainsLowererInterface, Lowerer},
         snapshots::{
             IntoSnapshot, SnapshotAdtsInterface, SnapshotDomainsInterface,
-            SnapshotValidityInterface,
+            SnapshotValidityInterface, IntoPureSnapshot,
         },
     },
 };
@@ -17,7 +17,7 @@ use vir_crate::{
         expression::{ExpressionIterator, QuantifierHelpers},
         identifier::WithIdentifier,
     },
-    low::{self as vir_low, operations::ToLow},
+    low::{self as vir_low},
     middle as vir_mid,
 };
 
@@ -53,6 +53,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
     ) -> SpannedEncodingResult<()> {
         use vir_low::macros::*;
         let domain_name = self.encode_snapshot_domain_name(ty)?;
+        eprintln!("ensure_type_definition_for_decl(ty: {})", ty);
         match type_decl {
             vir_mid::TypeDecl::Bool => {
                 self.register_constant_constructor(&domain_name, vir_low::Type::Bool)?;
@@ -68,10 +69,12 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                 var_decls! { value: Int };
                 let mut conjuncts = Vec::new();
                 if let Some(lower_bound) = &decl.lower_bound {
-                    conjuncts.push(expr! { [lower_bound.clone().to_low(self)? ] <= value });
+                    eprintln!("lower_bound: {}", lower_bound);
+                    eprintln!("lower_bound: {:?}", lower_bound);
+                    conjuncts.push(expr! { [lower_bound.clone().to_pure_snapshot(self)? ] <= value });
                 }
                 if let Some(upper_bound) = &decl.upper_bound {
-                    conjuncts.push(expr! { value <= [upper_bound.clone().to_low(self)? ] });
+                    conjuncts.push(expr! { value <= [upper_bound.clone().to_pure_snapshot(self)? ] });
                 }
                 let validity = conjuncts.into_iter().conjoin();
                 self.encode_validity_axioms_primitive(&domain_name, vir_low::Type::Int, validity)?;
@@ -103,7 +106,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                 for (variant, discriminant) in decl.variants.iter().zip(&decl.discriminant_values) {
                     let variant_type = ty.clone().variant(variant.name.clone().into());
                     let variant_domain = self.encode_snapshot_domain_name(&variant_type)?;
-                    let discriminant = discriminant.clone().to_low(self)?;
+                    let discriminant = discriminant.clone().to_pure_snapshot(self)?;
                     self.register_enum_variant_constructor(
                         &domain_name,
                         &variant.name,
@@ -113,7 +116,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                     self.ensure_type_definition(&variant_type)?;
                     variants.push((variant.name.clone(), variant_domain, discriminant));
                 }
-                let discriminant_bounds = decl.discriminant_bounds.clone().to_low(self)?;
+                let discriminant_bounds = decl.discriminant_bounds.clone().to_pure_snapshot(self)?;
                 self.encode_validity_axioms_enum(
                     ty,
                     &domain_name,
@@ -127,7 +130,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                 for (variant, discriminant) in decl.variants.iter().zip(&decl.discriminant_values) {
                     let variant_type = ty.clone().variant(variant.name.clone().into());
                     let variant_domain = self.encode_snapshot_domain_name(&variant_type)?;
-                    let discriminant = discriminant.clone().to_low(self)?;
+                    let discriminant = discriminant.clone().to_pure_snapshot(self)?;
                     self.register_enum_variant_constructor(
                         &domain_name,
                         &variant.name,
@@ -137,7 +140,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                     self.ensure_type_definition(&variant_type)?;
                     variants.push((variant.name.clone(), variant_domain, discriminant));
                 }
-                let discriminant_bounds = decl.discriminant_bounds.clone().to_low(self)?;
+                let discriminant_bounds = decl.discriminant_bounds.clone().to_pure_snapshot(self)?;
                 self.encode_validity_axioms_enum(
                     ty,
                     &domain_name,
@@ -216,11 +219,16 @@ pub(in super::super) trait TypesInterface {
 
 impl<'p, 'v: 'p, 'tcx: 'v> TypesInterface for Lowerer<'p, 'v, 'tcx> {
     fn ensure_type_definition(&mut self, ty: &vir_mid::Type) -> SpannedEncodingResult<()> {
+        if matches!(ty, vir_mid::Type::MBool | vir_mid::Type::MInt) {
+            // Natively supported types, nothing to do.
+            return Ok(());
+        }
         if !self.types_state.ensured_definitions.contains(ty) {
             // We insert before doing the actual work to break infinite
             // recursion.
             self.types_state.ensured_definitions.insert(ty.clone());
 
+            eprintln!("ensure_type_definition({})", ty);
             let type_decl = self.encoder.get_type_decl_mid(ty)?;
             self.ensure_type_definition_for_decl(ty, &type_decl)?;
         }
@@ -250,7 +258,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> TypesInterface for Lowerer<'p, 'v, 'tcx> {
                 vars! { argument: {snapshot_type} },
             )?;
             // Simplification axioms.
-            let op = op.to_low(self)?;
+            let op = op.to_pure_snapshot(self)?;
             let simplification = match argument_type {
                 vir_mid::Type::Bool => {
                     assert_eq!(op, vir_low::UnaryOpKind::Not);
@@ -300,7 +308,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> TypesInterface for Lowerer<'p, 'v, 'tcx> {
                 vars! { left: {snapshot_type.clone()}, right: {snapshot_type} },
             )?;
             // Simplification axioms.
-            let op = op.to_low(self)?;
+            let op = op.to_pure_snapshot(self)?;
             let constant_type = match argument_type {
                 vir_mid::Type::Bool => Some(ty! { Bool }),
                 vir_mid::Type::Int(_) => Some(ty! {Int}),

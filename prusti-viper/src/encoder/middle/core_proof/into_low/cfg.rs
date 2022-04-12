@@ -10,12 +10,13 @@ use crate::encoder::{
         places::PlacesInterface,
         predicates_memory_block::PredicatesMemoryBlockInterface,
         predicates_owned::PredicatesOwnedInterface,
-        snapshots::{SnapshotValidityInterface, SnapshotVariablesInterface},
+        snapshots::{SnapshotValidityInterface, SnapshotVariablesInterface, IntoProcedureSnapshot},
     },
 };
 use vir_crate::{
     common::identifier::WithIdentifier,
-    low::{self as vir_low, operations::ToLow},
+    low::{self as vir_low,// operations::ToLow
+    },
     middle::{self as vir_mid, operations::ty::Typed},
 };
 
@@ -81,6 +82,7 @@ impl IntoLow for vir_mid::Type {
     }
 }
 
+// TODO: Delete.
 impl IntoLow for vir_mid::Expression {
     type Target = vir_low::Expression;
     fn into_low<'p, 'v: 'p, 'tcx: 'v>(
@@ -187,13 +189,13 @@ impl IntoLow for vir_mid::Statement {
                             decl.get_discriminant(variant_index)
                                 .unwrap()
                                 .clone()
-                                .to_low(lowerer)?,
+                                .to_procedure_snapshot(lowerer)?,
                         ),
                         vir_mid::TypeDecl::Union(decl) => Some(
                             decl.get_discriminant(variant_index)
                                 .unwrap()
                                 .clone()
-                                .to_low(lowerer)?,
+                                .to_procedure_snapshot(lowerer)?,
                         ),
                         _ => unreachable!("type: {}", type_decl),
                     }
@@ -239,7 +241,7 @@ impl IntoLow for vir_mid::Statement {
                             .get_discriminant(variant_index)
                             .unwrap()
                             .clone()
-                            .to_low(lowerer)?,
+                            .to_procedure_snapshot(lowerer)?,
                     )
                 } else {
                     None

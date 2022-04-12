@@ -22,7 +22,7 @@ use rustc_span::MultiSpan;
 
 use vir_crate::{
     common::expression::BinaryOperationHelpers,
-    high::{self as vir},
+    high::{self as vir, operations::ty::Typed},
 };
 
 pub struct TypeEncoder<'p, 'v: 'p, 'tcx: 'v> {
@@ -233,7 +233,7 @@ impl<'p, 'v, 'r: 'v, 'tcx: 'v> TypeEncoder<'p, 'v, 'tcx> {
     pub fn get_integer_bounds(&self) -> Option<(vir::Expression, vir::Expression)> {
         match self.ty.kind() {
             ty::TyKind::Int(int_ty) => {
-                let bounds = match int_ty {
+                let (mut low, mut up): (vir::Expression, vir::Expression) = match int_ty {
                     ty::IntTy::I8 => (std::i8::MIN.into(), std::i8::MAX.into()),
                     ty::IntTy::I16 => (std::i16::MIN.into(), std::i16::MAX.into()),
                     ty::IntTy::I32 => (std::i32::MIN.into(), std::i32::MAX.into()),
@@ -241,10 +241,12 @@ impl<'p, 'v, 'r: 'v, 'tcx: 'v> TypeEncoder<'p, 'v, 'tcx> {
                     ty::IntTy::I128 => (std::i128::MIN.into(), std::i128::MAX.into()),
                     ty::IntTy::Isize => (std::isize::MIN.into(), std::isize::MAX.into()),
                 };
-                Some(bounds)
+                low.set_type(vir::Type::MInt);
+                up.set_type(vir::Type::MInt);
+                Some((low, up))
             }
             ty::TyKind::Uint(uint_ty) => {
-                let bounds = match uint_ty {
+                let (mut low, mut up): (vir::Expression, vir::Expression) =match uint_ty {
                     ty::UintTy::U8 => (0.into(), std::u8::MAX.into()),
                     ty::UintTy::U16 => (0.into(), std::u16::MAX.into()),
                     ty::UintTy::U32 => (0.into(), std::u32::MAX.into()),
@@ -252,7 +254,9 @@ impl<'p, 'v, 'r: 'v, 'tcx: 'v> TypeEncoder<'p, 'v, 'tcx> {
                     ty::UintTy::U128 => (0.into(), std::u128::MAX.into()),
                     ty::UintTy::Usize => (0.into(), std::usize::MAX.into()),
                 };
-                Some(bounds)
+                low.set_type(vir::Type::MInt);
+                up.set_type(vir::Type::MInt);
+                Some((low, up))
             }
             ty::TyKind::Char => Some((0.into(), std::char::MAX.into())),
             ty::TyKind::Ref(_, ty, _) => Self::new(self.encoder, *ty).get_integer_bounds(),

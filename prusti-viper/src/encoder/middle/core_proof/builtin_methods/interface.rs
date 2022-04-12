@@ -7,7 +7,6 @@ use crate::encoder::{
         compute_address::ComputeAddressInterface,
         errors::ErrorsInterface,
         fold_unfold::FoldUnfoldInterface,
-        into_low::IntoLowInterface,
         lowerer::{Lowerer, MethodsLowererInterface, VariablesLowererInterface},
         places::PlacesInterface,
         predicates_memory_block::PredicatesMemoryBlockInterface,
@@ -15,15 +14,17 @@ use crate::encoder::{
         snapshots::{
             IntoSnapshot, SnapshotBytesInterface, SnapshotValidityInterface,
             SnapshotValuesInterface, SnapshotVariablesInterface,
+            IntoPureSnapshot,
         },
         type_layouts::TypeLayoutsInterface,
-        utils::type_decl_encoder::TypeDeclWalker,
+        utils::type_decl_encoder::TypeDeclWalker, into_low::IntoLowInterface,
     },
 };
 use rustc_hash::FxHashSet;
 use vir_crate::{
     common::{expression::ExpressionIterator, identifier::WithIdentifier},
-    low::{self as vir_low, operations::ToLow},
+    low::{self as vir_low,// operations::ToLow
+    },
     middle::{self as vir_mid, operations::ty::Typed},
 };
 
@@ -664,7 +665,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                     {
                         let variant_index = variant.name.clone().into();
                         let condition = expr! {
-                            [discriminant_call.clone()] == [discriminant_value.clone().to_low(self)?]
+                            [discriminant_call.clone()] == [discriminant_value.clone().to_pure_snapshot(self)?]
                         };
                         let source_variant_place = self.encode_enum_variant_place(
                             ty,
@@ -938,7 +939,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                     {
                         let variant_index = variant.name.clone().into();
                         let condition = expr! {
-                            [discriminant_call.clone()] == [discriminant_value.clone().to_low(self)?]
+                            [discriminant_call.clone()] == [discriminant_value.clone().to_pure_snapshot(self)?]
                         };
                         let variant_place = self.encode_enum_variant_place(
                             ty,
@@ -993,7 +994,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                     {
                         let variant_index = variant.name.clone().into();
                         let condition = expr! {
-                            [discriminant_call.clone()] == [discriminant_value.clone().to_low(self)?]
+                            [discriminant_call.clone()] == [discriminant_value.clone().to_pure_snapshot(self)?]
                         };
                         let variant_place = self.encode_enum_variant_place(
                             ty,
@@ -1097,7 +1098,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                             let variant_size_of =
                                 self.encode_type_size_expression(&variant_type)?;
                             postconditions.push(expr! {
-                                (discriminant == [discriminant_value.clone().to_low(self)?]) ==>
+                                (discriminant == [discriminant_value.clone().to_pure_snapshot(self)?]) ==>
                                 (acc(MemoryBlock([variant_address], [variant_size_of])))
                             })
                         }
@@ -1131,7 +1132,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                             let variant_size_of =
                                 self.encode_type_size_expression(&variant_type)?;
                             postconditions.push(expr! {
-                                (discriminant == [discriminant_value.clone().to_low(self)?]) ==>
+                                (discriminant == [discriminant_value.clone().to_pure_snapshot(self)?]) ==>
                                 (acc(MemoryBlock([variant_address], [variant_size_of])))
                             })
                         }
@@ -1192,7 +1193,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                             address.clone().into(),
                             Default::default(),
                         )?;
-                        let discriminant_bounds = enum_decl.discriminant_bounds.to_low(self)?;
+                        let discriminant_bounds = enum_decl.discriminant_bounds.to_pure_snapshot(self)?;
                         let mut preconditions = vec![
                             expr! { acc(MemoryBlock([discriminant_address.clone()], [discriminant_size_of.clone()]))},
                             discriminant_bounds.replace_discriminant(&discriminant.clone().into()),
@@ -1227,7 +1228,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                             let variant_type = &ty.clone().variant(variant_index);
                             let variant_size_of = self.encode_type_size_expression(variant_type)?;
                             preconditions.push(expr! {
-                                (discriminant == [discriminant_value.clone().to_low(self)?]) ==>
+                                (discriminant == [discriminant_value.clone().to_pure_snapshot(self)?]) ==>
                                 (acc(MemoryBlock([variant_address.clone()], [variant_size_of.clone()])))
                             });
                             let memory_block_field_bytes = self
@@ -1252,7 +1253,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                                     variant_size_of,
                                 )?;
                             bytes_quantifier_conjuncts.push(expr! {
-                                (discriminant == [discriminant_value.clone().to_low(self)?]) ==>
+                                (discriminant == [discriminant_value.clone().to_pure_snapshot(self)?]) ==>
                                 (
                                     (
                                         ((old([memory_block_field_bytes])) == (Snap<discriminant_type>::to_bytes([discriminant_snapshot]))) &&
@@ -1282,7 +1283,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                         var_decls!(address: Address, discriminant: Int);
                         let size_of = self.encode_type_size_expression(ty)?;
                         let whole_block = expr!(acc(MemoryBlock(address, [size_of.clone()])));
-                        let discriminant_bounds = enum_decl.discriminant_bounds.to_low(self)?;
+                        let discriminant_bounds = enum_decl.discriminant_bounds.to_pure_snapshot(self)?;
                         let mut preconditions =
                             vec![discriminant_bounds
                                 .replace_discriminant(&discriminant.clone().into())];
@@ -1316,7 +1317,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                             let variant_type = &ty.clone().variant(variant_index);
                             let variant_size_of = self.encode_type_size_expression(variant_type)?;
                             preconditions.push(expr! {
-                                (discriminant == [discriminant_value.clone().to_low(self)?]) ==>
+                                (discriminant == [discriminant_value.clone().to_pure_snapshot(self)?]) ==>
                                 (acc(MemoryBlock([variant_address.clone()], [variant_size_of.clone()])))
                             });
                             let memory_block_variant_bytes = self
@@ -1325,7 +1326,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                                     variant_size_of,
                                 )?;
                             bytes_quantifier_conjuncts.push(expr! {
-                                (discriminant == [discriminant_value.clone().to_low(self)?]) ==>
+                                (discriminant == [discriminant_value.clone().to_pure_snapshot(self)?]) ==>
                                 (
                                     (
                                         ((old([memory_block_variant_bytes])) == (Snap<variant_type>::to_bytes([variant_snapshot])))
@@ -1505,7 +1506,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                                     let variant_ty = &ty.clone().variant(variant_index);
                                     self.encode_into_memory_block_method(variant_ty)?;
                                     let condition = expr! {
-                                        [discriminant_call.clone()] == [discriminant.clone().to_low(self)?]
+                                        [discriminant_call.clone()] == [discriminant.clone().to_pure_snapshot(self)?]
                                     };
                                     let condition1 = condition.clone();
                                     statements.push(stmtp! {
@@ -1515,7 +1516,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                                     self.encode_memory_block_join_method(ty)?;
                                     statements.push(stmtp! {
                                         position =>
-                                        call<condition> memory_block_join<ty>([address.clone()], [discriminant.clone().to_low(self)?])
+                                        call<condition> memory_block_join<ty>([address.clone()], [discriminant.clone().to_pure_snapshot(self)?])
                                     });
                                 }
                             }
@@ -1531,7 +1532,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                                     let variant_ty = &ty.clone().variant(variant_index);
                                     self.encode_into_memory_block_method(variant_ty)?;
                                     let condition = expr! {
-                                        [discriminant_call.clone()] == [discriminant.clone().to_low(self)?]
+                                        [discriminant_call.clone()] == [discriminant.clone().to_pure_snapshot(self)?]
                                     };
                                     let condition1 = condition.clone();
                                     statements.push(stmtp! {
@@ -1541,7 +1542,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                                     self.encode_memory_block_join_method(ty)?;
                                     statements.push(stmtp! {
                                         position =>
-                                        call<condition> memory_block_join<ty>([address.clone()], [discriminant.clone().to_low(self)?])
+                                        call<condition> memory_block_join<ty>([address.clone()], [discriminant.clone().to_pure_snapshot(self)?])
                                     });
                                 }
                             }

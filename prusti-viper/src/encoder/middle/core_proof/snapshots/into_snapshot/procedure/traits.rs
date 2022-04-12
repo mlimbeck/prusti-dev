@@ -8,13 +8,32 @@ use vir_crate::{
     low::{self as vir_low},
     middle::{self as vir_mid},
 };
+use super::ProcedureSnapshot;
 
-impl super::IntoProcedureSnapshot for vir_mid::Expression {
+pub(in super::super::super::super) trait IntoProcedureSnapshot {
+    type Target;
+    fn to_procedure_snapshot<'p, 'v: 'p, 'tcx: 'v>(
+        &self,
+        lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+    ) -> SpannedEncodingResult<Self::Target>;
+}
+
+impl IntoProcedureSnapshot for vir_mid::Expression {
     type Target = vir_low::Expression;
-    fn create_snapshot<'p, 'v: 'p, 'tcx: 'v>(
+    fn to_procedure_snapshot<'p, 'v: 'p, 'tcx: 'v>(
         &self,
         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
     ) -> SpannedEncodingResult<Self::Target> {
-        super::ProcedureSnapshot::expression_to_snapshot(lowerer, self)
+        ProcedureSnapshot::expression_to_snapshot(lowerer, self)
+    }
+}
+
+impl IntoProcedureSnapshot for vir_mid::Type {
+    type Target = vir_low::Type;
+    fn to_procedure_snapshot<'p, 'v: 'p, 'tcx: 'v>(
+        &self,
+        lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+    ) -> SpannedEncodingResult<Self::Target> {
+        ProcedureSnapshot::type_to_snapshot(lowerer, self)
     }
 }
