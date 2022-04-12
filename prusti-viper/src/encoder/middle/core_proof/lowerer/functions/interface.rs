@@ -4,6 +4,7 @@ use crate::encoder::{
     middle::core_proof::{
         into_low::IntoLow,
         lowerer::{DomainsLowererInterface, Lowerer},
+        snapshots::IntoSnapshot,
     },
 };
 use std::collections::BTreeMap;
@@ -73,7 +74,26 @@ impl<'p, 'v: 'p, 'tcx: 'v> FunctionsLowererInterface for Lowerer<'p, 'v, 'tcx> {
             );
             self.functions_state
                 .functions
-                .insert(function_name, function);
+                .insert(function_name.clone(), function);
+
+            // Encode the function body and postconditions if any.
+            //
+            // TODO: This should be done as a fix-point finalization action that
+            // takes into account gas, (potentially mutual) recursion, predicate
+            // unfoldings.
+            let function_decl = self.encoder.get_pure_function_decl_mid(&function_name)?;
+            if let Some(body) = function_decl.body {
+                use vir_low::macros::*;
+                let body_snapshot = body.create_snapshot(self)?;
+                let axiom_body = expr! {
+                    [body_snapshot]
+                };
+                let axiom = vir_low::DomainAxiomDecl {
+                    name: format!("{}$definitional_axiom", function_decl.name),
+                    body: axiom_body,
+                };
+                self.declare_axiom("Functions", axiom)?;
+            }
         }
         Ok(vir_low::expression::FuncApp {
             function_name: caller_function_name,
