@@ -1,21 +1,14 @@
 //! Public facing traits.
 
-use super::{IntoSnapshot, IntoPureSnapshot, PureSnapshot};
+use super::{IntoPureSnapshot, PureSnapshot};
 use crate::encoder::{
     errors::SpannedEncodingResult,
-    high::types::HighTypeEncoderInterface,
-    middle::core_proof::{
-        into_low::IntoLowInterface,
-        lowerer::{FunctionsLowererInterface, Lowerer},
-        snapshots::{SnapshotValuesInterface, into_snapshot::common::IntoSnapshotLowerer},
-    },
+    middle::core_proof::{lowerer::Lowerer, snapshots::into_snapshot::common::IntoSnapshotLowerer},
 };
 use vir_crate::{
-    common::identifier::WithIdentifier,
     low::{self as vir_low},
-    middle::{self as vir_mid, operations::ty::Typed},
+    middle::{self as vir_mid},
 };
-
 
 impl IntoPureSnapshot for vir_mid::Expression {
     type Target = vir_low::Expression;

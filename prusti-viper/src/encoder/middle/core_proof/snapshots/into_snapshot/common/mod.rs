@@ -1,5 +1,13 @@
 use super::super::super::lowerer::Lowerer;
-use crate::encoder::{errors::SpannedEncodingResult, middle::core_proof::{snapshots::{SnapshotValuesInterface, SnapshotDomainsInterface}, into_low::IntoLowInterface, lowerer::FunctionsLowererInterface}, high::types::HighTypeEncoderInterface};
+use crate::encoder::{
+    errors::SpannedEncodingResult,
+    high::types::HighTypeEncoderInterface,
+    middle::core_proof::{
+        into_low::IntoLowInterface,
+        lowerer::FunctionsLowererInterface,
+        snapshots::{SnapshotDomainsInterface, SnapshotValuesInterface},
+    },
+};
 use vir_crate::{
     common::identifier::WithIdentifier,
     low::{self as vir_low, operations::ToLowLowerer},
@@ -7,7 +15,6 @@ use vir_crate::{
 };
 
 pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
-
     fn expression_vec_to_snapshot(
         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
         expressions: &[vir_mid::Expression],
@@ -25,21 +32,35 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
     ) -> SpannedEncodingResult<vir_low::Expression> {
         match expression {
             vir_mid::Expression::Local(expression) => Self::local_to_snapshot(lowerer, expression),
-            vir_mid::Expression::Constructor(expression) => Self::constructor_to_snapshot(lowerer, expression),
-            vir_mid::Expression::Variant(expression) => Self::variant_to_snapshot(lowerer, expression),
+            vir_mid::Expression::Constructor(expression) => {
+                Self::constructor_to_snapshot(lowerer, expression)
+            }
+            vir_mid::Expression::Variant(expression) => {
+                Self::variant_to_snapshot(lowerer, expression)
+            }
             vir_mid::Expression::Field(expression) => Self::field_to_snapshot(lowerer, expression),
             // vir_mid::Expression::Deref(expression) => Self::deref_to_snapshot(lowerer, expression),
             // vir_mid::Expression::AddrOf(expression) => Self::addrof_to_snapshot(lowerer, expression),
             // vir_mid::Expression::LabelledOld(expression) => Self::labelledold_to_snapshot(lowerer, expression),
-            vir_mid::Expression::Constant(expression) => Self::constant_to_snapshot(lowerer, expression),
-            vir_mid::Expression::UnaryOp(expression) => Self::unary_op_to_snapshot(lowerer, expression),
-            vir_mid::Expression::BinaryOp(expression) => Self::binary_op_to_snapshot(lowerer, expression),
+            vir_mid::Expression::Constant(expression) => {
+                Self::constant_to_snapshot(lowerer, expression)
+            }
+            vir_mid::Expression::UnaryOp(expression) => {
+                Self::unary_op_to_snapshot(lowerer, expression)
+            }
+            vir_mid::Expression::BinaryOp(expression) => {
+                Self::binary_op_to_snapshot(lowerer, expression)
+            }
             // vir_mid::Expression::ContainerOp(expression) => Self::containerop_to_snapshot(lowerer, expression),
             // vir_mid::Expression::Seq(expression) => Self::seq_to_snapshot(lowerer, expression),
-            vir_mid::Expression::Conditional(expression) => Self::conditional_to_snapshot(lowerer, expression),
+            vir_mid::Expression::Conditional(expression) => {
+                Self::conditional_to_snapshot(lowerer, expression)
+            }
             // vir_mid::Expression::Quantifier(expression) => Self::quantifier_to_snapshot(lowerer, expression),
             // vir_mid::Expression::LetExpr(expression) => Self::letexpr_to_snapshot(lowerer, expression),
-            vir_mid::Expression::FuncApp(expression) => Self::func_app_to_snapshot(lowerer, expression),
+            vir_mid::Expression::FuncApp(expression) => {
+                Self::func_app_to_snapshot(lowerer, expression)
+            }
             // vir_mid::Expression::Downcast(expression) => Self::downcast_to_snapshot(lowerer, expression),
             x => unimplemented!("{:?}", x),
         }
@@ -55,7 +76,10 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
         local: &vir_mid::Local,
     ) -> SpannedEncodingResult<vir_low::Expression> {
         let snapshot_variable = Self::variable_to_snapshot(lowerer, &local.variable)?;
-        Ok(vir_low::Expression::local(snapshot_variable, local.position))
+        Ok(vir_low::Expression::local(
+            snapshot_variable,
+            local.position,
+        ))
     }
 
     fn constructor_to_snapshot(
@@ -165,7 +189,8 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
         conditional: &vir_mid::Conditional,
     ) -> SpannedEncodingResult<vir_low::Expression> {
-        let guard_snapshot = lowerer.lower_expression_into_snapshot_constant_value(&conditional.guard)?;
+        let guard_snapshot =
+            lowerer.lower_expression_into_snapshot_constant_value(&conditional.guard)?;
         let then_expr_snapshot = Self::expression_to_snapshot(lowerer, &conditional.then_expr)?;
         let else_expr_snapshot = Self::expression_to_snapshot(lowerer, &conditional.else_expr)?;
         let arg_type = conditional.then_expr.get_type();
@@ -184,12 +209,8 @@ pub(super) trait IntoSnapshotLowerer<'p, 'v: 'p, 'tcx: 'v> {
     ) -> SpannedEncodingResult<vir_low::Expression> {
         let arguments = Self::expression_vec_to_snapshot(lowerer, &app.arguments)?;
         let return_type = Self::type_to_snapshot(lowerer, &app.return_type)?;
-        let func_app = lowerer.create_func_app(
-            app.get_identifier(),
-            arguments,
-            return_type,
-            app.position,
-        )?;
+        let func_app =
+            lowerer.create_func_app(app.get_identifier(), arguments, return_type, app.position)?;
         Ok(vir_low::Expression::FuncApp(func_app))
     }
 

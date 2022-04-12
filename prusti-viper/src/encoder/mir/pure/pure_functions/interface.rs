@@ -457,7 +457,7 @@ impl<'v, 'tcx: 'v> PureFunctionEncoderInterface<'v, 'tcx>
 
             let identifier = function_call_info.get_identifier();
             self.register_function_constructor_mir(
-                identifier.clone(),
+                identifier,
                 Box::new(move |encoder| {
                     super::new_encoder::encode_function_decl(
                         encoder,

@@ -41,17 +41,6 @@ pub(in super::super) trait IntoSnapshot {
 //     }
 // }
 
-
-
-
-
-
-
 mod common;
-mod pure;
 mod procedure;
-
-pub(in super::super)  use self::{
-    pure::IntoPureSnapshot,
-    procedure::IntoProcedureSnapshot,
-};
+mod pure;

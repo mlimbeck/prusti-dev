@@ -2,20 +2,14 @@
 //! procedure bodies. Most important difference from `pure` is that this
 //! encoding uses SSA.
 
-use super::{IntoSnapshot, common::IntoSnapshotLowerer};
+use super::common::IntoSnapshotLowerer;
 use crate::encoder::{
     errors::SpannedEncodingResult,
-    high::types::HighTypeEncoderInterface,
-    middle::core_proof::{
-        into_low::IntoLowInterface,
-        lowerer::{FunctionsLowererInterface, Lowerer},
-        snapshots::{SnapshotValuesInterface, SnapshotVariablesInterface},
-    },
+    middle::core_proof::{lowerer::Lowerer, snapshots::SnapshotVariablesInterface},
 };
 use vir_crate::{
-    common::identifier::WithIdentifier,
     low::{self as vir_low},
-    middle::{self as vir_mid, operations::ty::Typed},
+    middle::{self as vir_mid},
 };
 
 mod traits;
