@@ -8,7 +8,10 @@ use crate::encoder::{
     },
 };
 use std::collections::BTreeMap;
-use vir_crate::low::{self as vir_low};
+use vir_crate::{
+    common::expression::QuantifierHelpers,
+    low::{self as vir_low},
+};
 
 #[derive(Default)]
 pub(in super::super) struct FunctionsLowererState {
@@ -66,6 +69,7 @@ impl<'p, 'v: 'p, 'tcx: 'v> FunctionsLowererInterface for Lowerer<'p, 'v, 'tcx> {
                         parameters
                             .iter()
                             .map(|parameter| parameter.clone().into())
+                            .chain(self.function_gas_constant(2))
                             .collect(),
                         return_type.clone(),
                         Default::default(),
@@ -84,10 +88,26 @@ impl<'p, 'v: 'p, 'tcx: 'v> FunctionsLowererInterface for Lowerer<'p, 'v, 'tcx> {
             let function_decl = self.encoder.get_pure_function_decl_mid(&function_name)?;
             if let Some(body) = function_decl.body {
                 use vir_low::macros::*;
-                let body_snapshot = body.to_pure_snapshot(self)?;
-                let axiom_body = expr! {
-                    [body_snapshot]
-                };
+                let mut variables = function_decl.parameters.to_pure_snapshot(self)?;
+                let mut arguments = variables
+                    .clone()
+                    .into_iter()
+                    .map(|parameter| parameter.into())
+                    .collect();
+                let gas = vir_low::VariableDecl::new("gas$", self.function_gas_type()?);
+                variables.push(gas);
+                arguments.push(self.apply_funtion_gas(gas.into())?);
+                let call = vir_low::Expression::domain_function_call(
+                    "Functions",
+                    function_decl.name.clone(),
+                    arguments,
+                    return_type.clone(),
+                );
+                let axiom_body = vir_low::Expression::forall(
+                    variables,
+                    vec![vir_low::Trigger::new(vec![call])],
+                    expr! { [call] == [body.to_pure_snapshot(self)?] },
+                );
                 let axiom = vir_low::DomainAxiomDecl {
                     name: format!("{}$definitional_axiom", function_decl.name),
                     body: axiom_body,
