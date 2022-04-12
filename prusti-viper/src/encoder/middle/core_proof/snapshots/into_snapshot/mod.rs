@@ -46,6 +46,6 @@ mod procedure;
 mod pure;
 
 pub(in super::super) use self::{
-    procedure::IntoProcedureSnapshot,
-    pure::IntoPureSnapshot,
+    procedure::{IntoProcedureBoolExpression, IntoProcedureSnapshot},
+    pure::{IntoPureBoolExpression, IntoPureSnapshot},
 };

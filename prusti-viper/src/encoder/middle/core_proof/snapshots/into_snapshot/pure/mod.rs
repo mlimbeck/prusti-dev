@@ -10,7 +10,7 @@ use vir_crate::{
 
 mod traits;
 
-pub(in super::super::super) use self::traits::IntoPureSnapshot;
+pub(in super::super::super) use self::traits::{IntoPureBoolExpression, IntoPureSnapshot};
 
 struct PureSnapshot;
 

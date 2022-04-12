@@ -10,13 +10,15 @@ use crate::encoder::{
         places::PlacesInterface,
         predicates_memory_block::PredicatesMemoryBlockInterface,
         predicates_owned::PredicatesOwnedInterface,
-        snapshots::{SnapshotValidityInterface, SnapshotVariablesInterface, IntoProcedureSnapshot},
+        snapshots::{
+            IntoProcedureBoolExpression, IntoProcedureSnapshot, SnapshotValidityInterface,
+            SnapshotVariablesInterface,
+        },
     },
 };
 use vir_crate::{
     common::identifier::WithIdentifier,
-    low::{self as vir_low,// operations::ToLow
-    },
+    low::{self as vir_low},
     middle::{self as vir_mid, operations::ty::Typed},
 };
 
@@ -130,11 +132,11 @@ impl IntoLow for vir_mid::Statement {
                 Ok(statements)
             }
             Self::Assume(statement) => Ok(vec![Statement::assume(
-                lowerer.lower_expression_into_snapshot_constant_value(&statement.expression)?,
+                statement.expression.to_procedure_bool_expression(lowerer)?,
                 statement.position,
             )]),
             Self::Assert(statement) => Ok(vec![Statement::assert(
-                lowerer.lower_expression_into_snapshot_constant_value(&statement.expression)?,
+                statement.expression.to_procedure_bool_expression(lowerer)?,
                 statement.position,
             )]),
             Self::FoldOwned(statement) => {

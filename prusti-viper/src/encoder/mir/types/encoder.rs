@@ -246,7 +246,7 @@ impl<'p, 'v, 'r: 'v, 'tcx: 'v> TypeEncoder<'p, 'v, 'tcx> {
                 Some((low, up))
             }
             ty::TyKind::Uint(uint_ty) => {
-                let (mut low, mut up): (vir::Expression, vir::Expression) =match uint_ty {
+                let (mut low, mut up): (vir::Expression, vir::Expression) = match uint_ty {
                     ty::UintTy::U8 => (0.into(), std::u8::MAX.into()),
                     ty::UintTy::U16 => (0.into(), std::u16::MAX.into()),
                     ty::UintTy::U32 => (0.into(), std::u32::MAX.into()),

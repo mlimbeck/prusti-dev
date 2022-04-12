@@ -4,7 +4,7 @@ use crate::encoder::{
     middle::core_proof::{
         into_low::IntoLow,
         lowerer::{DomainsLowererInterface, Lowerer},
-        snapshots::{IntoSnapshot, IntoPureSnapshot},
+        snapshots::{IntoPureBoolExpression, IntoPureSnapshot},
     },
 };
 use std::collections::BTreeMap;

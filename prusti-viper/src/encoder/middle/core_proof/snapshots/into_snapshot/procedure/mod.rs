@@ -14,7 +14,9 @@ use vir_crate::{
 
 mod traits;
 
-pub(in super::super::super)  use self::traits::IntoProcedureSnapshot;
+pub(in super::super::super) use self::traits::{
+    IntoProcedureBoolExpression, IntoProcedureSnapshot,
+};
 
 struct ProcedureSnapshot;
 

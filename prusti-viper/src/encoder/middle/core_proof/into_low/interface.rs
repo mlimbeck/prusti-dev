@@ -2,7 +2,7 @@ use crate::encoder::{
     errors::SpannedEncodingResult,
     middle::core_proof::{
         lowerer::Lowerer,
-        snapshots::{IntoSnapshot, SnapshotValuesInterface, IntoProcedureSnapshot},
+        snapshots::{IntoProcedureSnapshot, IntoSnapshot, SnapshotValuesInterface},
     },
 };
 

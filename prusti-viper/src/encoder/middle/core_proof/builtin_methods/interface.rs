@@ -7,24 +7,23 @@ use crate::encoder::{
         compute_address::ComputeAddressInterface,
         errors::ErrorsInterface,
         fold_unfold::FoldUnfoldInterface,
+        into_low::IntoLowInterface,
         lowerer::{Lowerer, MethodsLowererInterface, VariablesLowererInterface},
         places::PlacesInterface,
         predicates_memory_block::PredicatesMemoryBlockInterface,
         predicates_owned::PredicatesOwnedInterface,
         snapshots::{
-            IntoSnapshot, SnapshotBytesInterface, SnapshotValidityInterface,
+            IntoPureSnapshot, IntoSnapshot, SnapshotBytesInterface, SnapshotValidityInterface,
             SnapshotValuesInterface, SnapshotVariablesInterface,
-            IntoPureSnapshot,
         },
         type_layouts::TypeLayoutsInterface,
-        utils::type_decl_encoder::TypeDeclWalker, into_low::IntoLowInterface,
+        utils::type_decl_encoder::TypeDeclWalker,
     },
 };
 use rustc_hash::FxHashSet;
 use vir_crate::{
     common::{expression::ExpressionIterator, identifier::WithIdentifier},
-    low::{self as vir_low,// operations::ToLow
-    },
+    low::{self as vir_low},
     middle::{self as vir_mid, operations::ty::Typed},
 };
 
@@ -1193,7 +1192,8 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                             address.clone().into(),
                             Default::default(),
                         )?;
-                        let discriminant_bounds = enum_decl.discriminant_bounds.to_pure_snapshot(self)?;
+                        let discriminant_bounds =
+                            enum_decl.discriminant_bounds.to_pure_snapshot(self)?;
                         let mut preconditions = vec![
                             expr! { acc(MemoryBlock([discriminant_address.clone()], [discriminant_size_of.clone()]))},
                             discriminant_bounds.replace_discriminant(&discriminant.clone().into()),
@@ -1283,7 +1283,8 @@ impl<'p, 'v: 'p, 'tcx: 'v> BuiltinMethodsInterface for Lowerer<'p, 'v, 'tcx> {
                         var_decls!(address: Address, discriminant: Int);
                         let size_of = self.encode_type_size_expression(ty)?;
                         let whole_block = expr!(acc(MemoryBlock(address, [size_of.clone()])));
-                        let discriminant_bounds = enum_decl.discriminant_bounds.to_pure_snapshot(self)?;
+                        let discriminant_bounds =
+                            enum_decl.discriminant_bounds.to_pure_snapshot(self)?;
                         let mut preconditions =
                             vec![discriminant_bounds
                                 .replace_discriminant(&discriminant.clone().into())];

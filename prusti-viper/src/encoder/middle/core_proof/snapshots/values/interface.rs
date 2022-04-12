@@ -8,7 +8,7 @@ use crate::encoder::{
     },
 };
 use vir_crate::{
-    common::identifier::WithIdentifier,
+    common::{expression::UnaryOperationHelpers, identifier::WithIdentifier},
     low::{self as vir_low},
     middle::{self as vir_mid},
 };
@@ -188,19 +188,23 @@ impl<'p, 'v: 'p, 'tcx: 'v> SnapshotValuesInterface for Lowerer<'p, 'v, 'tcx> {
         argument: vir_low::Expression,
         position: vir_mid::Position,
     ) -> SpannedEncodingResult<vir_low::Expression> {
-        // FIXME: Encode evaluation and simplification axioms.
-        let domain_name = self.encode_snapshot_domain_name(ty)?;
-        let variant = self.encode_unary_op_variant(op, ty)?;
-        let function_name =
-            self.snapshot_constructor_struct_alternative_name(&domain_name, &variant)?;
-        let return_type = ty.create_snapshot(self)?;
-        self.create_domain_func_app(
-            domain_name,
-            function_name,
-            vec![argument],
-            return_type,
-            position,
-        )
+        if ty == &vir_mid::Type::MBool {
+            Ok(vir_low::Expression::not(argument))
+        } else {
+            // FIXME: Encode evaluation and simplification axioms.
+            let domain_name = self.encode_snapshot_domain_name(ty)?;
+            let variant = self.encode_unary_op_variant(op, ty)?;
+            let function_name =
+                self.snapshot_constructor_struct_alternative_name(&domain_name, &variant)?;
+            let return_type = ty.create_snapshot(self)?;
+            self.create_domain_func_app(
+                domain_name,
+                function_name,
+                vec![argument],
+                return_type,
+                position,
+            )
+        }
     }
     fn construct_binary_op_snapshot(
         &mut self,

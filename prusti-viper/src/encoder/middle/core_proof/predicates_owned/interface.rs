@@ -7,8 +7,8 @@ use crate::encoder::{
         places::PlacesInterface,
         predicates_memory_block::PredicatesMemoryBlockInterface,
         snapshots::{
-            IntoSnapshot, SnapshotBytesInterface, SnapshotValidityInterface,
-            SnapshotValuesInterface, IntoPureSnapshot,
+            IntoPureSnapshot, IntoSnapshot, SnapshotBytesInterface, SnapshotValidityInterface,
+            SnapshotValuesInterface,
         },
         type_layouts::TypeLayoutsInterface,
         types::TypesInterface,
@@ -18,8 +18,7 @@ use rustc_hash::FxHashSet;
 use std::borrow::Cow;
 use vir_crate::{
     common::expression::ExpressionIterator,
-    low::{self as vir_low
-    },
+    low::{self as vir_low},
     middle as vir_mid,
 };
 

@@ -1,6 +1,6 @@
 //! Public facing traits.
 
-use super::{PureSnapshot};
+use super::PureSnapshot;
 use crate::encoder::{
     errors::SpannedEncodingResult,
     middle::core_proof::{lowerer::Lowerer, snapshots::into_snapshot::common::IntoSnapshotLowerer},
@@ -10,38 +10,34 @@ use vir_crate::{
     middle::{self as vir_mid},
 };
 
-// /// Converts `self` into expression that evaluates to a Viper Bool.
-// pub(in super::super::super::super) trait IntoPureBoolExpression {
-//     type Target;
-//     fn to_pure_bool_expression<'p, 'v: 'p, 'tcx: 'v>(
-//         &self,
-//         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
-//     ) -> SpannedEncodingResult<Self::Target>;
-// }
+/// Converts `self` into expression that evaluates to a Viper Bool.
+pub(in super::super::super::super) trait IntoPureBoolExpression {
+    type Target;
+    fn to_pure_bool_expression<'p, 'v: 'p, 'tcx: 'v>(
+        &self,
+        lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+    ) -> SpannedEncodingResult<Self::Target>;
+}
 
-// impl IntoPureBoolExpression for vir_mid::Expression {
-//     type Target = vir_low::Expression;
-//     fn to_pure_bool_expression<'p, 'v: 'p, 'tcx: 'v>(
-//         &self,
-//         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
-//     ) -> SpannedEncodingResult<Self::Target> {
-//         PureSnapshot::expression_to_bool(lowerer, self)
-//     }
-// }
+impl IntoPureBoolExpression for vir_mid::Expression {
+    type Target = vir_low::Expression;
+    fn to_pure_bool_expression<'p, 'v: 'p, 'tcx: 'v>(
+        &self,
+        lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+    ) -> SpannedEncodingResult<Self::Target> {
+        PureSnapshot::expression_to_snapshot(lowerer, self, true)
+    }
+}
 
-// impl IntoPureBoolExpression for Vec<vir_mid::Expression> {
-//     type Target = Vec<vir_low::Expression>;
-//     fn to_pure_bool_expression<'p, 'v: 'p, 'tcx: 'v>(
-//         &self,
-//         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
-//     ) -> SpannedEncodingResult<Self::Target> {
-//         let expressions = Vec::new();
-//         for mid_expr in self {
-//             expressions.push(mid_expr.to_pure_bool_expression(lowerer)?);
-//         }
-//         Ok(expressions)
-//     }
-// }
+impl IntoPureBoolExpression for Vec<vir_mid::Expression> {
+    type Target = Vec<vir_low::Expression>;
+    fn to_pure_bool_expression<'p, 'v: 'p, 'tcx: 'v>(
+        &self,
+        lowerer: &mut Lowerer<'p, 'v, 'tcx>,
+    ) -> SpannedEncodingResult<Self::Target> {
+        PureSnapshot::expression_vec_to_snapshot(lowerer, self, true)
+    }
+}
 
 /// Converts `self` into expression that evaluates to a snapshot.
 pub(in super::super::super::super) trait IntoPureSnapshot {
@@ -58,7 +54,7 @@ impl IntoPureSnapshot for vir_mid::Expression {
         &self,
         lowerer: &mut Lowerer<'p, 'v, 'tcx>,
     ) -> SpannedEncodingResult<Self::Target> {
-        PureSnapshot::expression_to_snapshot(lowerer, self)
+        PureSnapshot::expression_to_snapshot(lowerer, self, false)
     }
 }
 

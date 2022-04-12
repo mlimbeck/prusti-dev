@@ -22,6 +22,7 @@ pub(in super::super::super) trait SnapshotDomainsInterface {
 
 impl<'p, 'v: 'p, 'tcx: 'v> SnapshotDomainsInterface for Lowerer<'p, 'v, 'tcx> {
     fn encode_snapshot_domain_name(&mut self, ty: &vir_mid::Type) -> SpannedEncodingResult<String> {
+        assert!(!matches!(ty, vir_mid::Type::MBool | vir_mid::Type::MInt));
         let domain_name = format!("Snap${}", ty.get_identifier());
         if !self.snapshots_state.domain_types.contains_key(&domain_name) {
             self.snapshots_state

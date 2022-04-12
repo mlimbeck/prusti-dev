@@ -5,8 +5,8 @@ use crate::encoder::{
         addresses::AddressesInterface,
         lowerer::{DomainsLowererInterface, Lowerer},
         snapshots::{
-            IntoSnapshot, SnapshotAdtsInterface, SnapshotDomainsInterface,
-            SnapshotValidityInterface, IntoPureSnapshot,
+            IntoPureSnapshot, IntoSnapshot, SnapshotAdtsInterface, SnapshotDomainsInterface,
+            SnapshotValidityInterface,
         },
     },
 };
@@ -71,10 +71,12 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                 if let Some(lower_bound) = &decl.lower_bound {
                     eprintln!("lower_bound: {}", lower_bound);
                     eprintln!("lower_bound: {:?}", lower_bound);
-                    conjuncts.push(expr! { [lower_bound.clone().to_pure_snapshot(self)? ] <= value });
+                    conjuncts
+                        .push(expr! { [lower_bound.clone().to_pure_snapshot(self)? ] <= value });
                 }
                 if let Some(upper_bound) = &decl.upper_bound {
-                    conjuncts.push(expr! { value <= [upper_bound.clone().to_pure_snapshot(self)? ] });
+                    conjuncts
+                        .push(expr! { value <= [upper_bound.clone().to_pure_snapshot(self)? ] });
                 }
                 let validity = conjuncts.into_iter().conjoin();
                 self.encode_validity_axioms_primitive(&domain_name, vir_low::Type::Int, validity)?;
@@ -116,7 +118,8 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                     self.ensure_type_definition(&variant_type)?;
                     variants.push((variant.name.clone(), variant_domain, discriminant));
                 }
-                let discriminant_bounds = decl.discriminant_bounds.clone().to_pure_snapshot(self)?;
+                let discriminant_bounds =
+                    decl.discriminant_bounds.clone().to_pure_snapshot(self)?;
                 self.encode_validity_axioms_enum(
                     ty,
                     &domain_name,
@@ -140,7 +143,8 @@ impl<'p, 'v: 'p, 'tcx: 'v> Private for Lowerer<'p, 'v, 'tcx> {
                     self.ensure_type_definition(&variant_type)?;
                     variants.push((variant.name.clone(), variant_domain, discriminant));
                 }
-                let discriminant_bounds = decl.discriminant_bounds.clone().to_pure_snapshot(self)?;
+                let discriminant_bounds =
+                    decl.discriminant_bounds.clone().to_pure_snapshot(self)?;
                 self.encode_validity_axioms_enum(
                     ty,
                     &domain_name,
