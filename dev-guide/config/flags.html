@@ -135,7 +135,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="list-of-configuration-flags"><a class="header" href="#list-of-configuration-flags">List of Configuration Flags</a></h1>
-<table><thead><tr><th>Name</th><th>Rust type</th><th>Default value</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Rust type</th><th>Default value</th></tr></thead><tbody>
 <tr><td><a href="#allow_unreachable_unsupported_code"><code>ALLOW_UNREACHABLE_UNSUPPORTED_CODE</code></a></td><td><code>bool</code></td><td><code>false</code></td></tr>
 <tr><td><a href="#assert_timeout"><code>ASSERT_TIMEOUT</code></a></td><td><code>u64</code></td><td><code>10_000</code></td></tr>
 <tr><td><a href="#be_rustc"><code>BE_RUSTC</code></a></td><td><code>bool</code></td><td><code>false</code></td></tr>
@@ -200,6 +200,8 @@
 <tr><td><a href="#smt_qi_eager_threshold"><code>SMT_QI_EAGER_THRESHOLD</code></a></td><td><code>u64</code></td><td><code>1000</code></td></tr>
 <tr><td><a href="#smt_solver_path"><code>SMT_SOLVER_PATH</code></a></td><td><code>Option&lt;String&gt;</code></td><td><code>env::var(&quot;Z3_EXE&quot;)</code></td></tr>
 <tr><td><a href="#smt_solver_wrapper_path"><code>SMT_SOLVER_WRAPPER_PATH</code></a></td><td><code>Option&lt;String&gt;</code></td><td><code>None</code></td></tr>
+<tr><td><a href="#smt_unique_triggers_bound"><code>SMT_UNIQUE_TRIGGERS_BOUND</code></a></td><td><code>Option&lt;u64&gt;</code></td><td><code>None</code></td></tr>
+<tr><td><a href="#smt_unique_triggers_bound_total"><code>SMT_UNIQUE_TRIGGERS_BOUND_TOTAL</code></a></td><td><code>Option&lt;u64&gt;</code></td><td><code>None</code></td></tr>
 <tr><td><a href="#unsafe_core_proof"><code>UNSAFE_CORE_PROOF</code></a></td><td><code>bool</code></td><td><code>false</code></td></tr>
 <tr><td><a href="#use_more_complete_exhale"><code>USE_MORE_COMPLETE_EXHALE</code></a></td><td><code>bool</code></td><td><code>true</code></td></tr>
 <tr><td><a href="#use_smt_wrapper"><code>USE_SMT_WRAPPER</code></a></td><td><code>bool</code></td><td><code>false</code></td></tr>
@@ -210,6 +212,7 @@
 <tr><td><a href="#viper_home"><code>VIPER_HOME</code></a></td><td><code>Option&lt;String&gt;</code></td><td><code>None</code></td></tr>
 <tr><td><a href="#write_smt_statistics"><code>WRITE_SMT_STATISTICS</code></a></td><td><code>bool</code></td><td><code>false</code></td></tr>
 </tbody></table>
+</div>
 <h2 id="allow_unreachable_unsupported_code"><a class="header" href="#allow_unreachable_unsupported_code"><code>ALLOW_UNREACHABLE_UNSUPPORTED_CODE</code></a></h2>
 <p>When enabled, unsupported code is encoded as <code>assert false</code>. This way error messages are reported only for unsupported code that is actually reachable.</p>
 <h2 id="assert_timeout"><a class="header" href="#assert_timeout"><code>ASSERT_TIMEOUT</code></a></h2>
@@ -381,6 +384,12 @@ hide actual verification errors.</p>
 <h2 id="smt_solver_wrapper_path"><a class="header" href="#smt_solver_wrapper_path"><code>SMT_SOLVER_WRAPPER_PATH</code></a></h2>
 <p>A path to <code>prusti-smt-solver</code>.</p>
 <p><strong>Note:</strong> <code>prusti-rustc</code> sets this option.</p>
+<h2 id="smt_unique_triggers_bound"><a class="header" href="#smt_unique_triggers_bound"><code>SMT_UNIQUE_TRIGGERS_BOUND</code></a></h2>
+<p>If not <code>None</code>, checks that the number of unique triggers used for each quantifier reported by the SMT wrapper is smaller than the specified bound.</p>
+<p><strong>Note:</strong> Requires <code>USE_SMT_WRAPPER</code> to be <code>true</code>.</p>
+<h2 id="smt_unique_triggers_bound_total"><a class="header" href="#smt_unique_triggers_bound_total"><code>SMT_UNIQUE_TRIGGERS_BOUND_TOTAL</code></a></h2>
+<p>If not <code>None</code>, checks that the total number of unique triggers reported by the SMT wrapper is smaller than the specified bound.</p>
+<p><strong>Note:</strong> Requires <code>USE_SMT_WRAPPER</code> to be <code>true</code>.</p>
 <h2 id="unsafe_core_proof"><a class="header" href="#unsafe_core_proof"><code>UNSAFE_CORE_PROOF</code></a></h2>
 <p>When enabled, the new core proof is used, suitable for unsafe code</p>
 <p><strong>Note:</strong> This option is currently very incomplete.</p>
