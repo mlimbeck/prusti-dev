@@ -1,11 +1,12 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/env_logger-0.9.0/src/fmt/writer/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script src="../../../../crates.js"></script><script defer src="../../../../main.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="icon" href="https://www.rust-lang.org/static/images/favicon.ico"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../env_logger/index.html"><div class="logo-container"><img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/env_logger-0.9.0/src/fmt/writer/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="icon" href="https://www.rust-lang.org/static/images/favicon.ico"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../env_logger/index.html"><div class="logo-container"><img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../../env_logger/index.html"><div class="logo-container">
                     <img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../env_logger/index.html">
-                        <img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+                        <img src="https://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -261,15 +262,15 @@
 <span class="kw">mod</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/mod.rs.html#8-12">termcolor</a>;
 
 <span class="kw">use</span> <span class="ident"><span class="self">self</span>::atty</span>::{<a class="ident" href="../../../../src/env_logger/fmt/writer/atty.rs.html#16">is_stderr</a>, <a class="ident" href="../../../../src/env_logger/fmt/writer/atty.rs.html#12">is_stdout</a>};
-<span class="kw">use</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#72-75"><span class="self">self</span>::termcolor::BufferWriter</a>;
+<span class="kw">use</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#72"><span class="self">self</span>::termcolor::BufferWriter</a>;
 <span class="kw">use</span> <span class="ident">std</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/index.html">io</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/sync/mutex/struct.Mutex.html">sync::Mutex</a>};
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod</span> <span class="ident">glob</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#13-15"><span class="kw">super</span>::termcolor::glob</a>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#13"><span class="kw">super</span>::termcolor::glob</a>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 }
 
-<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#77-80"><span class="self">self</span>::termcolor::Buffer</a>;
+<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#77"><span class="self">self</span>::termcolor::Buffer</a>;
 
 <span class="doccomment">/// Log target, either `stdout`, `stderr` or a custom pipe.</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -282,18 +283,18 @@
     <span class="ident">Pipe</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">io::Write</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>),
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17-24">Target</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17">Target</a> {
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#21">Target::Stderr</a>
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17-24">Target</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17">Target</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <span class="macro">write!</span>(
-            <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#33">f</a>,
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(
+            <span class="ident">f</span>,
             <span class="string">&quot;{}&quot;</span>,
-            <span class="kw">match</span> <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#33">self</a> {
+            <span class="kw">match</span> <span class="self">self</span> {
                 <span class="ident"><span class="self">Self</span>::Stdout</span> =&gt; <span class="string">&quot;stdout&quot;</span>,
                 <span class="ident"><span class="self">Self</span>::Stderr</span> =&gt; <span class="string">&quot;stderr&quot;</span>,
                 <span class="ident"><span class="self">Self</span>::Pipe</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;pipe&quot;</span>,
@@ -314,8 +315,8 @@
     <span class="ident">Pipe</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="kw">dyn</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">io::Write</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17-24">Target</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49-56">WritableTarget</a> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">target</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17-24">Target</a>) -&gt; <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17">Target</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49">WritableTarget</a> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">target</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17">Target</a>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#59">target</a> {
             <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#19">Target::Stdout</a> =&gt; <span class="ident"><span class="self">Self</span>::Stdout</span>,
             <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#21">Target::Stderr</a> =&gt; <span class="ident"><span class="self">Self</span>::Stderr</span>,
@@ -324,18 +325,18 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49-56">WritableTarget</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49">WritableTarget</a> {
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::from</span>(<span class="ident">Target::default</span>())
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49-56">WritableTarget</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49">WritableTarget</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <span class="macro">write!</span>(
-            <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#75">f</a>,
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(
+            <span class="ident">f</span>,
             <span class="string">&quot;{}&quot;</span>,
-            <span class="kw">match</span> <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#75">self</a> {
+            <span class="kw">match</span> <span class="self">self</span> {
                 <span class="ident"><span class="self">Self</span>::Stdout</span> =&gt; <span class="string">&quot;stdout&quot;</span>,
                 <span class="ident"><span class="self">Self</span>::Stderr</span> =&gt; <span class="string">&quot;stderr&quot;</span>,
                 <span class="ident"><span class="self">Self</span>::Pipe</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;pipe&quot;</span>,
@@ -354,7 +355,7 @@
     <span class="ident">Never</span>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89-96">WriteStyle</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89">WriteStyle</a> {
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#91">WriteStyle::Auto</a>
     }
@@ -362,20 +363,20 @@
 
 <span class="doccomment">/// A terminal target with color awareness.</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">Writer</span> {
-    <span class="ident">inner</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#72-75">BufferWriter</a>,
-    <span class="ident">write_style</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89-96">WriteStyle</a>,
+    <span class="ident">inner</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#72">BufferWriter</a>,
+    <span class="ident">write_style</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89">WriteStyle</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105-108">Writer</a> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89-96">WriteStyle</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105">Writer</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_style</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89">WriteStyle</a> {
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#111">self</a>.<span class="ident">write_style</span>
     }
 
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">buffer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#77-80">Buffer</a> {
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">buffer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#77">Buffer</a> {
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#115">self</a>.<span class="ident">inner</span>.<a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#121">buffer</a>()
     }
 
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#77-80">Buffer</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#77">Buffer</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#119">self</a>.<span class="ident">inner</span>.<a class="ident" href="../../../../src/env_logger/fmt/writer/termcolor/extern_impl.rs.html#128">print</a>(<a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#119">buf</a>)
     }
 }
@@ -385,16 +386,16 @@
 <span class="doccomment">/// The target and style choice can be configured before building.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">Builder</span> {
-    <span class="ident">target</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49-56">WritableTarget</a>,
-    <span class="ident">write_style</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89-96">WriteStyle</a>,
+    <span class="ident">target</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#49">WritableTarget</a>,
+    <span class="ident">write_style</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89">WriteStyle</a>,
     <span class="ident">is_test</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     <span class="ident">built</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#128-133">Builder</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#128">Builder</a> {
     <span class="doccomment">/// Initialize the writer builder with defaults.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
-        <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#128-133">Builder</a> {
+        <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#128">Builder</a> {
             <span class="ident">target</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default::default</a>(),
             <span class="ident">write_style</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default::default</a>(),
             <span class="ident">is_test</span>: <span class="bool-val">false</span>,
@@ -403,7 +404,7 @@
     }
 
     <span class="doccomment">/// Set the target to write to.</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">target</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">target</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17-24">Target</a>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">target</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">target</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#17">Target</a>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#147">self</a>.<span class="ident">target</span> <span class="op">=</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#147">target</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#147">self</a>
     }
@@ -418,7 +419,7 @@
     }
 
     <span class="doccomment">/// Whether or not to print style characters when writing.</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">write_style</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">write_style</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89-96">WriteStyle</a>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">write_style</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">write_style</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89">WriteStyle</a>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#162">self</a>.<span class="ident">write_style</span> <span class="op">=</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#162">write_style</a>;
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#162">self</a>
     }
@@ -430,16 +431,16 @@
     }
 
     <span class="doccomment">/// Build a terminal writer.</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105-108">Writer</a> {
-        <span class="macro">assert!</span>(<span class="op">!</span><a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#174">self</a>.<span class="ident">built</span>, <span class="string">&quot;attempt to re-use consumed builder&quot;</span>);
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105">Writer</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(<span class="op">!</span><span class="self">self</span>.<span class="ident">built</span>, <span class="string">&quot;attempt to re-use consumed builder&quot;</span>);
         <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#174">self</a>.<span class="ident">built</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
         <span class="kw">let</span> <span class="ident">color_choice</span> <span class="op">=</span> <span class="kw">match</span> <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#174">self</a>.<span class="ident">write_style</span> {
             <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#91">WriteStyle::Auto</a> =&gt; {
-                <span class="kw">if</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#174">self</a>.<span class="ident">target</span> {
-                    <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#53">WritableTarget::Stderr</a> =&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/atty.rs.html#16">is_stderr</a>(),
-                    <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#51">WritableTarget::Stdout</a> =&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/atty.rs.html#12">is_stdout</a>(),
-                    <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#55">WritableTarget::Pipe</a>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
+                <span class="kw">if</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">target</span> {
+                    <span class="ident">WritableTarget::Stderr</span> =&gt; <span class="ident">is_stderr</span>(),
+                    <span class="ident">WritableTarget::Stdout</span> =&gt; <span class="ident">is_stdout</span>(),
+                    <span class="ident">WritableTarget::Pipe</span>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
                 } {
                     <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#91">WriteStyle::Auto</a>
                 } <span class="kw">else</span> {
@@ -455,26 +456,26 @@
             <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#55">WritableTarget::Pipe</a>(<span class="ident">pipe</span>) =&gt; <span class="ident">BufferWriter::pipe</span>(<a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#174">self</a>.<span class="ident">is_test</span>, <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#178">color_choice</a>, <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#196">pipe</a>),
         };
 
-        <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105-108">Writer</a> {
+        <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105">Writer</a> {
             <span class="ident">inner</span>: <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#193">writer</a>,
             <span class="ident">write_style</span>: <a class="self" href="../../../../src/env_logger/fmt/writer/mod.rs.html#174">self</a>.<span class="ident">write_style</span>,
         }
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#128-133">Builder</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#128">Builder</a> {
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Builder::new</span>()
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105-108">Writer</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#105">Writer</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
         <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#213">f</a>.<span class="ident">debug_struct</span>(<span class="string">&quot;Writer&quot;</span>).<span class="ident">finish</span>()
     }
 }
 
-<span class="kw">fn</span> <span class="ident">parse_write_style</span>(<span class="ident">spec</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89-96">WriteStyle</a> {
+<span class="kw">fn</span> <span class="ident">parse_write_style</span>(<span class="ident">spec</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#89">WriteStyle</a> {
     <span class="kw">match</span> <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#218">spec</a> {
         <span class="string">&quot;auto&quot;</span> =&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#91">WriteStyle::Auto</a>,
         <span class="string">&quot;always&quot;</span> =&gt; <a class="ident" href="../../../../src/env_logger/fmt/writer/mod.rs.html#93">WriteStyle::Always</a>,
@@ -510,5 +511,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="env_logger" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="env_logger" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

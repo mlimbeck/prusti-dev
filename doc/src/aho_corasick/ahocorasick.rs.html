@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/aho-corasick-0.7.18/src/ahocorasick.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>ahocorasick.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../aho_corasick/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/aho-corasick-0.7.18/src/ahocorasick.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>ahocorasick.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../aho_corasick/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../aho_corasick/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../aho_corasick/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../aho_corasick/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2148,15 +2149,15 @@
 <span id="2143">2143</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/index.html">std::io</a>;
 
-<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/automaton.rs.html#80-573"><span class="kw">crate</span>::automaton::Automaton</a>;
-<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/buffer.rs.html#29-38"><span class="kw">crate</span>::buffer::Buffer</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::dfa</span>::{<a class="self" href="../../src/aho_corasick/lib.rs.html#208">self</a>, <a class="ident" href="../../src/aho_corasick/dfa.rs.html#13-18">DFA</a>};
+<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/automaton.rs.html#80"><span class="kw">crate</span>::automaton::Automaton</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/buffer.rs.html#29"><span class="kw">crate</span>::buffer::Buffer</a>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::dfa</span>::{<a class="self" href="../../src/aho_corasick/lib.rs.html#208">self</a>, <a class="ident" href="../../src/aho_corasick/dfa.rs.html#13">DFA</a>};
 <span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/error.rs.html#5"><span class="kw">crate</span>::error::Result</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::nfa</span>::{<a class="self" href="../../src/aho_corasick/lib.rs.html#210">self</a>, <a class="ident" href="../../src/aho_corasick/nfa.rs.html#47-88">NFA</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::nfa</span>::{<a class="self" href="../../src/aho_corasick/lib.rs.html#210">self</a>, <a class="ident" href="../../src/aho_corasick/nfa.rs.html#47">NFA</a>};
 <span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#211"><span class="kw">crate</span>::packed</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::prefilter</span>::{<a class="ident" href="../../src/aho_corasick/prefilter.rs.html#50-94">Prefilter</a>, <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>};
-<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105"><span class="kw">crate</span>::state_id::StateID</a>;
-<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252"><span class="kw">crate</span>::Match</a>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::prefilter</span>::{<a class="ident" href="../../src/aho_corasick/prefilter.rs.html#50-51">Prefilter</a>, <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>};
+<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81"><span class="kw">crate</span>::state_id::StateID</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#239"><span class="kw">crate</span>::Match</a>;
 
 <span class="doccomment">/// An automaton for searching multiple strings in linear time.</span>
 <span class="doccomment">///</span>
@@ -2231,12 +2232,12 @@
 <span class="doccomment">/// assert_eq!(result, &quot;The slow grey sloth.&quot;);</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a> <span class="op">=</span> <span class="ident">usize</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
     <span class="ident">imp</span>: <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>,
-    <span class="ident">match_kind</span>: <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a>,
+    <span class="ident">match_kind</span>: <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86-89">AhoCorasick</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86">AhoCorasick</a> {
     <span class="doccomment">/// Create a new Aho-Corasick automaton using the default configuration.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default configuration optimizes for less space usage, but at the</span>
@@ -2264,7 +2265,7 @@
     <span class="doccomment">/// ]);</span>
     <span class="doccomment">/// assert_eq!(Some(1), ac.find(&quot;xxx bar xxx&quot;).map(|m| m.pattern()));</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">P</span><span class="op">&gt;</span>(<span class="ident">patterns</span>: <span class="ident">I</span>) -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86-89">AhoCorasick</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">P</span><span class="op">&gt;</span>(<span class="ident">patterns</span>: <span class="ident">I</span>) -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86">AhoCorasick</a>
     <span class="kw">where</span>
         <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
@@ -2299,7 +2300,7 @@
     <span class="doccomment">/// ]);</span>
     <span class="doccomment">/// assert_eq!(Some(1), ac.find(&quot;xxx bar xxx&quot;).map(|m| m.pattern()));</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_auto_configured</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="ident">patterns</span>: <span class="kw-2">&amp;</span>[<span class="ident">B</span>]) -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86-89">AhoCorasick</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_auto_configured</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="ident">patterns</span>: <span class="kw-2">&amp;</span>[<span class="ident">B</span>]) -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86">AhoCorasick</a>
     <span class="kw">where</span>
         <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
     {
@@ -2307,7 +2308,7 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Returns true if and only if this automaton matches the haystack at any</span>
     <span class="doccomment">/// position.</span>
     <span class="doccomment">///</span>
@@ -2328,7 +2329,7 @@
     <span class="doccomment">/// assert!(ac.is_match(&quot;xxx bar xxx&quot;));</span>
     <span class="doccomment">/// assert!(!ac.is_match(&quot;xxx qux xxx&quot;));</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_match</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">haystack</span>: <span class="ident">B</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_match</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">haystack</span>: <span class="ident">B</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#183">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#211">earliest_find</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#183">haystack</a>).<span class="ident">is_some</span>()
     }
 
@@ -2356,7 +2357,7 @@
     <span class="doccomment">/// assert_eq!(1, mat.pattern());</span>
     <span class="doccomment">/// assert_eq!((1, 2), (mat.start(), mat.end()));</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">earliest_find</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">haystack</span>: <span class="ident">B</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">earliest_find</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">haystack</span>: <span class="ident">B</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prestate</span> <span class="op">=</span> <span class="ident">PrefilterState::new</span>(<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#211">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#893">max_pattern_len</a>());
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#211">self</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1039">start_state</a>();
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#211">self</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1112-1118">earliest_find_at</a>(
@@ -2428,7 +2429,7 @@
     <span class="doccomment">/// let mat = ac.find(haystack).expect(&quot;should have a match&quot;);</span>
     <span class="doccomment">/// assert_eq!(&quot;abcd&quot;, &amp;haystack[mat.start()..mat.end()]);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">haystack</span>: <span class="ident">B</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">haystack</span>: <span class="ident">B</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prestate</span> <span class="op">=</span> <span class="ident">PrefilterState::new</span>(<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#283">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#893">max_pattern_len</a>());
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#283">self</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1130-1135">find_at_no_state</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#284">prestate</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#283">haystack</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="number">0</span>)
     }
@@ -2495,7 +2496,7 @@
     <span class="doccomment">///     .collect();</span>
     <span class="doccomment">/// assert_eq!(vec![0, 2, 1], matches);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_iter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">B</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_iter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">B</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">B</span>,
     ) -&gt; <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
@@ -2538,7 +2539,7 @@
     <span class="doccomment">///     .collect();</span>
     <span class="doccomment">/// assert_eq!(vec![2, 0, 2, 2, 0, 1], matches);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_overlapping_iter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">B</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">find_overlapping_iter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">B</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">B</span>,
     ) -&gt; <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
@@ -2578,9 +2579,9 @@
     <span class="kw">where</span>
         <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
-        <span class="macro">assert_eq!</span>(
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#429">replace_with</a>.<span class="ident">len</span>(),
-            <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#429">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#918">pattern_count</a>(),
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert_eq.html">assert_eq!</a>(
+            <span class="ident">replace_with</span>.<span class="ident">len</span>(),
+            <span class="self">self</span>.<span class="ident">pattern_count</span>(),
             <span class="string">&quot;replace_all requires a replacement for every pattern \
              in the automaton&quot;</span>
         );
@@ -2629,9 +2630,9 @@
     <span class="kw">where</span>
         <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
     {
-        <span class="macro">assert_eq!</span>(
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#479">replace_with</a>.<span class="ident">len</span>(),
-            <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#477">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#918">pattern_count</a>(),
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert_eq.html">assert_eq!</a>(
+            <span class="ident">replace_with</span>.<span class="ident">len</span>(),
+            <span class="self">self</span>.<span class="ident">pattern_count</span>(),
             <span class="string">&quot;replace_all_bytes requires a replacement for every pattern \
              in the automaton&quot;</span>
         );
@@ -2696,13 +2697,13 @@
         <span class="ident">dst</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
         <span class="kw-2">mut</span> <span class="ident">replace_with</span>: <span class="ident">F</span>,
     ) <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a>, <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a>, <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_match</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="kw">for</span> <span class="ident">mat</span> <span class="kw">in</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#546">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#350-353">find_iter</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#547">haystack</a>) {
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#548">dst</a>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#547">haystack</a>[<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#553">last_match</a>..<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#554">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#268">start</a>()]);
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#553">last_match</a> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#554">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>();
-            <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#549">replace_with</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#554">mat</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#547">haystack</a>[<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#554">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#268">start</a>()..<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#554">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>()], <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#548">dst</a>) {
+        <span class="kw">for</span> <span class="ident">mat</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">find_iter</span>(<span class="ident">haystack</span>) {
+            <span class="ident">dst</span>.<span class="ident">push_str</span>(<span class="kw-2">&amp;</span><span class="ident">haystack</span>[<span class="ident">last_match</span>..<span class="ident">mat</span>.<span class="ident">start</span>()]);
+            <span class="ident">last_match</span> <span class="op">=</span> <span class="ident">mat</span>.<span class="ident">end</span>();
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">replace_with</span>(<span class="kw-2">&amp;</span><span class="ident">mat</span>, <span class="kw-2">&amp;</span><span class="ident">haystack</span>[<span class="ident">mat</span>.<span class="ident">start</span>()..<span class="ident">mat</span>.<span class="ident">end</span>()], <span class="ident">dst</span>) {
                 <span class="kw">break</span>;
             };
         }
@@ -2762,13 +2763,13 @@
         <span class="ident">dst</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>,
         <span class="kw-2">mut</span> <span class="ident">replace_with</span>: <span class="ident">F</span>,
     ) <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a>, <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a>, <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_match</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="kw">for</span> <span class="ident">mat</span> <span class="kw">in</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#612">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#350-353">find_iter</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#613">haystack</a>) {
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#614">dst</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#613">haystack</a>[<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#619">last_match</a>..<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#620">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#268">start</a>()]);
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#619">last_match</a> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#620">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>();
-            <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#615">replace_with</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#620">mat</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#613">haystack</a>[<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#620">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#268">start</a>()..<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#620">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>()], <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#614">dst</a>) {
+        <span class="kw">for</span> <span class="ident">mat</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">find_iter</span>(<span class="ident">haystack</span>) {
+            <span class="ident">dst</span>.<span class="ident">extend</span>(<span class="kw-2">&amp;</span><span class="ident">haystack</span>[<span class="ident">last_match</span>..<span class="ident">mat</span>.<span class="ident">start</span>()]);
+            <span class="ident">last_match</span> <span class="op">=</span> <span class="ident">mat</span>.<span class="ident">end</span>();
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">replace_with</span>(<span class="kw-2">&amp;</span><span class="ident">mat</span>, <span class="kw-2">&amp;</span><span class="ident">haystack</span>[<span class="ident">mat</span>.<span class="ident">start</span>()..<span class="ident">mat</span>.<span class="ident">end</span>()], <span class="ident">dst</span>) {
                 <span class="kw">break</span>;
             };
         }
@@ -2906,9 +2907,9 @@
         <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">io::Write</a>,
         <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
     {
-        <span class="macro">assert_eq!</span>(
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#754">replace_with</a>.<span class="ident">len</span>(),
-            <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#751">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#918">pattern_count</a>(),
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert_eq.html">assert_eq!</a>(
+            <span class="ident">replace_with</span>.<span class="ident">len</span>(),
+            <span class="self">self</span>.<span class="ident">pattern_count</span>(),
             <span class="string">&quot;stream_replace_all requires a replacement for every pattern \
              in the automaton&quot;</span>
         );
@@ -2989,17 +2990,17 @@
     <span class="kw">where</span>
         <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>,
         <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">io::Write</a>,
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a>, <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="kw-2">&amp;mut</span> <span class="ident">W</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a>, <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="kw-2">&amp;mut</span> <span class="ident">W</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>,
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">it</span> <span class="op">=</span> <span class="ident">StreamChunkIter::new</span>(<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#836">self</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#837">rdr</a>);
-        <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">result</span>) <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#846">it</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1393">next</a>() {
-            <span class="kw">let</span> <span class="ident">chunk</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#847">result</a><span class="question-mark">?</span>;
-            <span class="kw">match</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#848">chunk</a> {
-                <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1360">StreamChunk::NonMatch</a> { <span class="ident">bytes</span>, .. } =&gt; {
-                    <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#838">wtr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write_all</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#850">bytes</a>)<span class="question-mark">?</span>;
+        <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">result</span>) <span class="op">=</span> <span class="ident">it</span>.<span class="ident">next</span>() {
+            <span class="kw">let</span> <span class="ident">chunk</span> <span class="op">=</span> <span class="ident">result</span><span class="question-mark">?</span>;
+            <span class="kw">match</span> <span class="ident">chunk</span> {
+                <span class="ident">StreamChunk::NonMatch</span> { <span class="ident">bytes</span>, .. } =&gt; {
+                    <span class="ident">wtr</span>.<span class="ident">write_all</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>;
                 }
-                <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1362">StreamChunk::Match</a> { <span class="ident">bytes</span>, <span class="ident">mat</span> } =&gt; {
-                    <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#839">replace_with</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#853">mat</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#853">bytes</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#838">wtr</a>)<span class="question-mark">?</span>;
+                <span class="ident">StreamChunk::Match</span> { <span class="ident">bytes</span>, <span class="ident">mat</span> } =&gt; {
+                    <span class="ident">replace_with</span>(<span class="kw-2">&amp;</span><span class="ident">mat</span>, <span class="ident">bytes</span>, <span class="kw-2">&amp;mut</span> <span class="ident">wtr</span>)<span class="question-mark">?</span>;
                 }
             }
         }
@@ -3020,7 +3021,7 @@
     <span class="doccomment">/// ]);</span>
     <span class="doccomment">/// assert_eq!(&amp;MatchKind::Standard, ac.match_kind());</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">match_kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">match_kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#875">self</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1031">match_kind</a>()
     }
 
@@ -3169,14 +3170,14 @@
 <span class="doccomment">/// a DFA. The NFA is slower but uses less memory. The DFA is faster but uses</span>
 <span class="doccomment">/// more memory.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">enum</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> {
+<span class="kw">enum</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> {
     <span class="ident">NFA</span>(<span class="ident">NFA</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>),
     <span class="ident">DFA</span>(<span class="ident">DFA</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>),
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Returns the type of match semantics implemented by this automaton.</span>
-    <span class="kw">fn</span> <span class="ident">match_kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a> {
+    <span class="kw">fn</span> <span class="ident">match_kind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1031">self</a> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1025">Imp::NFA</a>(<span class="kw-2">ref</span> <span class="ident">nfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1033">nfa</a>.<a class="ident" href="../../src/aho_corasick/automaton.rs.html#87">match_kind</a>(),
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1026">Imp::DFA</a>(<span class="kw-2">ref</span> <span class="ident">dfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1034">dfa</a>.<a class="ident" href="../../src/aho_corasick/dfa.rs.html#30">match_kind</a>(),
@@ -3213,7 +3214,7 @@
 
     <span class="doccomment">/// Returns the prefilter object, if one exists, for the underlying</span>
     <span class="doccomment">/// automaton.</span>
-    <span class="kw">fn</span> <span class="ident">prefilter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw">dyn</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#50-94">Prefilter</a><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">prefilter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw">dyn</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#50-51">Prefilter</a><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1068">self</a> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1025">Imp::NFA</a>(<span class="kw-2">ref</span> <span class="ident">nfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1070">nfa</a>.<a class="ident" href="../../src/aho_corasick/automaton.rs.html#100">prefilter</a>(),
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1026">Imp::DFA</a>(<span class="kw-2">ref</span> <span class="ident">dfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1071">dfa</a>.<a class="ident" href="../../src/aho_corasick/dfa.rs.html#46">prefilter</a>(),
@@ -3232,12 +3233,12 @@
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">overlapping_find_at</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prestate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>,
+        <span class="ident">prestate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
         <span class="ident">at</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
         <span class="ident">state_id</span>: <span class="kw-2">&amp;mut</span> <span class="ident">S</span>,
         <span class="ident">match_index</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1086">self</a> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1025">Imp::NFA</a>(<span class="kw-2">ref</span> <span class="ident">nfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1094">nfa</a>.<a class="ident" href="../../src/aho_corasick/automaton.rs.html#475-482">overlapping_find_at</a>(
                 <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1087">prestate</a>,
@@ -3259,11 +3260,11 @@
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">earliest_find_at</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prestate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>,
+        <span class="ident">prestate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
         <span class="ident">at</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
         <span class="ident">state_id</span>: <span class="kw-2">&amp;mut</span> <span class="ident">S</span>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1113">self</a> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1025">Imp::NFA</a>(<span class="kw-2">ref</span> <span class="ident">nfa</span>) =&gt; {
                 <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1120">nfa</a>.<a class="ident" href="../../src/aho_corasick/automaton.rs.html#512-518">earliest_find_at</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1114">prestate</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1115">haystack</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1116">at</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1117">state_id</a>)
@@ -3277,10 +3278,10 @@
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">find_at_no_state</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prestate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>,
+        <span class="ident">prestate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
         <span class="ident">at</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1131">self</a> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1025">Imp::NFA</a>(<span class="kw-2">ref</span> <span class="ident">nfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1137">nfa</a>.<a class="ident" href="../../src/aho_corasick/automaton.rs.html#556-561">find_at_no_state</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1132">prestate</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1133">haystack</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1134">at</a>),
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1026">Imp::DFA</a>(<span class="kw-2">ref</span> <span class="ident">dfa</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1138">dfa</a>.<a class="ident" href="../../src/aho_corasick/dfa.rs.html#120-125">find_at_no_state</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1132">prestate</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1133">haystack</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1134">at</a>),
@@ -3305,25 +3306,25 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The lifetime `&#39;b` refers to the lifetime of the haystack being searched.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> {
     <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>,
-    <span class="ident">prestate</span>: <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>,
+    <span class="ident">prestate</span>: <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>,
     <span class="ident">haystack</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     <span class="ident">pos</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ac</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>, <span class="ident">haystack</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">prestate</span> <span class="op">=</span> <span class="ident">PrefilterState::new</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1168">ac</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#893">max_pattern_len</a>());
-        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1160-1165">FindIter</a> { <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1168">ac</a>.<span class="ident">imp</span>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1169">prestate</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1168">haystack</a>, <span class="ident">pos</span>: <span class="number">0</span> }
+        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1160">FindIter</a> { <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1168">ac</a>.<span class="ident">imp</span>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1169">prestate</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1168">haystack</a>, <span class="ident">pos</span>: <span class="number">0</span> }
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">FindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a>;
 
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
-        <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1177">self</a>.<span class="ident">pos</span> <span class="op">&gt;</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1177">self</a>.<span class="ident">haystack</span>.<span class="ident">len</span>() {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">pos</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">haystack</span>.<span class="ident">len</span>() {
             <span class="kw">return</span> <span class="prelude-val">None</span>;
         }
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1177">self</a>.<span class="ident">fsm</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1130-1135">find_at_no_state</a>(
@@ -3335,7 +3336,7 @@
             <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">None</span>,
             <span class="prelude-val">Some</span>(<span class="ident">mat</span>) =&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1188">mat</a>,
         };
-        <span class="kw">if</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1186">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>() <span class="op">==</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1177">self</a>.<span class="ident">pos</span> {
+        <span class="kw">if</span> <span class="ident">mat</span>.<span class="ident">end</span>() <span class="op">==</span> <span class="self">self</span>.<span class="ident">pos</span> {
             <span class="comment">// If the automaton can match the empty string and if we found an</span>
             <span class="comment">// empty match, then we need to forcefully move the position.</span>
             <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1177">self</a>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
@@ -3362,9 +3363,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The lifetime `&#39;b` refers to the lifetime of the haystack being searched.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> {
     <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>,
-    <span class="ident">prestate</span>: <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>,
+    <span class="ident">prestate</span>: <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>,
     <span class="ident">haystack</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     <span class="ident">pos</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
     <span class="ident">last_match_end</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
@@ -3372,17 +3373,17 @@
     <span class="ident">match_index</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">ac</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
-        <span class="macro">assert!</span>(
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1229">ac</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#950">supports_overlapping</a>(),
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(
+            <span class="ident">ac</span>.<span class="ident">supports_overlapping</span>(),
             <span class="string">&quot;automaton does not support overlapping searches&quot;</span>
         );
         <span class="kw">let</span> <span class="ident">prestate</span> <span class="op">=</span> <span class="ident">PrefilterState::new</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1229">ac</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#893">max_pattern_len</a>());
-        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1217-1225">FindOverlappingIter</a> {
+        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1217">FindOverlappingIter</a> {
             <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1229">ac</a>.<span class="ident">imp</span>,
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1236">prestate</a>,
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1230">haystack</a>,
@@ -3394,10 +3395,10 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">FindOverlappingIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a>;
 
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1252">self</a>.<span class="ident">fsm</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1085-1092">overlapping_find_at</a>(
             <span class="kw-2">&amp;mut</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1252">self</a>.<span class="ident">prestate</span>,
             <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1252">self</a>.<span class="ident">haystack</span>,
@@ -3433,20 +3434,20 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The lifetime `&#39;a` refers to the lifetime of the `AhoCorasick` automaton.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> {
     <span class="ident">it</span>: <span class="ident">StreamChunkIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ac</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>, <span class="ident">rdr</span>: <span class="ident">R</span>) -&gt; <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1288-1290">StreamFindIter</a> { <span class="ident">it</span>: <span class="ident">StreamChunkIter::new</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1293">ac</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1293">rdr</a>) }
+        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1288">StreamFindIter</a> { <span class="ident">it</span>: <span class="ident">StreamChunkIter::new</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1293">ac</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1293">rdr</a>) }
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">StreamFindIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
             <span class="kw">match</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1301">self</a>.<span class="ident">it</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1393">next</a>() {
                 <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">None</span>,
@@ -3468,18 +3469,18 @@
 <span class="doccomment">/// N.B. This does not actually implement Iterator because we need to borrow</span>
 <span class="doccomment">/// from the underlying reader. But conceptually, it&#39;s still an iterator.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">struct</span> <span class="ident">StreamChunkIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> {
+<span class="kw">struct</span> <span class="ident">StreamChunkIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> {
     <span class="doccomment">/// The AC automaton.</span>
     <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Imp</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>,
     <span class="doccomment">/// State associated with this automaton&#39;s prefilter. It is a heuristic</span>
     <span class="doccomment">/// for stopping the prefilter if it&#39;s deemed ineffective.</span>
-    <span class="ident">prestate</span>: <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151-179">PrefilterState</a>,
+    <span class="ident">prestate</span>: <a class="ident" href="../../src/aho_corasick/prefilter.rs.html#151">PrefilterState</a>,
     <span class="doccomment">/// The source of bytes we read from.</span>
     <span class="ident">rdr</span>: <span class="ident">R</span>,
     <span class="doccomment">/// A fixed size buffer. This is what we actually search. There are some</span>
     <span class="doccomment">/// invariants around the buffer&#39;s size, namely, it must be big enough to</span>
     <span class="doccomment">/// contain the longest possible match.</span>
-    <span class="ident">buf</span>: <a class="ident" href="../../src/aho_corasick/buffer.rs.html#29-38">Buffer</a>,
+    <span class="ident">buf</span>: <a class="ident" href="../../src/aho_corasick/buffer.rs.html#29">Buffer</a>,
     <span class="doccomment">/// The ID of the FSM state we&#39;re currently in.</span>
     <span class="ident">state_id</span>: <span class="ident">S</span>,
     <span class="doccomment">/// The current position at which to start the next search in `buf`.</span>
@@ -3492,7 +3493,7 @@
     <span class="doccomment">/// non-matching bytes before emitting a match.</span>
     <span class="ident">report_pos</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
     <span class="doccomment">/// A match that should be reported on the next call.</span>
-    <span class="ident">pending_match</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a><span class="op">&gt;</span>,
+    <span class="ident">pending_match</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a><span class="op">&gt;</span>,
     <span class="doccomment">/// Enabled only when the automaton can match the empty string. When</span>
     <span class="doccomment">/// enabled, we need to execute one final search after consuming the</span>
     <span class="doccomment">/// reader to find the trailing empty match.</span>
@@ -3507,24 +3508,24 @@
     <span class="doccomment">/// A chunk that does not contain any matches.</span>
     <span class="ident">NonMatch</span> { <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">start</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> },
     <span class="doccomment">/// A chunk that precisely contains a match.</span>
-    <span class="ident">Match</span> { <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">mat</span>: <a class="ident" href="../../src/aho_corasick/lib.rs.html#239-252">Match</a> },
+    <span class="ident">Match</span> { <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">mat</span>: <a class="ident" href="../../src/aho_corasick/lib.rs.html#239">Match</a> },
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a><span class="op">&gt;</span> <span class="ident">StreamChunkIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a><span class="op">&gt;</span> <span class="ident">StreamChunkIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ac</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>, <span class="ident">rdr</span>: <span class="ident">R</span>) -&gt; <span class="ident">StreamChunkIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">R</span>, <span class="ident">S</span><span class="op">&gt;</span> {
-        <span class="macro">assert!</span>(
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">ac</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#980">supports_stream</a>(),
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(
+            <span class="ident">ac</span>.<span class="ident">supports_stream</span>(),
             <span class="string">&quot;stream searching is only supported for Standard match semantics&quot;</span>
         );
 
-        <span class="kw">let</span> <span class="ident">prestate</span> <span class="op">=</span> <span class="kw">if</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">ac</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1076">use_prefilter</a>() {
+        <span class="kw">let</span> <span class="ident">prestate</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">ac</span>.<span class="ident">imp</span>.<span class="ident">use_prefilter</span>() {
             <span class="ident">PrefilterState::new</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">ac</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#893">max_pattern_len</a>())
         } <span class="kw">else</span> {
             <span class="ident">PrefilterState::disabled</span>()
         };
         <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">Buffer::new</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">ac</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1049">max_pattern_len</a>());
         <span class="kw">let</span> <span class="ident">state_id</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">ac</a>.<span class="ident">imp</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1039">start_state</a>();
-        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1323-1352">StreamChunkIter</a> {
+        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1323">StreamChunkIter</a> {
             <span class="ident">fsm</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">ac</a>.<span class="ident">imp</span>,
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1372">prestate</a>,
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1366">rdr</a>,
@@ -3546,14 +3547,14 @@
                 <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1395">mat</a> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1395">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#289">increment</a>(<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">absolute_pos</span>);
                 <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1362">StreamChunk::Match</a> { <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1396">bytes</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1395">mat</a> }));
             }
-            <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">search_pos</span> <span class="op">&gt;</span><span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#76">len</a>() {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">search_pos</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">len</span>() {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">end</span>) <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1483">unreported</a>() {
                     <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#62">buffer</a>()[<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span>..<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1402">end</a>];
                     <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">absolute_pos</span> <span class="op">+</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span>;
                     <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1402">end</a>;
                     <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1360">StreamChunk::NonMatch</a> { <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1403">bytes</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1404">start</a> }));
                 }
-                <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#76">len</a>() <span class="op">&gt;</span><span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#70">min_buffer_len</a>() {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">min_buffer_len</span>() {
                     <span class="comment">// This is the point at which we roll our buffer, which we</span>
                     <span class="comment">// only do if our buffer has at least the minimum amount of</span>
                     <span class="comment">// bytes in it. Before rolling, we update our various</span>
@@ -3572,7 +3573,7 @@
                     <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>) =&gt; {
                         <span class="comment">// We&#39;ve hit EOF, but if there are still some</span>
                         <span class="comment">// unreported bytes remaining, return them now.</span>
-                        <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span> <span class="op">&lt;</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#76">len</a>() {
+                        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">report_pos</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">buf</span>.<span class="ident">len</span>() {
                             <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#62">buffer</a>()[<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span>..];
                             <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">absolute_pos</span> <span class="op">+</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span>;
                             <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#76">len</a>();
@@ -3582,7 +3583,7 @@
                         } <span class="kw">else</span> {
                             <span class="comment">// We&#39;ve reported everything, but there might still</span>
                             <span class="comment">// be a match at the very last position.</span>
-                            <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">has_empty_match_at_end</span> {
+                            <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">has_empty_match_at_end</span> {
                                 <span class="kw">return</span> <span class="prelude-val">None</span>;
                             }
                             <span class="comment">// fallthrough for another search to get trailing</span>
@@ -3605,7 +3606,7 @@
                 }
                 <span class="prelude-val">Some</span>(<span class="ident">mat</span>) =&gt; {
                     <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">state_id</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">fsm</span>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1039">start_state</a>();
-                    <span class="kw">if</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1458">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>() <span class="op">==</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">search_pos</span> {
+                    <span class="kw">if</span> <span class="ident">mat</span>.<span class="ident">end</span>() <span class="op">==</span> <span class="self">self</span>.<span class="ident">search_pos</span> {
                         <span class="comment">// If the automaton can match the empty string and if</span>
                         <span class="comment">// we found an empty match, then we need to forcefully</span>
                         <span class="comment">// move the position.</span>
@@ -3614,7 +3615,7 @@
                         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">search_pos</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1458">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#274">end</a>();
                     }
                     <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">pending_match</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1458">mat</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>());
-                    <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span> <span class="op">&lt;</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1458">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#268">start</a>() {
+                    <span class="kw">if</span> <span class="self">self</span>.<span class="ident">report_pos</span> <span class="op">&lt;</span> <span class="ident">mat</span>.<span class="ident">start</span>() {
                         <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span>
                             <span class="kw-2">&amp;</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#62">buffer</a>()[<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span>..<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1458">mat</a>.<a class="ident" href="../../src/aho_corasick/lib.rs.html#268">start</a>()];
                         <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">absolute_pos</span> <span class="op">+</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1393">self</a>.<span class="ident">report_pos</span>;
@@ -3630,7 +3631,7 @@
 
     <span class="kw">fn</span> <span class="ident">unreported</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1483">self</a>.<span class="ident">search_pos</span>.<span class="ident">saturating_sub</span>(<a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1483">self</a>.<span class="ident">buf</span>.<a class="ident" href="../../src/aho_corasick/buffer.rs.html#70">min_buffer_len</a>());
-        <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1483">self</a>.<span class="ident">report_pos</span> <span class="op">&lt;</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1484">end</a> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">report_pos</span> <span class="op">&lt;</span> <span class="ident">end</span> {
             <span class="prelude-val">Some</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1484">end</a>)
         } <span class="kw">else</span> {
             <span class="prelude-val">None</span>
@@ -3641,26 +3642,26 @@
 <span class="doccomment">/// A builder for configuring an Aho-Corasick automaton.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AhoCorasickBuilder</span> {
-    <span class="ident">nfa_builder</span>: <a class="ident" href="../../src/aho_corasick/nfa.rs.html#549-555">nfa::Builder</a>,
-    <span class="ident">dfa_builder</span>: <a class="ident" href="../../src/aho_corasick/dfa.rs.html#607-610">dfa::Builder</a>,
+    <span class="ident">nfa_builder</span>: <a class="ident" href="../../src/aho_corasick/nfa.rs.html#549">nfa::Builder</a>,
+    <span class="ident">dfa_builder</span>: <a class="ident" href="../../src/aho_corasick/dfa.rs.html#607">dfa::Builder</a>,
     <span class="ident">dfa</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <span class="ident">AhoCorasickBuilder::new</span>()
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
     <span class="doccomment">/// Create a new builder for configuring an Aho-Corasick automaton.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you don&#39;t need fine grained configuration or aren&#39;t sure which knobs</span>
     <span class="doccomment">/// to set, try using</span>
     <span class="doccomment">/// [`AhoCorasick::new_auto_configured`](struct.AhoCorasick.html#method.new_auto_configured)</span>
     <span class="doccomment">/// instead.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
-        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
+        <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
             <span class="ident">nfa_builder</span>: <span class="ident">nfa::Builder::new</span>(),
             <span class="ident">dfa_builder</span>: <span class="ident">dfa::Builder::new</span>(),
             <span class="ident">dfa</span>: <span class="bool-val">false</span>,
@@ -3690,7 +3691,7 @@
     <span class="doccomment">///     .build(patterns);</span>
     <span class="doccomment">/// assert_eq!(Some(1), ac.find(&quot;xxx bar xxx&quot;).map(|m| m.pattern()));</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">P</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patterns</span>: <span class="ident">I</span>) -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86-89">AhoCorasick</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">P</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">patterns</span>: <span class="ident">I</span>) -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86">AhoCorasick</a>
     <span class="kw">where</span>
         <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
@@ -3757,19 +3758,19 @@
         <span class="ident">patterns</span>: <span class="ident">I</span>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">AhoCorasick</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-105">StateID</a>,
+        <span class="ident">S</span>: <a class="ident" href="../../src/aho_corasick/state_id.rs.html#72-81">StateID</a>,
         <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">P</span><span class="op">&gt;</span>,
         <span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">nfa</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1608">self</a>.<span class="ident">nfa_builder</span>.<a class="ident" href="../../src/aho_corasick/nfa.rs.html#574-577">build</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1609">patterns</a>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">nfa</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">nfa_builder</span>.<span class="ident">build</span>(<span class="ident">patterns</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">match_kind</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1616">nfa</a>.<a class="ident" href="../../src/aho_corasick/automaton.rs.html#87">match_kind</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-        <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="kw">if</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1608">self</a>.<span class="ident">dfa</span> {
-            <span class="kw">let</span> <span class="ident">dfa</span> <span class="op">=</span> <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1608">self</a>.<span class="ident">dfa_builder</span>.<a class="ident" href="../../src/aho_corasick/dfa.rs.html#623">build</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1616">nfa</a>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">imp</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">dfa</span> {
+            <span class="kw">let</span> <span class="ident">dfa</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">dfa_builder</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="ident">nfa</span>)<span class="question-mark">?</span>;
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1026">Imp::DFA</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1619">dfa</a>)
         } <span class="kw">else</span> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1025">Imp::NFA</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1616">nfa</a>)
         };
-        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86-89">AhoCorasick</a> { <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1618">imp</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1617">match_kind</a> })
+        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#86">AhoCorasick</a> { <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1618">imp</a>, <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1617">match_kind</a> })
     }
 
     <span class="doccomment">/// Automatically configure the settings on this builder according to the</span>
@@ -3797,10 +3798,10 @@
     <span class="doccomment">///     .build(patterns);</span>
     <span class="doccomment">/// assert_eq!(Some(1), ac.find(&quot;xxx bar xxx&quot;).map(|m| m.pattern()));</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auto_configure</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auto_configure</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">patterns</span>: <span class="kw-2">&amp;</span>[<span class="ident">B</span>],
-    ) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    ) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <span class="comment">// N.B. Currently we only use the length of `patterns` to make a</span>
         <span class="comment">// decision here, and could therefore ask for an `ExactSizeIterator`</span>
         <span class="comment">// instead. But it&#39;s conceivable that we might adapt this to look at</span>
@@ -3813,12 +3814,12 @@
         <span class="comment">// moderate number of patterns, we still want a DFA, but save on both</span>
         <span class="comment">// space and compilation time by enabling byte classes. Finally, fall</span>
         <span class="comment">// back to the slower but smaller NFA.</span>
-        <span class="kw">if</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1654">patterns</a>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span> {
+        <span class="kw">if</span> <span class="ident">patterns</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="number">100</span> {
             <span class="comment">// N.B. Using byte classes can actually be faster by improving</span>
             <span class="comment">// locality, but this only really applies for multi-megabyte</span>
             <span class="comment">// automata (i.e., automata that don&#39;t fit in your CPU&#39;s cache).</span>
             <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1653">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1874">dfa</a>(<span class="bool-val">true</span>);
-        } <span class="kw">else</span> <span class="kw">if</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1654">patterns</a>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="number">5000</span> {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">patterns</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="number">5000</span> {
             <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1653">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1874">dfa</a>(<span class="bool-val">true</span>);
         }
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1653">self</a>
@@ -3894,7 +3895,7 @@
     <span class="doccomment">/// let mat = ac.find(haystack).expect(&quot;should have a match&quot;);</span>
     <span class="doccomment">/// assert_eq!(&quot;abcd&quot;, &amp;haystack[mat.start()..mat.end()]);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">match_kind</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">kind</span>: <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">match_kind</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">kind</span>: <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1749">self</a>.<span class="ident">nfa_builder</span>.<a class="ident" href="../../src/aho_corasick/nfa.rs.html#582">match_kind</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1749">kind</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1749">self</a>
     }
@@ -3935,7 +3936,7 @@
     <span class="doccomment">/// assert_eq!(2, ac.find_overlapping_iter(haystack).count());</span>
     <span class="doccomment">/// // A non-anchored search would return 3 matches.</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">anchored</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">anchored</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1790">self</a>.<span class="ident">nfa_builder</span>.<a class="ident" href="../../src/aho_corasick/nfa.rs.html#597">anchored</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1790">yes</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1790">self</a>
     }
@@ -3970,7 +3971,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ascii_case_insensitive</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    ) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    ) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1823">self</a>.<span class="ident">nfa_builder</span>.<a class="ident" href="../../src/aho_corasick/nfa.rs.html#602">ascii_case_insensitive</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1824">yes</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1823">self</a>
     }
@@ -3993,7 +3994,7 @@
     <span class="doccomment">/// By default, this is set to a low but non-zero number.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This setting has no effect if the `dfa` option is enabled.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dense_depth</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">depth</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dense_depth</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">depth</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1848">self</a>.<span class="ident">nfa_builder</span>.<a class="ident" href="../../src/aho_corasick/nfa.rs.html#587">dense_depth</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1848">depth</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1848">self</a>
     }
@@ -4019,7 +4020,7 @@
     <span class="doccomment">/// small number of fairly short patterns (~1000), or if you want the</span>
     <span class="doccomment">/// fastest possible search without regard to compilation time or space</span>
     <span class="doccomment">/// usage.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dfa</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dfa</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1874">self</a>.<span class="ident">dfa</span> <span class="op">=</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1874">yes</a>;
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1874">self</a>
     }
@@ -4033,7 +4034,7 @@
     <span class="doccomment">/// sub-optimal for a particular workload.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is enabled by default.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prefilter</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prefilter</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1888">self</a>.<span class="ident">nfa_builder</span>.<a class="ident" href="../../src/aho_corasick/nfa.rs.html#592">prefilter</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1888">yes</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1888">self</a>
     }
@@ -4068,7 +4069,7 @@
         <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.7.16&quot;</span>,
         <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;not carrying its weight, will be always enabled, see: https://github.com/BurntSushi/aho-corasick/issues/57&quot;</span>
     )]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">byte_classes</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">byte_classes</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1923">self</a>.<span class="ident">dfa_builder</span>.<a class="ident" href="../../src/aho_corasick/dfa.rs.html#677">byte_classes</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1923">yes</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1923">self</a>
     }
@@ -4100,7 +4101,7 @@
         <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.7.16&quot;</span>,
         <span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;not carrying its weight, will be always enabled, see: https://github.com/BurntSushi/aho-corasick/issues/57&quot;</span>
     )]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">premultiply</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495-1499">AhoCorasickBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">premultiply</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1495">AhoCorasickBuilder</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1955">self</a>.<span class="ident">dfa_builder</span>.<a class="ident" href="../../src/aho_corasick/dfa.rs.html#683">premultiply</a>(<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#1955">yes</a>);
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#1955">self</a>
     }
@@ -4223,13 +4224,13 @@
 }
 
 <span class="doccomment">/// The default match kind is `MatchKind::Standard`.</span>
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a> {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a> {
         <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2050">MatchKind::Standard</a>
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046-2075">MatchKind</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2046">MatchKind</a> {
     <span class="kw">fn</span> <span class="ident">supports_overlapping</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#2085">self</a>.<a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2096">is_standard</a>()
     }
@@ -4257,14 +4258,14 @@
     <span class="doccomment">/// Convert this match kind into a packed match kind. If this match kind</span>
     <span class="doccomment">/// corresponds to standard semantics, then this returns None, since</span>
     <span class="doccomment">/// packed searching does not support standard semantics.</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">as_packed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/packed/api.rs.html#29-48">packed::MatchKind</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">as_packed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/aho_corasick/packed/api.rs.html#29">packed::MatchKind</a><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/aho_corasick/ahocorasick.rs.html#2112">self</a> {
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2050">MatchKind::Standard</a> =&gt; <span class="prelude-val">None</span>,
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2059">MatchKind::LeftmostFirst</a> =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/aho_corasick/packed/api.rs.html#36">packed::MatchKind::LeftmostFirst</a>),
             <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2067">MatchKind::LeftmostLongest</a> =&gt; {
                 <span class="prelude-val">Some</span>(<a class="ident" href="../../src/aho_corasick/packed/api.rs.html#40">packed::MatchKind::LeftmostLongest</a>)
             }
-            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2074">MatchKind::__Nonexhaustive</a> =&gt; <span class="macro">unreachable!</span>(),
+            <a class="ident" href="../../src/aho_corasick/ahocorasick.rs.html#2074">MatchKind::__Nonexhaustive</a> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(),
         }
     }
 }
@@ -4290,5 +4291,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="aho_corasick" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

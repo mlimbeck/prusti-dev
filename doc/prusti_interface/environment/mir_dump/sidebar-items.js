@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["lifetimes",""]]});
+window.SIDEBAR_ITEMS = {};

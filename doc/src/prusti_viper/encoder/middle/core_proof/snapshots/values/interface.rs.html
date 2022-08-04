@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `prusti-viper/src/encoder/middle/core_proof/snapshots/values/interface.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>interface.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../../../../storage.js"></script><script src="../../../../../../../crates.js"></script><script defer src="../../../../../../../main.js"></script><script defer src="../../../../../../../source-script.js"></script><script defer src="../../../../../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../../../../prusti_viper/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `prusti-viper/src/encoder/middle/core_proof/snapshots/values/interface.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>interface.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../../../../storage.js"></script><script defer src="../../../../../../../source-script.js"></script><script defer src="../../../../../../../source-files.js"></script><script defer src="../../../../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../../../../prusti_viper/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../../../../../prusti_viper/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../../../../prusti_viper/index.html"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../../../../prusti_viper/index.html"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -267,22 +268,69 @@
 <span id="262">262</span>
 <span id="263">263</span>
 <span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::encoder</span>::{
     <a class="ident" href="../../../../../../../src/prusti_viper/encoder/errors/spanned_encoding_error.rs.html#23">errors::SpannedEncodingResult</a>,
     <span class="ident">middle::core_proof</span>::{
-        <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/addresses/interface.rs.html#13-44">addresses::AddressesInterface</a>,
-        <span class="ident">lowerer</span>::{<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#43-87">DomainsLowererInterface</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#52-67">Lowerer</a>},
-        <span class="ident">snapshots</span>::{<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#11-17">IntoSnapshot</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#11-82">SnapshotAdtsInterface</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#11-21">SnapshotDomainsInterface</a>},
-        <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/types/interface.rs.html#200-215">types::TypesInterface</a>,
+        <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/addresses/interface.rs.html#17">addresses::AddressesInterface</a>,
+        <span class="ident">lowerer</span>::{<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#79">DomainsLowererInterface</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#63">Lowerer</a>},
+        <span class="ident">snapshots</span>::{<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/context_independent/traits.rs.html#13">IntoSnapshot</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#11">SnapshotAdtsInterface</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#43">SnapshotDomainsInterface</a>},
+        <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/types/interface.rs.html#295">types::TypesInterface</a>,
     },
 };
 <span class="kw">use</span> <span class="ident">vir_crate</span>::{
-    <a class="ident" href="../../../../../../../vir/common/identifier/trait.WithIdentifier.html">common::identifier::WithIdentifier</a>,
+    <a class="ident" href="../../../../../../../vir/common/expression/trait.UnaryOperationHelpers.html">common::expression::UnaryOperationHelpers</a>,
     <span class="ident">low</span>::{<a class="self" href="../../../../../../../vir/low/index.html">self</a> <span class="kw">as</span> <span class="ident">vir_low</span>},
     <span class="ident">middle</span>::{<a class="self" href="../../../../../../../vir/middle/index.html">self</a> <span class="kw">as</span> <span class="ident">vir_mid</span>},
 };
 
-<span class="kw">pub</span>(<span class="kw">in</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/mod.rs.html#1"><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span></a>) <span class="kw">trait</span> <span class="ident">SnapshotValuesInterface</span> {
+<span class="kw">pub</span>(<span class="kw">in</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span></span>) <span class="kw">trait</span> <span class="ident">SnapshotValuesInterface</span> {
     <span class="comment">// Top-down: if we have a snapshot of a struct and we want to get a snapshot</span>
     <span class="comment">// of its field.</span>
 
@@ -311,6 +359,17 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">place</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">ty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../vir/gen/middle/ast/ty/enum.Type.html">vir_mid::Type</a>,
+        <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
+    ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">obtain_array_len_snapshot</span>(
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">base_snapshot</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
+        <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
+    ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">obtain_array_element_snapshot</span>(
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">base_snapshot</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
+        <span class="ident">index</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span>;
 
@@ -353,26 +412,27 @@
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span>;
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;p</span>, <span class="lifetime">&#39;v</span>: <span class="lifetime">&#39;p</span>, <span class="lifetime">&#39;tcx</span>: <span class="lifetime">&#39;v</span><span class="op">&gt;</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#16-85">SnapshotValuesInterface</a> <span class="kw">for</span> <span class="ident">Lowerer</span><span class="op">&lt;</span><span class="lifetime">&#39;p</span>, <span class="lifetime">&#39;v</span>, <span class="lifetime">&#39;tcx</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;p</span>, <span class="lifetime">&#39;v</span>: <span class="lifetime">&#39;p</span>, <span class="lifetime">&#39;tcx</span>: <span class="lifetime">&#39;v</span><span class="op">&gt;</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#16">SnapshotValuesInterface</a> <span class="kw">for</span> <span class="ident">Lowerer</span><span class="op">&lt;</span><span class="lifetime">&#39;p</span>, <span class="lifetime">&#39;v</span>, <span class="lifetime">&#39;tcx</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">obtain_constant_value</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">ty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../vir/gen/middle/ast/ty/enum.Type.html">vir_mid::Type</a>,
         <span class="ident">argument</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#90">ty</a> {
+        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#101">ty</a> {
             <span class="ident">vir_mid::Type::Bool</span> =&gt; <span class="ident">vir_low::Type::Bool</span>,
             <span class="ident">vir_mid::Type::Int</span>(<span class="kw">_</span>) =&gt; <span class="ident">vir_low::Type::Int</span>,
-            <span class="ident">x</span> =&gt; <span class="macro">unimplemented!</span>(<span class="string">&quot;{:?}&quot;</span>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#97">x</a>),
+            <span class="ident">vir_mid::Type::Pointer</span>(<span class="kw">_</span>) =&gt; <span class="self">self</span>.<span class="ident">address_type</span>()<span class="question-mark">?</span>,
+            <span class="ident">x</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unimplemented.html">unimplemented!</a>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">x</span>),
         };
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#89">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#90">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#89">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#14-17">snapshot_destructor_constant_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#99">domain_name</a>)<span class="question-mark">?</span>;
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#89">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#63-70">create_domain_func_app</a>(
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#99">domain_name</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#100">function_name</a>,
-            <span class="macro">vec!</span>[<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#91">argument</a>],
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#94">return_type</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#92">position</a>,
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">snapshot_destructor_constant_name</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>)<span class="question-mark">?</span>;
+        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#100">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#100-107">create_domain_func_app</a>(
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#111">domain_name</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#112">function_name</a>,
+            <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">argument</span>],
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#105">return_type</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#103">position</a>,
         )
     }
     <span class="kw">fn</span> <span class="ident">obtain_struct_field_snapshot</span>(
@@ -382,11 +442,11 @@
         <span class="ident">base_snapshot</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#110">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#111">base_type</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#112">field</a>.<span class="ident">ty</span>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#13-16">create_snapshot</a>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#110">self</a>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#110">self</a>
-            .<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#42-48">snapshot_destructor_struct_call</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#116">domain_name</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#112">field</a>.<span class="ident">name</span>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#117">return_type</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#113">base_snapshot</a>)<span class="question-mark">?</span>
-            .<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#114">position</a>))
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">base_type</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="ident">field</span>.<span class="ident">ty</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>
+            .<span class="ident">snapshot_destructor_struct_call</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>, <span class="kw-2">&amp;</span><span class="ident">field</span>.<span class="ident">name</span>, <span class="ident">return_type</span>, <span class="ident">base_snapshot</span>)<span class="question-mark">?</span>
+            .<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#126">position</a>))
     }
     <span class="kw">fn</span> <span class="ident">obtain_enum_variant_snapshot</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -395,25 +455,20 @@
         <span class="ident">base_snapshot</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#123">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#124">base_type</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">variant_ty</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#124">base_type</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<span class="ident">variant</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#125">variant</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>());
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#130">variant_ty</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#13-16">create_snapshot</a>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#123">self</a>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#123">self</a>
-            .<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#49-55">snapshot_destructor_enum_variant_call</a>(
-                <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#129">domain_name</a>,
-                <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#125">variant</a>.<span class="ident">index</span>,
-                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#131">return_type</a>,
-                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#126">base_snapshot</a>,
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">base_type</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">variant_ty</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#136">base_type</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<span class="ident">variant</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#137">variant</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>());
+        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="ident">variant_ty</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>
+            .<span class="ident">snapshot_destructor_enum_variant_call</span>(
+                <span class="kw-2">&amp;</span><span class="ident">domain_name</span>,
+                <span class="kw-2">&amp;</span><span class="ident">variant</span>.<span class="ident">index</span>,
+                <span class="ident">return_type</span>,
+                <span class="ident">base_snapshot</span>,
             )<span class="question-mark">?</span>
-            .<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#127">position</a>))
+            .<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#139">position</a>))
     }
     <span class="kw">fn</span> <span class="ident">encode_discriminant_name</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">domain_name</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">decoded_type</span>) <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#141">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#17-20">try_decoding_snapshot_type</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#141">domain_name</a>)<span class="question-mark">?</span> {
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#142">decoded_type</a>
-        } <span class="kw">else</span> {
-            <span class="macro">unreachable!</span>(<span class="string">&quot;Failed to decode the snapshot: {}&quot;</span>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#141">domain_name</a>);
-        };
-        <span class="prelude-val">Ok</span>(<span class="macro">format!</span>(<span class="string">&quot;discriminant${}&quot;</span>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#142">ty</a>.<a class="ident" href="../../../../../../../vir/common/identifier/trait.WithIdentifier.html">get_identifier</a>()))
+        <span class="prelude-val">Ok</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;discriminant${}&quot;</span>, <span class="ident">domain_name</span>))
     }
     <span class="kw">fn</span> <span class="ident">obtain_enum_discriminant</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -421,15 +476,40 @@
         <span class="ident">ty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../vir/gen/middle/ast/ty/enum.Type.html">vir_mid::Type</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#150">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#152">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#150">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#40">encode_discriminant_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#155">domain_name</a>)<span class="question-mark">?</span>;
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#150">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#63-70">create_domain_func_app</a>(
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#155">domain_name</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#156">function_name</a>,
-            <span class="macro">vec!</span>[<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#151">place</a>],
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_discriminant_name</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>)<span class="question-mark">?</span>;
+        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#157">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#100-107">create_domain_func_app</a>(
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#162">domain_name</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#163">function_name</a>,
+            <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">place</span>],
             <span class="ident">vir_low::Type::Int</span>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#153">position</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#160">position</a>,
         )
+    }
+    <span class="kw">fn</span> <span class="ident">obtain_array_len_snapshot</span>(
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">base_snapshot</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
+        <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
+    ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">vir_low::Expression::container_op</span>(
+            <span class="ident">vir_low::expression::ContainerOpKind::SeqLen</span>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#174">base_snapshot</a>,
+            <span class="bool-val">true</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#175">position</a>,
+        ))
+    }
+    <span class="kw">fn</span> <span class="ident">obtain_array_element_snapshot</span>(
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">base_snapshot</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
+        <span class="ident">index</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
+        <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
+    ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">vir_low::Expression::container_op</span>(
+            <span class="ident">vir_low::expression::ContainerOpKind::SeqIndex</span>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#186">base_snapshot</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#187">index</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#188">position</a>,
+        ))
     }
     <span class="kw">fn</span> <span class="ident">construct_constant_snapshot</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -437,18 +517,19 @@
         <span class="kw-2">mut</span> <span class="ident">argument</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#166">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/types/interface.rs.html#203">ensure_type_definition</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#167">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#166">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#167">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">low_type</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#167">ty</a> {
+        <span class="self">self</span>.<span class="ident">ensure_type_definition</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">low_type</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#199">ty</a> {
             <span class="ident">vir_mid::Type::Bool</span> =&gt; <span class="ident">vir_low::Type::Bool</span>,
             <span class="ident">vir_mid::Type::Int</span>(<span class="kw">_</span>) =&gt; <span class="ident">vir_low::Type::Int</span>,
-            <span class="ident">vir_mid::Type::Pointer</span>(<span class="kw">_</span>) =&gt; <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#166">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/addresses/interface.rs.html#14">address_type</a>()<span class="question-mark">?</span>,
-            <span class="ident">x</span> =&gt; <span class="macro">unimplemented!</span>(<span class="string">&quot;{:?}&quot;</span>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#177">x</a>),
+            <span class="ident">vir_mid::Type::Pointer</span>(<span class="kw">_</span>) =&gt; <span class="self">self</span>.<span class="ident">address_type</span>()<span class="question-mark">?</span>,
+            <span class="ident">vir_mid::Type::Reference</span>(<span class="kw">_</span>) =&gt; <span class="self">self</span>.<span class="ident">address_type</span>()<span class="question-mark">?</span>,
+            <span class="ident">x</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unimplemented.html">unimplemented!</a>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">x</span>),
         };
-        <a class="ident" href="../../../../../../../vir/low/operations/ty/trait.Typed.html">vir_low::operations::ty::Typed::set_type</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#168">argument</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#173">low_type</a>);
-        <span class="prelude-val">Ok</span>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#166">self</a>
-            .<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#37-41">snapshot_constructor_constant_call</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#172">domain_name</a>, <span class="macro">vec!</span>[<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#168">argument</a>])<span class="question-mark">?</span>
-            .<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#169">position</a>))
+        <a class="ident" href="../../../../../../../vir/low/operations/ty/trait.Typed.html">vir_low::operations::ty::Typed::set_type</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#200">argument</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#205">low_type</a>);
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>
+            .<span class="ident">snapshot_constructor_constant_call</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>, <span class="macro">vec!</span>[<span class="ident">argument</span>])<span class="question-mark">?</span>
+            .<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#201">position</a>))
     }
     <span class="kw">fn</span> <span class="ident">construct_unary_op_snapshot</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -457,19 +538,23 @@
         <span class="ident">argument</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="comment">// FIXME: Encode evaluation and simplification axioms.</span>
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#185">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#187">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#185">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/types/interface.rs.html#204-208">encode_unary_op_variant</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#186">op</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#187">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span>
-            <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#185">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#24-28">snapshot_constructor_struct_alternative_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#192">domain_name</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#193">variant</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#187">ty</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#13-16">create_snapshot</a>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#185">self</a>)<span class="question-mark">?</span>;
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#185">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#63-70">create_domain_func_app</a>(
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#192">domain_name</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#194">function_name</a>,
-            <span class="macro">vec!</span>[<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#188">argument</a>],
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#196">return_type</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#189">position</a>,
-        )
+        <span class="kw">if</span> <span class="ident">ty</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">vir_mid::Type::MBool</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">vir_low::Expression::not</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#221">argument</a>).<span class="ident">set_default_position</span>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#222">position</a>))
+        } <span class="kw">else</span> {
+            <span class="comment">// FIXME: Encode evaluation and simplification axioms.</span>
+            <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_unary_op_variant</span>(<span class="ident">op</span>, <span class="ident">ty</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span>
+                <span class="self">self</span>.<span class="ident">snapshot_constructor_struct_alternative_name</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>, <span class="kw-2">&amp;</span><span class="ident">variant</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="ident">ty</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+            <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#218">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#100-107">create_domain_func_app</a>(
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#228">domain_name</a>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#230">function_name</a>,
+                <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">argument</span>],
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#232">return_type</a>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#222">position</a>,
+            )
+        }
     }
     <span class="kw">fn</span> <span class="ident">construct_binary_op_snapshot</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -480,19 +565,29 @@
         <span class="ident">right</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="comment">// FIXME: Encode evaluation and simplification axioms.</span>
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#206">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#208">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#206">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/types/interface.rs.html#209-213">encode_binary_op_variant</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#207">op</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#209">arg_type</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span>
-            <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#206">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#24-28">snapshot_constructor_struct_alternative_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#215">domain_name</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#216">variant</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#208">ty</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#13-16">create_snapshot</a>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#206">self</a>)<span class="question-mark">?</span>;
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#206">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#63-70">create_domain_func_app</a>(
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#215">domain_name</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#217">function_name</a>,
-            <span class="macro">vec!</span>[<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#210">left</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#211">right</a>],
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#219">return_type</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#212">position</a>,
-        )
+        <span class="comment">// TODO: Add MPerm special cases here.</span>
+        <span class="kw">if</span> <span class="ident">ty</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">vir_mid::Type::MBool</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">vir_low::Expression::binary_op</span>(
+                <span class="ident">op</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#247">left</a>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#248">right</a>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#249">position</a>,
+            ))
+        } <span class="kw">else</span> {
+            <span class="comment">// FIXME: Encode evaluation and simplification axioms.</span>
+            <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_binary_op_variant</span>(<span class="ident">op</span>, <span class="ident">arg_type</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span>
+                <span class="self">self</span>.<span class="ident">snapshot_constructor_struct_alternative_name</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>, <span class="kw-2">&amp;</span><span class="ident">variant</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="ident">ty</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+            <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#243">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#100-107">create_domain_func_app</a>(
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#261">domain_name</a>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#263">function_name</a>,
+                <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">left</span>, <span class="ident">right</span>],
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#265">return_type</a>,
+                <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#249">position</a>,
+            )
+        }
     }
 
     <span class="kw">fn</span> <span class="ident">construct_struct_snapshot</span>(
@@ -501,10 +596,10 @@
         <span class="ident">arguments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#230">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#231">ty</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#230">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#18-21">snapshot_constructor_struct_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#235">domain_name</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#231">ty</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#13-16">create_snapshot</a>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#230">self</a>)<span class="question-mark">?</span>;
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#230">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#63-70">create_domain_func_app</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#235">domain_name</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#236">function_name</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#232">arguments</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#237">return_type</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#233">position</a>)
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="ident">ty</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">snapshot_constructor_struct_name</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="ident">ty</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#277">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#100-107">create_domain_func_app</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#282">domain_name</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#283">function_name</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#279">arguments</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#284">return_type</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#280">position</a>)
     }
     <span class="kw">fn</span> <span class="ident">construct_enum_snapshot</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -512,25 +607,25 @@
         <span class="ident">argument</span>: <a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a>,
         <span class="ident">position</span>: <a class="ident" href="../../../../../../../vir/common/position/struct.Position.html">vir_mid::Position</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../../vir/gen/low/ast/expression/enum.Expression.html">vir_low::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">variant_name</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#242">ty</a> {
-            <span class="ident">vir_mid::Type::Enum</span>(<span class="ident">ty</span>) =&gt; <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#247">ty</a>.<span class="ident">variant</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
-            <span class="ident">vir_mid::Type::Union</span>(<span class="ident">ty</span>) =&gt; <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#248">ty</a>.<span class="ident">variant</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
-            <span class="kw">_</span> =&gt; <span class="macro">unreachable!</span>(<span class="string">&quot;expected enum or union, got: {}&quot;</span>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#242">ty</a>),
+        <span class="kw">let</span> <span class="ident">variant_name</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#289">ty</a> {
+            <span class="ident">vir_mid::Type::Enum</span>(<span class="ident">ty</span>) =&gt; <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#294">ty</a>.<span class="ident">variant</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
+            <span class="ident">vir_mid::Type::Union</span>(<span class="ident">ty</span>) =&gt; <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#295">ty</a>.<span class="ident">variant</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
+            <span class="kw">_</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(<span class="string">&quot;expected enum or union, got: {}&quot;</span>, <span class="ident">ty</span>),
         };
-        <span class="kw">let</span> <span class="ident">enum_ty</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#242">ty</a>.<span class="ident">forget_variant</span>().<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#241">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/domains/interface.rs.html#12">encode_snapshot_domain_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#251">enum_ty</a>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">enum_ty</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#289">ty</a>.<span class="ident">forget_variant</span>().<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">domain_name</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_snapshot_domain_name</span>(<span class="kw-2">&amp;</span><span class="ident">enum_ty</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">function_name</span> <span class="op">=</span>
-            <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#241">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/adts/interface.rs.html#29-33">snapshot_constructor_enum_variant_name</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#252">domain_name</a>, <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#246">variant_name</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#251">enum_ty</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/into_snapshot/mod.rs.html#13-16">create_snapshot</a>(<a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#241">self</a>)<span class="question-mark">?</span>;
-        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#241">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#63-70">create_domain_func_app</a>(
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#252">domain_name</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#253">function_name</a>,
-            <span class="macro">vec!</span>[<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#243">argument</a>],
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#255">return_type</a>,
-            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#244">position</a>,
+            <span class="self">self</span>.<span class="ident">snapshot_constructor_enum_variant_name</span>(<span class="kw-2">&amp;</span><span class="ident">domain_name</span>, <span class="ident">variant_name</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">return_type</span> <span class="op">=</span> <span class="ident">enum_ty</span>.<span class="ident">to_snapshot</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+        <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#288">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#100-107">create_domain_func_app</a>(
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#299">domain_name</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#300">function_name</a>,
+            <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">argument</span>],
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#302">return_type</a>,
+            <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/snapshots/values/interface.rs.html#291">position</a>,
         )
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../" data-current-crate="prusti_viper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../" data-current-crate="prusti_viper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

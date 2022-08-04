@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.4.1/src/memchr/iter.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>iter.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../memchr/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.5.0/src/memchr/iter.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>iter.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../memchr/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../memchr/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../memchr/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../memchr/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -221,7 +222,7 @@
     <span class="doccomment">/// Creates a new iterator that yields all positions of needle in haystack.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">needle</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <span class="ident">haystack</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">Memchr</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#34-40">Memchr</a> { <span class="ident">needle</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#45">needle</a>, <span class="ident">haystack</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#45">haystack</a>, <span class="ident">position</span>: <span class="number">0</span> }
+        <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#34">Memchr</a> { <span class="ident">needle</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#45">needle</a>, <span class="ident">haystack</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#45">haystack</a>, <span class="ident">position</span>: <span class="number">0</span> }
     }
 }
 
@@ -230,7 +231,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <span class="macro">iter_next!</span>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#54">self</a>, <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#87">memchr</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#54">self</a>.<span class="ident">needle</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#54">self</a>.<span class="ident">haystack</span>))
+        <a class="macro" href="../../../src/memchr/memchr/iter.rs.html#3-21">iter_next!</a>(<span class="self">self</span>, <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#87">memchr</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#54">self</a>.<span class="ident">needle</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#54">self</a>.<span class="ident">haystack</span>))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
@@ -242,7 +243,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html">DoubleEndedIterator</a> <span class="kw">for</span> <span class="ident">Memchr</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">next_back</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
-        <span class="macro">iter_next_back!</span>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#66">self</a>, <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#260">memrchr</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#66">self</a>.<span class="ident">needle</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#66">self</a>.<span class="ident">haystack</span>))
+        <a class="macro" href="../../../src/memchr/memchr/iter.rs.html#23-31">iter_next_back!</a>(<span class="self">self</span>, <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#260">memrchr</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#66">self</a>.<span class="ident">needle</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#66">self</a>.<span class="ident">haystack</span>))
     }
 }
 
@@ -260,7 +261,7 @@
     <span class="doccomment">/// Creates a new iterator that yields all positions of needle in haystack.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">needle1</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <span class="ident">needle2</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <span class="ident">haystack</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">Memchr2</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#72-79">Memchr2</a> {
+        <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#72">Memchr2</a> {
             <span class="ident">needle1</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#84">needle1</a>,
             <span class="ident">needle2</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#84">needle2</a>,
             <span class="ident">haystack</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#84">haystack</a>,
@@ -274,7 +275,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <span class="macro">iter_next!</span>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>, <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#151">memchr2</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>.<span class="ident">needle1</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>.<span class="ident">needle2</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>.<span class="ident">haystack</span>))
+        <a class="macro" href="../../../src/memchr/memchr/iter.rs.html#3-21">iter_next!</a>(<span class="self">self</span>, <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#151">memchr2</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>.<span class="ident">needle1</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>.<span class="ident">needle2</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#98">self</a>.<span class="ident">haystack</span>))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
@@ -286,8 +287,8 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html">DoubleEndedIterator</a> <span class="kw">for</span> <span class="ident">Memchr2</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">next_back</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
-        <span class="macro">iter_next_back!</span>(
-            <a class="self" href="../../../src/memchr/memchr/iter.rs.html#110">self</a>,
+        <a class="macro" href="../../../src/memchr/memchr/iter.rs.html#23-31">iter_next_back!</a>(
+            <span class="self">self</span>,
             <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#325">memrchr2</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#110">self</a>.<span class="ident">needle1</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#110">self</a>.<span class="ident">needle2</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#110">self</a>.<span class="ident">haystack</span>)
         )
     }
@@ -313,7 +314,7 @@
         <span class="ident">needle3</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
         <span class="ident">haystack</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="ident">Memchr3</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#119-127">Memchr3</a> {
+        <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#119">Memchr3</a> {
             <span class="ident">needle1</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#133">needle1</a>,
             <span class="ident">needle2</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#134">needle2</a>,
             <span class="ident">needle3</span>: <a class="ident" href="../../../src/memchr/memchr/iter.rs.html#135">needle3</a>,
@@ -328,8 +329,8 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <span class="macro">iter_next!</span>(
-            <a class="self" href="../../../src/memchr/memchr/iter.rs.html#152">self</a>,
+        <a class="macro" href="../../../src/memchr/memchr/iter.rs.html#3-21">iter_next!</a>(
+            <span class="self">self</span>,
             <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#204-209">memchr3</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#152">self</a>.<span class="ident">needle1</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#152">self</a>.<span class="ident">needle2</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#152">self</a>.<span class="ident">needle3</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#152">self</a>.<span class="ident">haystack</span>)
         )
     }
@@ -343,12 +344,12 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html">DoubleEndedIterator</a> <span class="kw">for</span> <span class="ident">Memchr3</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">next_back</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
-        <span class="macro">iter_next_back!</span>(
-            <a class="self" href="../../../src/memchr/memchr/iter.rs.html#167">self</a>,
+        <a class="macro" href="../../../src/memchr/memchr/iter.rs.html#23-31">iter_next_back!</a>(
+            <span class="self">self</span>,
             <a class="ident" href="../../../src/memchr/memchr/mod.rs.html#378-383">memrchr3</a>(<a class="self" href="../../../src/memchr/memchr/iter.rs.html#167">self</a>.<span class="ident">needle1</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#167">self</a>.<span class="ident">needle2</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#167">self</a>.<span class="ident">needle3</span>, <a class="self" href="../../../src/memchr/memchr/iter.rs.html#167">self</a>.<span class="ident">haystack</span>)
         )
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="memchr" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

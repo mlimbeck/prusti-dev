@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/minimal-lexical-0.2.1/src/rounding.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>rounding.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../minimal_lexical/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/minimal-lexical-0.2.1/src/rounding.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>rounding.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../minimal_lexical/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../minimal_lexical/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../minimal_lexical/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../minimal_lexical/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -138,9 +139,9 @@
 
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 
-<span class="kw">use</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11-16"><span class="kw">crate</span>::extended_float::ExtendedFloat</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11"><span class="kw">crate</span>::extended_float::ExtendedFloat</a>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::mask</span>::{<a class="ident" href="../../src/minimal_lexical/mask.rs.html#37">lower_n_halfway</a>, <a class="ident" href="../../src/minimal_lexical/mask.rs.html#16">lower_n_mask</a>};
-<span class="kw">use</span> <a class="ident" href="../../src/minimal_lexical/num.rs.html#18-202"><span class="kw">crate</span>::num::Float</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/minimal_lexical/num.rs.html#18-35"><span class="kw">crate</span>::num::Float</a>;
 
 <span class="comment">// ROUNDING</span>
 <span class="comment">// --------</span>
@@ -150,12 +151,12 @@
 <span class="doccomment">/// Shifts the significant digits into place, adjusts the exponent,</span>
 <span class="doccomment">/// so it can be easily converted to a native float.</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compact&quot;</span>), <span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">round</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Cb</span><span class="op">&gt;</span>(<span class="ident">fp</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11-16">ExtendedFloat</a>, <span class="ident">cb</span>: <span class="ident">Cb</span>)
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">round</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Cb</span><span class="op">&gt;</span>(<span class="ident">fp</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11">ExtendedFloat</a>, <span class="ident">cb</span>: <span class="ident">Cb</span>)
 <span class="kw">where</span>
-    <span class="ident">F</span>: <a class="ident" href="../../src/minimal_lexical/num.rs.html#18-202">Float</a>,
-    <span class="ident">Cb</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11-16">ExtendedFloat</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>),
+    <span class="ident">F</span>: <a class="ident" href="../../src/minimal_lexical/num.rs.html#18-35">Float</a>,
+    <span class="ident">Cb</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11">ExtendedFloat</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>),
 {
-    <span class="kw">let</span> <span class="ident">fp_inf</span> <span class="op">=</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11-16">ExtendedFloat</a> {
+    <span class="kw">let</span> <span class="ident">fp_inf</span> <span class="op">=</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11">ExtendedFloat</a> {
         <span class="ident">mant</span>: <span class="number">0</span>,
         <span class="ident">exp</span>: <span class="ident">F::INFINITE_POWER</span>,
     };
@@ -164,7 +165,7 @@
     <span class="kw">let</span> <span class="ident">mantissa_shift</span> <span class="op">=</span> <span class="number">64</span> <span class="op">-</span> <span class="ident">F::MANTISSA_SIZE</span> <span class="op">-</span> <span class="number">1</span>;
 
     <span class="comment">// Check for a denormal float, if after the shift the exponent is negative.</span>
-    <span class="kw">if</span> <span class="op">-</span><a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">exp</span> <span class="op">&gt;</span><span class="op">=</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#28">mantissa_shift</a> {
+    <span class="kw">if</span> <span class="op">-</span><span class="ident">fp</span>.<span class="ident">exp</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">mantissa_shift</span> {
         <span class="comment">// Have a denormal float that isn&#39;t a literal 0.</span>
         <span class="comment">// The extra 1 is to adjust for the denormal float, which is</span>
         <span class="comment">// `1 - F::EXPONENT_BIAS`. This works as before, because our</span>
@@ -175,7 +176,7 @@
         <span class="comment">// This might round-down to 0, but shift will be at **max** 65,</span>
         <span class="comment">// for halfway cases rounding towards 0.</span>
         <span class="kw">let</span> <span class="ident">shift</span> <span class="op">=</span> <span class="op">-</span><a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">exp</span> <span class="op">+</span> <span class="number">1</span>;
-        <span class="macro">debug_assert!</span>(<a class="ident" href="../../src/minimal_lexical/rounding.rs.html#41">shift</a> <span class="op">&lt;</span><span class="op">=</span> <span class="number">65</span>);
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert.html">debug_assert!</a>(<span class="ident">shift</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">65</span>);
         <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">cb</a>(<a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>, <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#41">shift</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html">min</a>(<span class="number">64</span>));
         <span class="comment">// Check for round-up: if rounding-nearest carried us to the hidden bit.</span>
         <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">exp</span> <span class="op">=</span> (<a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">mant</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">F::HIDDEN_BIT_MASK</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
@@ -187,13 +188,13 @@
 
     <span class="comment">// Check if we carried, and if so, shift the bit to the hidden bit.</span>
     <span class="kw">let</span> <span class="ident">carry_mask</span> <span class="op">=</span> <span class="ident">F::CARRY_MASK</span>;
-    <span class="kw">if</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">mant</span> <span class="op">&amp;</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#53">carry_mask</a> <span class="op">==</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#53">carry_mask</a> {
+    <span class="kw">if</span> <span class="ident">fp</span>.<span class="ident">mant</span> <span class="op">&amp;</span> <span class="ident">carry_mask</span> <span class="op">==</span> <span class="ident">carry_mask</span> {
         <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">mant</span> <span class="op">&gt;</span><span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span>;
         <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">exp</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
     }
 
     <span class="comment">// Handle if we carried and check for overflow again.</span>
-    <span class="kw">if</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a>.<span class="ident">exp</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">F::INFINITE_POWER</span> {
+    <span class="kw">if</span> <span class="ident">fp</span>.<span class="ident">exp</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">F::INFINITE_POWER</span> {
         <span class="comment">// Exponent is above largest normal value, must be infinite.</span>
         <span class="kw-2">*</span><a class="ident" href="../../src/minimal_lexical/rounding.rs.html#17">fp</a> <span class="op">=</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#22">fp_inf</a>;
         <span class="kw">return</span>;
@@ -210,13 +211,13 @@
 <span class="doccomment">///     1. is_halfway</span>
 <span class="doccomment">///     1. is_above</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compact&quot;</span>), <span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">round_nearest_tie_even</span><span class="op">&lt;</span><span class="ident">Cb</span><span class="op">&gt;</span>(<span class="ident">fp</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11-16">ExtendedFloat</a>, <span class="ident">shift</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="ident">cb</span>: <span class="ident">Cb</span>)
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">round_nearest_tie_even</span><span class="op">&lt;</span><span class="ident">Cb</span><span class="op">&gt;</span>(<span class="ident">fp</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11">ExtendedFloat</a>, <span class="ident">shift</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="ident">cb</span>: <span class="ident">Cb</span>)
 <span class="kw">where</span>
     <span class="comment">// is_odd, is_halfway, is_above</span>
     <span class="ident">Cb</span>: <span class="ident">Fn</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 {
     <span class="comment">// Ensure we&#39;ve already handled denormal values that underflow.</span>
-    <span class="macro">debug_assert!</span>(<a class="ident" href="../../src/minimal_lexical/rounding.rs.html#77">shift</a> <span class="op">&lt;</span><span class="op">=</span> <span class="number">64</span>);
+    <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert.html">debug_assert!</a>(<span class="ident">shift</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">64</span>);
 
     <span class="comment">// Extract the truncated bits using mask.</span>
     <span class="comment">// Calculate if the value of the truncated bits are either above</span>
@@ -257,7 +258,7 @@
 
 <span class="doccomment">/// Round our significant digits into place, truncating them.</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compact&quot;</span>), <span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">round_down</span>(<span class="ident">fp</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11-16">ExtendedFloat</a>, <span class="ident">shift</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">round_down</span>(<span class="ident">fp</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/minimal_lexical/extended_float.rs.html#11">ExtendedFloat</a>, <span class="ident">shift</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
     <span class="comment">// Might have a shift greater than 64 if we have an error.</span>
     <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#124">fp</a>.<span class="ident">mant</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#124">shift</a> <span class="op">==</span> <span class="number">64</span> {
         <span class="bool-val">true</span> =&gt; <span class="number">0</span>,
@@ -266,5 +267,5 @@
     <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#124">fp</a>.<span class="ident">exp</span> <span class="op">+</span><span class="op">=</span> <a class="ident" href="../../src/minimal_lexical/rounding.rs.html#124">shift</a>;
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="minimal_lexical" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="minimal_lexical" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

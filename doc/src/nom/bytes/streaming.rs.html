@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nom-7.1.1/src/bytes/streaming.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>streaming.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../nom/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nom-7.1.1/src/bytes/streaming.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>streaming.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../nom/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../nom/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../nom/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../nom/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -705,14 +706,14 @@
 <span id="700">700</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Parsers recognizing bytes streams, streaming version</span>
 
-<span class="kw">use</span> <a class="ident" href="../../../src/nom/error.rs.html#366-420"><span class="kw">crate</span>::error::ErrorKind</a>;
-<span class="kw">use</span> <a class="ident" href="../../../src/nom/error.rs.html#16-35"><span class="kw">crate</span>::error::ParseError</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::internal</span>::{<span class="prelude-val">Err</span>, <a class="ident" href="../../../src/nom/internal.rs.html#18">IResult</a>, <a class="ident" href="../../../src/nom/internal.rs.html#50-55">Needed</a>, <a class="ident" href="../../../src/nom/internal.rs.html#241-318">Parser</a>};
+<span class="kw">use</span> <a class="ident" href="../../../src/nom/error.rs.html#366"><span class="kw">crate</span>::error::ErrorKind</a>;
+<span class="kw">use</span> <a class="ident" href="../../../src/nom/error.rs.html#16"><span class="kw">crate</span>::error::ParseError</a>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::internal</span>::{<span class="prelude-val">Err</span>, <a class="ident" href="../../../src/nom/internal.rs.html#18">IResult</a>, <a class="ident" href="../../../src/nom/internal.rs.html#50">Needed</a>, <a class="ident" href="../../../src/nom/internal.rs.html#241">Parser</a>};
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/range/struct.RangeFrom.html"><span class="kw">crate</span>::lib::std::ops::RangeFrom</a>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html"><span class="kw">crate</span>::lib::std::result::Result</a>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits</span>::{
-  <a class="ident" href="../../../src/nom/traits.rs.html#717-728">Compare</a>, <a class="ident" href="../../../src/nom/traits.rs.html#707-714">CompareResult</a>, <a class="ident" href="../../../src/nom/traits.rs.html#930-933">FindSubstring</a>, <a class="ident" href="../../../src/nom/traits.rs.html#876-879">FindToken</a>, <a class="ident" href="../../../src/nom/traits.rs.html#302-325">InputIter</a>, <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a>, <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a>,
-  <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>, <a class="ident" href="../../../src/nom/traits.rs.html#1006-1009">Slice</a>, <a class="ident" href="../../../src/nom/traits.rs.html#1234-1237">ToUsize</a>,
+  <a class="ident" href="../../../src/nom/traits.rs.html#717">Compare</a>, <a class="ident" href="../../../src/nom/traits.rs.html#707">CompareResult</a>, <a class="ident" href="../../../src/nom/traits.rs.html#930">FindSubstring</a>, <a class="ident" href="../../../src/nom/traits.rs.html#876">FindToken</a>, <a class="ident" href="../../../src/nom/traits.rs.html#302">InputIter</a>, <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a>, <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a>,
+  <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>, <a class="ident" href="../../../src/nom/traits.rs.html#1006">Slice</a>, <a class="ident" href="../../../src/nom/traits.rs.html#1234">ToUsize</a>,
 };
 
 <span class="doccomment">/// Recognizes a pattern.</span>
@@ -737,8 +738,8 @@
   <span class="ident">tag</span>: <span class="ident">T</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a> <span class="op">+</span> <span class="ident">Compare</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-  <span class="ident">T</span>: <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a> <span class="op">+</span> <span class="ident">Compare</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+  <span class="ident">T</span>: <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
     <span class="kw">let</span> <span class="ident">tag_len</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#32">tag</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>();
@@ -748,7 +749,7 @@
       <a class="ident" href="../../../src/nom/traits.rs.html#709">CompareResult::Ok</a> =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#38">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#332">take_split</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#39">tag_len</a>)),
       <a class="ident" href="../../../src/nom/traits.rs.html#711">CompareResult::Incomplete</a> =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<span class="ident">Needed::new</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#39">tag_len</a> <span class="op">-</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#38">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>()))),
       <a class="ident" href="../../../src/nom/traits.rs.html#713">CompareResult::Error</a> =&gt; {
-        <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366-420">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#367">ErrorKind::Tag</a>;
+        <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#367">ErrorKind::Tag</a>;
         <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="ident">Error::from_error_kind</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#38">i</a>, <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#46">e</a>)))
       }
     };
@@ -779,8 +780,8 @@
   <span class="ident">tag</span>: <span class="ident">T</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a> <span class="op">+</span> <span class="ident">Compare</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-  <span class="ident">T</span>: <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a> <span class="op">+</span> <span class="ident">Compare</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+  <span class="ident">T</span>: <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
     <span class="kw">let</span> <span class="ident">tag_len</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#74">tag</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>();
@@ -790,7 +791,7 @@
       <a class="ident" href="../../../src/nom/traits.rs.html#709">CompareResult::Ok</a> =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#80">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#332">take_split</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#81">tag_len</a>)),
       <a class="ident" href="../../../src/nom/traits.rs.html#711">CompareResult::Incomplete</a> =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<span class="ident">Needed::new</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#81">tag_len</a> <span class="op">-</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#80">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>()))),
       <a class="ident" href="../../../src/nom/traits.rs.html#713">CompareResult::Error</a> =&gt; {
-        <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366-420">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#367">ErrorKind::Tag</a>;
+        <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#367">ErrorKind::Tag</a>;
         <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="ident">Error::from_error_kind</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#80">i</a>, <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#88">e</a>)))
       }
     };
@@ -823,11 +824,11 @@
   <span class="ident">arr</span>: <span class="ident">T</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>,
   <span class="ident">T</span>: <span class="ident">FindToken</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputTakeAtPosition</span><span class="op">&gt;</span><span class="ident">::Item</span><span class="op">&gt;</span>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
-    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366-420">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#371">ErrorKind::IsNot</a>;
+    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#371">ErrorKind::IsNot</a>;
     <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#124">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#464-470">split_at_position1</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#118">arr</a>.<a class="ident" href="../../../src/nom/traits.rs.html#878">find_token</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#126">c</a>), <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#125">e</a>)
   }
 }
@@ -859,11 +860,11 @@
   <span class="ident">arr</span>: <span class="ident">T</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>,
   <span class="ident">T</span>: <span class="ident">FindToken</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputTakeAtPosition</span><span class="op">&gt;</span><span class="ident">::Item</span><span class="op">&gt;</span>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
-    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366-420">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#372">ErrorKind::IsA</a>;
+    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#372">ErrorKind::IsA</a>;
     <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#160">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#464-470">split_at_position1</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="op">!</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#154">arr</a>.<a class="ident" href="../../../src/nom/traits.rs.html#878">find_token</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#162">c</a>), <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#161">e</a>)
   }
 }
@@ -894,7 +895,7 @@
   <span class="ident">cond</span>: <span class="ident">F</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>,
   <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputTakeAtPosition</span><span class="op">&gt;</span><span class="ident">::Item</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#195">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#454-456">split_at_position</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="op">!</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#189">cond</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#195">c</a>))
@@ -928,11 +929,11 @@
   <span class="ident">cond</span>: <span class="ident">F</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>,
   <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputTakeAtPosition</span><span class="op">&gt;</span><span class="ident">::Item</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
-    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366-420">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#402">ErrorKind::TakeWhile1</a>;
+    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#402">ErrorKind::TakeWhile1</a>;
     <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#229">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#464-470">split_at_position1</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="op">!</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#223">cond</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#231">c</a>), <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#230">e</a>)
   }
 }
@@ -968,7 +969,7 @@
   <span class="ident">cond</span>: <span class="ident">F</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#302-325">InputIter</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#302">InputIter</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a>,
   <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputIter</span><span class="op">&gt;</span><span class="ident">::Item</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
@@ -976,8 +977,8 @@
 
     <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#270">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#320-322">position</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="op">!</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#263">cond</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#272">c</a>)) {
       <span class="prelude-val">Some</span>(<span class="ident">idx</span>) =&gt; {
-        <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#273">idx</a> <span class="op">&gt;</span><span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#261">m</a> {
-          <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#273">idx</a> <span class="op">&lt;</span><span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#262">n</a> {
+        <span class="kw">if</span> <span class="ident">idx</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">m</span> {
+          <span class="kw">if</span> <span class="ident">idx</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">n</span> {
             <span class="kw">let</span> <span class="ident">res</span>: <span class="ident">IResult</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">_</span>, <span class="ident">Error</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">index</span>) <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#270">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#324">slice_index</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#273">idx</a>) {
               <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#270">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#332">take_split</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#276">index</a>))
             } <span class="kw">else</span> {
@@ -1005,7 +1006,7 @@
       }
       <span class="prelude-val">None</span> =&gt; {
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#270">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>();
-        <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#302">len</a> <span class="op">&gt;</span><span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#262">n</a> {
+        <span class="kw">if</span> <span class="ident">len</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">n</span> {
           <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#270">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#324">slice_index</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#262">n</a>) {
             <span class="prelude-val">Ok</span>(<span class="ident">index</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#270">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#332">take_split</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#305">index</a>)),
             <span class="prelude-val">Err</span>(<span class="ident">_needed</span>) =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="ident">Error::from_error_kind</span>(
@@ -1014,7 +1015,7 @@
             ))),
           }
         } <span class="kw">else</span> {
-          <span class="kw">let</span> <span class="ident">needed</span> <span class="op">=</span> <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#261">m</a> <span class="op">&gt;</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#302">len</a> { <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#261">m</a> <span class="op">-</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#302">len</a> } <span class="kw">else</span> { <span class="number">1</span> };
+          <span class="kw">let</span> <span class="ident">needed</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">m</span> <span class="op">&gt;</span> <span class="ident">len</span> { <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#261">m</a> <span class="op">-</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#302">len</a> } <span class="kw">else</span> { <span class="number">1</span> };
           <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<span class="ident">Needed::new</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#312">needed</a>)))
         }
       }
@@ -1049,7 +1050,7 @@
   <span class="ident">cond</span>: <span class="ident">F</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>,
   <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputTakeAtPosition</span><span class="op">&gt;</span><span class="ident">::Item</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#350">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#454-456">split_at_position</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#344">cond</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#350">c</a>))
@@ -1081,11 +1082,11 @@
   <span class="ident">cond</span>: <span class="ident">F</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>,
   <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputTakeAtPosition</span><span class="op">&gt;</span><span class="ident">::Item</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
-    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366-420">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#412">ErrorKind::TakeTill1</a>;
+    <span class="kw">let</span> <span class="ident">e</span>: <a class="ident" href="../../../src/nom/error.rs.html#366">ErrorKind</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/error.rs.html#412">ErrorKind::TakeTill1</a>;
     <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#382">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#464-470">split_at_position1</a>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#376">cond</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#384">c</a>), <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#383">e</a>)
   }
 }
@@ -1117,8 +1118,8 @@
   <span class="ident">count</span>: <span class="ident">C</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#302-325">InputIter</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a>,
-  <span class="ident">C</span>: <a class="ident" href="../../../src/nom/traits.rs.html#1234-1237">ToUsize</a>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#302">InputIter</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a>,
+  <span class="ident">C</span>: <a class="ident" href="../../../src/nom/traits.rs.html#1234">ToUsize</a>,
 {
   <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#412">count</a>.<a class="ident" href="../../../src/nom/traits.rs.html#1236">to_usize</a>();
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#419">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#324">slice_index</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#418">c</a>) {
@@ -1152,7 +1153,7 @@
   <span class="ident">tag</span>: <span class="ident">T</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a> <span class="op">+</span> <span class="ident">FindSubstring</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a> <span class="op">+</span> <span class="ident">FindSubstring</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
   <span class="ident">T</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
@@ -1192,7 +1193,7 @@
   <span class="ident">tag</span>: <span class="ident">T</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a> <span class="op">+</span> <span class="ident">FindSubstring</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+  <span class="ident">Input</span>: <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a> <span class="op">+</span> <span class="ident">FindSubstring</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
   <span class="ident">T</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
 {
   <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>: <span class="ident">Input</span><span class="op">|</span> {
@@ -1234,61 +1235,61 @@
 ) -&gt; <span class="kw">impl</span> <span class="ident">FnMut</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Input</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
   <span class="ident">Input</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#48-51"><span class="kw">crate</span>::traits::Offset</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#48"><span class="kw">crate</span>::traits::Offset</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>
     <span class="op">+</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">RangeFrom</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#302-325">InputIter</a>,
-  <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputIter</span><span class="op">&gt;</span><span class="ident">::Item</span>: <a class="ident" href="../../../src/nom/traits.rs.html#151-172"><span class="kw">crate</span>::traits::AsChar</a>,
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#302">InputIter</a>,
+  <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputIter</span><span class="op">&gt;</span><span class="ident">::Item</span>: <a class="ident" href="../../../src/nom/traits.rs.html#151"><span class="kw">crate</span>::traits::AsChar</a>,
   <span class="ident">F</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">O1</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
   <span class="ident">G</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">O2</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
   <span class="ident">Error</span>: <span class="ident">ParseError</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-  <span class="kw">use</span> <a class="ident" href="../../../src/nom/traits.rs.html#151-172"><span class="kw">crate</span>::traits::AsChar</a>;
+  <span class="kw">use</span> <a class="ident" href="../../../src/nom/traits.rs.html#151"><span class="kw">crate</span>::traits::AsChar</a>;
 
   <span class="kw">move</span> <span class="op">|</span><span class="ident">input</span>: <span class="ident">Input</span><span class="op">|</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">i</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#545">input</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
 
-    <span class="kw">while</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">&gt;</span> <span class="number">0</span> {
-      <span class="kw">let</span> <span class="ident">current_len</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>();
+    <span class="kw">while</span> <span class="ident">i</span>.<span class="ident">input_len</span>() <span class="op">&gt;</span> <span class="number">0</span> {
+      <span class="kw">let</span> <span class="ident">current_len</span> <span class="op">=</span> <span class="ident">i</span>.<span class="ident">input_len</span>();
 
-      <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#526">normal</a>.<a class="ident" href="../../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()) {
+      <span class="kw">match</span> <span class="ident">normal</span>.<span class="ident">parse</span>(<span class="ident">i</span>.<span class="ident">clone</span>()) {
         <span class="prelude-val">Ok</span>((<span class="ident">i2</span>, <span class="kw">_</span>)) =&gt; {
-          <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#552">i2</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">==</span> <span class="number">0</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../../src/nom/internal.rs.html#52">Needed::Unknown</a>));
-          } <span class="kw">else</span> <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#552">i2</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">==</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#549">current_len</a> {
-            <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#545">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#50">offset</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#552">i2</a>);
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#545">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#332">take_split</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#556">index</a>));
+          <span class="kw">if</span> <span class="ident">i2</span>.<span class="ident">input_len</span>() <span class="op">==</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Err::Incomplete</span>(<span class="ident">Needed::Unknown</span>));
+          } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">i2</span>.<span class="ident">input_len</span>() <span class="op">==</span> <span class="ident">current_len</span> {
+            <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="ident">i2</span>);
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">input</span>.<span class="ident">take_split</span>(<span class="ident">index</span>));
           } <span class="kw">else</span> {
-            <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#552">i2</a>;
+            <span class="ident">i</span> <span class="op">=</span> <span class="ident">i2</span>;
           }
         }
-        <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="kw">_</span>)) =&gt; {
+        <span class="prelude-val">Err</span>(<span class="ident">Err::Error</span>(<span class="kw">_</span>)) =&gt; {
           <span class="comment">// unwrap() should be safe here since index &lt; $i.input_len()</span>
-          <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#318">iter_elements</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>().<span class="ident">unwrap</span>().<a class="ident" href="../../../src/nom/traits.rs.html#153">as_char</a>() <span class="op">==</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#527">control_char</a> {
-            <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#527">control_char</a>.<span class="ident">len_utf8</span>();
-            <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#565">next</a> <span class="op">&gt;</span><span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() {
-              <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<span class="ident">Needed::new</span>(<span class="number">1</span>)));
+          <span class="kw">if</span> <span class="ident">i</span>.<span class="ident">iter_elements</span>().<span class="ident">next</span>().<span class="ident">unwrap</span>().<span class="ident">as_char</span>() <span class="op">==</span> <span class="ident">control_char</span> {
+            <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">control_char</span>.<span class="ident">len_utf8</span>();
+            <span class="kw">if</span> <span class="ident">next</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">i</span>.<span class="ident">input_len</span>() {
+              <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Err::Incomplete</span>(<span class="ident">Needed::new</span>(<span class="number">1</span>)));
             } <span class="kw">else</span> {
-              <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#528">escapable</a>.<a class="ident" href="../../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#1008">slice</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#565">next</a>..)) {
+              <span class="kw">match</span> <span class="ident">escapable</span>.<span class="ident">parse</span>(<span class="ident">i</span>.<span class="ident">slice</span>(<span class="ident">next</span>..)) {
                 <span class="prelude-val">Ok</span>((<span class="ident">i2</span>, <span class="kw">_</span>)) =&gt; {
-                  <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#570">i2</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">==</span> <span class="number">0</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../../src/nom/internal.rs.html#52">Needed::Unknown</a>));
+                  <span class="kw">if</span> <span class="ident">i2</span>.<span class="ident">input_len</span>() <span class="op">==</span> <span class="number">0</span> {
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Err::Incomplete</span>(<span class="ident">Needed::Unknown</span>));
                   } <span class="kw">else</span> {
-                    <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#570">i2</a>;
+                    <span class="ident">i</span> <span class="op">=</span> <span class="ident">i2</span>;
                   }
                 }
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#577">e</a>),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
               }
             }
           } <span class="kw">else</span> {
-            <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#545">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#50">offset</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#546">i</a>);
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#545">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#332">take_split</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#581">index</a>));
+            <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="ident">i</span>);
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">input</span>.<span class="ident">take_split</span>(<span class="ident">index</span>));
           }
         }
         <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; {
-          <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#585">e</a>);
+          <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
         }
       }
     }
@@ -1336,21 +1337,21 @@
 ) -&gt; <span class="kw">impl</span> <span class="ident">FnMut</span>(<span class="ident">Input</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">Output</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
   <span class="ident">Input</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#48-51"><span class="kw">crate</span>::traits::Offset</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18-22">InputLength</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#328-333">InputTake</a>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#444-496">InputTakeAtPosition</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#48"><span class="kw">crate</span>::traits::Offset</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#18">InputLength</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#328">InputTake</a>
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#444">InputTakeAtPosition</a>
     <span class="op">+</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">RangeFrom</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#302-325">InputIter</a>,
+    <span class="op">+</span> <a class="ident" href="../../../src/nom/traits.rs.html#302">InputIter</a>,
   <span class="ident">Input</span>: <span class="ident"><span class="kw">crate</span>::traits::ExtendInto</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">ExtendItem</span>, <span class="ident">Extender</span> <span class="op">=</span> <span class="ident">Output</span><span class="op">&gt;</span>,
   <span class="ident">O1</span>: <span class="ident"><span class="kw">crate</span>::traits::ExtendInto</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">ExtendItem</span>, <span class="ident">Extender</span> <span class="op">=</span> <span class="ident">Output</span><span class="op">&gt;</span>,
   <span class="ident">O2</span>: <span class="ident"><span class="kw">crate</span>::traits::ExtendInto</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">ExtendItem</span>, <span class="ident">Extender</span> <span class="op">=</span> <span class="ident">Output</span><span class="op">&gt;</span>,
-  <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputIter</span><span class="op">&gt;</span><span class="ident">::Item</span>: <a class="ident" href="../../../src/nom/traits.rs.html#151-172"><span class="kw">crate</span>::traits::AsChar</a>,
+  <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">InputIter</span><span class="op">&gt;</span><span class="ident">::Item</span>: <a class="ident" href="../../../src/nom/traits.rs.html#151"><span class="kw">crate</span>::traits::AsChar</a>,
   <span class="ident">F</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">O1</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
   <span class="ident">G</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="ident">O2</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
   <span class="ident">Error</span>: <span class="ident">ParseError</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-  <span class="kw">use</span> <a class="ident" href="../../../src/nom/traits.rs.html#151-172"><span class="kw">crate</span>::traits::AsChar</a>;
+  <span class="kw">use</span> <a class="ident" href="../../../src/nom/traits.rs.html#151"><span class="kw">crate</span>::traits::AsChar</a>;
 
   <span class="kw">move</span> <span class="op">|</span><span class="ident">input</span>: <span class="ident">Input</span><span class="op">|</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index</span> <span class="op">=</span> <span class="number">0</span>;
@@ -1358,51 +1359,51 @@
 
     <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#650">input</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
 
-    <span class="kw">while</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#651">index</a> <span class="op">&lt;</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#654">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() {
-      <span class="kw">let</span> <span class="ident">current_len</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#654">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>();
-      <span class="kw">let</span> <span class="ident">remainder</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#654">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#1008">slice</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#651">index</a>..);
-      <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#628">normal</a>.<a class="ident" href="../../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#658">remainder</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()) {
+    <span class="kw">while</span> <span class="ident">index</span> <span class="op">&lt;</span> <span class="ident">i</span>.<span class="ident">input_len</span>() {
+      <span class="kw">let</span> <span class="ident">current_len</span> <span class="op">=</span> <span class="ident">i</span>.<span class="ident">input_len</span>();
+      <span class="kw">let</span> <span class="ident">remainder</span> <span class="op">=</span> <span class="ident">i</span>.<span class="ident">slice</span>(<span class="ident">index</span>..);
+      <span class="kw">match</span> <span class="ident">normal</span>.<span class="ident">parse</span>(<span class="ident">remainder</span>.<span class="ident">clone</span>()) {
         <span class="prelude-val">Ok</span>((<span class="ident">i2</span>, <span class="ident">o</span>)) =&gt; {
-          <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#660">o</a>.<a class="ident" href="../../../src/nom/traits.rs.html#1150">extend_into</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#652">res</a>);
-          <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#660">i2</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">==</span> <span class="number">0</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../../src/nom/internal.rs.html#52">Needed::Unknown</a>));
-          } <span class="kw">else</span> <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#660">i2</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">==</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#657">current_len</a> {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>((<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#658">remainder</a>, <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#652">res</a>));
+          <span class="ident">o</span>.<span class="ident">extend_into</span>(<span class="kw-2">&amp;mut</span> <span class="ident">res</span>);
+          <span class="kw">if</span> <span class="ident">i2</span>.<span class="ident">input_len</span>() <span class="op">==</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Err::Incomplete</span>(<span class="ident">Needed::Unknown</span>));
+          } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">i2</span>.<span class="ident">input_len</span>() <span class="op">==</span> <span class="ident">current_len</span> {
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">remainder</span>, <span class="ident">res</span>));
           } <span class="kw">else</span> {
-            <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#651">index</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#650">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#50">offset</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#660">i2</a>);
+            <span class="ident">index</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="ident">i2</span>);
           }
         }
-        <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="kw">_</span>)) =&gt; {
+        <span class="prelude-val">Err</span>(<span class="ident">Err::Error</span>(<span class="kw">_</span>)) =&gt; {
           <span class="comment">// unwrap() should be safe here since index &lt; $i.input_len()</span>
-          <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#658">remainder</a>.<a class="ident" href="../../../src/nom/traits.rs.html#318">iter_elements</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>().<span class="ident">unwrap</span>().<a class="ident" href="../../../src/nom/traits.rs.html#153">as_char</a>() <span class="op">==</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#629">control_char</a> {
-            <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#651">index</a> <span class="op">+</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#629">control_char</a>.<span class="ident">len_utf8</span>();
-            <span class="kw">let</span> <span class="ident">input_len</span> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#650">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>();
+          <span class="kw">if</span> <span class="ident">remainder</span>.<span class="ident">iter_elements</span>().<span class="ident">next</span>().<span class="ident">unwrap</span>().<span class="ident">as_char</span>() <span class="op">==</span> <span class="ident">control_char</span> {
+            <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">index</span> <span class="op">+</span> <span class="ident">control_char</span>.<span class="ident">len_utf8</span>();
+            <span class="kw">let</span> <span class="ident">input_len</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">input_len</span>();
 
-            <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#673">next</a> <span class="op">&gt;</span><span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#674">input_len</a> {
-              <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../../src/nom/internal.rs.html#52">Needed::Unknown</a>));
+            <span class="kw">if</span> <span class="ident">next</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">input_len</span> {
+              <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Err::Incomplete</span>(<span class="ident">Needed::Unknown</span>));
             } <span class="kw">else</span> {
-              <span class="kw">match</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#630">transform</a>.<a class="ident" href="../../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#654">i</a>.<a class="ident" href="../../../src/nom/traits.rs.html#1008">slice</a>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#673">next</a>..)) {
+              <span class="kw">match</span> <span class="ident">transform</span>.<span class="ident">parse</span>(<span class="ident">i</span>.<span class="ident">slice</span>(<span class="ident">next</span>..)) {
                 <span class="prelude-val">Ok</span>((<span class="ident">i2</span>, <span class="ident">o</span>)) =&gt; {
-                  <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#680">o</a>.<a class="ident" href="../../../src/nom/traits.rs.html#1150">extend_into</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#652">res</a>);
-                  <span class="kw">if</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#680">i2</a>.<a class="ident" href="../../../src/nom/traits.rs.html#21">input_len</a>() <span class="op">==</span> <span class="number">0</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../../src/nom/internal.rs.html#52">Needed::Unknown</a>));
+                  <span class="ident">o</span>.<span class="ident">extend_into</span>(<span class="kw-2">&amp;mut</span> <span class="ident">res</span>);
+                  <span class="kw">if</span> <span class="ident">i2</span>.<span class="ident">input_len</span>() <span class="op">==</span> <span class="number">0</span> {
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Err::Incomplete</span>(<span class="ident">Needed::Unknown</span>));
                   } <span class="kw">else</span> {
-                    <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#651">index</a> <span class="op">=</span> <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#650">input</a>.<a class="ident" href="../../../src/nom/traits.rs.html#50">offset</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/nom/bytes/streaming.rs.html#680">i2</a>);
+                    <span class="ident">index</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">offset</span>(<span class="kw-2">&amp;</span><span class="ident">i2</span>);
                   }
                 }
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#688">e</a>),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
               }
             }
           } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>((<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#658">remainder</a>, <a class="ident" href="../../../src/nom/bytes/streaming.rs.html#652">res</a>));
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">remainder</span>, <span class="ident">res</span>));
           }
         }
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/bytes/streaming.rs.html#695">e</a>),
+        <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
       }
     }
     <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../../src/nom/internal.rs.html#52">Needed::Unknown</a>))
   }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="nom" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="nom" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

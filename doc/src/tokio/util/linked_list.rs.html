@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/util/linked_list.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>linked_list.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.20.0/src/util/linked_list.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>linked_list.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -725,8 +726,8 @@
     <span class="ident">_marker</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*const</span> <span class="ident">L</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43-68">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">L::Target</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> {}
-<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43-68">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">L::Target</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> {}
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">L::Target</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> {}
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">L::Target</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> {}
 
 <span class="doccomment">/// Defines how a type is tracked within a linked list.</span>
 <span class="doccomment">///</span>
@@ -811,7 +812,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">T</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates an empty linked list.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">T</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#19-28">LinkedList</a> {
+        <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#19">LinkedList</a> {
             <span class="ident">head</span>: <span class="prelude-val">None</span>,
             <span class="ident">tail</span>: <span class="prelude-val">None</span>,
             <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
@@ -819,13 +820,13 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43-68">Link</a><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Adds an element first in the list.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">push_front</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">val</span>: <span class="ident">L::Handle</span>) {
         <span class="comment">// The value should not be dropped, it is being inserted into the list</span>
         <span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <span class="ident">ManuallyDrop::new</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#126">val</a>);
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="ident">L::as_raw</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="ident" href="../../../src/tokio/util/linked_list.rs.html#128">val</a>);
-        <span class="macro">assert_ne!</span>(<a class="self" href="../../../src/tokio/util/linked_list.rs.html#126">self</a>.<span class="ident">head</span>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#129">ptr</a>));
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert_ne.html">assert_ne!</a>(<span class="self">self</span>.<span class="ident">head</span>, <span class="prelude-val">Some</span>(<span class="ident">ptr</span>));
         <span class="kw">unsafe</span> {
             <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#129">ptr</a>).<span class="ident">as_mut</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#333">set_next</a>(<a class="self" href="../../../src/tokio/util/linked_list.rs.html#126">self</a>.<span class="ident">head</span>);
             <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#129">ptr</a>).<span class="ident">as_mut</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#325">set_prev</a>(<span class="prelude-val">None</span>);
@@ -836,7 +837,7 @@
 
             <a class="self" href="../../../src/tokio/util/linked_list.rs.html#126">self</a>.<span class="ident">head</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#129">ptr</a>);
 
-            <span class="kw">if</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#126">self</a>.<span class="ident">tail</span>.<span class="ident">is_none</span>() {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">tail</span>.<span class="ident">is_none</span>() {
                 <a class="self" href="../../../src/tokio/util/linked_list.rs.html#126">self</a>.<span class="ident">tail</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#129">ptr</a>);
             }
         }
@@ -846,7 +847,7 @@
     <span class="doccomment">/// empty.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">pop_back</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">L::Handle</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">last</span> <span class="op">=</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#149">self</a>.<span class="ident">tail</span><span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">last</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tail</span><span class="question-mark">?</span>;
             <a class="self" href="../../../src/tokio/util/linked_list.rs.html#149">self</a>.<span class="ident">tail</span> <span class="op">=</span> <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#151">last</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#307">get_prev</a>();
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">prev</span>) <span class="op">=</span> <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#151">last</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#307">get_prev</a>() {
@@ -864,11 +865,11 @@
 
     <span class="doccomment">/// Returns whether the linked list does not contain any node</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">if</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#168">self</a>.<span class="ident">head</span>.<span class="ident">is_some</span>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">head</span>.<span class="ident">is_some</span>() {
             <span class="kw">return</span> <span class="bool-val">false</span>;
         }
 
-        <span class="macro">assert!</span>(<a class="self" href="../../../src/tokio/util/linked_list.rs.html#168">self</a>.<span class="ident">tail</span>.<span class="ident">is_none</span>());
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(<span class="self">self</span>.<span class="ident">tail</span>.<span class="ident">is_none</span>());
         <span class="bool-val">true</span>
     }
 
@@ -880,12 +881,12 @@
     <span class="doccomment">/// `self` or not contained by any other list.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">node</span>: <span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">L::Target</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">L::Handle</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">prev</span>) <span class="op">=</span> <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#307">get_prev</a>() {
-            <span class="macro">debug_assert_eq!</span>(<span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#184">prev</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#315">get_next</a>(), <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>));
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(<span class="ident">L::pointers</span>(<span class="ident">prev</span>).<span class="ident">as_ref</span>().<span class="ident">get_next</span>(), <span class="prelude-val">Some</span>(<span class="ident">node</span>));
             <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#184">prev</a>)
                 .<span class="ident">as_mut</span>()
                 .<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#333">set_next</a>(<span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#315">get_next</a>());
         } <span class="kw">else</span> {
-            <span class="kw">if</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#183">self</a>.<span class="ident">head</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>) {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">head</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">node</span>) {
                 <span class="kw">return</span> <span class="prelude-val">None</span>;
             }
 
@@ -893,13 +894,13 @@
         }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">next</span>) <span class="op">=</span> <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#315">get_next</a>() {
-            <span class="macro">debug_assert_eq!</span>(<span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#197">next</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#307">get_prev</a>(), <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>));
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(<span class="ident">L::pointers</span>(<span class="ident">next</span>).<span class="ident">as_ref</span>().<span class="ident">get_prev</span>(), <span class="prelude-val">Some</span>(<span class="ident">node</span>));
             <span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#197">next</a>)
                 .<span class="ident">as_mut</span>()
                 .<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#325">set_prev</a>(<span class="ident">L::pointers</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>).<span class="ident">as_ref</span>().<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#307">get_prev</a>());
         } <span class="kw">else</span> {
             <span class="comment">// This might be the last item in the list</span>
-            <span class="kw">if</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#183">self</a>.<span class="ident">tail</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#183">node</a>) {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">tail</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">node</span>) {
                 <span class="kw">return</span> <span class="prelude-val">None</span>;
             }
 
@@ -913,7 +914,7 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43-68">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
         <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#219">f</a>.<span class="ident">debug_struct</span>(<span class="string">&quot;LinkedList&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;head&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../../src/tokio/util/linked_list.rs.html#219">self</a>.<span class="ident">head</span>)
@@ -929,14 +930,14 @@
     <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;signal&quot;</span>,
     <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;sync&quot;</span>,
 ))]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43-68">Link</a><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">last</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">L::Target</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">tail</span> <span class="op">=</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#235">self</a>.<span class="ident">tail</span>.<span class="ident">as_ref</span>()<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">tail</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tail</span>.<span class="ident">as_ref</span>()<span class="question-mark">?</span>;
         <span class="kw">unsafe</span> { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="ident" href="../../../src/tokio/util/linked_list.rs.html#236">tail</a>.<span class="ident">as_ptr</span>()) }
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43-68">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">L::Target</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
@@ -945,30 +946,30 @@
 <span class="comment">// ===== impl DrainFilter =====</span>
 
 <span class="macro">cfg_io_readiness!</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">Link</span>, <span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a>, <span class="ident">F</span><span class="op">&gt;</span> {
         <span class="ident">list</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">T::Target</span><span class="op">&gt;</span>,
         <span class="ident">filter</span>: <span class="ident">F</span>,
         <span class="ident">curr</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">T::Target</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Link</span><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">T::Target</span><span class="op">&gt;</span> {
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a><span class="op">&gt;</span> <span class="ident">LinkedList</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">T::Target</span><span class="op">&gt;</span> {
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">drain_filter</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">filter</span>: <span class="ident">F</span>) -&gt; <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>
         <span class="kw">where</span>
-            <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;mut</span> <span class="ident">T::Target</span>) -&gt; <span class="ident">bool</span>,
+            <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;mut</span> <span class="ident">T::Target</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
         {
-            <span class="kw">let</span> <span class="ident">curr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">head</span>;
-            <span class="ident">DrainFilter</span> {
-                <span class="ident">curr</span>,
-                <span class="ident">filter</span>,
-                <span class="ident">list</span>: <span class="self">self</span>,
+            <span class="kw">let</span> <span class="ident">curr</span> <span class="op">=</span> <a class="self" href="../../../src/tokio/util/linked_list.rs.html#257">self</a>.<span class="ident">head</span>;
+            <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#250">DrainFilter</a> {
+                <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#261">curr</a>,
+                <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#257">filter</a>,
+                <span class="ident">list</span>: <a class="self" href="../../../src/tokio/util/linked_list.rs.html#257">self</a>,
             }
         }
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">Link</span>,
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;mut</span> <span class="ident">T::Target</span>) -&gt; <span class="ident">bool</span>,
+        <span class="ident">T</span>: <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#43">Link</a>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;mut</span> <span class="ident">T::Target</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     {
         <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">T::Handle</span>;
 
@@ -993,8 +994,8 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Pointers</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Create a new set of empty pointers</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">Pointers</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#71-73">Pointers</a> {
-            <span class="ident">inner</span>: <span class="ident">UnsafeCell::new</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#90-106">PointersInner</a> {
+        <a class="ident" href="../../../src/tokio/util/linked_list.rs.html#71">Pointers</a> {
+            <span class="ident">inner</span>: <span class="ident">UnsafeCell::new</span>(<a class="ident" href="../../../src/tokio/util/linked_list.rs.html#90">PointersInner</a> {
                 <span class="ident">prev</span>: <span class="prelude-val">None</span>,
                 <span class="ident">next</span>: <span class="prelude-val">None</span>,
                 <span class="ident">_pin</span>: <span class="ident">PhantomPinned</span>,
@@ -1390,5 +1391,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `prusti-viper/src/encoder/counterexample_snapshot/mapping.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mapping.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../prusti_viper/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../../../prusti_viper/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../prusti_viper/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <a class="ident" href="../../../../prusti_interface/data/type.ProcedureDefId.html">prusti_interface::data::ProcedureDefId</a>;
+<span class="kw">use</span> <span class="ident">prusti_rustc_interface::errors::MultiSpan</span>;
+<span class="kw">use</span> <a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#67"><span class="kw">crate</span>::encoder::Encoder</a>;
+<span class="kw">use</span> <span class="ident">vir_crate::low</span>::{<a class="self" href="../../../../vir/low/index.html">self</a> <span class="kw">as</span> <span class="ident">vir_low</span>};
+<span class="kw">use</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/interface.rs.html#92"><span class="kw">super</span>::interface::MirProcedureMappingInterface</a>;
+<span class="kw">use</span> <a class="ident" href="../../../../src/prusti_viper/encoder/errors/position_manager.rs.html#18"><span class="kw">crate</span>::encoder::errors::PositionManager</a>;
+<span class="kw">use</span> <a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html"><span class="kw">super</span>::mapping::vir_low::ast::statement::Assume</a>;<span class="comment">//FIXME incorrect import</span>
+<span class="kw">use</span> <a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Inhale.html"><span class="kw">super</span>::mapping::vir_low::ast::statement::Inhale</a>;
+<span class="kw">use</span> <a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html"><span class="kw">super</span>::mapping::vir_low::ast::expression::BinaryOp</a>;
+<span class="kw">use</span> <a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html"><span class="kw">super</span>::mapping::vir_low::ast::expression::DomainFuncApp</a>;
+<span class="kw">use</span> <a class="ident" href="../../../../vir/gen/low/ast/expression/enum.BinaryOpKind.html"><span class="kw">super</span>::mapping::vir_low::ast::expression::BinaryOpKind</a>;
+<span class="kw">use</span> <span class="ident">rustc_hash</span>::{<a class="ident" href="../../../../rustc_hash/type.FxHashMap.html">FxHashMap</a>};
+<span class="kw">use</span> <span class="ident">log</span>::{<a class="ident" href="../../../../log/macro.info.html">info</a>};
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">VarMapping</span>{
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">var_snaphot_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#23">SnapshotVar</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="comment">//Mapping from mir var to list of ssa snapshot vars per basic block</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">labels_successor_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="comment">//Mapping of all labels and its successors</span>
+    <span class="comment">//asserts: FxHasMap&lt;&gt;, //</span>
+}
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">SnapshotVar</span>{
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">name</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">position</span>: <a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>
+}
+
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait</span> <span class="ident">VarMappingInterface</span> {
+    <span class="kw">fn</span> <span class="ident">create_mapping</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">def_id</span>: <a class="ident" href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#67">Encoder</a>);
+    <span class="kw">fn</span> <span class="ident">get_successor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">label_markers</span>: <span class="kw-2">&amp;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">get_span</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position_manager</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/errors/position_manager.rs.html#18">PositionManager</a>, <span class="ident">position</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>) -&gt; <span class="ident">MultiSpan</span>;
+    <span class="comment">//fn get_snapshots_per_label(&amp;self, var: &amp;String, label: &amp;String) -&gt; &amp;Vec&lt;SnapshotVar&gt;;</span>
+    <span class="kw">fn</span> <span class="ident">extract_var_from_assume</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">statement</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#23">SnapshotVar</a><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">extract_var_from_inhale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">statement</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Inhale.html">Inhale</a>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#23">SnapshotVar</a><span class="op">&gt;</span>; <span class="comment">//TODO: not implemented </span>
+    <span class="comment">//fn extract_var_from_assert(&amp;self, statement: &amp;Assert) -&gt; Option&lt;SnapshotVar&gt;; </span>
+
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;ce</span>, <span class="lifetime">&#39;tcx</span>, <span class="lifetime">&#39;v</span><span class="op">&gt;</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#28">VarMappingInterface</a> <span class="kw">for</span> <span class="ident"><span class="kw">super</span>::counterexample_translation_snapshot::CounterexampleTranslator</span><span class="op">&lt;</span><span class="lifetime">&#39;ce</span>, <span class="lifetime">&#39;tcx</span>, <span class="lifetime">&#39;v</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">create_mapping</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">proc_def_id</span>: <a class="ident" href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#67">Encoder</a>){
+        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#40">encoder</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">get_absolute_item_name</span>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#40">proc_def_id</a>);
+        <a class="macro" href="../../../../log/macro.info.html">info!</a>(<span class="string">&quot;proc name: {:?}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">name</span>);
+        <span class="comment">//let mut mapping:FxHashMap&lt;String, FxHashMap&lt;String, Vec&lt;SnapshotVar&gt;&gt;&gt; = FxHashMap::default();</span>
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">mir_procedure_mapping</span>) <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#40">encoder</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/interface.rs.html#94">get_mapping</a>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#41">name</a>){
+            <span class="kw">for</span> <span class="ident">basic_block</span> <span class="kw">in</span> <span class="ident">mir_procedure_mapping</span>{
+                <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">basic_block</span>.<span class="ident">label</span>;
+                <span class="macro">info!</span>(<span class="string">&quot;label of block: {:?}&quot;</span>, <span class="ident">label</span>);
+                <span class="macro">info!</span>(<span class="string">&quot;stmts of block: {:?}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">basic_block</span>.<span class="ident">stmts</span>.<span class="ident">len</span>());
+
+                <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">labels_successor_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">basic_block</span>.<span class="ident">successor</span>.<span class="ident">clone</span>());
+                <span class="kw">for</span> <span class="ident">statement</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">basic_block</span>.<span class="ident">stmts</span>{
+                    <span class="macro">info!</span>(<span class="string">&quot;statement: {:?}&quot;</span>, <span class="ident">statement</span>);
+                    <span class="kw">let</span> <span class="ident">snapshot_var_option</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">statement</span>{
+                        <span class="ident">vir_low::Statement::Assume</span>(<span class="ident">assume</span> ) =&gt; <span class="self">self</span>.<span class="ident">extract_var_from_assume</span>(<span class="ident">assume</span>),
+                        <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
+                    };
+
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">snapshot_var</span>) <span class="op">=</span> <span class="ident">snapshot_var_option</span>{
+                        <span class="kw">let</span> <span class="ident">mir_var</span> <span class="op">=</span> <span class="ident">snapshot_var</span>.<span class="ident">name</span>.<span class="ident">split_once</span>(<span class="string">&quot;$&quot;</span>).<span class="ident">unwrap</span>().<span class="number">0</span>.<span class="ident">to_string</span>();
+                        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">var_snaphot_mapping</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">mir_var</span>) {
+                            <span class="prelude-val">Some</span>(<span class="ident">label_snapshot_mapping</span>) =&gt; {
+                                <span class="kw">match</span> <span class="ident">label_snapshot_mapping</span>.<span class="ident">get_mut</span>(<span class="ident">label</span>){
+                                    <span class="prelude-val">Some</span>(<span class="ident">snapshot_var_vec</span>) =&gt; {
+                                        <span class="kw">if</span> <span class="op">!</span><span class="ident">position_equality</span>(<span class="kw-2">&amp;</span><span class="ident">snapshot_var_vec</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>().<span class="ident">position</span>, <span class="kw-2">&amp;</span><span class="ident">snapshot_var</span>.<span class="ident">position</span>){ <span class="comment">//safe vec is always initialized with one element     </span>
+                                            <span class="ident">snapshot_var_vec</span>.<span class="ident">push</span>(<span class="ident">snapshot_var</span>);
+                                        } <span class="kw">else</span> {
+                                            <span class="macro">info!</span>(<span class="string">&quot;Duplicate&quot;</span>);
+                                        }
+                                        
+                                    } 
+                                    <span class="prelude-val">None</span> =&gt; {
+                                        <span class="kw">let</span> <span class="ident">snapshot_var_vec</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">snapshot_var</span>];
+                                        <span class="ident">label_snapshot_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">snapshot_var_vec</span>);
+                                    }
+                                }
+                            }
+                            <span class="prelude-val">None</span> =&gt; {
+                                <span class="kw">let</span> <span class="ident">snapshot_var_vec</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">snapshot_var</span>];
+                                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">label_snapshot_mapping</span> <span class="op">=</span> <span class="ident">FxHashMap::default</span>();
+                                <span class="ident">label_snapshot_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">snapshot_var_vec</span>);
+                                <span class="comment">//mapping.insert(mir_var, FxHashMap::from([(label, snapshot_var_vec)]));          </span>
+                                <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">var_snaphot_mapping</span>.<span class="ident">insert</span>(<span class="ident">mir_var</span>, <span class="ident">label_snapshot_mapping</span>);          
+                            }   
+                        }
+                    }
+                } 
+            }
+        }
+        <a class="macro" href="../../../../log/macro.info.html">info!</a>(<span class="string">&quot;Print mapping: {:?}&quot;</span>, <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">var_snaphot_mapping</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">get_successor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">label_markers</span>: <span class="kw-2">&amp;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span>{
+        <span class="kw">match</span> <a class="self" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#92">self</a>.<span class="ident">var_mapping</span>.<span class="ident">labels_successor_mapping</span>.<span class="ident">get</span>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#92">label</a>){
+            <span class="prelude-val">Some</span>(<span class="ident">possible_successors</span>) =&gt; {
+               <span class="kw">let</span> <span class="ident">successor</span> <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#94">possible_successors</a>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter</a>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="kw-2">*</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#92">label_markers</a>.<span class="ident">get</span>(<span class="kw-2">*</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#95">x</a>).<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="bool-val">false</span>)).<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>();
+               <span class="kw">if</span> <span class="ident">successor</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> { <span class="comment">//there should always be at most one successor</span>
+                    <span class="prelude-val">Some</span>(<span class="ident">successor</span>.<span class="ident">first</span>()<span class="question-mark">?</span>)
+               } <span class="kw">else</span> { 
+                   <span class="comment">//the block has no successor (end of method)</span>
+                   <span class="comment">//the block as mulitple successors, both should not be possible</span>
+
+                   <span class="comment">//all succesors label_markers are false, which means this is the block where the error occurred</span>
+                    <span class="prelude-val">None</span>
+               }
+            }
+            <span class="prelude-val">None</span> =&gt; <span class="prelude-val">None</span>
+        }
+    }
+    <span class="kw">fn</span> <span class="ident">get_span</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">position_manager</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/errors/position_manager.rs.html#18">PositionManager</a>, <span class="ident">position</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>) -&gt; <span class="ident">MultiSpan</span> {
+        <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#109">position_manager</a>.<span class="ident">source_span</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#109">position</a>.<span class="ident">id</span>).<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>() <span class="comment">//there is always a span available</span>
+    }
+    <span class="kw">fn</span> <span class="ident">extract_var_from_assume</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">statement</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#23">SnapshotVar</a><span class="op">&gt;</span>{
+        <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#112">statement</a>.<span class="ident">expression</span> {
+            <span class="ident">vir_low::Expression::Local</span>(<span class="ident">local</span>) <span class="op">|</span> 
+            <span class="ident">vir_low::Expression::BinaryOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html">BinaryOp</a>{ <span class="ident">op_kind</span>:<span class="ident">BinaryOpKind::EqCmp</span> ,  <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::Local</span>(<span class="ident">local</span>), .. }) =&gt; {
+                <a class="macro" href="../../../../log/macro.info.html">info!</a>(<span class="string">&quot;local assume stmt: {:?}&quot;</span>, <span class="ident">local</span>);
+                <span class="kw">if</span> <span class="ident">local</span>.<span class="ident">variable</span>.<span class="ident">name</span>.<span class="ident">contains</span>(<span class="string">&quot;snapshot&quot;</span>){
+                    <span class="prelude-val">Some</span>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#23">SnapshotVar</a>{
+                        <span class="ident">name</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#114">local</a>.<span class="ident">variable</span>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+                        <span class="ident">position</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#114">local</a>.<span class="ident">position</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+                    })
+                } <span class="kw">else</span> {
+                    <span class="prelude-val">None</span>
+                }
+            }, 
+            <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }) <span class="op">|</span> 
+            <span class="ident">vir_low::Expression::BinaryOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html">BinaryOp</a>{ <span class="ident">op_kind</span>:<span class="ident">BinaryOpKind::EqCmp</span> ,  <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }), ..}) =&gt; {
+                <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;target_current&quot;</span>) { <span class="comment">//difference between target_final and target_current //pointer</span>
+                    <a class="self" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#112">self</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#33">extract_var_from_assume</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>{<span class="ident">expression</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#126">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="ident">position</span>: <span class="ident">vir_low::Position::default</span>()})
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;destructor&quot;</span>) {
+                    <a class="macro" href="../../../../log/macro.info.html">info!</a>(<span class="string">&quot;field update found&quot;</span>);
+                    <a class="self" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#112">self</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#33">extract_var_from_assume</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>{<span class="ident">expression</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#126">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="ident">position</span>: <span class="ident">vir_low::Position::default</span>()})
+                } <span class="kw">else</span> {
+                    <span class="prelude-val">None</span>
+                }
+            },
+            <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>
+        }
+    }
+    <span class="kw">fn</span> <span class="ident">extract_var_from_inhale</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_statement</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Inhale.html">Inhale</a>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#23">SnapshotVar</a><span class="op">&gt;</span>{ <span class="comment">//not implemented</span>
+        <span class="prelude-val">None</span>
+    }
+}
+
+<span class="kw">fn</span> <span class="ident">position_equality</span>(<span class="ident">p1</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>, <span class="ident">p2</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>{
+    <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#145">p1</a>.<span class="ident">line</span> <span class="op">==</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#145">p2</a>.<span class="ident">line</span> <span class="op">&amp;&amp;</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#145">p1</a>.<span class="ident">column</span> <span class="op">==</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexample_snapshot/mapping.rs.html#145">p2</a>.<span class="ident">column</span>
+}</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="prusti_viper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
+</body></html>

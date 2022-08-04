@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/object-0.27.1/src/macho.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>macho.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../object/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/object-0.29.0/src/macho.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>macho.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../object/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../object/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../object/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../object/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -3257,6 +3258,59 @@
 <span id="3252">3252</span>
 <span id="3253">3253</span>
 <span id="3254">3254</span>
+<span id="3255">3255</span>
+<span id="3256">3256</span>
+<span id="3257">3257</span>
+<span id="3258">3258</span>
+<span id="3259">3259</span>
+<span id="3260">3260</span>
+<span id="3261">3261</span>
+<span id="3262">3262</span>
+<span id="3263">3263</span>
+<span id="3264">3264</span>
+<span id="3265">3265</span>
+<span id="3266">3266</span>
+<span id="3267">3267</span>
+<span id="3268">3268</span>
+<span id="3269">3269</span>
+<span id="3270">3270</span>
+<span id="3271">3271</span>
+<span id="3272">3272</span>
+<span id="3273">3273</span>
+<span id="3274">3274</span>
+<span id="3275">3275</span>
+<span id="3276">3276</span>
+<span id="3277">3277</span>
+<span id="3278">3278</span>
+<span id="3279">3279</span>
+<span id="3280">3280</span>
+<span id="3281">3281</span>
+<span id="3282">3282</span>
+<span id="3283">3283</span>
+<span id="3284">3284</span>
+<span id="3285">3285</span>
+<span id="3286">3286</span>
+<span id="3287">3287</span>
+<span id="3288">3288</span>
+<span id="3289">3289</span>
+<span id="3290">3290</span>
+<span id="3291">3291</span>
+<span id="3292">3292</span>
+<span id="3293">3293</span>
+<span id="3294">3294</span>
+<span id="3295">3295</span>
+<span id="3296">3296</span>
+<span id="3297">3297</span>
+<span id="3298">3298</span>
+<span id="3299">3299</span>
+<span id="3300">3300</span>
+<span id="3301">3301</span>
+<span id="3302">3302</span>
+<span id="3303">3303</span>
+<span id="3304">3304</span>
+<span id="3305">3305</span>
+<span id="3306">3306</span>
+<span id="3307">3307</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Mach-O definitions.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! These definitions are independent of read/write support, although we do implement</span>
@@ -3266,7 +3320,7 @@
 
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">missing_docs</span>)]</span>
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::endian</span>::{<a class="ident" href="../../src/object/endian.rs.html#344">BigEndian</a>, <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a>, <a class="ident" href="../../src/object/endian.rs.html#634">U64Bytes</a>, <a class="ident" href="../../src/object/endian.rs.html#565">U16</a>, <a class="ident" href="../../src/object/endian.rs.html#569">U32</a>, <a class="ident" href="../../src/object/endian.rs.html#573">U64</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::endian</span>::{<a class="ident" href="../../src/object/endian.rs.html#344">BigEndian</a>, <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a>, <a class="ident" href="../../src/object/endian.rs.html#634">U64Bytes</a>, <a class="ident" href="../../src/object/endian.rs.html#565">U16</a>, <a class="ident" href="../../src/object/endian.rs.html#569">U32</a>, <a class="ident" href="../../src/object/endian.rs.html#573">U64</a>};
 <span class="kw">use</span> <a class="ident" href="../../src/object/pod.rs.html#21"><span class="kw">crate</span>::pod::Pod</a>;
 
 <span class="comment">// Definitions from &quot;/usr/include/mach/machine.h&quot;.</span>
@@ -3543,32 +3597,73 @@
 
 <span class="comment">// Definitions from https://opensource.apple.com/source/dyld/dyld-210.2.3/launch-cache/dyld_cache_format.h.auto.html</span>
 
-<span class="doccomment">/// The dyld cache header, containing only the fields which are present</span>
-<span class="doccomment">/// in all versions of dyld caches (dyld-95.3 and up).</span>
-<span class="doccomment">/// Many more fields exist in later dyld versions, but we currently do</span>
-<span class="doccomment">/// not need to parse those.</span>
+<span class="doccomment">/// The dyld cache header.</span>
 <span class="doccomment">/// Corresponds to struct dyld_cache_header from dyld_cache_format.h.</span>
+<span class="doccomment">/// This header has grown over time. Only the fields up to and including dyld_base_address</span>
+<span class="doccomment">/// are guaranteed to be present. For all other fields, check the header size before</span>
+<span class="doccomment">/// accessing the field. The header size is stored in mapping_offset; the mappings start</span>
+<span class="doccomment">/// right after the theader.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldCacheHeader</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldCacheHeader</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// e.g. &quot;dyld_v0    i386&quot;</span>
     <span class="kw">pub</span> <span class="ident">magic</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>],
     <span class="doccomment">/// file offset to first dyld_cache_mapping_info</span>
-    <span class="kw">pub</span> <span class="ident">mapping_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">mapping_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x10</span>
     <span class="doccomment">/// number of dyld_cache_mapping_info entries</span>
-    <span class="kw">pub</span> <span class="ident">mapping_count</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">mapping_count</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x14</span>
     <span class="doccomment">/// file offset to first dyld_cache_image_info</span>
-    <span class="kw">pub</span> <span class="ident">images_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">images_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x18</span>
     <span class="doccomment">/// number of dyld_cache_image_info entries</span>
-    <span class="kw">pub</span> <span class="ident">images_count</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">images_count</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x1c</span>
     <span class="doccomment">/// base address of dyld when cache was built</span>
-    <span class="kw">pub</span> <span class="ident">dyld_base_address</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">dyld_base_address</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x20</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved1</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x28</span>
+    <span class="doccomment">/// file offset of where local symbols are stored</span>
+    <span class="kw">pub</span> <span class="ident">local_symbols_offset</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x48</span>
+    <span class="doccomment">/// size of local symbols information</span>
+    <span class="kw">pub</span> <span class="ident">local_symbols_size</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x50</span>
+    <span class="doccomment">/// unique value for each shared cache file</span>
+    <span class="kw">pub</span> <span class="ident">uuid</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>], <span class="comment">// offset: 0x58</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved2</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x68</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved3</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x88</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved4</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0xa8</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved5</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0xc8</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved6</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0xe8</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved7</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x108</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved8</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x128</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved9</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x148</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved10</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x168</span>
+    <span class="doccomment">/// file offset to first dyld_subcache_info</span>
+    <span class="kw">pub</span> <span class="ident">subcaches_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x188</span>
+    <span class="doccomment">/// number of dyld_subcache_info entries</span>
+    <span class="kw">pub</span> <span class="ident">subcaches_count</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x18c</span>
+    <span class="doccomment">/// the UUID of the .symbols subcache</span>
+    <span class="kw">pub</span> <span class="ident">symbols_subcache_uuid</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>], <span class="comment">// offset: 0x190</span>
+    <span class="doccomment">///</span>
+    <span class="ident">reserved11</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">32</span>], <span class="comment">// offset: 0x1a0</span>
+    <span class="doccomment">/// file offset to first dyld_cache_image_info</span>
+    <span class="doccomment">/// Use this  instead of images_offset if mapping_offset is at least 0x1c4.</span>
+    <span class="kw">pub</span> <span class="ident">images_across_all_subcaches_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x1c0</span>
+    <span class="doccomment">/// number of dyld_cache_image_info entries</span>
+    <span class="doccomment">/// Use this  instead of images_count if mapping_offset is at least 0x1c4.</span>
+    <span class="kw">pub</span> <span class="ident">images_across_all_subcaches_count</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="comment">// offset: 0x1c4</span>
 }
 
 <span class="doccomment">/// Corresponds to struct dyld_cache_mapping_info from dyld_cache_format.h.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldCacheMappingInfo</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldCacheMappingInfo</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">///</span>
     <span class="kw">pub</span> <span class="ident">address</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">///</span>
@@ -3584,7 +3679,7 @@
 <span class="doccomment">/// Corresponds to struct dyld_cache_image_info from dyld_cache_format.h.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldCacheImageInfo</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldCacheImageInfo</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">///</span>
     <span class="kw">pub</span> <span class="ident">address</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">///</span>
@@ -3595,6 +3690,17 @@
     <span class="kw">pub</span> <span class="ident">path_file_offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">///</span>
     <span class="kw">pub</span> <span class="ident">pad</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+}
+
+<span class="doccomment">/// Corresponds to a struct whose source code has not been published as of Nov 2021.</span>
+<span class="doccomment">/// Added in the dyld cache version which shipped with macOS 12 / iOS 15.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldSubCacheInfo</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
+    <span class="doccomment">/// The UUID of this subcache.</span>
+    <span class="kw">pub</span> <span class="ident">uuid</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>],
+    <span class="doccomment">/// The size of this subcache plus all previous subcaches.</span>
+    <span class="kw">pub</span> <span class="ident">cumulative_size</span>: <span class="ident">U64</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
 }
 
 <span class="comment">// Definitions from &quot;/usr/include/mach-o/loader.h&quot;.</span>
@@ -3677,7 +3783,7 @@
 <span class="doccomment">/// Appears at the very beginning of the object file for 32-bit architectures.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MachHeader32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MachHeader32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// mach magic number identifier</span>
     <span class="kw">pub</span> <span class="ident">magic</span>: <span class="ident">U32</span><span class="op">&lt;</span><a class="ident" href="../../src/object/endian.rs.html#344">BigEndian</a><span class="op">&gt;</span>,
     <span class="doccomment">/// cpu specifier</span>
@@ -3705,7 +3811,7 @@
 <span class="doccomment">/// Appears at the very beginning of object files for 64-bit architectures.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MachHeader64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MachHeader64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// mach magic number identifier</span>
     <span class="kw">pub</span> <span class="ident">magic</span>: <span class="ident">U32</span><span class="op">&lt;</span><a class="ident" href="../../src/object/endian.rs.html#344">BigEndian</a><span class="op">&gt;</span>,
     <span class="doccomment">/// cpu specifier</span>
@@ -3859,7 +3965,7 @@
 <span class="doccomment">/// padding zeroed like objects will compare byte for byte.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoadCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoadCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// Type of load command.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// One of the `LC_*` constants.</span>
@@ -3928,7 +4034,7 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_PREBIND_CKSUM</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x17</span>;
 <span class="doccomment">/// load a dynamically linked shared library that is allowed to be missing</span>
 <span class="doccomment">/// (all symbols are weak imported).</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_LOAD_WEAK_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x18</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_LOAD_WEAK_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x18</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// 64-bit segment of this file to be mapped</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_SEGMENT_64</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x19</span>;
 <span class="doccomment">/// 64-bit image routines</span>
@@ -3936,13 +4042,13 @@
 <span class="doccomment">/// the uuid</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_UUID</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1b</span>;
 <span class="doccomment">/// runpath additions</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_RPATH</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1c</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_RPATH</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1c</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// local of code signature</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_CODE_SIGNATURE</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1d</span>;
 <span class="doccomment">/// local of info to split segments</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_SEGMENT_SPLIT_INFO</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1e</span>;
 <span class="doccomment">/// load and re-export dylib</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_REEXPORT_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1f</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_REEXPORT_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x1f</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// delay load of dylib until first use</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_LAZY_LOAD_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x20</span>;
 <span class="doccomment">/// encrypted segment information</span>
@@ -3950,9 +4056,9 @@
 <span class="doccomment">/// compressed dyld information</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_INFO</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x22</span>;
 <span class="doccomment">/// compressed dyld information only</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_INFO_ONLY</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x22</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_INFO_ONLY</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x22</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// load upward dylib</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_LOAD_UPWARD_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x23</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_LOAD_UPWARD_DYLIB</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x23</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// build for MacOSX min OS version</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_VERSION_MIN_MACOSX</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x24</span>;
 <span class="doccomment">/// build for iPhoneOS min OS version</span>
@@ -3962,7 +4068,7 @@
 <span class="doccomment">/// string for dyld to treat like environment variable</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_ENVIRONMENT</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x27</span>;
 <span class="doccomment">/// replacement for LC_UNIXTHREAD</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_MAIN</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x28</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_MAIN</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x28</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// table of non-instructions in __text</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DATA_IN_CODE</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x29</span>;
 <span class="doccomment">/// source version used to build binary</span>
@@ -3984,11 +4090,11 @@
 <span class="doccomment">/// build for platform min OS version</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_BUILD_VERSION</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x32</span>;
 <span class="doccomment">/// used with `LinkeditDataCommand`, payload is trie</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_EXPORTS_TRIE</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x33</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_EXPORTS_TRIE</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x33</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// used with `LinkeditDataCommand`</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_CHAINED_FIXUPS</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x34</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_DYLD_CHAINED_FIXUPS</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x34</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 <span class="doccomment">/// used with `FilesetEntryCommand`</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_FILESET_ENTRY</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x35</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#621">LC_REQ_DYLD</a>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LC_FILESET_ENTRY</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> <span class="op">=</span> <span class="number">0x35</span> <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#673">LC_REQ_DYLD</a>;
 
 <span class="doccomment">/// A variable length string in a load command.</span>
 <span class="doccomment">///</span>
@@ -3999,7 +4105,7 @@
 <span class="doccomment">/// of 4 bytes must be zero.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LcStr</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LcStr</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// offset to the string</span>
     <span class="kw">pub</span> <span class="ident">offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
 }
@@ -4018,7 +4124,7 @@
 <span class="doccomment">/// reflected in `cmdsize`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SegmentCommand32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SegmentCommand32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SEGMENT</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes sizeof section structs</span>
@@ -4051,7 +4157,7 @@
 <span class="doccomment">/// command and their size is reflected in `cmdsize`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SegmentCommand64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SegmentCommand64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SEGMENT_64</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes sizeof section_64 structs</span>
@@ -4118,7 +4224,7 @@
 <span class="doccomment">/// 32-bit section.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Section32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Section32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// name of this section</span>
     <span class="kw">pub</span> <span class="ident">sectname</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>],
     <span class="doccomment">/// segment this section goes in</span>
@@ -4146,7 +4252,7 @@
 <span class="doccomment">/// 64-bit section.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Section64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Section64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// name of this section</span>
     <span class="kw">pub</span> <span class="ident">sectname</span>: [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">16</span>],
     <span class="doccomment">/// segment this section goes in</span>
@@ -4360,7 +4466,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Fvmlib</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Fvmlib</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// library&#39;s target pathname</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">LcStr</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// library&#39;s minor version number</span>
@@ -4378,7 +4484,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FvmlibCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FvmlibCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_IDFVMLIB or LC_LOADFVMLIB</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes pathname string</span>
@@ -4398,7 +4504,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Dylib</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Dylib</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// library&#39;s path name</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">LcStr</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// library&#39;s build time stamp</span>
@@ -4418,7 +4524,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_ID_DYLIB, LC_LOAD_{,WEAK_}DYLIB, LC_REEXPORT_DYLIB</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes pathname string</span>
@@ -4439,7 +4545,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubFrameworkCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubFrameworkCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SUB_FRAMEWORK</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes umbrella string</span>
@@ -4459,7 +4565,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubClientCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubClientCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SUB_CLIENT</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes client string</span>
@@ -4483,7 +4589,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubUmbrellaCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubUmbrellaCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SUB_UMBRELLA</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes sub_umbrella string</span>
@@ -4509,7 +4615,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubLibraryCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubLibraryCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SUB_LIBRARY</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes sub_library string</span>
@@ -4529,7 +4635,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PreboundDylibCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PreboundDylibCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_PREBOUND_DYLIB</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes strings</span>
@@ -4552,7 +4658,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylinkerCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylinkerCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_ID_DYLINKER, LC_LOAD_DYLINKER or LC_DYLD_ENVIRONMENT</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes pathname string</span>
@@ -4584,7 +4690,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThreadCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThreadCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_THREAD or  LC_UNIXTHREAD</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// total size of this command</span>
@@ -4605,7 +4711,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoutinesCommand32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoutinesCommand32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="comment">/* for 32-bit architectures */</span>
     <span class="doccomment">/// LC_ROUTINES</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
@@ -4628,7 +4734,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoutinesCommand64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoutinesCommand64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="comment">/* for 64-bit architectures */</span>
     <span class="doccomment">/// LC_ROUTINES_64</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
@@ -4653,7 +4759,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SymtabCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SymtabCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SYMTAB</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct SymtabCommand)</span>
@@ -4710,7 +4816,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DysymtabCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DysymtabCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_DYSYMTAB</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct DysymtabCommand)</span>
@@ -4858,7 +4964,7 @@
 <span class="comment">/* a table of contents entry */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibTableOfContents</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibTableOfContents</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// the defined external symbol (index into the symbol table)</span>
     <span class="kw">pub</span> <span class="ident">symbol_index</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// index into the module table this symbol is defined in</span>
@@ -4868,7 +4974,7 @@
 <span class="comment">/* a module table entry */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibModule32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibModule32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// the module name (index into string table)</span>
     <span class="kw">pub</span> <span class="ident">module_name</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
 
@@ -4904,7 +5010,7 @@
 <span class="comment">/* a 64-bit module table entry */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibModule64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibModule64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// the module name (index into string table)</span>
     <span class="kw">pub</span> <span class="ident">module_name</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
 
@@ -4947,7 +5053,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibReference</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DylibReference</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="comment">/* TODO:
     uint32_t isym:24,		/* index into the symbol table */
               flags:8;	/* flags to indicate the type of reference */
@@ -4961,7 +5067,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TwolevelHintsCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TwolevelHintsCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_TWOLEVEL_HINTS</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct TwolevelHintsCommand)</span>
@@ -4990,7 +5096,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TwolevelHint</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TwolevelHint</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="comment">/* TODO:
     uint32_t
     isub_image:8,	/* index into the sub images */
@@ -5011,7 +5117,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrebindCksumCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrebindCksumCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_PREBIND_CKSUM</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct PrebindCksumCommand)</span>
@@ -5026,7 +5132,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UuidCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UuidCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_UUID</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct UuidCommand)</span>
@@ -5041,7 +5147,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RpathCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RpathCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_RPATH</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes string</span>
@@ -5056,7 +5162,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LinkeditDataCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LinkeditDataCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// `LC_CODE_SIGNATURE`, `LC_SEGMENT_SPLIT_INFO`, `LC_FUNCTION_STARTS`,</span>
     <span class="doccomment">/// `LC_DATA_IN_CODE`, `LC_DYLIB_CODE_SIGN_DRS`, `LC_LINKER_OPTIMIZATION_HINT`,</span>
     <span class="doccomment">/// `LC_DYLD_EXPORTS_TRIE`, or `LC_DYLD_CHAINED_FIXUPS`.</span>
@@ -5071,7 +5177,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FilesetEntryCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FilesetEntryCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="comment">// LC_FILESET_ENTRY</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes id string</span>
@@ -5092,7 +5198,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptionInfoCommand32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptionInfoCommand32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_ENCRYPTION_INFO</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct EncryptionInfoCommand32)</span>
@@ -5111,7 +5217,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptionInfoCommand64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptionInfoCommand64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_ENCRYPTION_INFO_64</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct EncryptionInfoCommand64)</span>
@@ -5132,7 +5238,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VersionMinCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VersionMinCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_VERSION_MIN_MACOSX or LC_VERSION_MIN_IPHONEOS or LC_VERSION_MIN_WATCHOS or LC_VERSION_MIN_TVOS</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct VersionMinCommand)</span>
@@ -5150,7 +5256,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BuildVersionCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BuildVersionCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_BUILD_VERSION</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct BuildVersionCommand) plus ntools * sizeof(struct BuildToolVersion)</span>
@@ -5167,7 +5273,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BuildToolVersion</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BuildToolVersion</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// enum for the tool</span>
     <span class="kw">pub</span> <span class="ident">tool</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// version number of the tool</span>
@@ -5201,7 +5307,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldInfoCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DyldInfoCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_DYLD_INFO or LC_DYLD_INFO_ONLY</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct DyldInfoCommand)</span>
@@ -5386,7 +5492,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LinkerOptionCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LinkerOptionCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_LINKER_OPTION only used in MH_OBJECT filetypes</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">cmdsize</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
@@ -5407,7 +5513,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SymsegCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SymsegCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SYMSEG</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct SymsegCommand)</span>
@@ -5426,7 +5532,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IdentCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IdentCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_IDENT</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// strings that follow this command</span>
@@ -5441,7 +5547,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FvmfileCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FvmfileCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_FVMFILE</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// includes pathname string</span>
@@ -5460,7 +5566,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntryPointCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntryPointCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_MAIN only used in MH_EXECUTE filetypes</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// 24</span>
@@ -5477,7 +5583,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SourceVersionCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SourceVersionCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_SOURCE_VERSION</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// 16</span>
@@ -5493,7 +5599,7 @@
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DataInCodeEntry</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DataInCodeEntry</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// from mach_header to start of data range</span>
     <span class="kw">pub</span> <span class="ident">offset</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// number of bytes in data range</span>
@@ -5528,7 +5634,7 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NoteCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NoteCommand</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// LC_NOTE</span>
     <span class="kw">pub</span> <span class="ident">cmd</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// sizeof(struct NoteCommand)</span>
@@ -5545,7 +5651,7 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Nlist32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Nlist32</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// index into the string table</span>
     <span class="kw">pub</span> <span class="ident">n_strx</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// type flag, see below</span>
@@ -5563,7 +5669,7 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
  */</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Nlist64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Nlist64</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="doccomment">/// index into the string table</span>
     <span class="kw">pub</span> <span class="ident">n_strx</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="doccomment">/// type flag, see below</span>
@@ -5906,57 +6012,57 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
 <span class="doccomment">/// is scattered, and for accessing the fields of each variant.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> {
     <span class="kw">pub</span> <span class="ident">r_word0</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">r_word1</span>: <span class="ident">U32</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span> <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span> <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Determine whether this is a scattered relocation.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">r_scattered</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>, <span class="ident">cputype</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">if</span> <a class="ident" href="../../src/object/macho.rs.html#2658">cputype</a> <span class="op">==</span> <a class="ident" href="../../src/object/macho.rs.html#35">CPU_TYPE_X86_64</a> {
+        <span class="kw">if</span> <span class="ident">cputype</span> <span class="op">==</span> <span class="ident">CPU_TYPE_X86_64</span> {
             <span class="bool-val">false</span>
         } <span class="kw">else</span> {
-            <a class="self" href="../../src/object/macho.rs.html#2658">self</a>.<span class="ident">r_word0</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2658">endian</a>) <span class="op">&amp;</span> <a class="ident" href="../../src/object/macho.rs.html#2821">R_SCATTERED</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
+            <a class="self" href="../../src/object/macho.rs.html#2710">self</a>.<span class="ident">r_word0</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2710">endian</a>) <span class="op">&amp;</span> <a class="ident" href="../../src/object/macho.rs.html#2873">R_SCATTERED</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
         }
     }
 
     <span class="doccomment">/// Return the fields of a plain relocation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <a class="ident" href="../../src/object/macho.rs.html#2715-2728">RelocationInfo</a> {
-        <span class="kw">let</span> <span class="ident">r_address</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2667">self</a>.<span class="ident">r_word0</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2667">endian</a>);
-        <span class="kw">let</span> <span class="ident">r_word1</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2667">self</a>.<span class="ident">r_word1</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2667">endian</a>);
-        <span class="kw">if</span> <a class="ident" href="../../src/object/macho.rs.html#2667">endian</a>.<a class="ident" href="../../src/object/endian.rs.html#31">is_little_endian</a>() {
-            <a class="ident" href="../../src/object/macho.rs.html#2715-2728">RelocationInfo</a> {
-                <a class="ident" href="../../src/object/macho.rs.html#2668">r_address</a>,
-                <span class="ident">r_symbolnum</span>: <a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>,
-                <span class="ident">r_pcrel</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">24</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
-                <span class="ident">r_length</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">25</span>) <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
-                <span class="ident">r_extern</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">27</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
-                <span class="ident">r_type</span>: (<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">28</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <a class="ident" href="../../src/object/macho.rs.html#2767">RelocationInfo</a> {
+        <span class="kw">let</span> <span class="ident">r_address</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2719">self</a>.<span class="ident">r_word0</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2719">endian</a>);
+        <span class="kw">let</span> <span class="ident">r_word1</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2719">self</a>.<span class="ident">r_word1</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2719">endian</a>);
+        <span class="kw">if</span> <span class="ident">endian</span>.<span class="ident">is_little_endian</span>() {
+            <a class="ident" href="../../src/object/macho.rs.html#2767">RelocationInfo</a> {
+                <a class="ident" href="../../src/object/macho.rs.html#2720">r_address</a>,
+                <span class="ident">r_symbolnum</span>: <a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>,
+                <span class="ident">r_pcrel</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">24</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
+                <span class="ident">r_length</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">25</span>) <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+                <span class="ident">r_extern</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">27</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
+                <span class="ident">r_type</span>: (<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">28</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
             }
         } <span class="kw">else</span> {
-            <a class="ident" href="../../src/object/macho.rs.html#2715-2728">RelocationInfo</a> {
-                <a class="ident" href="../../src/object/macho.rs.html#2668">r_address</a>,
-                <span class="ident">r_symbolnum</span>: <a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>,
-                <span class="ident">r_pcrel</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">7</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
-                <span class="ident">r_length</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">5</span>) <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
-                <span class="ident">r_extern</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">4</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
-                <span class="ident">r_type</span>: (<a class="ident" href="../../src/object/macho.rs.html#2669">r_word1</a> <span class="op">&amp;</span> <span class="number">0xf</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+            <a class="ident" href="../../src/object/macho.rs.html#2767">RelocationInfo</a> {
+                <a class="ident" href="../../src/object/macho.rs.html#2720">r_address</a>,
+                <span class="ident">r_symbolnum</span>: <a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>,
+                <span class="ident">r_pcrel</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">7</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
+                <span class="ident">r_length</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">5</span>) <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+                <span class="ident">r_extern</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">4</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
+                <span class="ident">r_type</span>: (<a class="ident" href="../../src/object/macho.rs.html#2721">r_word1</a> <span class="op">&amp;</span> <span class="number">0xf</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
             }
         }
     }
 
     <span class="doccomment">/// Return the fields of a scattered relocation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scattered_info</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <a class="ident" href="../../src/object/macho.rs.html#2824-2835">ScatteredRelocationInfo</a> {
-        <span class="kw">let</span> <span class="ident">r_word0</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2692">self</a>.<span class="ident">r_word0</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2692">endian</a>);
-        <span class="kw">let</span> <span class="ident">r_value</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2692">self</a>.<span class="ident">r_word1</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2692">endian</a>);
-        <a class="ident" href="../../src/object/macho.rs.html#2824-2835">ScatteredRelocationInfo</a> {
-            <span class="ident">r_address</span>: <a class="ident" href="../../src/object/macho.rs.html#2693">r_word0</a> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>,
-            <span class="ident">r_type</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2693">r_word0</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">24</span>) <span class="op">&amp;</span> <span class="number">0xf</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
-            <span class="ident">r_length</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2693">r_word0</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">28</span>) <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
-            <span class="ident">r_pcrel</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2693">r_word0</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">30</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
-            <a class="ident" href="../../src/object/macho.rs.html#2694">r_value</a>,
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">scattered_info</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <a class="ident" href="../../src/object/macho.rs.html#2876">ScatteredRelocationInfo</a> {
+        <span class="kw">let</span> <span class="ident">r_word0</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2744">self</a>.<span class="ident">r_word0</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2744">endian</a>);
+        <span class="kw">let</span> <span class="ident">r_value</span> <span class="op">=</span> <a class="self" href="../../src/object/macho.rs.html#2744">self</a>.<span class="ident">r_word1</span>.<a class="ident" href="../../src/object/endian.rs.html#621">get</a>(<a class="ident" href="../../src/object/macho.rs.html#2744">endian</a>);
+        <a class="ident" href="../../src/object/macho.rs.html#2876">ScatteredRelocationInfo</a> {
+            <span class="ident">r_address</span>: <a class="ident" href="../../src/object/macho.rs.html#2745">r_word0</a> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>,
+            <span class="ident">r_type</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2745">r_word0</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">24</span>) <span class="op">&amp;</span> <span class="number">0xf</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+            <span class="ident">r_length</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2745">r_word0</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">28</span>) <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+            <span class="ident">r_pcrel</span>: ((<a class="ident" href="../../src/object/macho.rs.html#2745">r_word0</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">30</span>) <span class="op">&amp;</span> <span class="number">0x1</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>,
+            <a class="ident" href="../../src/object/macho.rs.html#2746">r_value</a>,
         }
     }
 }
@@ -5986,27 +6092,27 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
     <span class="kw">pub</span> <span class="ident">r_type</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/object/macho.rs.html#2715-2728">RelocationInfo</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/object/macho.rs.html#2767">RelocationInfo</a> {
     <span class="doccomment">/// Combine the fields into a `Relocation`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relocation</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">r_word0</span> <span class="op">=</span> <span class="ident">U32::new</span>(<a class="ident" href="../../src/object/macho.rs.html#2732">endian</a>, <a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_address</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relocation</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">r_word0</span> <span class="op">=</span> <span class="ident">U32::new</span>(<a class="ident" href="../../src/object/macho.rs.html#2784">endian</a>, <a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_address</span>);
         <span class="kw">let</span> <span class="ident">r_word1</span> <span class="op">=</span> <span class="ident">U32::new</span>(
-            <a class="ident" href="../../src/object/macho.rs.html#2732">endian</a>,
-            <span class="kw">if</span> <a class="ident" href="../../src/object/macho.rs.html#2732">endian</a>.<a class="ident" href="../../src/object/endian.rs.html#31">is_little_endian</a>() {
-                <a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_symbolnum</span> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_pcrel</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">24</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_length</span> <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">25</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_extern</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">27</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_type</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">28</span>
+            <a class="ident" href="../../src/object/macho.rs.html#2784">endian</a>,
+            <span class="kw">if</span> <span class="ident">endian</span>.<span class="ident">is_little_endian</span>() {
+                <a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_symbolnum</span> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_pcrel</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">24</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_length</span> <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">25</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_extern</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">27</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_type</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">28</span>
             } <span class="kw">else</span> {
-                <a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_symbolnum</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_pcrel</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_length</span> <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_extern</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>
-                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2732">self</a>.<span class="ident">r_type</span>) <span class="op">&amp;</span> <span class="number">0xf</span>
+                <a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_symbolnum</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_pcrel</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_length</span> <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_extern</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>
+                    <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2784">self</a>.<span class="ident">r_type</span>) <span class="op">&amp;</span> <span class="number">0xf</span>
             },
         );
-        <a class="ident" href="../../src/object/macho.rs.html#2650-2653">Relocation</a> { <a class="ident" href="../../src/object/macho.rs.html#2733">r_word0</a>, <a class="ident" href="../../src/object/macho.rs.html#2734">r_word1</a> }
+        <a class="ident" href="../../src/object/macho.rs.html#2702">Relocation</a> { <a class="ident" href="../../src/object/macho.rs.html#2785">r_word0</a>, <a class="ident" href="../../src/object/macho.rs.html#2786">r_word1</a> }
     }
 }
 
@@ -6093,19 +6199,19 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
     <span class="kw">pub</span> <span class="ident">r_value</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/object/macho.rs.html#2824-2835">ScatteredRelocationInfo</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/object/macho.rs.html#2876">ScatteredRelocationInfo</a> {
     <span class="doccomment">/// Combine the fields into a `Relocation`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relocation</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13-274">Endian</a><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relocation</span><span class="op">&lt;</span><span class="ident">E</span>: <a class="ident" href="../../src/object/endian.rs.html#13">Endian</a><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">endian</span>: <span class="ident">E</span>) -&gt; <span class="ident">Relocation</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">r_word0</span> <span class="op">=</span> <span class="ident">U32::new</span>(
-            <a class="ident" href="../../src/object/macho.rs.html#2839">endian</a>,
-            <a class="self" href="../../src/object/macho.rs.html#2839">self</a>.<span class="ident">r_address</span> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>
-                <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2839">self</a>.<span class="ident">r_type</span> <span class="op">&amp;</span> <span class="number">0xf</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">24</span>
-                <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2839">self</a>.<span class="ident">r_length</span> <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">28</span>
-                <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2839">self</a>.<span class="ident">r_pcrel</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">30</span>
-                <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#2821">R_SCATTERED</a>,
+            <a class="ident" href="../../src/object/macho.rs.html#2891">endian</a>,
+            <a class="self" href="../../src/object/macho.rs.html#2891">self</a>.<span class="ident">r_address</span> <span class="op">&amp;</span> <span class="number">0x00ff_ffff</span>
+                <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2891">self</a>.<span class="ident">r_type</span> <span class="op">&amp;</span> <span class="number">0xf</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">24</span>
+                <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2891">self</a>.<span class="ident">r_length</span> <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">28</span>
+                <span class="op">|</span> <span class="ident">u32::from</span>(<a class="self" href="../../src/object/macho.rs.html#2891">self</a>.<span class="ident">r_pcrel</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">30</span>
+                <span class="op">|</span> <a class="ident" href="../../src/object/macho.rs.html#2873">R_SCATTERED</a>,
         );
-        <span class="kw">let</span> <span class="ident">r_word1</span> <span class="op">=</span> <span class="ident">U32::new</span>(<a class="ident" href="../../src/object/macho.rs.html#2839">endian</a>, <a class="self" href="../../src/object/macho.rs.html#2839">self</a>.<span class="ident">r_value</span>);
-        <a class="ident" href="../../src/object/macho.rs.html#2650-2653">Relocation</a> { <a class="ident" href="../../src/object/macho.rs.html#2840">r_word0</a>, <a class="ident" href="../../src/object/macho.rs.html#2848">r_word1</a> }
+        <span class="kw">let</span> <span class="ident">r_word1</span> <span class="op">=</span> <span class="ident">U32::new</span>(<a class="ident" href="../../src/object/macho.rs.html#2891">endian</a>, <a class="self" href="../../src/object/macho.rs.html#2891">self</a>.<span class="ident">r_value</span>);
+        <a class="ident" href="../../src/object/macho.rs.html#2702">Relocation</a> { <a class="ident" href="../../src/object/macho.rs.html#2892">r_word0</a>, <a class="ident" href="../../src/object/macho.rs.html#2900">r_word1</a> }
     }
 }
 
@@ -6453,11 +6559,12 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
 <span class="doccomment">/// for thread local variables</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">X86_64_RELOC_TLV</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a> <span class="op">=</span> <span class="number">9</span>;
 
-<span class="macro">unsafe_impl_pod!</span>(<span class="ident">FatHeader</span>, <span class="ident">FatArch32</span>, <span class="ident">FatArch64</span>,);
-<span class="macro">unsafe_impl_endian_pod!</span>(
+<a class="macro" href="../../src/object/pod.rs.html#148-154">unsafe_impl_pod!</a>(<span class="ident">FatHeader</span>, <span class="ident">FatArch32</span>, <span class="ident">FatArch64</span>,);
+<a class="macro" href="../../src/object/endian.rs.html#387-393">unsafe_impl_endian_pod!</a>(
     <span class="ident">DyldCacheHeader</span>,
     <span class="ident">DyldCacheMappingInfo</span>,
     <span class="ident">DyldCacheImageInfo</span>,
+    <span class="ident">DyldSubCacheInfo</span>,
     <span class="ident">MachHeader32</span>,
     <span class="ident">MachHeader64</span>,
     <span class="ident">LoadCommand</span>,
@@ -6512,5 +6619,5 @@ pub struct TlvDescriptor&lt;E: Endian&gt;
     <span class="ident">Relocation</span>,
 );
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="object" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="object" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

@@ -1,11 +1,12 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/digest-0.10.3/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../digest/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/digest-0.10.3/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../digest/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../digest/index.html"><div class="logo-container">
                     <img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../digest/index.html">
-                        <img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+                        <img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -368,7 +369,7 @@
 <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../block_buffer/index.html">block_buffer</a>;
 <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../crypto_common/index.html">crypto_common</a>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::digest</span>::{<a class="ident" href="../../src/digest/digest.rs.html#15-55">Digest</a>, <a class="ident" href="../../src/digest/digest.rs.html#132-177">DynDigest</a>, <a class="ident" href="../../src/digest/digest.rs.html#8">HashMarker</a>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::digest</span>::{<a class="ident" href="../../src/digest/digest.rs.html#15">Digest</a>, <a class="ident" href="../../src/digest/digest.rs.html#132">DynDigest</a>, <a class="ident" href="../../src/digest/digest.rs.html#8">HashMarker</a>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">crypto_common</span>::{<a class="ident" href="../../generic_array/index.html">generic_array</a>, <a class="ident" href="../../typenum/index.html">typenum</a>, <a class="ident" href="../../digest/consts/index.html">typenum::consts</a>, <a class="ident" href="../../digest/type.Output.html">Output</a>, <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a>, <a class="ident" href="../../digest/trait.Reset.html">Reset</a>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;mac&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">crypto_common</span>::{<span class="ident">InnerInit</span>, <span class="ident">InvalidLength</span>, <span class="ident">Key</span>, <span class="ident">KeyInit</span>};
@@ -384,7 +385,7 @@
 
     <span class="doccomment">/// Digest input data in a chained manner.</span>
     <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">fn</span> <span class="ident">chain</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>) -&gt; <span class="self">Self</span>
+    <span class="kw">fn</span> <span class="ident">chain</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">data</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>) -&gt; <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>,
     {
@@ -394,7 +395,7 @@
 }
 
 <span class="doccomment">/// Trait for hash functions with fixed-size output.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FixedOutput</span>: <a class="ident" href="../../src/digest/lib.rs.html#75-88">Update</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FixedOutput</span>: <a class="ident" href="../../src/digest/lib.rs.html#75">Update</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> {
     <span class="doccomment">/// Consume value and write result into provided array.</span>
     <span class="kw">fn</span> <span class="ident">finalize_into</span>(<span class="self">self</span>, <span class="ident">out</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Output</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
 
@@ -408,7 +409,7 @@
 }
 
 <span class="doccomment">/// Trait for hash functions with fixed-size output able to reset themselves.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FixedOutputReset</span>: <a class="ident" href="../../src/digest/lib.rs.html#91-102">FixedOutput</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.Reset.html">Reset</a> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FixedOutputReset</span>: <a class="ident" href="../../src/digest/lib.rs.html#91">FixedOutput</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.Reset.html">Reset</a> {
     <span class="doccomment">/// Write result into provided array and reset the hasher state.</span>
     <span class="kw">fn</span> <span class="ident">finalize_into_reset</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">out</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Output</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>);
 
@@ -436,16 +437,16 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">read_boxed</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">n</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <a class="ident" href="../../src/digest/lib.rs.html#132">n</a>].<span class="ident">into_boxed_slice</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <span class="ident">n</span>].<span class="ident">into_boxed_slice</span>();
         <a class="self" href="../../src/digest/lib.rs.html#132">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#122">read</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/digest/lib.rs.html#133">buf</a>);
         <a class="ident" href="../../src/digest/lib.rs.html#133">buf</a>
     }
 }
 
 <span class="doccomment">/// Trait for hash functions with extendable-output (XOF).</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtendableOutput</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../src/digest/lib.rs.html#75-88">Update</a> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtendableOutput</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../src/digest/lib.rs.html#75">Update</a> {
     <span class="doccomment">/// Reader</span>
-    <span class="kw">type</span> <span class="ident">Reader</span>: <a class="ident" href="../../src/digest/lib.rs.html#120-137">XofReader</a>;
+    <span class="kw">type</span> <span class="ident">Reader</span>: <a class="ident" href="../../src/digest/lib.rs.html#120">XofReader</a>;
 
     <span class="doccomment">/// Retrieve XOF reader and consume hasher instance.</span>
     <span class="kw">fn</span> <span class="ident">finalize_xof</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Reader</span>;
@@ -456,7 +457,7 @@
     }
 
     <span class="doccomment">/// Compute hash of `data` and write it into `output`.</span>
-    <span class="kw">fn</span> <span class="ident">digest_xof</span>(<span class="ident">input</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>, <span class="ident">output</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>])
+    <span class="kw">fn</span> <span class="ident">digest_xof</span>(<span class="ident">input</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>, <span class="ident">output</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>])
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a>,
     {
@@ -473,14 +474,14 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">finalize_boxed</span>(<span class="self">self</span>, <span class="ident">output_size</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <a class="ident" href="../../src/digest/lib.rs.html#169">output_size</a>].<span class="ident">into_boxed_slice</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <span class="ident">output_size</span>].<span class="ident">into_boxed_slice</span>();
         <a class="self" href="../../src/digest/lib.rs.html#169">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#145">finalize_xof</a>().<a class="ident" href="../../src/digest/lib.rs.html#122">read</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/digest/lib.rs.html#170">buf</a>);
         <a class="ident" href="../../src/digest/lib.rs.html#170">buf</a>
     }
 }
 
 <span class="doccomment">/// Trait for hash functions with extendable-output (XOF) able to reset themselves.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtendableOutputReset</span>: <a class="ident" href="../../src/digest/lib.rs.html#140-174">ExtendableOutput</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.Reset.html">Reset</a> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtendableOutputReset</span>: <a class="ident" href="../../src/digest/lib.rs.html#140">ExtendableOutput</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.Reset.html">Reset</a> {
     <span class="doccomment">/// Retrieve XOF reader and reset hasher instance state.</span>
     <span class="kw">fn</span> <span class="ident">finalize_xof_reset</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Reader</span>;
 
@@ -497,14 +498,14 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">finalize_boxed_reset</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">output_size</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <a class="ident" href="../../src/digest/lib.rs.html#193">output_size</a>].<span class="ident">into_boxed_slice</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <span class="ident">output_size</span>].<span class="ident">into_boxed_slice</span>();
         <a class="self" href="../../src/digest/lib.rs.html#193">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#179">finalize_xof_reset</a>().<a class="ident" href="../../src/digest/lib.rs.html#122">read</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/digest/lib.rs.html#194">buf</a>);
         <a class="ident" href="../../src/digest/lib.rs.html#194">buf</a>
     }
 }
 
 <span class="doccomment">/// Trait for hash functions with variable-size output.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VariableOutput</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../src/digest/lib.rs.html#75-88">Update</a> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VariableOutput</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../src/digest/lib.rs.html#75">Update</a> {
     <span class="doccomment">/// Maximum size of output hash.</span>
     <span class="kw">const</span> <span class="ident">MAX_OUTPUT_SIZE</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>;
 
@@ -529,10 +530,10 @@
     <span class="doccomment">/// bigger than `Self::MAX_OUTPUT_SIZE`, this method returns</span>
     <span class="doccomment">/// `InvalidOutputSize`.</span>
     <span class="kw">fn</span> <span class="ident">digest_variable</span>(
-        <span class="ident">input</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
+        <span class="ident">input</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>,
         <span class="ident">output</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <a class="ident" href="../../src/digest/lib.rs.html#276">InvalidOutputSize</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hasher</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::new</span>(<a class="ident" href="../../src/digest/lib.rs.html#227">output</a>.<span class="ident">len</span>())<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hasher</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">output</span>.<span class="ident">len</span>())<span class="question-mark">?</span>;
         <a class="ident" href="../../src/digest/lib.rs.html#229">hasher</a>.<a class="ident" href="../../src/digest/lib.rs.html#77">update</a>(<a class="ident" href="../../src/digest/lib.rs.html#226">input</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>());
         <a class="ident" href="../../src/digest/lib.rs.html#229">hasher</a>
             .<a class="ident" href="../../src/digest/lib.rs.html#218">finalize_variable</a>(<a class="ident" href="../../src/digest/lib.rs.html#227">output</a>)
@@ -547,7 +548,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">finalize_boxed</span>(<span class="self">self</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <a class="self" href="../../src/digest/lib.rs.html#242">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#212">output_size</a>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <a class="ident" href="../../src/digest/lib.rs.html#243">n</a>].<span class="ident">into_boxed_slice</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <span class="ident">n</span>].<span class="ident">into_boxed_slice</span>();
         <a class="self" href="../../src/digest/lib.rs.html#242">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#218">finalize_variable</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/digest/lib.rs.html#244">buf</a>)
             .<span class="ident">expect</span>(<span class="string">&quot;buf length is equal to output_size&quot;</span>);
         <a class="ident" href="../../src/digest/lib.rs.html#244">buf</a>
@@ -555,7 +556,7 @@
 }
 
 <span class="doccomment">/// Trait for hash functions with variable-size output able to reset themselves.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VariableOutputReset</span>: <a class="ident" href="../../src/digest/lib.rs.html#201-249">VariableOutput</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.Reset.html">Reset</a> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VariableOutputReset</span>: <a class="ident" href="../../src/digest/lib.rs.html#201">VariableOutput</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.Reset.html">Reset</a> {
     <span class="doccomment">/// Write result into the output buffer and reset the hasher state.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns `Err(InvalidOutputSize)` if `out` size is not equal to</span>
@@ -570,7 +571,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
     <span class="kw">fn</span> <span class="ident">finalize_boxed_reset</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <a class="self" href="../../src/digest/lib.rs.html#265">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#212">output_size</a>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <a class="ident" href="../../src/digest/lib.rs.html#266">n</a>].<span class="ident">into_boxed_slice</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0u8</span>; <span class="ident">n</span>].<span class="ident">into_boxed_slice</span>();
         <a class="self" href="../../src/digest/lib.rs.html#265">self</a>.<a class="ident" href="../../src/digest/lib.rs.html#257">finalize_variable_reset</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/digest/lib.rs.html#267">buf</a>)
             .<span class="ident">expect</span>(<span class="string">&quot;buf length is equal to output_size&quot;</span>);
         <a class="ident" href="../../src/digest/lib.rs.html#267">buf</a>
@@ -604,5 +605,5 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
 <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/error/trait.Error.html">std::error::Error</a> <span class="kw">for</span> <a class="ident" href="../../src/digest/lib.rs.html#290">InvalidBufferSize</a> {}
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

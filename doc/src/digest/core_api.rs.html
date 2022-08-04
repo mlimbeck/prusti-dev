@@ -1,11 +1,12 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/digest-0.10.3/src/core_api.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>core_api.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../digest/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/digest-0.10.3/src/core_api.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>core_api.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../digest/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../digest/index.html"><div class="logo-container">
                     <img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../digest/index.html">
-                        <img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+                        <img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -144,10 +145,10 @@
 <span class="kw">mod</span> <a class="ident" href="../../src/digest/core_api/wrapper.rs.html#1-277">wrapper</a>;
 <span class="kw">mod</span> <a class="ident" href="../../src/digest/core_api/xof_reader.rs.html#1-63">xof_reader</a>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../src/digest/core_api/ct_variable.rs.html#18-28">ct_variable::CtVariableCoreWrapper</a>;
-<span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../src/digest/core_api/rt_variable.rs.html#13-22">rt_variable::RtVariableCoreWrapper</a>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">wrapper</span>::{<a class="ident" href="../../src/digest/core_api/wrapper.rs.html#253-256">CoreProxy</a>, <a class="ident" href="../../src/digest/core_api/wrapper.rs.html#22-30">CoreWrapper</a>};
-<span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../src/digest/core_api/xof_reader.rs.html#11-19">xof_reader::XofReaderCoreWrapper</a>;
+<span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../src/digest/core_api/ct_variable.rs.html#18">ct_variable::CtVariableCoreWrapper</a>;
+<span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../src/digest/core_api/rt_variable.rs.html#13">rt_variable::RtVariableCoreWrapper</a>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">wrapper</span>::{<a class="ident" href="../../src/digest/core_api/wrapper.rs.html#253">CoreProxy</a>, <a class="ident" href="../../src/digest/core_api/wrapper.rs.html#22">CoreWrapper</a>};
+<span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../src/digest/core_api/xof_reader.rs.html#11">xof_reader::XofReaderCoreWrapper</a>;
 
 <span class="doccomment">/// Buffer type used by type which implements [`BufferKindUser`].</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Buffer</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> <span class="op">=</span>
@@ -166,7 +167,7 @@
 }
 
 <span class="doccomment">/// Core trait for hash functions with fixed output size.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FixedOutputCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#31-34">UpdateCore</a> <span class="op">+</span> <a class="ident" href="../../src/digest/core_api.rs.html#37-40">BufferKindUser</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FixedOutputCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#31">UpdateCore</a> <span class="op">+</span> <a class="ident" href="../../src/digest/core_api.rs.html#37">BufferKindUser</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a>
 <span class="kw">where</span>
     <span class="ident"><span class="self">Self</span>::BlockSize</span>: <span class="ident">IsLess</span><span class="op">&lt;</span><a class="ident" href="../../digest/consts/type.U256.html">U256</a><span class="op">&gt;</span>,
     <span class="ident">Le</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockSize</span>, <a class="ident" href="../../digest/consts/type.U256.html">U256</a><span class="op">&gt;</span>: <a class="ident" href="../../typenum/marker_traits/trait.NonZero.html">NonZero</a>,
@@ -177,13 +178,13 @@
 }
 
 <span class="doccomment">/// Core trait for hash functions with extendable (XOF) output size.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtendableOutputCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#31-34">UpdateCore</a> <span class="op">+</span> <a class="ident" href="../../src/digest/core_api.rs.html#37-40">BufferKindUser</a>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtendableOutputCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#31">UpdateCore</a> <span class="op">+</span> <a class="ident" href="../../src/digest/core_api.rs.html#37">BufferKindUser</a>
 <span class="kw">where</span>
     <span class="ident"><span class="self">Self</span>::BlockSize</span>: <span class="ident">IsLess</span><span class="op">&lt;</span><a class="ident" href="../../digest/consts/type.U256.html">U256</a><span class="op">&gt;</span>,
     <span class="ident">Le</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockSize</span>, <a class="ident" href="../../digest/consts/type.U256.html">U256</a><span class="op">&gt;</span>: <a class="ident" href="../../typenum/marker_traits/trait.NonZero.html">NonZero</a>,
 {
     <span class="doccomment">/// XOF reader core state.</span>
-    <span class="kw">type</span> <span class="ident">ReaderCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#68-71">XofReaderCore</a>;
+    <span class="kw">type</span> <span class="ident">ReaderCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#68">XofReaderCore</a>;
 
     <span class="doccomment">/// Retrieve XOF reader using remaining data stored in the block buffer</span>
     <span class="doccomment">/// and leave hasher in a dirty state.</span>
@@ -207,13 +208,13 @@
 <span class="doccomment">/// [`finalize_variable_core`]: VariableOutputCore::finalize_variable_core</span>
 <span class="doccomment">/// [`new`]: VariableOutputCore::new</span>
 <span class="doccomment">/// [`TRUNC_SIDE`]: VariableOutputCore::TRUNC_SIDE</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VariableOutputCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#31-34">UpdateCore</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a> <span class="op">+</span> <a class="ident" href="../../src/digest/core_api.rs.html#37-40">BufferKindUser</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VariableOutputCore</span>: <a class="ident" href="../../src/digest/core_api.rs.html#31">UpdateCore</a> <span class="op">+</span> <a class="ident" href="../../digest/trait.OutputSizeUser.html">OutputSizeUser</a> <span class="op">+</span> <a class="ident" href="../../src/digest/core_api.rs.html#37">BufferKindUser</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>
 <span class="kw">where</span>
     <span class="ident"><span class="self">Self</span>::BlockSize</span>: <span class="ident">IsLess</span><span class="op">&lt;</span><a class="ident" href="../../digest/consts/type.U256.html">U256</a><span class="op">&gt;</span>,
     <span class="ident">Le</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockSize</span>, <a class="ident" href="../../digest/consts/type.U256.html">U256</a><span class="op">&gt;</span>: <a class="ident" href="../../typenum/marker_traits/trait.NonZero.html">NonZero</a>,
 {
     <span class="doccomment">/// Side which should be used in a truncated result.</span>
-    <span class="kw">const</span> <span class="ident">TRUNC_SIDE</span>: <a class="ident" href="../../src/digest/core_api.rs.html#114-119">TruncSide</a>;
+    <span class="kw">const</span> <span class="ident">TRUNC_SIDE</span>: <a class="ident" href="../../src/digest/core_api.rs.html#114">TruncSide</a>;
 
     <span class="doccomment">/// Initialize hasher state for given output size.</span>
     <span class="doccomment">///</span>
@@ -244,5 +245,5 @@
     <span class="ident">Right</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="digest" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

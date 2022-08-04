@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/failure-0.1.8/src/backtrace/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../failure/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/failure-0.1.8/src/backtrace/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../failure/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../failure/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../failure/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../failure/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -162,7 +163,7 @@
 <span id="157">157</span>
 <span id="158">158</span>
 <span id="159">159</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">core::fmt</span>::{<a class="self" href="https://doc.rust-lang.org/nightly/core/fmt/index.html">self</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">Debug</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">Display</a>};
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">core::fmt</span>::{<a class="self" href="https://doc.rust-lang.org/nightly/core/fmt/index.html">self</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">Display</a>};
 
 <span class="macro">macro_rules!</span> <span class="ident">with_backtrace</span> { ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>:<span class="ident">item</span>)<span class="kw-2">*</span>) =&gt; ($(<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;backtrace&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>)<span class="kw-2">*</span>) }
 <span class="macro">macro_rules!</span> <span class="ident">without_backtrace</span> { ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>:<span class="ident">item</span>)<span class="kw-2">*</span>) =&gt; ($(<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;backtrace&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)))]</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>)<span class="kw-2">*</span>) }
@@ -252,7 +253,7 @@
 
     <span class="kw">mod</span> <a class="ident" href="../../../src/failure/backtrace/internal.rs.html#1-132">internal</a>;
 
-    <span class="kw">use</span> <a class="ident" href="../../../src/failure/backtrace/internal.rs.html#14-16"><span class="self">self</span>::internal::InternalBacktrace</a>;
+    <span class="kw">use</span> <a class="ident" href="../../../src/failure/backtrace/internal.rs.html#14"><span class="self">self</span>::internal::InternalBacktrace</a>;
 
     <span class="doccomment">/// A `Backtrace`.</span>
     <span class="doccomment">///</span>
@@ -274,19 +275,19 @@
     <span class="doccomment">/// may not be appropriate to your use case. You are not required to put a</span>
     <span class="doccomment">/// backtrace in a custom `Fail` type.</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Backtrace</span> {
-        <span class="ident">internal</span>: <a class="ident" href="../../../src/failure/backtrace/internal.rs.html#14-16">InternalBacktrace</a>
+        <span class="ident">internal</span>: <a class="ident" href="../../../src/failure/backtrace/internal.rs.html#14">InternalBacktrace</a>
     }
 
-    <span class="kw">impl</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
+    <span class="kw">impl</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
         <span class="doccomment">/// Constructs a new backtrace. This will only create a real backtrace</span>
         <span class="doccomment">/// if the crate is compiled in std mode and the `RUST_BACKTRACE`</span>
         <span class="doccomment">/// environmental variable is activated.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
-            <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> { <span class="ident">internal</span>: <span class="ident">InternalBacktrace::new</span>() }
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
+            <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> { <span class="ident">internal</span>: <span class="ident">InternalBacktrace::new</span>() }
         }
 
-        <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">none</span>() -&gt; <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
-            <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> { <span class="ident">internal</span>: <span class="ident">InternalBacktrace::none</span>() }
+        <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">none</span>() -&gt; <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
+            <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> { <span class="ident">internal</span>: <span class="ident">InternalBacktrace::none</span>() }
         }
 
         <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_none</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
@@ -299,13 +300,13 @@
         }
     }
 
-    <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
-        <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
+    <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
+        <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
             <span class="ident">Backtrace::new</span>()
         }
     }
 
-    <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">Debug</a> <span class="kw">for</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
+    <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">Debug</a> <span class="kw">for</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
         <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">bt</span>) <span class="op">=</span> <a class="self" href="../../../src/failure/backtrace/mod.rs.html#145">self</a>.<span class="ident">internal</span>.<a class="ident" href="../../../src/failure/backtrace/internal.rs.html#55">as_backtrace</a>() {
                 <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">Debug::fmt</a>(<a class="ident" href="../../../src/failure/backtrace/mod.rs.html#146">bt</a>, <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#145">f</a>)
@@ -313,7 +314,7 @@
         }
     }
 
-    <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">Display</a> <span class="kw">for</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112-114">Backtrace</a> {
+    <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">Display</a> <span class="kw">for</span> <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#112">Backtrace</a> {
         <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">bt</span>) <span class="op">=</span> <a class="self" href="../../../src/failure/backtrace/mod.rs.html#153">self</a>.<span class="ident">internal</span>.<a class="ident" href="../../../src/failure/backtrace/internal.rs.html#55">as_backtrace</a>() {
                 <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">Debug::fmt</a>(<a class="ident" href="../../../src/failure/backtrace/mod.rs.html#154">bt</a>, <a class="ident" href="../../../src/failure/backtrace/mod.rs.html#153">f</a>)
@@ -322,5 +323,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="failure" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="failure" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.2.120/src/unix/linux_like/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script src="../../../../crates.js"></script><script defer src="../../../../main.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../libc/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.2.126/src/unix/linux_like/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../libc/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../../libc/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../libc/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../libc/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1842,7 +1843,7 @@
     }
 }
 
-<span class="macro">s!</span> {
+<a class="macro" href="../../../../src/libc/macros.rs.html#66-88">s!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">in_addr</span> {
         <span class="kw">pub</span> <span class="ident">s_addr</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#26">::in_addr_t</a>,
     }
@@ -2037,7 +2038,7 @@
     }
 }
 
-<span class="macro">s_no_extra_traits!</span> {
+<a class="macro" href="../../../../src/libc/macros.rs.html#91-124">s_no_extra_traits!</a> {
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">any</span>(
             <span class="ident">all</span>(
@@ -3310,128 +3311,128 @@
     }
 }
 
-<span class="macro">const_fn!</span> {
+<a class="macro" href="../../../../src/libc/macros.rs.html#267-280">const_fn!</a> {
     {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">CMSG_ALIGN</span>(<span class="ident">len</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1486-1490">len</a> <span class="op">+</span> <span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a><span class="op">&gt;</span>() <span class="op">-</span> <span class="number">1</span> <span class="op">&amp;</span> <span class="op">!</span>(<span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a><span class="op">&gt;</span>() <span class="op">-</span> <span class="number">1</span>)
+        <span class="ident">len</span> <span class="op">+</span> <span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>() <span class="op">-</span> <span class="number">1</span> <span class="op">&amp;</span> <span class="op">!</span>(<span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>() <span class="op">-</span> <span class="number">1</span>)
     }
 }
 
-<span class="macro">f!</span> {
+<a class="macro" href="../../../../src/libc/macros.rs.html#235-248">f!</a> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">CMSG_FIRSTHDR</span>(<span class="ident">mhdr</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">msghdr</a>) -&gt; <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a> {
-        <span class="kw">if</span> (<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">mhdr</a>).<span class="ident">msg_controllen</span> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a><span class="op">&gt;</span>() {
-            (<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">mhdr</a>).<span class="ident">msg_control</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a>
+        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">mhdr</span>).<span class="ident">msg_controllen</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><span class="ident">cmsghdr</span><span class="op">&gt;</span>() {
+            (<span class="kw-2">*</span><span class="ident">mhdr</span>).<span class="ident">msg_control</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="ident">cmsghdr</span>
         } <span class="kw">else</span> {
-            <span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a>
+            <span class="number">0</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="ident">cmsghdr</span>
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">CMSG_DATA</span>(<span class="ident">cmsg</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a>) -&gt; <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/mod.rs.html#7">::c_uchar</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">cmsg</a>.<span class="ident">offset</span>(<span class="number">1</span>) <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/mod.rs.html#7">::c_uchar</a>
+        <span class="ident">cmsg</span>.<span class="ident">offset</span>(<span class="number">1</span>) <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="ident">::c_uchar</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">CMSG_SPACE</span>(<span class="ident">length</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#11">::c_uint</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#11">::c_uint</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1486-1490">CMSG_ALIGN</a>(<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">length</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a>) <span class="op">+</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1486-1490">CMSG_ALIGN</a>(<span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a><span class="op">&gt;</span>()))
-            <span class="kw">as</span> <a class="ident" href="../../../../src/libc/unix/mod.rs.html#11">::c_uint</a>
+        (<span class="ident">CMSG_ALIGN</span>(<span class="ident">length</span> <span class="kw">as</span> <span class="ident">usize</span>) <span class="op">+</span> <span class="ident">CMSG_ALIGN</span>(<span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><span class="ident">cmsghdr</span><span class="op">&gt;</span>()))
+            <span class="kw">as</span> <span class="ident">::c_uint</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">CMSG_LEN</span>(<span class="ident">length</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#11">::c_uint</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#11">::c_uint</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1486-1490">CMSG_ALIGN</a>(<span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/mod.rs.html#17-353">cmsghdr</a><span class="op">&gt;</span>()) <span class="kw">as</span> <a class="ident" href="../../../../src/libc/unix/mod.rs.html#11">::c_uint</a> <span class="op">+</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">length</a>
+        <span class="ident">CMSG_ALIGN</span>(<span class="ident">::mem::size_of</span>::<span class="op">&lt;</span><span class="ident">cmsghdr</span><span class="op">&gt;</span>()) <span class="kw">as</span> <span class="ident">::c_uint</span> <span class="op">+</span> <span class="ident">length</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">FD_CLR</span>(<span class="ident">fd</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>, <span class="ident">set</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#18-211">fd_set</a>) -&gt; () {
-        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">fd</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a>;
-        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">::mem::size_of_val</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>[<span class="number">0</span>]) <span class="op">*</span> <span class="number">8</span>;
-        (<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>[<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1515">fd</a> <span class="op">/</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1516">size</a>] <span class="op">&amp;=</span> <span class="op">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1515">fd</a> <span class="op">%</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1516">size</a>));
+        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span> <span class="kw">as</span> <span class="ident">usize</span>;
+        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">::mem::size_of_val</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>[<span class="number">0</span>]) <span class="op">*</span> <span class="number">8</span>;
+        (<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>[<span class="ident">fd</span> <span class="op">/</span> <span class="ident">size</span>] <span class="op">&amp;=</span> <span class="op">!</span>(<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<span class="ident">fd</span> <span class="op">%</span> <span class="ident">size</span>));
         <span class="kw">return</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">FD_ISSET</span>(<span class="ident">fd</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>, <span class="ident">set</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#18-211">fd_set</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.bool.html">bool</a> {
-        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">fd</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a>;
-        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">::mem::size_of_val</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>[<span class="number">0</span>]) <span class="op">*</span> <span class="number">8</span>;
-        <span class="kw">return</span> ((<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>[<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1522">fd</a> <span class="op">/</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1523">size</a>] <span class="op">&amp;</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1522">fd</a> <span class="op">%</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1523">size</a>))) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
+        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span> <span class="kw">as</span> <span class="ident">usize</span>;
+        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">::mem::size_of_val</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>[<span class="number">0</span>]) <span class="op">*</span> <span class="number">8</span>;
+        <span class="kw">return</span> ((<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>[<span class="ident">fd</span> <span class="op">/</span> <span class="ident">size</span>] <span class="op">&amp;</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<span class="ident">fd</span> <span class="op">%</span> <span class="ident">size</span>))) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">FD_SET</span>(<span class="ident">fd</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>, <span class="ident">set</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#18-211">fd_set</a>) -&gt; () {
-        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">fd</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.usize.html">usize</a>;
-        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">::mem::size_of_val</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>[<span class="number">0</span>]) <span class="op">*</span> <span class="number">8</span>;
-        (<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>[<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1528">fd</a> <span class="op">/</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1529">size</a>] <span class="op">|</span><span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1528">fd</a> <span class="op">%</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1529">size</a>);
+        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <span class="ident">fd</span> <span class="kw">as</span> <span class="ident">usize</span>;
+        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">::mem::size_of_val</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>[<span class="number">0</span>]) <span class="op">*</span> <span class="number">8</span>;
+        (<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>[<span class="ident">fd</span> <span class="op">/</span> <span class="ident">size</span>] <span class="op">|</span><span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> (<span class="ident">fd</span> <span class="op">%</span> <span class="ident">size</span>);
         <span class="kw">return</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">FD_ZERO</span>(<span class="ident">set</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#18-211">fd_set</a>) -&gt; () {
-        <span class="kw">for</span> <span class="ident">slot</span> <span class="kw">in</span> (<span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1492-1539">set</a>).<span class="ident">fds_bits</span>.<span class="ident">iter_mut</span>() {
-            <span class="kw-2">*</span><a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1535">slot</a> <span class="op">=</span> <span class="number">0</span>;
+        <span class="kw">for</span> <span class="ident">slot</span> <span class="kw">in</span> (<span class="kw-2">*</span><span class="ident">set</span>).<span class="ident">fds_bits</span>.<span class="ident">iter_mut</span>() {
+            <span class="kw-2">*</span><span class="ident">slot</span> <span class="op">=</span> <span class="number">0</span>;
         }
     }
 }
 
-<span class="macro">safe_f!</span> {
+<a class="macro" href="../../../../src/libc/macros.rs.html#251-264">safe_f!</a> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">SIGRTMAX</span>() -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1613">__libc_current_sigrtmax</a>() }
+        <span class="kw">unsafe</span> { <span class="ident">__libc_current_sigrtmax</span>() }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">SIGRTMIN</span>() -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1615">__libc_current_sigrtmin</a>() }
+        <span class="kw">unsafe</span> { <span class="ident">__libc_current_sigrtmin</span>() }
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WIFSTOPPED</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.bool.html">bool</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&amp;</span> <span class="number">0xff</span>) <span class="op">==</span> <span class="number">0x7f</span>
+        (<span class="ident">status</span> <span class="op">&amp;</span> <span class="number">0xff</span>) <span class="op">==</span> <span class="number">0x7f</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WSTOPSIG</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">0xff</span>
+        (<span class="ident">status</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">0xff</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WIFCONTINUED</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.bool.html">bool</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">==</span> <span class="number">0xffff</span>
+        <span class="ident">status</span> <span class="op">==</span> <span class="number">0xffff</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WIFSIGNALED</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.bool.html">bool</a> {
-        ((<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&amp;</span> <span class="number">0x7f</span>) <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.i8.html">i8</a> <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span>
+        ((<span class="ident">status</span> <span class="op">&amp;</span> <span class="number">0x7f</span>) <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">i8</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WTERMSIG</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&amp;</span> <span class="number">0x7f</span>
+        <span class="ident">status</span> <span class="op">&amp;</span> <span class="number">0x7f</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WIFEXITED</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.bool.html">bool</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&amp;</span> <span class="number">0x7f</span>) <span class="op">==</span> <span class="number">0</span>
+        (<span class="ident">status</span> <span class="op">&amp;</span> <span class="number">0x7f</span>) <span class="op">==</span> <span class="number">0</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WEXITSTATUS</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">0xff</span>
+        (<span class="ident">status</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">0xff</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">WCOREDUMP</span>(<span class="ident">status</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.bool.html">bool</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">status</a> <span class="op">&amp;</span> <span class="number">0x80</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
+        (<span class="ident">status</span> <span class="op">&amp;</span> <span class="number">0x80</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">W_EXITCODE</span>(<span class="ident">ret</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>, <span class="ident">sig</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">ret</a> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>) <span class="op">|</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">sig</a>
+        (<span class="ident">ret</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>) <span class="op">|</span> <span class="ident">sig</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">W_STOPCODE</span>(<span class="ident">sig</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">sig</a> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>) <span class="op">|</span> <span class="number">0x7f</span>
+        (<span class="ident">sig</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>) <span class="op">|</span> <span class="number">0x7f</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">QCMD</span>(<span class="ident">cmd</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>, <span class="ident">type_</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a> {
-        (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">cmd</a> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>) <span class="op">|</span> (<a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">type_</a> <span class="op">&amp;</span> <span class="number">0x00ff</span>)
+        (<span class="ident">cmd</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">8</span>) <span class="op">|</span> (<span class="ident">type_</span> <span class="op">&amp;</span> <span class="number">0x00ff</span>)
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">IPOPT_COPIED</span>(<span class="ident">o</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">o</a> <span class="op">&amp;</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1271">IPOPT_COPY</a>
+        <span class="ident">o</span> <span class="op">&amp;</span> <span class="ident">IPOPT_COPY</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">IPOPT_CLASS</span>(<span class="ident">o</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">o</a> <span class="op">&amp;</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1272">IPOPT_CLASS_MASK</a>
+        <span class="ident">o</span> <span class="op">&amp;</span> <span class="ident">IPOPT_CLASS_MASK</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">IPOPT_NUMBER</span>(<span class="ident">o</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">o</a> <span class="op">&amp;</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1273">IPOPT_NUMBER_MASK</a>
+        <span class="ident">o</span> <span class="op">&amp;</span> <span class="ident">IPOPT_NUMBER_MASK</span>
     }
 
     <span class="kw">pub</span> {<span class="kw">const</span>} <span class="kw">fn</span> <span class="ident">IPTOS_ECN</span>(<span class="ident">x</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a> {
-        <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1541-1609">x</a> <span class="op">&amp;</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1266">::IPTOS_ECN_MASK</a>
+        <span class="ident">x</span> <span class="op">&amp;</span> <span class="ident">::IPTOS_ECN_MASK</span>
     }
 }
 
@@ -3532,23 +3533,23 @@
         <span class="ident">dev</span>: <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4">dev_t</a>,
     ) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_condattr_getclock</span>(
-        <span class="ident">attr</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4113">pthread_condattr_t</a>,
+        <span class="ident">attr</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4123">pthread_condattr_t</a>,
         <span class="ident">clock_id</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#4">clockid_t</a>,
     ) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_condattr_setclock</span>(
-        <span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4113">pthread_condattr_t</a>,
+        <span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4123">pthread_condattr_t</a>,
         <span class="ident">clock_id</span>: <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#4">::clockid_t</a>,
     ) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_condattr_setpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4113">pthread_condattr_t</a>, <span class="ident">pshared</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_condattr_setpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4123">pthread_condattr_t</a>, <span class="ident">pshared</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_mutexattr_setpshared</span>(
-        <span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4113">pthread_mutexattr_t</a>,
+        <span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4123">pthread_mutexattr_t</a>,
         <span class="ident">pshared</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>,
     ) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_rwlockattr_getpshared</span>(
-        <span class="ident">attr</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4113">pthread_rwlockattr_t</a>,
+        <span class="ident">attr</span>: <span class="kw-2">*const</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4123">pthread_rwlockattr_t</a>,
         <span class="ident">val</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>,
     ) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_rwlockattr_setpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4113">pthread_rwlockattr_t</a>, <span class="ident">val</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_rwlockattr_setpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#4123">pthread_rwlockattr_t</a>, <span class="ident">val</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ptsname_r</span>(<span class="ident">fd</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>, <span class="ident">buf</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/b64/x86_64/mod.rs.html#3">::c_char</a>, <span class="ident">buflen</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#19">::size_t</a>) -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clearenv</span>() -&gt; <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">waitid</span>(<span class="ident">idtype</span>: <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#14">idtype_t</a>, <span class="ident">id</span>: <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#7">id_t</a>, <span class="ident">infop</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/gnu/b64/x86_64/mod.rs.html#12-268">::siginfo_t</a>, <span class="ident">options</span>: <a class="ident" href="../../../../src/libc/unix/mod.rs.html#10">::c_int</a>)
@@ -3635,7 +3636,7 @@
         <span class="kw">mod</span> <span class="ident">emscripten</span>;
         <span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::emscripten</span>::<span class="kw-2">*</span>;
     } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span> {
-        <span class="kw">mod</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#1-4120">linux</a>;
+        <span class="kw">mod</span> <a class="ident" href="../../../../src/libc/unix/linux_like/linux/mod.rs.html#1-4130">linux</a>;
         <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../../../src/libc/unix/linux_like/mod.rs.html#1811"><span class="self">self</span>::linux</a>::<span class="kw-2">*</span>;
     } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;l4re&quot;</span>)]</span> {
         <span class="kw">mod</span> <span class="ident">linux</span>;
@@ -3648,5 +3649,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="libc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="libc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/regex-1.5.5/src/input.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>input.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/regex-1.6.0/src/input.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>input.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../regex/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../regex/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -441,8 +442,8 @@
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/index.html">std::ops</a>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/u32/index.html">std::u32</a>;
 
-<span class="kw">use</span> <a class="ident" href="../../src/regex/literal/imp.rs.html#13-18"><span class="kw">crate</span>::literal::LiteralSearcher</a>;
-<span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#331-337"><span class="kw">crate</span>::prog::InstEmptyLook</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/regex/literal/imp.rs.html#13"><span class="kw">crate</span>::literal::LiteralSearcher</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#331"><span class="kw">crate</span>::prog::InstEmptyLook</a>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::utf8</span>::{<a class="ident" href="../../src/regex/utf8.rs.html#121">decode_last_utf8</a>, <a class="ident" href="../../src/regex/utf8.rs.html#51">decode_utf8</a>};
 
 <span class="doccomment">/// Represents a location in the input.</span>
@@ -454,7 +455,7 @@
     <span class="ident">len</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> {
     <span class="doccomment">/// Returns true iff this position is at the beginning of the input.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <a class="self" href="../../src/regex/input.rs.html#22">self</a>.<span class="ident">pos</span> <span class="op">==</span> <span class="number">0</span>
@@ -503,28 +504,28 @@
 <span class="doccomment">/// An abstraction over input used in the matching engines.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Input</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> {
     <span class="doccomment">/// Return an encoding of the position at byte offset `i`.</span>
-    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>;
+    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>;
 
     <span class="doccomment">/// Return the Unicode character occurring next to `at`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If no such character could be decoded, then `Char` is absent.</span>
-    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a>;
+    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a>;
 
     <span class="doccomment">/// Return the Unicode character occurring previous to `at`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If no such character could be decoded, then `Char` is absent.</span>
-    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a>;
+    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a>;
 
     <span class="doccomment">/// Return true if the given empty width instruction matches at the</span>
     <span class="doccomment">/// input position given.</span>
-    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331-337">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
+    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
 
     <span class="doccomment">/// Scan the input for a matching prefix.</span>
     <span class="kw">fn</span> <span class="ident">prefix_at</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13-18">LiteralSearcher</a>,
-        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a><span class="op">&gt;</span>;
+        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13">LiteralSearcher</a>,
+        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>,
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a><span class="op">&gt;</span>;
 
     <span class="doccomment">/// The number of bytes in the input.</span>
     <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>;
@@ -538,28 +539,28 @@
     <span class="kw">fn</span> <span class="ident">as_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>];
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <a class="ident" href="../../src/regex/input.rs.html#67-102">Input</a><span class="op">&gt;</span> <a class="ident" href="../../src/regex/input.rs.html#67-102">Input</a> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <a class="ident" href="../../src/regex/input.rs.html#67">Input</a><span class="op">&gt;</span> <a class="ident" href="../../src/regex/input.rs.html#67">Input</a> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> {
         (<span class="kw-2">*</span><span class="kw-2">*</span><a class="self" href="../../src/regex/input.rs.html#105">self</a>).<a class="ident" href="../../src/regex/input.rs.html#69">at</a>(<a class="ident" href="../../src/regex/input.rs.html#105">i</a>)
     }
 
-    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
+    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
         (<span class="kw-2">*</span><span class="kw-2">*</span><a class="self" href="../../src/regex/input.rs.html#109">self</a>).<a class="ident" href="../../src/regex/input.rs.html#74">next_char</a>(<a class="ident" href="../../src/regex/input.rs.html#109">at</a>)
     }
 
-    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
+    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
         (<span class="kw-2">*</span><span class="kw-2">*</span><a class="self" href="../../src/regex/input.rs.html#113">self</a>).<a class="ident" href="../../src/regex/input.rs.html#79">previous_char</a>(<a class="ident" href="../../src/regex/input.rs.html#113">at</a>)
     }
 
-    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331-337">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         (<span class="kw-2">*</span><span class="kw-2">*</span><a class="self" href="../../src/regex/input.rs.html#117">self</a>).<a class="ident" href="../../src/regex/input.rs.html#83">is_empty_match</a>(<a class="ident" href="../../src/regex/input.rs.html#117">at</a>, <a class="ident" href="../../src/regex/input.rs.html#117">empty</a>)
     }
 
     <span class="kw">fn</span> <span class="ident">prefix_at</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13-18">LiteralSearcher</a>,
-        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a><span class="op">&gt;</span> {
+        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13">LiteralSearcher</a>,
+        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>,
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a><span class="op">&gt;</span> {
         (<span class="kw-2">*</span><span class="kw-2">*</span><a class="self" href="../../src/regex/input.rs.html#122">self</a>).<a class="ident" href="../../src/regex/input.rs.html#86-90">prefix_at</a>(<a class="ident" href="../../src/regex/input.rs.html#123">prefixes</a>, <a class="ident" href="../../src/regex/input.rs.html#124">at</a>)
     }
 
@@ -591,26 +592,26 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <a class="ident" href="../../src/regex/input.rs.html#67-102">Input</a> <span class="kw">for</span> <span class="ident">CharInput</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> {
-        <span class="kw">if</span> <a class="ident" href="../../src/regex/input.rs.html#158">i</a> <span class="op">&gt;</span><span class="op">=</span> <a class="self" href="../../src/regex/input.rs.html#158">self</a>.<a class="ident" href="../../src/regex/input.rs.html#93">len</a>() {
-            <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> { <span class="ident">pos</span>: <a class="self" href="../../src/regex/input.rs.html#158">self</a>.<a class="ident" href="../../src/regex/input.rs.html#93">len</a>(), <span class="ident">c</span>: <span class="prelude-val">None</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <span class="ident">byte</span>: <span class="prelude-val">None</span>, <span class="ident">len</span>: <span class="number">0</span> }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <a class="ident" href="../../src/regex/input.rs.html#67">Input</a> <span class="kw">for</span> <span class="ident">CharInput</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> {
+        <span class="kw">if</span> <span class="ident">i</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">len</span>() {
+            <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> { <span class="ident">pos</span>: <a class="self" href="../../src/regex/input.rs.html#158">self</a>.<a class="ident" href="../../src/regex/input.rs.html#93">len</a>(), <span class="ident">c</span>: <span class="prelude-val">None</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <span class="ident">byte</span>: <span class="prelude-val">None</span>, <span class="ident">len</span>: <span class="number">0</span> }
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <a class="ident" href="../../src/regex/utf8.rs.html#51">decode_utf8</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/regex/input.rs.html#158">self</a>[<a class="ident" href="../../src/regex/input.rs.html#158">i</a>..]).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">c</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/regex/input.rs.html#162">c</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
-            <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> { <span class="ident">pos</span>: <a class="ident" href="../../src/regex/input.rs.html#158">i</a>, <span class="ident">c</span>: <a class="ident" href="../../src/regex/input.rs.html#162">c</a>, <span class="ident">byte</span>: <span class="prelude-val">None</span>, <span class="ident">len</span>: <a class="ident" href="../../src/regex/input.rs.html#162">c</a>.<a class="ident" href="../../src/regex/input.rs.html#368">len_utf8</a>() }
+            <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> { <span class="ident">pos</span>: <a class="ident" href="../../src/regex/input.rs.html#158">i</a>, <a class="ident" href="../../src/regex/input.rs.html#162">c</a>, <span class="ident">byte</span>: <span class="prelude-val">None</span>, <span class="ident">len</span>: <a class="ident" href="../../src/regex/input.rs.html#162">c</a>.<a class="ident" href="../../src/regex/input.rs.html#368">len_utf8</a>() }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
+    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
         <a class="ident" href="../../src/regex/input.rs.html#167">at</a>.<a class="ident" href="../../src/regex/input.rs.html#35">char</a>()
     }
 
-    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
+    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
         <a class="ident" href="../../src/regex/utf8.rs.html#121">decode_last_utf8</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/regex/input.rs.html#171">self</a>[..<a class="ident" href="../../src/regex/input.rs.html#171">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>()]).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">c</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/regex/input.rs.html#172">c</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()
     }
 
-    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331-337">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#341-358"><span class="kw">crate</span>::prog::EmptyLook</a>::<span class="kw-2">*</span>;
+    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#341"><span class="kw">crate</span>::prog::EmptyLook</a>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <a class="ident" href="../../src/regex/input.rs.html#175">empty</a>.<span class="ident">look</span> {
             <a class="ident" href="../../src/regex/prog.rs.html#343">StartLine</a> =&gt; {
                 <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <a class="self" href="../../src/regex/input.rs.html#175">self</a>.<a class="ident" href="../../src/regex/input.rs.html#79">previous_char</a>(<a class="ident" href="../../src/regex/input.rs.html#175">at</a>);
@@ -643,9 +644,9 @@
 
     <span class="kw">fn</span> <span class="ident">prefix_at</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13-18">LiteralSearcher</a>,
-        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a><span class="op">&gt;</span> {
+        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13">LiteralSearcher</a>,
+        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>,
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a><span class="op">&gt;</span> {
         <a class="ident" href="../../src/regex/input.rs.html#209">prefixes</a>.<a class="ident" href="../../src/regex/literal/imp.rs.html#79">find</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/regex/input.rs.html#208">self</a>[<a class="ident" href="../../src/regex/input.rs.html#210">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>()..]).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">s</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="self" href="../../src/regex/input.rs.html#208">self</a>.<a class="ident" href="../../src/regex/input.rs.html#69">at</a>(<a class="ident" href="../../src/regex/input.rs.html#210">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>() <span class="op">+</span> <a class="ident" href="../../src/regex/input.rs.html#212">s</a>))
     }
 
@@ -668,7 +669,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <span class="ident">ByteInput</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Return a new byte-based input reader for the given string.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;t</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">only_utf8</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">ByteInput</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/regex/input.rs.html#226-229">ByteInput</a> { <span class="ident">text</span>: <a class="ident" href="../../src/regex/input.rs.html#233">text</a>, <span class="ident">only_utf8</span>: <a class="ident" href="../../src/regex/input.rs.html#233">only_utf8</a> }
+        <a class="ident" href="../../src/regex/input.rs.html#226">ByteInput</a> { <a class="ident" href="../../src/regex/input.rs.html#233">text</a>, <a class="ident" href="../../src/regex/input.rs.html#233">only_utf8</a> }
     }
 }
 
@@ -680,12 +681,12 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <a class="ident" href="../../src/regex/input.rs.html#67-102">Input</a> <span class="kw">for</span> <span class="ident">ByteInput</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> {
-        <span class="kw">if</span> <a class="ident" href="../../src/regex/input.rs.html#247">i</a> <span class="op">&gt;</span><span class="op">=</span> <a class="self" href="../../src/regex/input.rs.html#247">self</a>.<a class="ident" href="../../src/regex/input.rs.html#93">len</a>() {
-            <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> { <span class="ident">pos</span>: <a class="self" href="../../src/regex/input.rs.html#247">self</a>.<a class="ident" href="../../src/regex/input.rs.html#93">len</a>(), <span class="ident">c</span>: <span class="prelude-val">None</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <span class="ident">byte</span>: <span class="prelude-val">None</span>, <span class="ident">len</span>: <span class="number">0</span> }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <a class="ident" href="../../src/regex/input.rs.html#67">Input</a> <span class="kw">for</span> <span class="ident">ByteInput</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> {
+        <span class="kw">if</span> <span class="ident">i</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">len</span>() {
+            <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> { <span class="ident">pos</span>: <a class="self" href="../../src/regex/input.rs.html#247">self</a>.<a class="ident" href="../../src/regex/input.rs.html#93">len</a>(), <span class="ident">c</span>: <span class="prelude-val">None</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <span class="ident">byte</span>: <span class="prelude-val">None</span>, <span class="ident">len</span>: <span class="number">0</span> }
         } <span class="kw">else</span> {
-            <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a> {
+            <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a> {
                 <span class="ident">pos</span>: <a class="ident" href="../../src/regex/input.rs.html#247">i</a>,
                 <span class="ident">c</span>: <span class="prelude-val">None</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
                 <span class="ident">byte</span>: <a class="self" href="../../src/regex/input.rs.html#247">self</a>.<span class="ident">get</span>(<a class="ident" href="../../src/regex/input.rs.html#247">i</a>).<span class="ident">cloned</span>(),
@@ -694,16 +695,16 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
+    <span class="kw">fn</span> <span class="ident">next_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
         <a class="ident" href="../../src/regex/utf8.rs.html#51">decode_utf8</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/regex/input.rs.html#260">self</a>[<a class="ident" href="../../src/regex/input.rs.html#260">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>()..]).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">c</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/regex/input.rs.html#261">c</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()
     }
 
-    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
+    <span class="kw">fn</span> <span class="ident">previous_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>) -&gt; <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
         <a class="ident" href="../../src/regex/utf8.rs.html#121">decode_last_utf8</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/regex/input.rs.html#264">self</a>[..<a class="ident" href="../../src/regex/input.rs.html#264">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>()]).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">c</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/regex/input.rs.html#265">c</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()
     }
 
-    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331-337">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#341-358"><span class="kw">crate</span>::prog::EmptyLook</a>::<span class="kw-2">*</span>;
+    <span class="kw">fn</span> <span class="ident">is_empty_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>, <span class="ident">empty</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#331">InstEmptyLook</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#341"><span class="kw">crate</span>::prog::EmptyLook</a>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <a class="ident" href="../../src/regex/input.rs.html#268">empty</a>.<span class="ident">look</span> {
             <a class="ident" href="../../src/regex/prog.rs.html#343">StartLine</a> =&gt; {
                 <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <a class="self" href="../../src/regex/input.rs.html#268">self</a>.<a class="ident" href="../../src/regex/input.rs.html#79">previous_char</a>(<a class="ident" href="../../src/regex/input.rs.html#268">at</a>);
@@ -725,13 +726,13 @@
             }
             <a class="ident" href="../../src/regex/prog.rs.html#355">WordBoundaryAscii</a> =&gt; {
                 <span class="kw">let</span> (<span class="ident">c1</span>, <span class="ident">c2</span>) <span class="op">=</span> (<a class="self" href="../../src/regex/input.rs.html#268">self</a>.<a class="ident" href="../../src/regex/input.rs.html#79">previous_char</a>(<a class="ident" href="../../src/regex/input.rs.html#268">at</a>), <a class="self" href="../../src/regex/input.rs.html#268">self</a>.<a class="ident" href="../../src/regex/input.rs.html#74">next_char</a>(<a class="ident" href="../../src/regex/input.rs.html#268">at</a>));
-                <span class="kw">if</span> <a class="self" href="../../src/regex/input.rs.html#268">self</a>.<span class="ident">only_utf8</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">only_utf8</span> {
                     <span class="comment">// If we must match UTF-8, then we can&#39;t match word</span>
                     <span class="comment">// boundaries at invalid UTF-8.</span>
-                    <span class="kw">if</span> <a class="ident" href="../../src/regex/input.rs.html#290">c1</a>.<a class="ident" href="../../src/regex/input.rs.html#360">is_none</a>() <span class="op">&amp;&amp;</span> <span class="op">!</span><a class="ident" href="../../src/regex/input.rs.html#268">at</a>.<a class="ident" href="../../src/regex/input.rs.html#22">is_start</a>() {
+                    <span class="kw">if</span> <span class="ident">c1</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">at</span>.<span class="ident">is_start</span>() {
                         <span class="kw">return</span> <span class="bool-val">false</span>;
                     }
-                    <span class="kw">if</span> <a class="ident" href="../../src/regex/input.rs.html#290">c2</a>.<a class="ident" href="../../src/regex/input.rs.html#360">is_none</a>() <span class="op">&amp;&amp;</span> <span class="op">!</span><a class="ident" href="../../src/regex/input.rs.html#268">at</a>.<a class="ident" href="../../src/regex/input.rs.html#27">is_end</a>() {
+                    <span class="kw">if</span> <span class="ident">c2</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">at</span>.<span class="ident">is_end</span>() {
                         <span class="kw">return</span> <span class="bool-val">false</span>;
                     }
                 }
@@ -739,13 +740,13 @@
             }
             <a class="ident" href="../../src/regex/prog.rs.html#357">NotWordBoundaryAscii</a> =&gt; {
                 <span class="kw">let</span> (<span class="ident">c1</span>, <span class="ident">c2</span>) <span class="op">=</span> (<a class="self" href="../../src/regex/input.rs.html#268">self</a>.<a class="ident" href="../../src/regex/input.rs.html#79">previous_char</a>(<a class="ident" href="../../src/regex/input.rs.html#268">at</a>), <a class="self" href="../../src/regex/input.rs.html#268">self</a>.<a class="ident" href="../../src/regex/input.rs.html#74">next_char</a>(<a class="ident" href="../../src/regex/input.rs.html#268">at</a>));
-                <span class="kw">if</span> <a class="self" href="../../src/regex/input.rs.html#268">self</a>.<span class="ident">only_utf8</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">only_utf8</span> {
                     <span class="comment">// If we must match UTF-8, then we can&#39;t match word</span>
                     <span class="comment">// boundaries at invalid UTF-8.</span>
-                    <span class="kw">if</span> <a class="ident" href="../../src/regex/input.rs.html#304">c1</a>.<a class="ident" href="../../src/regex/input.rs.html#360">is_none</a>() <span class="op">&amp;&amp;</span> <span class="op">!</span><a class="ident" href="../../src/regex/input.rs.html#268">at</a>.<a class="ident" href="../../src/regex/input.rs.html#22">is_start</a>() {
+                    <span class="kw">if</span> <span class="ident">c1</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">at</span>.<span class="ident">is_start</span>() {
                         <span class="kw">return</span> <span class="bool-val">false</span>;
                     }
-                    <span class="kw">if</span> <a class="ident" href="../../src/regex/input.rs.html#304">c2</a>.<a class="ident" href="../../src/regex/input.rs.html#360">is_none</a>() <span class="op">&amp;&amp;</span> <span class="op">!</span><a class="ident" href="../../src/regex/input.rs.html#268">at</a>.<a class="ident" href="../../src/regex/input.rs.html#27">is_end</a>() {
+                    <span class="kw">if</span> <span class="ident">c2</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">at</span>.<span class="ident">is_end</span>() {
                         <span class="kw">return</span> <span class="bool-val">false</span>;
                     }
                 }
@@ -756,9 +757,9 @@
 
     <span class="kw">fn</span> <span class="ident">prefix_at</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13-18">LiteralSearcher</a>,
-        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13-18">InputAt</a><span class="op">&gt;</span> {
+        <span class="ident">prefixes</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/literal/imp.rs.html#13">LiteralSearcher</a>,
+        <span class="ident">at</span>: <a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a>,
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/input.rs.html#13">InputAt</a><span class="op">&gt;</span> {
         <a class="ident" href="../../src/regex/input.rs.html#322">prefixes</a>.<a class="ident" href="../../src/regex/literal/imp.rs.html#79">find</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/regex/input.rs.html#321">self</a>[<a class="ident" href="../../src/regex/input.rs.html#323">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>()..]).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">s</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="self" href="../../src/regex/input.rs.html#321">self</a>.<a class="ident" href="../../src/regex/input.rs.html#69">at</a>(<a class="ident" href="../../src/regex/input.rs.html#323">at</a>.<a class="ident" href="../../src/regex/input.rs.html#56">pos</a>() <span class="op">+</span> <a class="ident" href="../../src/regex/input.rs.html#325">s</a>))
     }
 
@@ -785,8 +786,8 @@
 <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../src/regex/input.rs.html#346">Char</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
         <span class="kw">match</span> <span class="ident">char::from_u32</span>(<a class="self" href="../../src/regex/input.rs.html#349">self</a>.<span class="number">0</span>) {
-            <span class="prelude-val">None</span> =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/regex/input.rs.html#349">f</a>, <span class="string">&quot;Empty&quot;</span>),
-            <span class="prelude-val">Some</span>(<span class="ident">c</span>) =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/regex/input.rs.html#349">f</a>, <span class="string">&quot;{:?}&quot;</span>, <a class="ident" href="../../src/regex/input.rs.html#352">c</a>),
+            <span class="prelude-val">None</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;Empty&quot;</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">c</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;{:?}&quot;</span>, <span class="ident">c</span>),
         }
     }
 }
@@ -868,5 +869,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

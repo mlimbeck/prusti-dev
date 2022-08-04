@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/git2-0.13.25/src/commit.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>commit.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../git2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/git2-0.14.2/src/commit.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>commit.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../git2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../git2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../git2/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../git2/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -453,8 +454,8 @@
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/str/index.html">std::str</a>;
 
-<span class="kw">use</span> <a class="ident" href="../../src/git2/util.rs.html#25-42"><span class="kw">crate</span>::util::Binding</a>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../libgit2_sys/index.html">raw</a>, <a class="ident" href="../../src/git2/lib.rs.html#692">signature</a>, <a class="ident" href="../../src/git2/buf.rs.html#13-15">Buf</a>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a>, <a class="ident" href="../../src/git2/util.rs.html#101-104">IntoCString</a>, <a class="ident" href="../../src/git2/mailmap.rs.html#10-12">Mailmap</a>, <a class="ident" href="../../src/git2/object.rs.html#12-15">Object</a>, <a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a>, <a class="ident" href="../../src/git2/signature.rs.html#21-25">Signature</a>, <a class="ident" href="../../src/git2/time.rs.html#10-12">Time</a>, <a class="ident" href="../../src/git2/tree.rs.html#17-20">Tree</a>};
+<span class="kw">use</span> <a class="ident" href="../../src/git2/util.rs.html#25"><span class="kw">crate</span>::util::Binding</a>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../libgit2_sys/index.html">raw</a>, <a class="ident" href="../../src/git2/lib.rs.html#703">signature</a>, <a class="ident" href="../../src/git2/buf.rs.html#13">Buf</a>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a>, <a class="ident" href="../../src/git2/util.rs.html#101">IntoCString</a>, <a class="ident" href="../../src/git2/mailmap.rs.html#10">Mailmap</a>, <a class="ident" href="../../src/git2/object.rs.html#12">Object</a>, <a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a>, <a class="ident" href="../../src/git2/signature.rs.html#21">Signature</a>, <a class="ident" href="../../src/git2/time.rs.html#10">Time</a>, <a class="ident" href="../../src/git2/tree.rs.html#17">Tree</a>};
 
 <span class="doccomment">/// A structure to represent a git [commit][1]</span>
 <span class="doccomment">///</span>
@@ -482,22 +483,22 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> <span class="ident">Commit</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Get the id (SHA1) of a repository commit</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a> {
         <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<span class="ident">raw::git_commit_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#37">self</a>.<span class="ident">raw</span>)) }
     }
 
     <span class="doccomment">/// Get the id of the tree pointed to by this commit.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// No attempts are made to fetch an object from the ODB.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tree_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tree_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a> {
         <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<span class="ident">raw::git_commit_tree_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#44">self</a>.<span class="ident">raw</span>)) }
     }
 
     <span class="doccomment">/// Get the tree pointed to by a commit.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tree</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tree</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tree</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tree</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
         <span class="kw">unsafe</span> {
-            <span class="macro">try_call!</span>(<span class="ident">raw::git_commit_tree</span>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/git2/commit.rs.html#50">ret</a>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#49">self</a>.<span class="ident">raw</span>));
+            <a class="macro" href="../../src/git2/call.rs.html#12-19">try_call!</a>(<span class="ident">raw::git_commit_tree</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ret</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">raw</span>));
             <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<a class="ident" href="../../src/git2/commit.rs.html#50">ret</a>))
         }
     }
@@ -522,7 +523,7 @@
     <span class="doccomment">/// The returned message will be slightly prettified by removing any</span>
     <span class="doccomment">/// potential leading newlines.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#845"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#76">self</a>, <span class="ident">raw::git_commit_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#76">self</a>.<span class="ident">raw</span>)).<span class="ident">unwrap</span>() }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#856"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#76">self</a>, <span class="ident">raw::git_commit_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#76">self</a>.<span class="ident">raw</span>)).<span class="ident">unwrap</span>() }
     }
 
     <span class="doccomment">/// Get the encoding for the message of a commit, as a string representing a</span>
@@ -530,7 +531,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `None` will be returned if the encoding is not known</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_encoding</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#845"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#84">self</a>, <span class="ident">raw::git_commit_message_encoding</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#84">self</a>.<span class="ident">raw</span>)) };
+        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#856"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#84">self</a>, <span class="ident">raw::git_commit_message_encoding</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#84">self</a>.<span class="ident">raw</span>)) };
         <a class="ident" href="../../src/git2/commit.rs.html#85">bytes</a>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/str/converts/fn.from_utf8.html">str::from_utf8</a>(<a class="ident" href="../../src/git2/commit.rs.html#86">b</a>).<span class="ident">ok</span>())
     }
 
@@ -543,7 +544,7 @@
 
     <span class="doccomment">/// Get the full raw message of a commit.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_raw_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#845"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#97">self</a>, <span class="ident">raw::git_commit_message_raw</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#97">self</a>.<span class="ident">raw</span>)).<span class="ident">unwrap</span>() }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#856"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#97">self</a>, <span class="ident">raw::git_commit_message_raw</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#97">self</a>.<span class="ident">raw</span>)).<span class="ident">unwrap</span>() }
     }
 
     <span class="doccomment">/// Get the full raw text of the commit header.</span>
@@ -554,14 +555,14 @@
     }
 
     <span class="doccomment">/// Get an arbitrary header field.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">header_field_bytes</span><span class="op">&lt;</span><span class="ident">T</span>: <a class="ident" href="../../src/git2/util.rs.html#101-104">IntoCString</a><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">field</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/buf.rs.html#13-15">Buf</a>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">header_field_bytes</span><span class="op">&lt;</span><span class="ident">T</span>: <a class="ident" href="../../src/git2/util.rs.html#101">IntoCString</a><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">field</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/buf.rs.html#13">Buf</a>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">Buf::new</span>();
-        <span class="kw">let</span> <span class="ident">raw_field</span> <span class="op">=</span> <a class="ident" href="../../src/git2/commit.rs.html#109">field</a>.<a class="ident" href="../../src/git2/util.rs.html#103">into_c_string</a>()<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">raw_field</span> <span class="op">=</span> <span class="ident">field</span>.<span class="ident">into_c_string</span>()<span class="question-mark">?</span>;
         <span class="kw">unsafe</span> {
-            <span class="macro">try_call!</span>(<span class="ident">raw::git_commit_header_field</span>(
-                <a class="ident" href="../../src/git2/commit.rs.html#110">buf</a>.<a class="ident" href="../../src/git2/util.rs.html#29">raw</a>(),
-                <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#109">self</a>.<span class="ident">raw</span>,
-                <a class="ident" href="../../src/git2/commit.rs.html#111">raw_field</a>
+            <a class="macro" href="../../src/git2/call.rs.html#12-19">try_call!</a>(<span class="ident">raw::git_commit_header_field</span>(
+                <span class="ident">buf</span>.<span class="ident">raw</span>(),
+                <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">raw</span>,
+                <span class="ident">raw_field</span>
             ));
         }
         <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/commit.rs.html#110">buf</a>)
@@ -569,7 +570,7 @@
 
     <span class="doccomment">/// Get the full raw text of the commit header.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw_header_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#845"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#123">self</a>, <span class="ident">raw::git_commit_raw_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#123">self</a>.<span class="ident">raw</span>)).<span class="ident">unwrap</span>() }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#856"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#123">self</a>, <span class="ident">raw::git_commit_raw_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#123">self</a>.<span class="ident">raw</span>)).<span class="ident">unwrap</span>() }
     }
 
     <span class="doccomment">/// Get the short &quot;summary&quot; of the git commit message.</span>
@@ -590,7 +591,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `None` may be returned if an error occurs</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">summary_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#845"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#144">self</a>, <span class="ident">raw::git_commit_summary</span>(<a class="self" href="../../src/git2/commit.rs.html#144">self</a>.<span class="ident">raw</span>)) }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/git2/lib.rs.html#856"><span class="kw">crate</span>::opt_bytes</a>(<a class="self" href="../../src/git2/commit.rs.html#144">self</a>, <span class="ident">raw::git_commit_summary</span>(<a class="self" href="../../src/git2/commit.rs.html#144">self</a>.<span class="ident">raw</span>)) }
     }
 
     <span class="doccomment">/// Get the commit time (i.e. committer time) of a commit.</span>
@@ -598,7 +599,7 @@
     <span class="doccomment">/// The first element of the tuple is the time, in seconds, since the epoch.</span>
     <span class="doccomment">/// The second element is the offset, in minutes, of the time zone of the</span>
     <span class="doccomment">/// committer&#39;s preferred time zone.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/git2/time.rs.html#10-12">Time</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/git2/time.rs.html#10">Time</a> {
         <span class="kw">unsafe</span> {
             <span class="ident">Time::new</span>(
                 <span class="ident">raw::git_commit_time</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#153">self</a>.<span class="ident">raw</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
@@ -609,7 +610,7 @@
 
     <span class="doccomment">/// Creates a new iterator over the parents of this commit.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parents</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="ident">Parents</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;repo</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/git2/commit.rs.html#22-25">Parents</a> {
+        <a class="ident" href="../../src/git2/commit.rs.html#22">Parents</a> {
             <span class="ident">range</span>: <span class="number">0</span>..<a class="self" href="../../src/git2/commit.rs.html#163">self</a>.<a class="ident" href="../../src/git2/commit.rs.html#264">parent_count</a>(),
             <span class="ident">commit</span>: <a class="self" href="../../src/git2/commit.rs.html#163">self</a>,
         }
@@ -617,7 +618,7 @@
 
     <span class="doccomment">/// Creates a new iterator over the parents of this commit.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent_ids</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">ParentIds</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/git2/commit.rs.html#30-33">ParentIds</a> {
+        <a class="ident" href="../../src/git2/commit.rs.html#30">ParentIds</a> {
             <span class="ident">range</span>: <span class="number">0</span>..<a class="self" href="../../src/git2/commit.rs.html#171">self</a>.<a class="ident" href="../../src/git2/commit.rs.html#264">parent_count</a>(),
             <span class="ident">commit</span>: <a class="self" href="../../src/git2/commit.rs.html#171">self</a>,
         }
@@ -633,13 +634,13 @@
 
     <span class="doccomment">/// Get the author of this commit, using the mailmap to map names and email</span>
     <span class="doccomment">/// addresses to canonical real names and email addresses.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">author_with_mailmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mailmap</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/git2/mailmap.rs.html#10-12">Mailmap</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">author_with_mailmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mailmap</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/git2/mailmap.rs.html#10">Mailmap</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
         <span class="kw">unsafe</span> {
-            <span class="macro">try_call!</span>(<span class="ident">raw::git_commit_author_with_mailmap</span>(
-                <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/git2/commit.rs.html#189">ret</a>,
-                <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#188">self</a>.<span class="ident">raw</span>,
-                <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="ident" href="../../src/git2/commit.rs.html#188">mailmap</a>.<a class="ident" href="../../src/git2/util.rs.html#29">raw</a>()
+            <a class="macro" href="../../src/git2/call.rs.html#12-19">try_call!</a>(<span class="ident">raw::git_commit_author_with_mailmap</span>(
+                <span class="kw-2">&amp;mut</span> <span class="ident">ret</span>,
+                <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">raw</span>,
+                <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">mailmap</span>.<span class="ident">raw</span>()
             ));
             <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<a class="ident" href="../../src/git2/commit.rs.html#189">ret</a>))
         }
@@ -655,13 +656,13 @@
 
     <span class="doccomment">/// Get the committer of this commit, using the mailmap to map names and email</span>
     <span class="doccomment">/// addresses to canonical real names and email addresses.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">committer_with_mailmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mailmap</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/git2/mailmap.rs.html#10-12">Mailmap</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">committer_with_mailmap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">mailmap</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/git2/mailmap.rs.html#10">Mailmap</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
         <span class="kw">unsafe</span> {
-            <span class="macro">try_call!</span>(<span class="ident">raw::git_commit_committer_with_mailmap</span>(
-                <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/git2/commit.rs.html#211">ret</a>,
-                <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#210">self</a>.<span class="ident">raw</span>,
-                <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="ident" href="../../src/git2/commit.rs.html#210">mailmap</a>.<a class="ident" href="../../src/git2/util.rs.html#29">raw</a>()
+            <a class="macro" href="../../src/git2/call.rs.html#12-19">try_call!</a>(<span class="ident">raw::git_commit_committer_with_mailmap</span>(
+                <span class="kw-2">&amp;mut</span> <span class="ident">ret</span>,
+                <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">raw</span>,
+                <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">mailmap</span>.<span class="ident">raw</span>()
             ));
             <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<a class="ident" href="../../src/git2/commit.rs.html#211">ret</a>))
         }
@@ -684,23 +685,23 @@
         <span class="ident">message_encoding</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
         <span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
         <span class="ident">tree</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Tree</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">raw</span> <span class="op">=</span> <a class="ident" href="../../libgit2_sys/struct.git_oid.html">raw::git_oid</a> {
             <span class="ident">id</span>: [<span class="number">0</span>; <span class="ident">raw::GIT_OID_RAWSZ</span>],
         };
-        <span class="kw">let</span> <span class="ident">update_ref</span> <span class="op">=</span> <a class="ident" href="../../src/git2/lib.rs.html#853"><span class="kw">crate</span>::opt_cstr</a>(<a class="ident" href="../../src/git2/commit.rs.html#233">update_ref</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">encoding</span> <span class="op">=</span> <a class="ident" href="../../src/git2/lib.rs.html#853"><span class="kw">crate</span>::opt_cstr</a>(<a class="ident" href="../../src/git2/commit.rs.html#236">message_encoding</a>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <a class="ident" href="../../src/git2/lib.rs.html#853"><span class="kw">crate</span>::opt_cstr</a>(<a class="ident" href="../../src/git2/commit.rs.html#237">message</a>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">update_ref</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::opt_cstr</span>(<span class="ident">update_ref</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">encoding</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::opt_cstr</span>(<span class="ident">message_encoding</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::opt_cstr</span>(<span class="ident">message</span>)<span class="question-mark">?</span>;
         <span class="kw">unsafe</span> {
-            <span class="macro">try_call!</span>(<span class="ident">raw::git_commit_amend</span>(
-                <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/git2/commit.rs.html#240">raw</a>,
-                <a class="self" href="../../src/git2/commit.rs.html#232">self</a>.<a class="ident" href="../../src/git2/commit.rs.html#58">raw</a>(),
-                <a class="ident" href="../../src/git2/commit.rs.html#243">update_ref</a>,
-                <a class="ident" href="../../src/git2/commit.rs.html#234">author</a>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <a class="ident" href="../../src/git2/commit.rs.html#251">s</a>.<a class="ident" href="../../src/git2/util.rs.html#29">raw</a>()),
-                <a class="ident" href="../../src/git2/commit.rs.html#235">committer</a>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <a class="ident" href="../../src/git2/commit.rs.html#252">s</a>.<a class="ident" href="../../src/git2/util.rs.html#29">raw</a>()),
-                <a class="ident" href="../../src/git2/commit.rs.html#244">encoding</a>,
-                <a class="ident" href="../../src/git2/commit.rs.html#245">message</a>,
-                <a class="ident" href="../../src/git2/commit.rs.html#238">tree</a>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <a class="ident" href="../../src/git2/commit.rs.html#255">t</a>.<a class="ident" href="../../src/git2/util.rs.html#29">raw</a>())
+            <a class="macro" href="../../src/git2/call.rs.html#12-19">try_call!</a>(<span class="ident">raw::git_commit_amend</span>(
+                <span class="kw-2">&amp;mut</span> <span class="ident">raw</span>,
+                <span class="self">self</span>.<span class="ident">raw</span>(),
+                <span class="ident">update_ref</span>,
+                <span class="ident">author</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">raw</span>()),
+                <span class="ident">committer</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">raw</span>()),
+                <span class="ident">encoding</span>,
+                <span class="ident">message</span>,
+                <span class="ident">tree</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">raw</span>())
             ));
             <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/git2/commit.rs.html#240">raw</a> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>))
         }
@@ -716,13 +717,13 @@
     <span class="doccomment">/// Get the specified parent of the commit.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use the `parents` iterator to return an iterator over all parents.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Commit</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Commit</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">raw</span> <span class="op">=</span> <span class="ident">ptr::null_mut</span>();
-            <span class="macro">try_call!</span>(<span class="ident">raw::git_commit_parent</span>(
-                <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/git2/commit.rs.html#273">raw</a>,
-                <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="self" href="../../src/git2/commit.rs.html#271">self</a>.<span class="ident">raw</span>,
-                <a class="ident" href="../../src/git2/commit.rs.html#271">i</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_uint.html">libc::c_uint</a>
+            <a class="macro" href="../../src/git2/call.rs.html#12-19">try_call!</a>(<span class="ident">raw::git_commit_parent</span>(
+                <span class="kw-2">&amp;mut</span> <span class="ident">raw</span>,
+                <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">raw</span>,
+                <span class="ident">i</span> <span class="kw">as</span> <span class="ident">libc::c_uint</span>
             ));
             <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<a class="ident" href="../../src/git2/commit.rs.html#273">raw</a>))
         }
@@ -734,10 +735,10 @@
     <span class="doccomment">/// parent commit from the ODB.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use the `parent_ids` iterator to return an iterator over all parents.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a>, <a class="ident" href="../../src/git2/error.rs.html#12-16">Error</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parent_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a>, <a class="ident" href="../../src/git2/error.rs.html#12">Error</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">raw::git_commit_parent_id</span>(<a class="self" href="../../src/git2/commit.rs.html#289">self</a>.<span class="ident">raw</span>, <a class="ident" href="../../src/git2/commit.rs.html#289">i</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_uint.html">libc::c_uint</a>);
-            <span class="kw">if</span> <a class="ident" href="../../src/git2/commit.rs.html#291">id</a>.<span class="ident">is_null</span>() {
+            <span class="kw">if</span> <span class="ident">id</span>.<span class="ident">is_null</span>() {
                 <span class="prelude-val">Err</span>(<span class="ident">Error::from_str</span>(<span class="string">&quot;parent index out of bounds&quot;</span>))
             } <span class="kw">else</span> {
                 <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/git2/util.rs.html#28">Binding::from_raw</a>(<a class="ident" href="../../src/git2/commit.rs.html#291">id</a>))
@@ -752,15 +753,15 @@
 
     <span class="doccomment">/// Consumes Commit to be returned as an `Object`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_object</span>(<span class="self">self</span>) -&gt; <span class="ident">Object</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> {
-        <span class="macro">assert_eq!</span>(<span class="ident">mem::size_of_val</span>(<span class="kw-2">&amp;</span><a class="self" href="../../src/git2/commit.rs.html#306">self</a>), <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert_eq.html">assert_eq!</a>(<span class="ident">mem::size_of_val</span>(<span class="kw-2">&amp;</span><span class="self">self</span>), <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="ident">Object</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
         <span class="kw">unsafe</span> { <span class="ident">mem::transmute</span>(<a class="self" href="../../src/git2/commit.rs.html#306">self</a>) }
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> <a class="ident" href="../../src/git2/util.rs.html#25-42">Binding</a> <span class="kw">for</span> <span class="ident">Commit</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> <a class="ident" href="../../src/git2/util.rs.html#25">Binding</a> <span class="kw">for</span> <span class="ident">Commit</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Raw</span> <span class="op">=</span> <span class="kw-2">*mut</span> <a class="ident" href="../../libgit2_sys/enum.git_commit.html">raw::git_commit</a>;
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">raw</span>: <span class="kw-2">*mut</span> <a class="ident" href="../../libgit2_sys/enum.git_commit.html">raw::git_commit</a>) -&gt; <span class="ident">Commit</span><span class="op">&lt;</span><span class="lifetime">&#39;repo</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/git2/commit.rs.html#14-17">Commit</a> {
+        <a class="ident" href="../../src/git2/commit.rs.html#14">Commit</a> {
             <a class="ident" href="../../src/git2/commit.rs.html#314">raw</a>,
             <span class="ident">_marker</span>: <span class="ident">marker::PhantomData</span>,
         }
@@ -805,8 +806,8 @@
 
 <span class="doccomment">/// Aborts iteration when a commit cannot be found</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;commit</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for</span> <span class="ident">ParentIds</span><span class="op">&lt;</span><span class="lifetime">&#39;commit</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a>;
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a>;
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a><span class="op">&gt;</span> {
         <a class="self" href="../../src/git2/commit.rs.html#361">self</a>.<span class="ident">range</span>
             .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>()
             .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <a class="self" href="../../src/git2/commit.rs.html#361">self</a>.<span class="ident">commit</span>.<a class="ident" href="../../src/git2/commit.rs.html#289">parent_id</a>(<a class="ident" href="../../src/git2/commit.rs.html#364">i</a>).<span class="ident">ok</span>())
@@ -818,7 +819,7 @@
 
 <span class="doccomment">/// Aborts iteration when a commit cannot be found</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;commit</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html">DoubleEndedIterator</a> <span class="kw">for</span> <span class="ident">ParentIds</span><span class="op">&lt;</span><span class="lifetime">&#39;commit</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">next_back</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15-17">Oid</a><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next_back</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/git2/oid.rs.html#15">Oid</a><span class="op">&gt;</span> {
         <a class="self" href="../../src/git2/commit.rs.html#373">self</a>.<span class="ident">range</span>
             .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/double_ended/trait.DoubleEndedIterator.html">next_back</a>()
             .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <a class="self" href="../../src/git2/commit.rs.html#373">self</a>.<span class="ident">commit</span>.<a class="ident" href="../../src/git2/commit.rs.html#289">parent_id</a>(<a class="ident" href="../../src/git2/commit.rs.html#376">i</a>).<span class="ident">ok</span>())
@@ -890,5 +891,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="git2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="git2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

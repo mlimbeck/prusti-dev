@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["constants",""],["expression",""],["helpers",""],["method",""],["special_variables",""],["statements",""],["ty",""]],"trait":[["ToLow",""],["ToLowLowerer",""]]});
+window.SIDEBAR_ITEMS = {"mod":[["constants",""],["expression",""],["graphviz",""],["helpers",""],["method",""],["position",""],["special_variables",""],["statements",""],["successor",""],["ty",""]]};

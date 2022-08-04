@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/combine-4.6.3/src/parser/repeat.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>repeat.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../combine/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/combine-4.6.4/src/parser/repeat.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>repeat.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../combine/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../combine/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../combine/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../combine/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1627,9 +1628,9 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">error</span>::{
-        <a class="ident" href="../../../src/combine/error.rs.html#213-220">Commit</a>, <a class="ident" href="../../../src/combine/error.rs.html#456-527">ParseError</a>,
-        <span class="ident">ParseResult</span>::{<a class="self" href="../../../src/combine/error.rs.html#946-957">self</a>, <span class="kw-2">*</span>},
-        <a class="ident" href="../../../src/combine/error.rs.html#10-12">ResultExt</a>, <a class="ident" href="../../../src/combine/error.rs.html#359-360">StdParseResult</a>, <a class="ident" href="../../../src/combine/error.rs.html#367-450">StreamError</a>, <a class="ident" href="../../../src/combine/error.rs.html#926-931">Tracked</a>,
+        <a class="ident" href="../../../src/combine/error.rs.html#213">Commit</a>, <a class="ident" href="../../../src/combine/error.rs.html#456">ParseError</a>,
+        <span class="ident">ParseResult</span>::{<a class="self" href="../../../src/combine/error.rs.html#946">self</a>, <span class="kw-2">*</span>},
+        <a class="ident" href="../../../src/combine/error.rs.html#10">ResultExt</a>, <a class="ident" href="../../../src/combine/error.rs.html#359">StdParseResult</a>, <a class="ident" href="../../../src/combine/error.rs.html#367">StreamError</a>, <a class="ident" href="../../../src/combine/error.rs.html#926">Tracked</a>,
     },
     <span class="ident">lib</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html">borrow::BorrowMut</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/cmp/index.html">cmp</a>, <span class="ident">marker::PhantomData</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>},
     <span class="ident">parser</span>::{
@@ -1638,13 +1639,13 @@
         <span class="ident">function</span>::{<a class="ident" href="../../../src/combine/parser/function.rs.html#61-64">parser</a>, <a class="ident" href="../../../src/combine/parser/function.rs.html#23">FnParser</a>},
         <a class="ident" href="../../../src/combine/parser/sequence.rs.html#498">sequence::With</a>,
         <span class="ident">token</span>::{<a class="ident" href="../../../src/combine/parser/token.rs.html#606-609">value</a>, <a class="ident" href="../../../src/combine/parser/token.rs.html#580">Value</a>},
-        <a class="ident" href="../../../src/combine/parser/mod.rs.html#1151">FirstMode</a>, <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <a class="ident" href="../../../src/combine/parser/mod.rs.html#1151">FirstMode</a>, <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     },
-    <span class="ident">stream</span>::{<a class="ident" href="../../../src/combine/stream/mod.rs.html#173-175">uncons</a>, <a class="ident" href="../../../src/combine/stream/mod.rs.html#163">Stream</a>, <a class="ident" href="../../../src/combine/stream/mod.rs.html#116-140">StreamOnce</a>},
-    <a class="ident" href="../../../src/combine/lib.rs.html#627">ErrorOffset</a>, <a class="ident" href="../../../src/combine/parser/mod.rs.html#84-956">Parser</a>,
+    <span class="ident">stream</span>::{<a class="ident" href="../../../src/combine/stream/mod.rs.html#173-175">uncons</a>, <a class="ident" href="../../../src/combine/stream/mod.rs.html#163">Stream</a>, <a class="ident" href="../../../src/combine/stream/mod.rs.html#116">StreamOnce</a>},
+    <a class="ident" href="../../../src/combine/lib.rs.html#627">ErrorOffset</a>, <a class="ident" href="../../../src/combine/parser/mod.rs.html#84">Parser</a>,
 };
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Count</span>;
 
 <span class="doccomment">/// Parses `parser` from zero up to `count` times.</span>
@@ -1661,18 +1662,18 @@
 <span class="doccomment">/// assert_eq!(result, Ok((b&quot;aa&quot;[..].to_owned(), &amp;b&quot;ab&quot;[..])));</span>
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">count</span>[<span class="ident">F</span>, <span class="ident">Input</span>, <span class="ident">P</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#22-48">count</a>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#22-48">parser</a>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; <span class="ident">F</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">count</span>[<span class="ident">F</span>, <span class="ident">Input</span>, <span class="ident">P</span>](<span class="ident">count</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">parser</span>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; <span class="ident">F</span>
 <span class="kw">where</span> [
     <span class="ident">Input</span>: <a class="ident" href="../../../src/combine/stream/mod.rs.html#163">Stream</a>,
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">F</span>: <span class="ident">Extend</span><span class="op">&lt;</span><span class="ident">P::Output</span><span class="op">&gt;</span> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a>,
 ]
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#186-190">count_min_max</a>(<span class="number">0</span>, <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#22-48">count</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#22-48">parser</a>)
+    <span class="ident">count_min_max</span>(<span class="number">0</span>, <span class="kw-2">*</span><span class="ident">count</span>, <span class="ident">parser</span>)
 }
 }
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkipCount</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">With</span><span class="op">&lt;</span><span class="ident">Count</span><span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="ident">Input</span>, <span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Input</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
     <span class="doccomment">/// Parses `parser` from zero up to `count` times skipping the output of `parser`.</span>
@@ -1688,12 +1689,12 @@
     <span class="doccomment">/// assert_eq!(result, Ok(((), &amp;b&quot;ab&quot;[..])));</span>
     <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_count</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#50-73">count</a>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#50-73">parser</a>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_count</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<span class="ident">count</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">parser</span>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
     <span class="kw">where</span> [
         <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>
     ]
     {
-        <span class="ident"><span class="self">self</span>::count</span>::<span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#50-73">count</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#50-73">parser</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#598-601">map</a>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())).<a class="ident" href="../../../src/combine/parser/mod.rs.html#379-382">with</a>(<a class="ident" href="../../../src/combine/parser/token.rs.html#606-609">value</a>(()))
+        <span class="ident"><span class="self">self</span>::count</span>::<span class="op">&lt;</span><span class="ident">Sink</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">*</span><span class="ident">count</span>, <span class="ident">parser</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())).<span class="ident">with</span>(<span class="ident">value</span>(()))
     }
 }
 
@@ -1732,7 +1733,7 @@
 <span class="kw">where</span>
     <span class="ident">I</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#83-87">SuggestSizeHint</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#83">SuggestSizeHint</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#106">iterator</a>,
         <span class="comment">// Invalid input may report an extreme size so we guard against that (while still</span>
         <span class="comment">// optimizing by preallocating for the expected case of success)</span>
@@ -1750,7 +1751,7 @@
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">F</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> (<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">F</span>, <span class="ident">P::PartialState</span>);
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -1759,7 +1760,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="ident">count</span>, <span class="ident">elements</span>, <span class="ident">child_state</span>) <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#134">state</a>;
 
@@ -1770,10 +1771,10 @@
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#141">iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">by_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#143">remaining_max</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">inspect</a>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#139">count</a> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>),
             (<a class="ident" href="../../../src/combine/parser/repeat.rs.html#142">remaining_min</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#143">remaining_max</a>)),
         ));
-        <span class="kw">if</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#139">count</a> <span class="op">&lt;</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#131">self</a>.<span class="ident">min</span> {
-            <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/error.rs.html#410-412">StreamError::message_format</a>(<span class="macro">format_args!</span>(
+        <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">count</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">min</span> {
+            <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/error.rs.html#410-412">StreamError::message_format</a>(<a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.format_args.html">format_args!</a>(
                 <span class="string">&quot;expected {} more elements&quot;</span>,
-                <a class="self" href="../../../src/combine/parser/repeat.rs.html#131">self</a>.<span class="ident">min</span> <span class="op">-</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#139">count</a>
+                <span class="self">self</span>.<span class="ident">min</span> <span class="op">-</span> <span class="kw-2">*</span><span class="ident">count</span>
             ));
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#141">iter</a>.<a class="ident" href="../../../src/combine/parser/repeat.rs.html#304-311">fail</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#149">err</a>)
         } <span class="kw">else</span> {
@@ -1814,9 +1815,9 @@
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">F</span>: <span class="ident">Extend</span><span class="op">&lt;</span><span class="ident">P::Output</span><span class="op">&gt;</span> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a>,
 {
-    <span class="macro">assert!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#186">min</a> <span class="op">&lt;</span><span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#186">max</a>);
+    <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(<span class="ident">min</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">max</span>);
 
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#76-81">CountMinMax</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#76">CountMinMax</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#186">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#186">min</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#186">max</a>,
@@ -1824,7 +1825,7 @@
     }
 }
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkipCountMinMax</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">With</span><span class="op">&lt;</span><span class="ident">CountMinMax</span><span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Input</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
     <span class="doccomment">/// Parses `parser` from `min` to `max` times (including `min` and `max`)</span>
@@ -1846,12 +1847,12 @@
     <span class="doccomment">/// # Panics</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If `min` &gt; `max`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_count_min_max</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#202-231">min</a>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#202-231">max</a>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#202-231">parser</a>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_count_min_max</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<span class="ident">min</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">max</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">parser</span>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
     <span class="kw">where</span> [
         <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     ]
     {
-       <span class="ident">count_min_max</span>::<span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#202-231">min</a>, <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#202-231">max</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#202-231">parser</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#598-601">map</a>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())).<a class="ident" href="../../../src/combine/parser/mod.rs.html#379-382">with</a>(<a class="ident" href="../../../src/combine/parser/token.rs.html#606-609">value</a>(()))
+       <span class="ident">count_min_max</span>::<span class="op">&lt;</span><span class="ident">Sink</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="kw-2">*</span><span class="ident">min</span>, <span class="kw-2">*</span><span class="ident">max</span>, <span class="ident">parser</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())).<span class="ident">with</span>(<span class="ident">value</span>(()))
     }
 }
 
@@ -1881,7 +1882,7 @@
     <span class="ident">S</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">P::PartialState</span><span class="op">&gt;</span>,
 {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">parser</span>: <span class="ident">P</span>, <span class="ident">mode</span>: <span class="ident">M</span>, <span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Input</span>, <span class="ident">partial_state</span>: <span class="ident">S</span>) -&gt; <span class="self">Self</span> {
-        <a class="ident" href="../../../src/combine/parser/repeat.rs.html#233-244">Iter</a> {
+        <a class="ident" href="../../../src/combine/parser/repeat.rs.html#233">Iter</a> {
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#258">parser</a>,
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#258">input</a>,
             <span class="ident">committed</span>: <span class="bool-val">false</span>,
@@ -1899,7 +1900,7 @@
     <span class="kw">fn</span> <span class="ident">into_result_</span><span class="op">&lt;</span><span class="ident">O</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="ident">O</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">O</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#274">self</a>.<span class="ident">state</span> {
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#247">State::Ok</a> <span class="op">|</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#248">State::PeekErr</a>(<span class="kw">_</span>) =&gt; {
-                <span class="kw">if</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#274">self</a>.<span class="ident">committed</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">committed</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#949">CommitOk</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#274">value</a>)
                 } <span class="kw">else</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#952">PeekOk</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#274">value</a>)
@@ -1916,7 +1917,7 @@
         <span class="kw">match</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#287">self</a>.<span class="ident">state</span> {
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#247">State::Ok</a> <span class="op">|</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#248">State::PeekErr</a>(<span class="kw">_</span>) =&gt; {
                 <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.take.html">mem::take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#287">value</a>);
-                <span class="kw">if</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#287">self</a>.<span class="ident">committed</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">committed</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#949">CommitOk</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#293">value</a>)
                 } <span class="kw">else</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#952">PeekOk</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#293">value</a>)
@@ -1937,7 +1938,7 @@
         <span class="kw">match</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#305">self</a>.<span class="ident">state</span> {
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#247">State::Ok</a> =&gt; {
                 <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">StreamOnce</span><span class="op">&gt;</span><span class="ident">::Error::from_error</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#305">self</a>.<span class="ident">input</span>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#78">position</a>(), <a class="ident" href="../../../src/combine/parser/repeat.rs.html#306">err</a>);
-                <span class="kw">if</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#305">self</a>.<span class="ident">committed</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">committed</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#314">err</a>)
                 } <span class="kw">else</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#956">PeekErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#314">err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>())
@@ -1946,7 +1947,7 @@
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#248">State::PeekErr</a>(<span class="kw-2">mut</span> <span class="ident">e</span>) =&gt; {
                 <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">StreamOnce</span><span class="op">&gt;</span><span class="ident">::Error::from_error</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#305">self</a>.<span class="ident">input</span>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#78">position</a>(), <a class="ident" href="../../../src/combine/parser/repeat.rs.html#306">err</a>);
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#321">e</a> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#321">e</a>.<a class="ident" href="../../../src/combine/error.rs.html#482">merge</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#322">err</a>);
-                <span class="kw">if</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#305">self</a>.<span class="ident">committed</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">committed</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#321">e</a>)
                 } <span class="kw">else</span> {
                     <a class="ident" href="../../../src/combine/error.rs.html#956">PeekErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#321">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>())
@@ -1965,7 +1966,7 @@
     <span class="ident">Input</span>: <a class="ident" href="../../../src/combine/stream/mod.rs.html#163">Stream</a>,
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">S</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">P::PartialState</span><span class="op">&gt;</span>,
-    <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+    <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
 {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">P::Output</span>;
 
@@ -2011,7 +2012,7 @@
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">F</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> (<span class="ident">F</span>, <span class="ident">P::PartialState</span>);
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2020,7 +2021,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="comment">// TODO</span>
         <span class="kw">let</span> (<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">elements</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">child_state</span>) <span class="op">=</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#395">state</a>;
@@ -2083,7 +2084,7 @@
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">F</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> (<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <span class="ident">F</span>, <span class="ident">P::PartialState</span>);
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2092,15 +2093,15 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parsed_one</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">committed_state</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">elements</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">child_state</span>) <span class="op">=</span>
             <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#467">state</a>;
 
-        <span class="kw">if</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#465">mode</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#1107">is_first</a>() <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#472">parsed_one</a> {
-            <span class="macro">debug_assert!</span>(<span class="op">!</span><span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#472">parsed_one</a>);
+        <span class="kw">if</span> <span class="ident">mode</span>.<span class="ident">is_first</span>() <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="kw-2">*</span><span class="ident">parsed_one</span> {
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert.html">debug_assert!</a>(<span class="op">!</span><span class="kw-2">*</span><span class="ident">parsed_one</span>);
 
-            <span class="kw">let</span> (<span class="ident">first</span>, <span class="ident">committed</span>) <span class="op">=</span> <span class="macro">ctry!</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#464">self</a>.<span class="number">0</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#267-275">parse_mode</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#465">mode</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#466">input</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#472">child_state</a>));
+            <span class="kw">let</span> (<span class="ident">first</span>, <span class="ident">committed</span>) <span class="op">=</span> <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">parse_mode</span>(<span class="ident">mode</span>, <span class="ident">input</span>, <span class="ident">child_state</span>));
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#472">elements</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#478">first</a>));
             <span class="comment">// TODO Should PeekOk be an error?</span>
             <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#472">committed_state</a> <span class="op">=</span> <span class="op">!</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#478">committed</a>.<a class="ident" href="../../../src/combine/error.rs.html#240">is_peek</a>();
@@ -2108,7 +2109,7 @@
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#465">mode</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#1109">set_first</a>();
         }
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#233-244">Iter</a> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#233">Iter</a> {
             <span class="ident">parser</span>: <span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#464">self</a>.<span class="number">0</span>,
             <span class="ident">committed</span>: <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#472">committed_state</a>,
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#466">input</a>,
@@ -2128,7 +2129,7 @@
         <a class="self" href="../../../src/combine/parser/repeat.rs.html#502">self</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#206">add_error</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#502">errors</a>);
     }
 
-    <span class="macro">forward_parser!</span>(<span class="ident">Input</span>, <span class="ident">add_error</span> <span class="ident">parser_count</span>, <span class="number">0</span>);
+    <a class="macro" href="../../../src/combine/lib.rs.html#531-597">forward_parser!</a>(<span class="ident">Input</span>, <span class="ident">add_error</span> <span class="ident">parser_count</span>, <span class="number">0</span>);
 }
 
 <span class="doccomment">/// Parses `p` one or more times returning a collection with the values from `p`.</span>
@@ -2176,11 +2177,11 @@
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">A</span><span class="op">&gt;</span>,
     {
-        <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#550">iter</a> {}
+        <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="ident">iter</span> {}
     }
 }
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkipMany</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Ignore</span><span class="op">&lt;</span><span class="ident">Many</span><span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="ident">Ignore</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
 <span class="doccomment">/// Parses `p` zero or more times ignoring the result.</span>
@@ -2198,16 +2199,16 @@
 <span class="doccomment">/// assert_eq!(result, Ok(((), &quot;A&quot;)));</span>
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_many</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#558-583">p</a>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_many</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<span class="ident">p</span>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
 <span class="kw">where</span> [
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 ]
 {
-    <a class="ident" href="../../../src/combine/parser/combinator.rs.html#712-715">ignore</a>(<span class="ident">many</span>::<span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<a class="ident" href="../../../src/combine/parser/combinator.rs.html#712-715">ignore</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#558-583">p</a>)))
+    <span class="ident">ignore</span>(<span class="ident">many</span>::<span class="op">&lt;</span><span class="ident">Sink</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ignore</span>(<span class="ident">p</span>)))
 }
 }
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkipMany1</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Ignore</span><span class="op">&lt;</span><span class="ident">Many1</span><span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="ident">Ignore</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
 <span class="doccomment">/// Parses `p` one or more times ignoring the result.</span>
@@ -2225,12 +2226,12 @@
 <span class="doccomment">/// assert_eq!(result, Ok(((), &quot;A&quot;)));</span>
 <span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_many1</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#585-610">p</a>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_many1</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<span class="ident">p</span>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
 <span class="kw">where</span> [
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 ]
 {
-    <a class="ident" href="../../../src/combine/parser/combinator.rs.html#712-715">ignore</a>(<span class="ident">many1</span>::<span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<a class="ident" href="../../../src/combine/parser/combinator.rs.html#712-715">ignore</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#585-610">p</a>)))
+    <span class="ident">ignore</span>(<span class="ident">many1</span>::<span class="op">&lt;</span><span class="ident">Sink</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ignore</span>(<span class="ident">p</span>)))
 }
 }
 
@@ -2253,7 +2254,7 @@
         <span class="ident">FnParser</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="kw">fn</span>(<span class="kw-2">&amp;mut</span> <span class="ident">Input</span>) -&gt; <span class="ident">StdParseResult</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2262,7 +2263,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#780-785">sep_by1</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#634">self</a>.<span class="ident">parser</span>, <span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#634">self</a>.<span class="ident">separator</span>)
             .<a class="ident" href="../../../src/combine/parser/mod.rs.html#463-466">or</a>(<a class="ident" href="../../../src/combine/parser/function.rs.html#61-64">parser</a>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>((<span class="ident">F::default</span>(), <a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(())))))
@@ -2273,7 +2274,7 @@
         <a class="self" href="../../../src/combine/parser/repeat.rs.html#647">self</a>.<span class="ident">separator</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#206">add_error</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#647">errors</a>)
     }
 
-    <span class="macro">forward_parser!</span>(<span class="ident">Input</span>, <span class="ident">add_error</span> <span class="ident">parser_count</span>, <span class="ident">parser</span>);
+    <a class="macro" href="../../../src/combine/lib.rs.html#531-597">forward_parser!</a>(<span class="ident">Input</span>, <span class="ident">add_error</span> <span class="ident">parser_count</span>, <span class="ident">parser</span>);
 }
 
 <span class="doccomment">/// Parses `parser` zero or more time separated by `separator`, returning a collection with the</span>
@@ -2302,7 +2303,7 @@
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">S</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#613-617">SepBy</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#613">SepBy</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#673">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#673">separator</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
@@ -2329,7 +2330,7 @@
         <span class="op">&lt;</span><span class="ident">With</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">P</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>,
     );
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2338,7 +2339,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parsed_one</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">elements</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">child_state</span>) <span class="op">=</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#713">state</a>;
 
@@ -2346,9 +2347,9 @@
             <span class="prelude-val">Some</span>(<span class="ident">rest</span>) =&gt; <a class="ident" href="../../../src/combine/parser/repeat.rs.html#721">rest</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">let</span> (<span class="ident">first</span>, <span class="ident">rest</span>) <span class="op">=</span>
-                    <span class="macro">ctry!</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#710">self</a>
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="self">self</span>
                         .<span class="ident">parser</span>
-                        .<a class="ident" href="../../../src/combine/parser/mod.rs.html#267-275">parse_mode</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#711">mode</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#712">input</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#718">child_state</a>.<span class="ident">B</span>.<span class="ident">state</span>));
+                        .<span class="ident">parse_mode</span>(<span class="ident">mode</span>, <span class="ident">input</span>, <span class="kw-2">&amp;mut</span> <span class="ident">child_state</span>.<span class="ident">B</span>.<span class="ident">state</span>));
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#718">elements</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#723">first</a>));
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#723">rest</a>
             }
@@ -2371,7 +2372,7 @@
         <a class="self" href="../../../src/combine/parser/repeat.rs.html#745">self</a>.<span class="ident">separator</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#206">add_error</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#745">errors</a>)
     }
 
-    <span class="macro">forward_parser!</span>(<span class="ident">Input</span>, <span class="ident">add_error</span> <span class="ident">parser_count</span>, <span class="ident">parser</span>);
+    <a class="macro" href="../../../src/combine/lib.rs.html#531-597">forward_parser!</a>(<span class="ident">Input</span>, <span class="ident">add_error</span> <span class="ident">parser_count</span>, <span class="ident">parser</span>);
 }
 
 <span class="doccomment">/// Parses `parser` one or more time separated by `separator`, returning a collection with the</span>
@@ -2409,7 +2410,7 @@
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">S</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#688-692">SepBy1</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#688">SepBy1</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#780">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#780">separator</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
@@ -2436,7 +2437,7 @@
         <span class="ident">FnParser</span><span class="op">&lt;</span><span class="ident">Input</span>, <span class="kw">fn</span>(<span class="kw-2">&amp;mut</span> <span class="ident">Input</span>) -&gt; <span class="ident">StdParseResult</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2445,7 +2446,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#966-971">sep_end_by1</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#817">self</a>.<span class="ident">parser</span>, <span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#817">self</a>.<span class="ident">separator</span>)
             .<a class="ident" href="../../../src/combine/parser/mod.rs.html#463-466">or</a>(<a class="ident" href="../../../src/combine/parser/function.rs.html#61-64">parser</a>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>((<span class="ident">F::default</span>(), <a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(())))))
@@ -2483,7 +2484,7 @@
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">S</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#795-799">SepEndBy</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#795">SepEndBy</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#854">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#854">separator</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
@@ -2511,7 +2512,7 @@
         <span class="op">&lt;</span><span class="ident">With</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">Optional</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>,
     );
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2520,7 +2521,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">parsed_one</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">elements</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">child_state</span>) <span class="op">=</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#895">state</a>;
 
@@ -2528,9 +2529,9 @@
             <span class="prelude-val">Some</span>(<span class="ident">rest</span>) =&gt; <a class="ident" href="../../../src/combine/parser/repeat.rs.html#903">rest</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">let</span> (<span class="ident">first</span>, <span class="ident">rest</span>) <span class="op">=</span>
-                    <span class="macro">ctry!</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#892">self</a>
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="self">self</span>
                         .<span class="ident">parser</span>
-                        .<a class="ident" href="../../../src/combine/parser/mod.rs.html#267-275">parse_mode</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#893">mode</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#894">input</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#900">child_state</a>.<span class="ident">B</span>.<span class="ident">state</span>));
+                        .<span class="ident">parse_mode</span>(<span class="ident">mode</span>, <span class="ident">input</span>, <span class="kw-2">&amp;mut</span> <span class="ident">child_state</span>.<span class="ident">B</span>.<span class="ident">state</span>));
                 <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#900">parsed_one</a> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#905">rest</a>);
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#900">elements</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#905">first</a>));
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#905">rest</a>
@@ -2544,7 +2545,7 @@
             <span class="comment">// Parse elements until `self.parser` returns `None`</span>
             <a class="ident" href="../../../src/combine/parser/repeat.rs.html#900">elements</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#917">iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">by_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">scan</a>((), <span class="op">|</span><span class="kw">_</span>, <span class="ident">x</span><span class="op">|</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#920">x</a>));
 
-            <span class="kw">if</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#917">iter</a>.<span class="ident">committed</span> {
+            <span class="kw">if</span> <span class="ident">iter</span>.<span class="ident">committed</span> {
                 <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#900">parsed_one</a> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(()));
             }
 
@@ -2595,7 +2596,7 @@
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">S</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#869-873">SepEndBy1</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#869">SepEndBy1</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#966">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#966">separator</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
@@ -2617,7 +2618,7 @@
         <span class="op">&lt;</span>(<span class="ident">Op</span>, <span class="ident">P</span>) <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>,
     );
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2626,14 +2627,14 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">l_state</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">child_state</span>) <span class="op">=</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1001">state</a>;
 
         <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">l</span>, <span class="kw-2">mut</span> <span class="ident">committed</span>) <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1006">l_state</a>.<span class="ident">take</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">x</span>) =&gt; <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1009">x</a>,
             <span class="prelude-val">None</span> =&gt; {
-                <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="macro">ctry!</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#998">self</a>.<span class="number">0</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#255-259">parse_partial</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1000">input</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1006">child_state</a>.<span class="ident">B</span>.<span class="ident">state</span>));
+                <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">parse_partial</span>(<span class="ident">input</span>, <span class="kw-2">&amp;mut</span> <span class="ident">child_state</span>.<span class="ident">B</span>.<span class="ident">state</span>));
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#999">mode</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#1109">set_first</a>();
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1011">x</a>
             }
@@ -2655,7 +2656,7 @@
                     <span class="kw">return</span> <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1028">err</a>.<span class="ident">error</span>);
                 }
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(<span class="kw">_</span>)) =&gt; {
-                    <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1000">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1018">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                     <span class="kw">break</span>;
                 }
             }
@@ -2706,7 +2707,7 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_lazy</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">input</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Input</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">P::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span> {
         <span class="comment">// FIXME FastResult</span>
-        <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">l</span>, <span class="kw-2">mut</span> <span class="ident">committed</span>) <span class="op">=</span> <span class="macro">ctry!</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#1082">self</a>.<span class="number">0</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#180-183">parse_lazy</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1082">input</a>));
+        <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">l</span>, <span class="kw-2">mut</span> <span class="ident">committed</span>) <span class="op">=</span> <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">parse_lazy</span>(<span class="ident">input</span>));
         <span class="kw">loop</span> {
             <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1082">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#148">checkpoint</a>();
             <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="kw">match</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#1082">self</a>.<span class="number">1</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#180-183">parse_lazy</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1082">input</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>() {
@@ -2716,7 +2717,7 @@
                 }
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(<span class="ident">err</span>)) =&gt; <span class="kw">return</span> <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1092">err</a>.<span class="ident">error</span>),
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(<span class="kw">_</span>)) =&gt; {
-                    <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1082">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1086">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                     <span class="kw">break</span>;
                 }
             };
@@ -2728,7 +2729,7 @@
                 }
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(<span class="ident">err</span>)) =&gt; <span class="kw">return</span> <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1104">err</a>.<span class="ident">error</span>),
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(<span class="kw">_</span>)) =&gt; {
-                    <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1082">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1098">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                     <span class="kw">break</span>;
                 }
             }
@@ -2778,7 +2779,7 @@
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">F</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> (<span class="ident">F</span>, <span class="ident">P::PartialState</span>);
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2787,7 +2788,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">output</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">end_state</span>) <span class="op">=</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1162">state</a>;
 
@@ -2796,19 +2797,19 @@
             <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1161">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#148">checkpoint</a>();
             <span class="kw">match</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#1159">self</a>.<span class="ident">end</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#267-275">parse_mode</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1160">mode</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1161">input</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1167">end_state</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>() {
                 <span class="prelude-val">Ok</span>((<span class="kw">_</span>, <span class="ident">rest</span>)) =&gt; {
-                    <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1161">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1171">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                     <span class="kw">return</span> <span class="kw">match</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1169">committed</a>.<a class="ident" href="../../../src/combine/error.rs.html#275">merge</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1173">rest</a>) {
                         <a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(()) =&gt; <a class="ident" href="../../../src/combine/error.rs.html#949">CommitOk</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.take.html">mem::take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1167">output</a>)),
                         <a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(()) =&gt; <a class="ident" href="../../../src/combine/error.rs.html#952">PeekOk</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.take.html">mem::take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1167">output</a>)),
                     };
                 }
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(<span class="kw">_</span>)) =&gt; {
-                    <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1161">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1171">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
-                    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1167">output</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/stream/mod.rs.html#173-175">uncons</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1161">input</a>)).<span class="number">0</span>));
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
+                    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1167">output</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">uncons</span>(<span class="ident">input</span>)).<span class="number">0</span>));
                     <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1169">committed</a> <span class="op">=</span> <a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(());
                 }
                 <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(<span class="ident">e</span>)) =&gt; {
-                    <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1161">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1171">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                    <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                     <span class="kw">return</span> <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1185">e</a>.<span class="ident">error</span>);
                 }
             };
@@ -2845,13 +2846,13 @@
     <span class="ident">F</span>: <span class="ident">Extend</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">StreamOnce</span><span class="op">&gt;</span><span class="ident">::Token</span><span class="op">&gt;</span> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a>,
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1143-1146">TakeUntil</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1143">TakeUntil</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1217">end</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
     }
 }
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkipUntil</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">With</span><span class="op">&lt;</span><span class="ident">TakeUntil</span><span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="ident">P</span><span class="op">&gt;</span>, <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Input</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
     <span class="doccomment">/// Skips input until `end` is encountered or `end` indicates that it has committed input before</span>
@@ -2877,12 +2878,12 @@
     <span class="doccomment">/// assert_eq!(byte_parser.parse(&amp;b&quot;123TATAG&quot;[..]), Ok(((), &amp;b&quot;TAG&quot;[..])));</span>
     <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_until</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1229-1262">end</a>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">skip_until</span>[<span class="ident">Input</span>, <span class="ident">P</span>](<span class="ident">end</span>: <span class="ident">P</span>)(<span class="ident">Input</span>) -&gt; ()
     <span class="kw">where</span> [
         <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     ]
     {
-        <span class="ident">take_until</span>::<span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1229-1262">end</a>).<a class="ident" href="../../../src/combine/parser/mod.rs.html#379-382">with</a>(<a class="ident" href="../../../src/combine/parser/token.rs.html#606-609">value</a>(()))
+        <span class="ident">take_until</span>::<span class="op">&lt;</span><span class="ident">Sink</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">end</span>).<span class="ident">with</span>(<span class="ident">value</span>(()))
     }
 }
 
@@ -2902,7 +2903,7 @@
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">F</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> (<span class="ident">F</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <span class="ident">P::PartialState</span>, <span class="ident">E::PartialState</span>);
 
-    <span class="macro">parse_mode!</span>(<span class="ident">Input</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">Input</span>);
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -2911,14 +2912,14 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">Input::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="ident">output</span>, <span class="ident">is_parse</span>, <span class="ident">parse_state</span>, <span class="ident">end_state</span>) <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1286">state</a>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">committed</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(());
         <span class="kw">loop</span> {
-            <span class="kw">if</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">is_parse</a> {
-                <span class="kw">let</span> (<span class="ident">token</span>, <span class="ident">c</span>) <span class="op">=</span> <span class="macro">ctry!</span>(<a class="self" href="../../../src/combine/parser/repeat.rs.html#1283">self</a>.<span class="ident">parser</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#267-275">parse_mode</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1284">mode</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1285">input</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">parse_state</a>));
+            <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">is_parse</span> {
+                <span class="kw">let</span> (<span class="ident">token</span>, <span class="ident">c</span>) <span class="op">=</span> <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="self">self</span>.<span class="ident">parser</span>.<span class="ident">parse_mode</span>(<span class="ident">mode</span>, <span class="ident">input</span>, <span class="ident">parse_state</span>));
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">output</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1296">token</a>));
                 <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1293">committed</a> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1293">committed</a>.<a class="ident" href="../../../src/combine/error.rs.html#275">merge</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1296">c</a>);
                 <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">is_parse</a> <span class="op">=</span> <span class="bool-val">false</span>;
@@ -2926,19 +2927,19 @@
                 <span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1285">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#148">checkpoint</a>();
                 <span class="kw">match</span> <a class="self" href="../../../src/combine/parser/repeat.rs.html#1283">self</a>.<span class="ident">end</span>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#267-275">parse_mode</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1284">mode</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1285">input</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">end_state</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>() {
                     <span class="prelude-val">Ok</span>((<span class="kw">_</span>, <span class="ident">rest</span>)) =&gt; {
-                        <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1285">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1301">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                        <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                         <span class="kw">return</span> <span class="kw">match</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1293">committed</a>.<a class="ident" href="../../../src/combine/error.rs.html#275">merge</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1303">rest</a>) {
                             <a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(()) =&gt; <a class="ident" href="../../../src/combine/error.rs.html#949">CommitOk</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.take.html">mem::take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">output</a>)),
                             <a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(()) =&gt; <a class="ident" href="../../../src/combine/error.rs.html#952">PeekOk</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.take.html">mem::take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">output</a>)),
                         };
                     }
                     <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#219">Commit::Peek</a>(<span class="kw">_</span>)) =&gt; {
-                        <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1285">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1301">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                        <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1284">mode</a>.<a class="ident" href="../../../src/combine/parser/mod.rs.html#1109">set_first</a>();
                         <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1291">is_parse</a> <span class="op">=</span> <span class="bool-val">true</span>;
                     }
                     <span class="prelude-val">Err</span>(<a class="ident" href="../../../src/combine/error.rs.html#216">Commit::Commit</a>(<span class="ident">e</span>)) =&gt; {
-                        <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1285">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1301">before</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
+                        <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">before</span>).<span class="ident">committed</span>());
                         <span class="kw">return</span> <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1315">e</a>.<span class="ident">error</span>);
                     }
                 }
@@ -2954,14 +2955,14 @@
     <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     <span class="ident">E</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1265-1269">RepeatUntil</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1265">RepeatUntil</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1325">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1325">end</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
     }
 }
 
-<span class="macro">parser!</span> {
+<a class="macro" href="../../../src/combine/lib.rs.html#326-403">parser!</a> {
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SkipRepeatUntil</span>;
     <span class="kw">type</span> <span class="ident">PartialState</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">With</span><span class="op">&lt;</span><span class="ident">RepeatUntil</span><span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="ident">P</span>, <span class="ident">E</span><span class="op">&gt;</span>, <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Input</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::PartialState</span>;
     <span class="doccomment">/// Skips input until `end` is encountered or `end` indicates that it has committed input before</span>
@@ -2988,13 +2989,13 @@
     <span class="doccomment">///     assert_eq!(byte_parser.parse(&amp;b&quot;123TATAG&quot;[..]), Ok(((), &amp;b&quot;TAG&quot;[..])));</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">repeat_skip_until</span>[<span class="ident">Input</span>, <span class="ident">P</span>, <span class="ident">E</span>](<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1339-1374">parser</a>: <span class="ident">P</span>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1339-1374">end</a>: <span class="ident">E</span>)(<span class="ident">Input</span>) -&gt; ()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">repeat_skip_until</span>[<span class="ident">Input</span>, <span class="ident">P</span>, <span class="ident">E</span>](<span class="ident">parser</span>: <span class="ident">P</span>, <span class="ident">end</span>: <span class="ident">E</span>)(<span class="ident">Input</span>) -&gt; ()
     <span class="kw">where</span> [
         <span class="ident">P</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
         <span class="ident">E</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
     ]
     {
-        <span class="ident">repeat_until</span>::<span class="op">&lt;</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#541">Sink</a>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1339-1374">parser</a>, <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1339-1374">end</a>).<a class="ident" href="../../../src/combine/parser/mod.rs.html#379-382">with</a>(<a class="ident" href="../../../src/combine/parser/token.rs.html#606-609">value</a>(()))
+        <span class="ident">repeat_until</span>::<span class="op">&lt;</span><span class="ident">Sink</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">parser</span>, <span class="ident">end</span>).<span class="ident">with</span>(<span class="ident">value</span>(()))
     }
 }
 
@@ -3047,8 +3048,8 @@
                             <span class="kw">return</span> <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1421">err</a>);
                         }
                         <span class="kw">_</span> =&gt; {
-                            <span class="macro">ctry!</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1394">input</a>.<a class="ident" href="../../../src/combine/stream/mod.rs.html#150">reset</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1403">checkpoint</a>).<a class="ident" href="../../../src/combine/error.rs.html#11">committed</a>());
-                            <span class="kw">return</span> <span class="kw">if</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1395">committed</a>.<a class="ident" href="../../../src/combine/error.rs.html#240">is_peek</a>() {
+                            <a class="macro" href="../../../src/combine/error.rs.html#25-38">ctry!</a>(<span class="ident">input</span>.<span class="ident">reset</span>(<span class="ident">checkpoint</span>).<span class="ident">committed</span>());
+                            <span class="kw">return</span> <span class="kw">if</span> <span class="ident">committed</span>.<span class="ident">is_peek</span>() {
                                 <a class="ident" href="../../../src/combine/error.rs.html#952">PeekOk</a>(())
                             } <span class="kw">else</span> {
                                 <a class="ident" href="../../../src/combine/error.rs.html#949">CommitOk</a>(())
@@ -3105,7 +3106,7 @@
     <span class="op">&lt;</span><span class="ident">Input</span> <span class="kw">as</span> <span class="ident">StreamOnce</span><span class="op">&gt;</span><span class="ident">::Token</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html">PartialEq</a>,
     <span class="ident">Q</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">Input</span><span class="op">&gt;</span>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1379-1383">Escaped</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1379">Escaped</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1473">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1474">escape</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1475">escape_parser</a>,
@@ -3133,7 +3134,7 @@
         <span class="ident">Q::PartialState</span>,
     );
 
-    <span class="macro">parse_mode!</span>(<span class="ident">I</span>);
+    <a class="macro" href="../../../src/combine/parser/mod.rs.html#36-56">parse_mode!</a>(<span class="ident">I</span>);
 
     <span class="kw">fn</span> <span class="ident">parse_mode_impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
@@ -3142,7 +3143,7 @@
         <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident"><span class="self">Self</span>::PartialState</span>,
     ) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span>, <span class="ident">I::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104-1146">ParseMode</a>,
+        <span class="ident">M</span>: <a class="ident" href="../../../src/combine/parser/mod.rs.html#1104">ParseMode</a>,
     {
         <span class="kw">let</span> (<span class="ident">opt_iter</span>, <span class="ident">committed</span>, <span class="ident">buf</span>, <span class="ident">next</span>) <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1517">state</a>;
         <span class="kw">let</span> (<span class="ident">iter</span>, <span class="ident">next_item</span>) <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">opt_iter</a> {
@@ -3172,7 +3173,7 @@
                     }
                     <span class="prelude-val">Err</span>((
                         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1531">item</a>,
-                        <span class="kw">if</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">committed</a> {
+                        <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">committed</span> {
                             <a class="ident" href="../../../src/combine/error.rs.html#954">CommitErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1544">err</a>.<span class="ident">error</span>)
                         } <span class="kw">else</span> {
                             <a class="ident" href="../../../src/combine/error.rs.html#956">PeekErr</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1544">err</a>)
@@ -3185,7 +3186,7 @@
 
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> (<span class="op">|</span><span class="op">|</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">item</span>) <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1523">next_item</a>.<span class="ident">take</span>() {
-                <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">buf</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1531">consume</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1562">item</a>)<span class="question-mark">?</span>));
+                <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">buf</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<span class="prelude-val">Some</span>(<span class="ident">consume</span>(<span class="ident">item</span>)<span class="question-mark">?</span>));
             }
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="prelude-val">Ok</span>(());
             <span class="kw">let</span> <span class="ident">size_hint</span> <span class="op">=</span> <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1523">iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">size_hint</a>();
@@ -3210,7 +3211,7 @@
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">opt_iter</a>.<span class="ident">take</span>();
 
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.take.html">mem::take</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">buf</a>);
-        <span class="kw">if</span> <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">committed</a> {
+        <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">committed</span> {
             <span class="kw-2">*</span><a class="ident" href="../../../src/combine/parser/repeat.rs.html#1522">committed</a> <span class="op">=</span> <span class="bool-val">false</span>;
             <a class="ident" href="../../../src/combine/error.rs.html#949">CommitOk</a>(<a class="ident" href="../../../src/combine/parser/repeat.rs.html#1587">value</a>)
         } <span class="kw">else</span> {
@@ -3237,12 +3238,12 @@
     <span class="ident">J</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">IntoIterator</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone</a>,
     <span class="ident">F</span>: <span class="ident">Extend</span><span class="op">&lt;</span><span class="ident">Q::Output</span><span class="op">&gt;</span> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a>,
 {
-    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1490-1494">Iterate</a> {
+    <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1490">Iterate</a> {
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1607">parser</a>,
         <a class="ident" href="../../../src/combine/parser/repeat.rs.html#1607">iterable</a>,
         <span class="ident">_marker</span>: <span class="ident">PhantomData</span>,
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="combine" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="combine" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

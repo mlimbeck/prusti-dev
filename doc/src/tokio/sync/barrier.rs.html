@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/sync/barrier.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>barrier.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.20.0/src/sync/barrier.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>barrier.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -251,7 +252,7 @@
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Barrier</span> {
-    <span class="ident">state</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><a class="ident" href="../../../src/tokio/sync/barrier.rs.html#51-55">BarrierState</a><span class="op">&gt;</span>,
+    <span class="ident">state</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><a class="ident" href="../../../src/tokio/sync/barrier.rs.html#51">BarrierState</a><span class="op">&gt;</span>,
     <span class="ident">wait</span>: <span class="ident">watch::Receiver</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>,
     <span class="ident">n</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">tokio_unstable</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tracing&quot;</span>))]</span>
@@ -265,16 +266,16 @@
     <span class="ident">generation</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#42-48">Barrier</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#42">Barrier</a> {
     <span class="doccomment">/// Creates a new barrier that can block a given number of tasks.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A barrier will block `n`-1 tasks which call [`Barrier::wait`] and then wake up all</span>
     <span class="doccomment">/// tasks at once when the `n`th task calls `wait`.</span>
     <span class="attribute">#[<span class="ident">track_caller</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw-2">mut</span> <span class="ident">n</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#42-48">Barrier</a> {
-        <span class="kw">let</span> (<span class="ident">waker</span>, <span class="ident">wait</span>) <span class="op">=</span> <a class="ident" href="../../../src/tokio/sync/watch.rs.html#265"><span class="kw">crate</span>::sync::watch::channel</a>(<span class="number">0</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw-2">mut</span> <span class="ident">n</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#42">Barrier</a> {
+        <span class="kw">let</span> (<span class="ident">waker</span>, <span class="ident">wait</span>) <span class="op">=</span> <a class="ident" href="../../../src/tokio/sync/watch.rs.html#317"><span class="kw">crate</span>::sync::watch::channel</a>(<span class="number">0</span>);
 
-        <span class="kw">if</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#63">n</a> <span class="op">==</span> <span class="number">0</span> {
+        <span class="kw">if</span> <span class="ident">n</span> <span class="op">==</span> <span class="number">0</span> {
             <span class="comment">// if n is 0, it&#39;s not clear what behavior the user wants.</span>
             <span class="comment">// in std::sync::Barrier, an n of 0 exhibits the same behavior as n == 1, where every</span>
             <span class="comment">// .wait() immediately unblocks, so we adopt that here as well.</span>
@@ -307,8 +308,8 @@
             <span class="ident">resource_span</span>
         };
 
-        <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#42-48">Barrier</a> {
-            <span class="ident">state</span>: <span class="ident">Mutex::new</span>(<a class="ident" href="../../../src/tokio/sync/barrier.rs.html#51-55">BarrierState</a> {
+        <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#42">Barrier</a> {
+            <span class="ident">state</span>: <span class="ident">Mutex::new</span>(<a class="ident" href="../../../src/tokio/sync/barrier.rs.html#51">BarrierState</a> {
                 <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#64">waker</a>,
                 <span class="ident">arrived</span>: <span class="number">0</span>,
                 <span class="ident">generation</span>: <span class="number">1</span>,
@@ -316,7 +317,7 @@
             <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#63">n</a>,
             <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#64">wait</a>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">tokio_unstable</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tracing&quot;</span>))]</span>
-            <span class="ident">resource_span</span>: <span class="ident">resource_span</span>,
+            <span class="ident">resource_span</span>,
         }
     }
 
@@ -340,20 +341,20 @@
         .<span class="kw">await</span>;
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">not</span>(<span class="ident">tokio_unstable</span>), <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tracing&quot;</span>)))]</span>
-        <span class="kw">return</span> <a class="self" href="../../../src/tokio/sync/barrier.rs.html#120">self</a>.<a class="ident" href="../../../src/tokio/sync/barrier.rs.html#134">wait_internal</a>().<span class="kw">await</span>;
+        <span class="kw">return</span> <span class="self">self</span>.<span class="ident">wait_internal</span>().<span class="kw">await</span>;
     }
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">wait_internal</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#196">BarrierWaitResult</a> {
         <span class="comment">// NOTE: we are taking a _synchronous_ lock here.</span>
         <span class="comment">// It is okay to do so because the critical section is fast and never yields, so it cannot</span>
         <span class="comment">// deadlock even if another future is concurrently holding the lock.</span>
-        <span class="comment">// It is _desireable_ to do so as synchronous Mutexes are, at least in theory, faster than</span>
+        <span class="comment">// It is _desirable_ to do so as synchronous Mutexes are, at least in theory, faster than</span>
         <span class="comment">// the asynchronous counter-parts, so we should use them where possible [citation needed].</span>
         <span class="comment">// NOTE: the extra scope here is so that the compiler doesn&#39;t think `state` is held across</span>
         <span class="comment">// a yield point, and thus marks the returned future as !Send.</span>
         <span class="kw">let</span> <span class="ident">generation</span> <span class="op">=</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <a class="self" href="../../../src/tokio/sync/barrier.rs.html#134">self</a>.<span class="ident">state</span>.<a class="ident" href="../../../src/tokio/loom/std/mutex.rs.html#16">lock</a>();
-            <span class="kw">let</span> <span class="ident">generation</span> <span class="op">=</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>.<span class="ident">generation</span>;
-            <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>.<span class="ident">arrived</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">lock</span>();
+            <span class="kw">let</span> <span class="ident">generation</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">generation</span>;
+            <span class="ident">state</span>.<span class="ident">arrived</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">tokio_unstable</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tracing&quot;</span>))]</span>
             <span class="macro">tracing::trace!</span>(
                 <span class="ident">target</span>: <span class="string">&quot;runtime::resource::state_update&quot;</span>,
@@ -365,7 +366,7 @@
                 <span class="ident">target</span>: <span class="string">&quot;runtime::resource::async_op::state_update&quot;</span>,
                 <span class="ident">arrived</span> <span class="op">=</span> <span class="bool-val">true</span>,
             );
-            <span class="kw">if</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>.<span class="ident">arrived</span> <span class="op">==</span> <a class="self" href="../../../src/tokio/sync/barrier.rs.html#134">self</a>.<span class="ident">n</span> {
+            <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">arrived</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">n</span> {
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">tokio_unstable</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;tracing&quot;</span>))]</span>
                 <span class="macro">tracing::trace!</span>(
                     <span class="ident">target</span>: <span class="string">&quot;runtime::resource::async_op::state_update&quot;</span>,
@@ -373,32 +374,32 @@
                 );
                 <span class="comment">// we are the leader for this generation</span>
                 <span class="comment">// wake everyone, increment the generation, and return</span>
-                <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>
+                <span class="ident">state</span>
                     .<span class="ident">waker</span>
-                    .<a class="ident" href="../../../src/tokio/sync/watch.rs.html#523">send</a>(<a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>.<span class="ident">generation</span>)
+                    .<span class="ident">send</span>(<span class="ident">state</span>.<span class="ident">generation</span>)
                     .<span class="ident">expect</span>(<span class="string">&quot;there is at least one receiver&quot;</span>);
-                <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>.<span class="ident">arrived</span> <span class="op">=</span> <span class="number">0</span>;
-                <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#143">state</a>.<span class="ident">generation</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
-                <span class="kw">return</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#196">BarrierWaitResult</a>(<span class="bool-val">true</span>);
+                <span class="ident">state</span>.<span class="ident">arrived</span> <span class="op">=</span> <span class="number">0</span>;
+                <span class="ident">state</span>.<span class="ident">generation</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+                <span class="kw">return</span> <span class="ident">BarrierWaitResult</span>(<span class="bool-val">true</span>);
             }
 
-            <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#144">generation</a>
+            <span class="ident">generation</span>
         };
 
         <span class="comment">// we&#39;re going to have to wait for the last of the generation to arrive</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wait</span> <span class="op">=</span> <a class="self" href="../../../src/tokio/sync/barrier.rs.html#134">self</a>.<span class="ident">wait</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wait</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wait</span>.<span class="ident">clone</span>();
 
         <span class="kw">loop</span> {
-            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#178">wait</a>.<a class="ident" href="../../../src/tokio/sync/watch.rs.html#453">changed</a>().<span class="kw">await</span>;
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">wait</span>.<span class="ident">changed</span>().<span class="kw">await</span>;
 
             <span class="comment">// note that the first time through the loop, this _will_ yield a generation</span>
             <span class="comment">// immediately, since we cloned a receiver that has never seen any values.</span>
-            <span class="kw">if</span> <span class="kw-2">*</span><a class="ident" href="../../../src/tokio/sync/barrier.rs.html#178">wait</a>.<a class="ident" href="../../../src/tokio/sync/watch.rs.html#332">borrow</a>() <span class="op">&gt;</span><span class="op">=</span> <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#142">generation</a> {
+            <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">wait</span>.<span class="ident">borrow</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="ident">generation</span> {
                 <span class="kw">break</span>;
             }
         }
 
-        <a class="ident" href="../../../src/tokio/sync/barrier.rs.html#196">BarrierWaitResult</a>(<span class="bool-val">false</span>)
+        <span class="ident">BarrierWaitResult</span>(<span class="bool-val">false</span>)
     }
 }
 
@@ -416,5 +417,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

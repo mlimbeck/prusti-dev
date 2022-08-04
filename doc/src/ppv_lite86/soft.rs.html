@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/ppv-lite86-0.2.16/src/soft.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>soft.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../ppv_lite86/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/ppv-lite86-0.2.16/src/soft.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>soft.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../ppv_lite86/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../ppv_lite86/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../ppv_lite86/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../ppv_lite86/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -478,7 +479,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Implement 256- and 512- bit in terms of 128-bit, for machines without native wide SIMD.</span>
 
 <span class="kw">use</span> <a class="ident" href="../../src/ppv_lite86/lib.rs.html#9"><span class="kw">crate</span>::types</a>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110-115">vec128_storage</a>, <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150-156">vec256_storage</a>, <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189-195">vec512_storage</a>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110">vec128_storage</a>, <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150">vec256_storage</a>, <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189">vec512_storage</a>};
 <span class="kw">use</span> <span class="ident">core::marker::PhantomData</span>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/index.html">core::ops</a>::<span class="kw-2">*</span>;
 
@@ -521,65 +522,65 @@
         }
     };
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="macro-nonterminal">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31-40">RotateEachWord32</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="macro-nonterminal">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31">RotateEachWord32</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31-40">RotateEachWord32</a>,
+    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31">RotateEachWord32</a>,
 {
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#32">rotate_each_word_right7</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#33">rotate_each_word_right8</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#34">rotate_each_word_right11</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#35">rotate_each_word_right12</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#36">rotate_each_word_right16</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#37">rotate_each_word_right20</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#38">rotate_each_word_right24</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#39">rotate_each_word_right25</a>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right7</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right8</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right11</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right12</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right16</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right20</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right24</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right25</span>);
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42-44">RotateEachWord64</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42">RotateEachWord64</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42-44">RotateEachWord64</a>,
+    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42">RotateEachWord64</a>,
 {
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#43">rotate_each_word_right32</a>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">rotate_each_word_right32</span>);
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#46">RotateEachWord128</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#46">RotateEachWord128</a> {}
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a>,
+    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a>,
     <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a>,
+    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a>,
     <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a>,
+    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a>,
     <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a>,
+    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a>,
     <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
 }
-<span class="macro">fwd_binop_x2!</span>(<span class="ident">BitAnd</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitAnd.html">bitand</a>);
-<span class="macro">fwd_binop_x2!</span>(<span class="ident">BitOr</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitOr.html">bitor</a>);
-<span class="macro">fwd_binop_x2!</span>(<span class="ident">BitXor</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitXor.html">bitxor</a>);
-<span class="macro">fwd_binop_x2!</span>(<span class="ident">AndNot</span>, <a class="ident" href="../../src/ppv_lite86/types.rs.html#6">andnot</a>);
-<span class="macro">fwd_binop_assign_x2!</span>(<span class="ident">BitAndAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitAndAssign.html">bitand_assign</a>);
-<span class="macro">fwd_binop_assign_x2!</span>(<span class="ident">BitOrAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitOrAssign.html">bitor_assign</a>);
-<span class="macro">fwd_binop_assign_x2!</span>(<span class="ident">BitXorAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitXorAssign.html">bitxor_assign</a>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#17-27">fwd_binop_x2!</a>(<span class="ident">BitAnd</span>, <span class="ident">bitand</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#17-27">fwd_binop_x2!</a>(<span class="ident">BitOr</span>, <span class="ident">bitor</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#17-27">fwd_binop_x2!</a>(<span class="ident">BitXor</span>, <span class="ident">bitxor</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#17-27">fwd_binop_x2!</a>(<span class="ident">AndNot</span>, <span class="ident">andnot</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#28-38">fwd_binop_assign_x2!</a>(<span class="ident">BitAndAssign</span>, <span class="ident">bitand_assign</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#28-38">fwd_binop_assign_x2!</a>(<span class="ident">BitOrAssign</span>, <span class="ident">bitor_assign</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#28-38">fwd_binop_assign_x2!</a>(<span class="ident">BitXorAssign</span>, <span class="ident">bitxor_assign</span>);
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#12">ArithOps</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#12">ArithOps</a>,
     <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
 }
-<span class="macro">fwd_binop_x2!</span>(<span class="ident">Add</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.Add.html">add</a>);
-<span class="macro">fwd_binop_assign_x2!</span>(<span class="ident">AddAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.AddAssign.html">add_assign</a>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#17-27">fwd_binop_x2!</a>(<span class="ident">Add</span>, <span class="ident">add</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#28-38">fwd_binop_assign_x2!</a>(<span class="ident">AddAssign</span>, <span class="ident">add_assign</span>);
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.Not.html">Not</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.Not.html">Not</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W::Output</span>, <span class="ident">G</span><span class="op">&gt;</span>;
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -604,34 +605,34 @@
         <a class="self" href="../../src/ppv_lite86/soft.rs.html#125">self</a>
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <span class="ident">Store</span><span class="op">&lt;</span><span class="ident">vec128_storage</span><span class="op">&gt;</span>, <span class="ident">G</span><span class="op">&gt;</span> <span class="ident">Store</span><span class="op">&lt;</span><a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150-156">vec256_storage</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <span class="ident">Store</span><span class="op">&lt;</span><a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110">vec128_storage</a><span class="op">&gt;</span>, <span class="ident">G</span><span class="op">&gt;</span> <span class="ident">Store</span><span class="op">&lt;</span><a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150">vec256_storage</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unpack</span>(<span class="ident">p</span>: <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150-156">vec256_storage</a>) -&gt; <span class="self">Self</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unpack</span>(<span class="ident">p</span>: <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150">vec256_storage</a>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <a class="ident" href="../../src/ppv_lite86/soft.rs.html#132">p</a>.<a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#175">split128</a>();
         <span class="ident">x2::new</span>([<span class="ident">W::unpack</span>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#133">p</a>[<span class="number">0</span>]), <span class="ident">W::unpack</span>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#133">p</a>[<span class="number">1</span>])])
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150-156">vec256_storage</a>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#150">vec256_storage</a>
 <span class="kw">where</span>
     <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
-    <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110-115">vec128_storage</a>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
+    <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110">vec128_storage</a>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
 {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">vec256_storage::new128</span>([<a class="ident" href="../../src/ppv_lite86/soft.rs.html#143">x</a>.<span class="number">0</span>[<span class="number">0</span>].<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <a class="ident" href="../../src/ppv_lite86/soft.rs.html#143">x</a>.<span class="number">0</span>[<span class="number">1</span>].<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()])
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#103-111">Swap64</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#103">Swap64</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#103-111">Swap64</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
+    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#103">Swap64</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#104">swap1</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#105">swap2</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#106">swap4</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#107">swap8</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#108">swap16</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#109">swap32</a>);
-    <span class="macro">fwd_unop_x2!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#110">swap64</a>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap1</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap2</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap4</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap8</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap16</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap32</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#39-46">fwd_unop_x2!</a>(<span class="ident">swap64</span>);
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>, <span class="ident">G</span><span class="op">&gt;</span> <span class="ident">MultiLane</span><span class="op">&lt;</span>[<span class="ident">W</span>; <span class="number">2</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -643,13 +644,13 @@
         <span class="ident">x2::new</span>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#165">lanes</a>)
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#8-10">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8-10">BSwap</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#8">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8">BSwap</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bswap</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">x2::new</span>([<a class="self" href="../../src/ppv_lite86/soft.rs.html#171">self</a>.<span class="number">0</span>[<span class="number">0</span>].<a class="ident" href="../../src/ppv_lite86/types.rs.html#9">bswap</a>(), <a class="self" href="../../src/ppv_lite86/soft.rs.html#171">self</a>.<span class="number">0</span>[<span class="number">1</span>].<a class="ident" href="../../src/ppv_lite86/types.rs.html#9">bswap</a>()])
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#287-298">StoreBytes</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8-10">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#287-298">StoreBytes</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#287">StoreBytes</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>, <span class="ident">G</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#287">StoreBytes</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_read_le</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a>]) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <a class="ident" href="../../src/ppv_lite86/soft.rs.html#177">input</a>.<span class="ident">split_at</span>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#177">input</a>.<span class="ident">len</span>() <span class="op">/</span> <span class="number">2</span>);
@@ -673,7 +674,7 @@
         <a class="self" href="../../src/ppv_lite86/soft.rs.html#193">self</a>.<span class="number">0</span>[<span class="number">1</span>].<a class="ident" href="../../src/ppv_lite86/types.rs.html#297">write_be</a>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#194">out</a>.<span class="number">1</span>);
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95-99">LaneWords4</a>, <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95-99">LaneWords4</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95">LaneWords4</a>, <span class="ident">G</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95">LaneWords4</a> <span class="kw">for</span> <span class="ident">x2</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">G</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shuffle_lane_words2301</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>([
@@ -748,40 +749,40 @@
         }
     };
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="macro-nonterminal">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31-40">RotateEachWord32</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="macro-nonterminal">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31">RotateEachWord32</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31-40">RotateEachWord32</a>,
+    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#31">RotateEachWord32</a>,
 {
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#32">rotate_each_word_right7</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#33">rotate_each_word_right8</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#34">rotate_each_word_right11</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#35">rotate_each_word_right12</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#36">rotate_each_word_right16</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#37">rotate_each_word_right20</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#38">rotate_each_word_right24</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#39">rotate_each_word_right25</a>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right7</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right8</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right11</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right12</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right16</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right20</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right24</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right25</span>);
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42-44">RotateEachWord64</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42">RotateEachWord64</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42-44">RotateEachWord64</a>,
+    <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#42">RotateEachWord64</a>,
 {
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#43">rotate_each_word_right32</a>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">rotate_each_word_right32</span>);
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#46">RotateEachWord128</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#46">RotateEachWord128</a> {}
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a> {}
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a> {}
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a> {}
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-25">BitOps0</a> {}
-<span class="macro">fwd_binop_x4!</span>(<span class="ident">BitAnd</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitAnd.html">bitand</a>);
-<span class="macro">fwd_binop_x4!</span>(<span class="ident">BitOr</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitOr.html">bitor</a>);
-<span class="macro">fwd_binop_x4!</span>(<span class="ident">BitXor</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitXor.html">bitxor</a>);
-<span class="macro">fwd_binop_x4!</span>(<span class="ident">AndNot</span>, <a class="ident" href="../../src/ppv_lite86/types.rs.html#6">andnot</a>);
-<span class="macro">fwd_binop_assign_x4!</span>(<span class="ident">BitAndAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitAndAssign.html">bitand_assign</a>);
-<span class="macro">fwd_binop_assign_x4!</span>(<span class="ident">BitOrAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitOrAssign.html">bitor_assign</a>);
-<span class="macro">fwd_binop_assign_x4!</span>(<span class="ident">BitXorAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.BitXorAssign.html">bitxor_assign</a>);
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#27">BitOps32</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#28">BitOps64</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#29">BitOps128</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#14-23">BitOps0</a> {}
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#232-247">fwd_binop_x4!</a>(<span class="ident">BitAnd</span>, <span class="ident">bitand</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#232-247">fwd_binop_x4!</a>(<span class="ident">BitOr</span>, <span class="ident">bitor</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#232-247">fwd_binop_x4!</a>(<span class="ident">BitXor</span>, <span class="ident">bitxor</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#232-247">fwd_binop_x4!</a>(<span class="ident">AndNot</span>, <span class="ident">andnot</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#248-260">fwd_binop_assign_x4!</a>(<span class="ident">BitAndAssign</span>, <span class="ident">bitand_assign</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#248-260">fwd_binop_assign_x4!</a>(<span class="ident">BitOrAssign</span>, <span class="ident">bitor_assign</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#248-260">fwd_binop_assign_x4!</a>(<span class="ident">BitXorAssign</span>, <span class="ident">bitxor_assign</span>);
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#12">ArithOps</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#12">ArithOps</a> {}
-<span class="macro">fwd_binop_x4!</span>(<span class="ident">Add</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.Add.html">add</a>);
-<span class="macro">fwd_binop_assign_x4!</span>(<span class="ident">AddAssign</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/arith/trait.AddAssign.html">add_assign</a>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#232-247">fwd_binop_x4!</a>(<span class="ident">Add</span>, <span class="ident">add</span>);
+<a class="macro" href="../../src/ppv_lite86/soft.rs.html#248-260">fwd_binop_assign_x4!</a>(<span class="ident">AddAssign</span>, <span class="ident">add_assign</span>);
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.Not.html">Not</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/bit/trait.Not.html">Not</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W::Output</span><span class="op">&gt;</span>;
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -825,9 +826,9 @@
         )
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <span class="ident">Store</span><span class="op">&lt;</span><span class="ident">vec128_storage</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">Store</span><span class="op">&lt;</span><a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189-195">vec512_storage</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <span class="ident">Store</span><span class="op">&lt;</span><a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110">vec128_storage</a><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">Store</span><span class="op">&lt;</span><a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189">vec512_storage</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unpack</span>(<span class="ident">p</span>: <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189-195">vec512_storage</a>) -&gt; <span class="self">Self</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unpack</span>(<span class="ident">p</span>: <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189">vec512_storage</a>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <a class="ident" href="../../src/ppv_lite86/soft.rs.html#353">p</a>.<a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#210">split128</a>();
         <a class="ident" href="../../src/ppv_lite86/soft.rs.html#225">x4</a>([
             <span class="ident">W::unpack</span>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#354">p</a>[<span class="number">0</span>]),
@@ -837,27 +838,27 @@
         ])
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189-195">vec512_storage</a>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#189">vec512_storage</a>
 <span class="kw">where</span>
     <span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
-    <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110-115">vec128_storage</a>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
+    <a class="ident" href="../../src/ppv_lite86/x86_64/mod.rs.html#110">vec128_storage</a>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>,
 {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">vec512_storage::new128</span>([<a class="ident" href="../../src/ppv_lite86/soft.rs.html#369">x</a>.<span class="number">0</span>[<span class="number">0</span>].<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <a class="ident" href="../../src/ppv_lite86/soft.rs.html#369">x</a>.<span class="number">0</span>[<span class="number">1</span>].<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <a class="ident" href="../../src/ppv_lite86/soft.rs.html#369">x</a>.<span class="number">0</span>[<span class="number">2</span>].<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(), <a class="ident" href="../../src/ppv_lite86/soft.rs.html#369">x</a>.<span class="number">0</span>[<span class="number">3</span>].<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()])
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#103-111">Swap64</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#103">Swap64</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#103-111">Swap64</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
+    <span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#103">Swap64</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a>,
 {
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#104">swap1</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#105">swap2</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#106">swap4</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#107">swap8</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#108">swap16</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#109">swap32</a>);
-    <span class="macro">fwd_unop_x4!</span>(<a class="ident" href="../../src/ppv_lite86/types.rs.html#110">swap64</a>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap1</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap2</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap4</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap8</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap16</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap32</span>);
+    <a class="macro" href="../../src/ppv_lite86/soft.rs.html#261-273">fwd_unop_x4!</a>(<span class="ident">swap64</span>);
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <span class="ident">MultiLane</span><span class="op">&lt;</span>[<span class="ident">W</span>; <span class="number">4</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
@@ -869,7 +870,7 @@
         <a class="ident" href="../../src/ppv_lite86/soft.rs.html#225">x4</a>(<a class="ident" href="../../src/ppv_lite86/soft.rs.html#391">lanes</a>)
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#8-10">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8-10">BSwap</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#8">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8">BSwap</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">bswap</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../src/ppv_lite86/soft.rs.html#225">x4</a>([
@@ -880,7 +881,7 @@
         ])
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#287-298">StoreBytes</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8-10">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#287-298">StoreBytes</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../src/ppv_lite86/types.rs.html#287">StoreBytes</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#8">BSwap</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#287">StoreBytes</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_read_le</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/core/primitive.u8.html">u8</a>]) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <a class="ident" href="../../src/ppv_lite86/soft.rs.html#408">input</a>.<span class="ident">len</span>() <span class="op">/</span> <span class="number">4</span>;
@@ -918,7 +919,7 @@
         <a class="self" href="../../src/ppv_lite86/soft.rs.html#436">self</a>.<span class="number">0</span>[<span class="number">3</span>].<a class="ident" href="../../src/ppv_lite86/types.rs.html#297">write_be</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/ppv_lite86/soft.rs.html#436">out</a>[<a class="ident" href="../../src/ppv_lite86/soft.rs.html#437">n</a> <span class="op">*</span> <span class="number">3</span>..]);
     }
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95-99">LaneWords4</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95-99">LaneWords4</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html">Copy</a> <span class="op">+</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95">LaneWords4</a><span class="op">&gt;</span> <a class="ident" href="../../src/ppv_lite86/types.rs.html#95">LaneWords4</a> <span class="kw">for</span> <span class="ident">x4</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">shuffle_lane_words2301</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../src/ppv_lite86/soft.rs.html#225">x4</a>([
@@ -948,5 +949,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ppv_lite86" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

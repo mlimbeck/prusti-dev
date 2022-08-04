@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/attohttpc-0.16.3/src/request/session.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>session.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../attohttpc/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/attohttpc-0.16.3/src/request/session.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>session.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../attohttpc/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../attohttpc/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../attohttpc/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../attohttpc/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -257,27 +258,27 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;charsets&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::charsets::Charset</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<a class="ident" href="../../../src/attohttpc/error.rs.html#96">Error</a>, <span class="prelude-ty">Result</span>};
-<span class="kw">use</span> <a class="ident" href="../../../src/attohttpc/request/proxy.rs.html#49-53"><span class="kw">crate</span>::request::proxy::ProxySettings</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::request</span>::{<a class="ident" href="../../../src/attohttpc/request/mod.rs.html#52-56">header_append</a>, <a class="ident" href="../../../src/attohttpc/request/mod.rs.html#30-34">header_insert</a>, <a class="ident" href="../../../src/attohttpc/request/settings.rs.html#12-28">BaseSettings</a>, <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>};
+<span class="kw">use</span> <a class="ident" href="../../../src/attohttpc/request/proxy.rs.html#49"><span class="kw">crate</span>::request::proxy::ProxySettings</a>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::request</span>::{<a class="ident" href="../../../src/attohttpc/request/mod.rs.html#52-56">header_append</a>, <a class="ident" href="../../../src/attohttpc/request/mod.rs.html#30-34">header_insert</a>, <a class="ident" href="../../../src/attohttpc/request/settings.rs.html#12">BaseSettings</a>, <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>};
 <span class="kw">use</span> <a class="ident" href="../../../src/attohttpc/tls/native_tls_impl.rs.html#9"><span class="kw">crate</span>::tls::Certificate</a>;
 
 <span class="doccomment">/// `Session` is a type that can carry settings over multiple requests. The settings applied to the</span>
 <span class="doccomment">/// `Session` are applied to every request created from this `Session`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Session</span> {
-    <span class="ident">base_settings</span>: <a class="ident" href="../../../src/attohttpc/request/settings.rs.html#12-28">BaseSettings</a>,
+    <span class="ident">base_settings</span>: <a class="ident" href="../../../src/attohttpc/request/settings.rs.html#12">BaseSettings</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/attohttpc/request/session.rs.html#17-19">Session</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/attohttpc/request/session.rs.html#17">Session</a> {
     <span class="doccomment">/// Create a new `Session` with default settings.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../../src/attohttpc/request/session.rs.html#17-19">Session</a> {
-        <a class="ident" href="../../../src/attohttpc/request/session.rs.html#17-19">Session</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../../src/attohttpc/request/session.rs.html#17">Session</a> {
+        <a class="ident" href="../../../src/attohttpc/request/session.rs.html#17">Session</a> {
             <span class="ident">base_settings</span>: <span class="ident">BaseSettings::default</span>(),
         }
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the GET method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -285,7 +286,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the POST method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">post</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">post</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -293,7 +294,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the PUT method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">put</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">put</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -301,7 +302,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the DELETE method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -309,7 +310,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the HEAD method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">head</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">head</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -317,7 +318,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the OPTIONS method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">options</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">options</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -325,7 +326,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the PATCH method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">patch</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">patch</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -333,7 +334,7 @@
     }
 
     <span class="doccomment">/// Create a new `RequestBuilder` with the TRACE method and this Session&#39;s settings applied on it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trace</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36-41">RequestBuilder</a>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trace</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base_url</span>: <span class="ident">U</span>) -&gt; <a class="ident" href="../../../src/attohttpc/request/builder.rs.html#36">RequestBuilder</a>
     <span class="kw">where</span>
         <span class="ident">U</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>,
     {
@@ -385,7 +386,7 @@
         <span class="ident">V</span>: <span class="ident">TryInto</span><span class="op">&lt;</span><a class="ident" href="../../../attohttpc/header/struct.HeaderValue.html">HeaderValue</a><span class="op">&gt;</span>,
         <a class="ident" href="../../../src/attohttpc/error.rs.html#96">Error</a>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">V::Error</span><span class="op">&gt;</span>,
     {
-        <a class="ident" href="../../../src/attohttpc/request/mod.rs.html#30-34">header_insert</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/attohttpc/request/session.rs.html#132">self</a>.<span class="ident">base_settings</span>.<span class="ident">headers</span>, <a class="ident" href="../../../src/attohttpc/request/session.rs.html#132">header</a>, <a class="ident" href="../../../src/attohttpc/request/session.rs.html#132">value</a>)<span class="question-mark">?</span>;
+        <span class="ident">header_insert</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">base_settings</span>.<span class="ident">headers</span>, <span class="ident">header</span>, <span class="ident">value</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -398,7 +399,7 @@
         <span class="ident">V</span>: <span class="ident">TryInto</span><span class="op">&lt;</span><a class="ident" href="../../../attohttpc/header/struct.HeaderValue.html">HeaderValue</a><span class="op">&gt;</span>,
         <a class="ident" href="../../../src/attohttpc/error.rs.html#96">Error</a>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">V::Error</span><span class="op">&gt;</span>,
     {
-        <a class="ident" href="../../../src/attohttpc/request/mod.rs.html#52-56">header_append</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/attohttpc/request/session.rs.html#145">self</a>.<span class="ident">base_settings</span>.<span class="ident">headers</span>, <a class="ident" href="../../../src/attohttpc/request/session.rs.html#145">header</a>, <a class="ident" href="../../../src/attohttpc/request/session.rs.html#145">value</a>)<span class="question-mark">?</span>;
+        <span class="ident">header_append</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">base_settings</span>.<span class="ident">headers</span>, <span class="ident">header</span>, <span class="ident">value</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
@@ -440,7 +441,7 @@
     <span class="doccomment">/// Sets the proxy settigns for this request.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If left untouched, the defaults are to use system proxy settings found in environment variables.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">proxy_settings</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">settings</span>: <a class="ident" href="../../../src/attohttpc/request/proxy.rs.html#49-53">ProxySettings</a>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">proxy_settings</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">settings</span>: <a class="ident" href="../../../src/attohttpc/request/proxy.rs.html#49">ProxySettings</a>) {
         <a class="self" href="../../../src/attohttpc/request/session.rs.html#193">self</a>.<span class="ident">base_settings</span>.<span class="ident">proxy_settings</span> <span class="op">=</span> <a class="ident" href="../../../src/attohttpc/request/session.rs.html#193">settings</a>;
     }
 
@@ -494,5 +495,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="attohttpc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="attohttpc" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nom-7.1.1/src/internal.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>internal.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../nom/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nom-7.1.1/src/internal.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>internal.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../nom/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../nom/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../nom/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../nom/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -492,8 +493,8 @@
 <span id="487">487</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Basic types to build the parsers</span>
 
-<span class="kw">use</span> <a class="ident" href="../../src/nom/internal.rs.html#50-55"><span class="self">self</span>::Needed</a>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<a class="self" href="../../src/nom/lib.rs.html#442">self</a>, <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>};
+<span class="kw">use</span> <a class="ident" href="../../src/nom/internal.rs.html#50"><span class="self">self</span>::Needed</a>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<a class="self" href="../../src/nom/lib.rs.html#442">self</a>, <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>};
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html"><span class="kw">crate</span>::lib::std::fmt</a>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroUsize.html">core::num::NonZeroUsize</a>;
 
@@ -530,7 +531,7 @@
       <span class="prelude-val">Ok</span>(<span class="ident">res</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/nom/internal.rs.html#38">res</a>),
       <span class="prelude-val">Err</span>(<a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="ident">e</span>)) <span class="op">|</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<span class="ident">e</span>)) =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../src/nom/internal.rs.html#39">e</a>),
       <span class="prelude-val">Err</span>(<a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<span class="kw">_</span>)) =&gt; {
-        <span class="macro">panic!</span>(<span class="string">&quot;Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead&quot;</span>)
+        <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead&quot;</span>)
       }
     }
   }
@@ -546,7 +547,7 @@
   <span class="ident">Size</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroUsize.html">NonZeroUsize</a>),
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/nom/internal.rs.html#50-55">Needed</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/nom/internal.rs.html#50">Needed</a> {
   <span class="doccomment">/// Creates `Needed` instance, returns `Needed::Unknown` if the argument is zero</span>
   <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">s</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="self">Self</span> {
     <span class="kw">match</span> <span class="ident">NonZeroUsize::new</span>(<a class="ident" href="../../src/nom/internal.rs.html#59">s</a>) {
@@ -562,7 +563,7 @@
 
   <span class="doccomment">/// Maps a `Needed` to `Needed` by applying a function to a contained `Size` value.</span>
   <span class="attribute">#[<span class="ident">inline</span>]</span>
-  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">NonZeroUsize</span>) -&gt; <span class="ident">usize</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <a class="ident" href="../../src/nom/internal.rs.html#50-55">Needed</a> {
+  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroUsize.html">NonZeroUsize</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <a class="ident" href="../../src/nom/internal.rs.html#50">Needed</a> {
     <span class="kw">match</span> <a class="self" href="../../src/nom/internal.rs.html#73">self</a> {
       <a class="ident" href="../../src/nom/internal.rs.html#52">Unknown</a> =&gt; <a class="ident" href="../../src/nom/internal.rs.html#52">Unknown</a>,
       <a class="ident" href="../../src/nom/internal.rs.html#54">Size</a>(<span class="ident">n</span>) =&gt; <span class="ident">Needed::new</span>(<a class="ident" href="../../src/nom/internal.rs.html#73">f</a>(<a class="ident" href="../../src/nom/internal.rs.html#76">n</a>)),
@@ -588,7 +589,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">nightly</span>, <span class="ident">warn</span>(<span class="ident">rustdoc::missing_doc_code_examples</span>))]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="prelude-val">Err</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
   <span class="doccomment">/// There was not enough data</span>
-  <span class="ident">Incomplete</span>(<a class="ident" href="../../src/nom/internal.rs.html#50-55">Needed</a>),
+  <span class="ident">Incomplete</span>(<a class="ident" href="../../src/nom/internal.rs.html#50">Needed</a>),
   <span class="doccomment">/// The parser had an error (recoverable)</span>
   <span class="ident">Error</span>(<span class="ident">E</span>),
   <span class="doccomment">/// The parser had an unrecoverable error: we got to the right</span>
@@ -628,9 +629,9 @@
   }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="ident">T</span>, <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>)<span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="ident">T</span>, <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>)<span class="op">&gt;</span> {
   <span class="doccomment">/// Maps `Err&lt;(T, ErrorKind)&gt;` to `Err&lt;(U, ErrorKind)&gt;` with the given `F: T -&gt; U`</span>
-  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map_input</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="ident">U</span>, <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>)<span class="op">&gt;</span>
+  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map_input</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="ident">U</span>, <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>)<span class="op">&gt;</span>
   <span class="kw">where</span>
     <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">T</span>) -&gt; <span class="ident">U</span>,
   {
@@ -650,11 +651,11 @@
   {
     <span class="kw">match</span> <a class="self" href="../../src/nom/internal.rs.html#155">self</a> {
       <a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<span class="ident">n</span>) =&gt; <a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../src/nom/internal.rs.html#160">n</a>),
-      <a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<a class="ident" href="../../src/nom/error.rs.html#58-63">error::Error</a> { <span class="ident">input</span>, <span class="ident">code</span> }) =&gt; <a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<a class="ident" href="../../src/nom/error.rs.html#58-63">error::Error</a> {
+      <a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<a class="ident" href="../../src/nom/error.rs.html#58">error::Error</a> { <span class="ident">input</span>, <span class="ident">code</span> }) =&gt; <a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<a class="ident" href="../../src/nom/error.rs.html#58">error::Error</a> {
         <span class="ident">input</span>: <a class="ident" href="../../src/nom/internal.rs.html#155">f</a>(<a class="ident" href="../../src/nom/internal.rs.html#161">input</a>),
         <a class="ident" href="../../src/nom/internal.rs.html#161">code</a>,
       }),
-      <a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<a class="ident" href="../../src/nom/error.rs.html#58-63">error::Error</a> { <span class="ident">input</span>, <span class="ident">code</span> }) =&gt; <a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<a class="ident" href="../../src/nom/error.rs.html#58-63">error::Error</a> {
+      <a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<a class="ident" href="../../src/nom/error.rs.html#58">error::Error</a> { <span class="ident">input</span>, <span class="ident">code</span> }) =&gt; <a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<a class="ident" href="../../src/nom/error.rs.html#58">error::Error</a> {
         <span class="ident">input</span>: <a class="ident" href="../../src/nom/internal.rs.html#155">f</a>(<a class="ident" href="../../src/nom/internal.rs.html#165">input</a>),
         <a class="ident" href="../../src/nom/internal.rs.html#165">code</a>,
       }),
@@ -665,19 +666,19 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::lib::std</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">borrow::ToOwned</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">string::String</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">vec::Vec</a>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>)<span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>)<span class="op">&gt;</span> {
   <span class="doccomment">/// Obtaining ownership</span>
   <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;docsrs&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
-  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_owned</span>(<span class="self">self</span>) -&gt; <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>, <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>)<span class="op">&gt;</span> {
+  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_owned</span>(<span class="self">self</span>) -&gt; <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>, <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>)<span class="op">&gt;</span> {
     <a class="self" href="../../src/nom/internal.rs.html#179">self</a>.<a class="ident" href="../../src/nom/internal.rs.html#141-143">map_input</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">ToOwned::to_owned</a>)
   }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>)<span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="prelude-val">Err</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>)<span class="op">&gt;</span> {
   <span class="doccomment">/// Obtaining ownership</span>
   <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;docsrs&quot;</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
-  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_owned</span>(<span class="self">self</span>) -&gt; <span class="prelude-val">Err</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a class="ident" href="../../src/nom/error.rs.html#366-420">ErrorKind</a>)<span class="op">&gt;</span> {
+  <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_owned</span>(<span class="self">self</span>) -&gt; <span class="prelude-val">Err</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <a class="ident" href="../../src/nom/error.rs.html#366">ErrorKind</a>)<span class="op">&gt;</span> {
     <a class="self" href="../../src/nom/internal.rs.html#188">self</a>.<a class="ident" href="../../src/nom/internal.rs.html#141-143">map_input</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">ToOwned::to_owned</a>)
   }
 }
@@ -708,10 +709,10 @@
 {
   <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
     <span class="kw">match</span> <a class="self" href="../../src/nom/internal.rs.html#217">self</a> {
-      <a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../src/nom/internal.rs.html#54">Needed::Size</a>(<span class="ident">u</span>)) =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/nom/internal.rs.html#217">f</a>, <span class="string">&quot;Parsing requires {} bytes/chars&quot;</span>, <a class="ident" href="../../src/nom/internal.rs.html#219">u</a>),
-      <a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../src/nom/internal.rs.html#52">Needed::Unknown</a>) =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/nom/internal.rs.html#217">f</a>, <span class="string">&quot;Parsing requires more data&quot;</span>),
-      <a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<span class="ident">c</span>) =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/nom/internal.rs.html#217">f</a>, <span class="string">&quot;Parsing Failure: {:?}&quot;</span>, <a class="ident" href="../../src/nom/internal.rs.html#221">c</a>),
-      <a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="ident">c</span>) =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/nom/internal.rs.html#217">f</a>, <span class="string">&quot;Parsing Error: {:?}&quot;</span>, <a class="ident" href="../../src/nom/internal.rs.html#222">c</a>),
+      <a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../src/nom/internal.rs.html#54">Needed::Size</a>(<span class="ident">u</span>)) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;Parsing requires {} bytes/chars&quot;</span>, <span class="ident">u</span>),
+      <a class="ident" href="../../src/nom/internal.rs.html#99">Err::Incomplete</a>(<a class="ident" href="../../src/nom/internal.rs.html#52">Needed::Unknown</a>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;Parsing requires more data&quot;</span>),
+      <a class="ident" href="../../src/nom/internal.rs.html#105">Err::Failure</a>(<span class="ident">c</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;Parsing Failure: {:?}&quot;</span>, <span class="ident">c</span>),
+      <a class="ident" href="../../src/nom/internal.rs.html#101">Err::Error</a>(<span class="ident">c</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;Parsing Error: {:?}&quot;</span>, <span class="ident">c</span>),
     }
   }
 }
@@ -741,7 +742,7 @@
     <span class="ident">G</span>: <span class="ident">Fn</span>(<span class="ident">O</span>) -&gt; <span class="ident">O2</span>,
     <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">core::marker::Sized</a>,
   {
-    <a class="ident" href="../../src/nom/internal.rs.html#341-345">Map</a> {
+    <a class="ident" href="../../src/nom/internal.rs.html#341">Map</a> {
       <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#247">self</a>,
       <a class="ident" href="../../src/nom/internal.rs.html#247">g</a>,
       <span class="ident">phantom</span>: <span class="ident">core::marker::PhantomData</span>,
@@ -755,7 +756,7 @@
     <span class="ident">H</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O2</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">core::marker::Sized</a>,
   {
-    <a class="ident" href="../../src/nom/internal.rs.html#358-362">FlatMap</a> {
+    <a class="ident" href="../../src/nom/internal.rs.html#358">FlatMap</a> {
       <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#260">self</a>,
       <a class="ident" href="../../src/nom/internal.rs.html#260">g</a>,
       <span class="ident">phantom</span>: <span class="ident">core::marker::PhantomData</span>,
@@ -768,7 +769,7 @@
     <span class="ident">G</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">O</span>, <span class="ident">O2</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">core::marker::Sized</a>,
   {
-    <a class="ident" href="../../src/nom/internal.rs.html#375-379">AndThen</a> {
+    <a class="ident" href="../../src/nom/internal.rs.html#375">AndThen</a> {
       <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#274">self</a>,
       <a class="ident" href="../../src/nom/internal.rs.html#274">g</a>,
       <span class="ident">phantom</span>: <span class="ident">core::marker::PhantomData</span>,
@@ -781,7 +782,7 @@
     <span class="ident">G</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O2</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">core::marker::Sized</a>,
   {
-    <a class="ident" href="../../src/nom/internal.rs.html#393-396">And</a> { <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#287">self</a>, <a class="ident" href="../../src/nom/internal.rs.html#287">g</a> }
+    <a class="ident" href="../../src/nom/internal.rs.html#393">And</a> { <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#287">self</a>, <a class="ident" href="../../src/nom/internal.rs.html#287">g</a> }
   }
 
   <span class="doccomment">/// Applies a second parser over the input if the first one failed</span>
@@ -790,7 +791,7 @@
     <span class="ident">G</span>: <span class="ident">Parser</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">core::marker::Sized</a>,
   {
-    <a class="ident" href="../../src/nom/internal.rs.html#410-413">Or</a> { <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#296">self</a>, <a class="ident" href="../../src/nom/internal.rs.html#296">g</a> }
+    <a class="ident" href="../../src/nom/internal.rs.html#410">Or</a> { <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#296">self</a>, <a class="ident" href="../../src/nom/internal.rs.html#296">g</a> }
   }
 
   <span class="doccomment">/// automatically converts the parser&#39;s output and error values to another type, as long as they</span>
@@ -799,7 +800,7 @@
   <span class="kw">where</span>
     <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">core::marker::Sized</a>,
   {
-    <a class="ident" href="../../src/nom/internal.rs.html#431-437">Into</a> {
+    <a class="ident" href="../../src/nom/internal.rs.html#431">Into</a> {
       <span class="ident">f</span>: <a class="self" href="../../src/nom/internal.rs.html#306">self</a>,
       <span class="ident">phantom_out1</span>: <span class="ident">core::marker::PhantomData</span>,
       <span class="ident">phantom_err1</span>: <span class="ident">core::marker::PhantomData</span>,
@@ -857,7 +858,7 @@
   <span class="kw">for</span> <span class="ident">FlatMap</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">O1</span><span class="op">&gt;</span>
 {
   <span class="kw">fn</span> <span class="ident">parse</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">I</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O2</span>, <span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o1</span>) <span class="op">=</span> <a class="self" href="../../src/nom/internal.rs.html#367">self</a>.<span class="ident">f</span>.<a class="ident" href="../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../src/nom/internal.rs.html#367">i</a>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o1</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">f</span>.<span class="ident">parse</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
     (<a class="self" href="../../src/nom/internal.rs.html#367">self</a>.<span class="ident">g</span>)(<a class="ident" href="../../src/nom/internal.rs.html#368">o1</a>).<a class="ident" href="../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../src/nom/internal.rs.html#368">i</a>)
   }
 }
@@ -874,8 +875,8 @@
   <span class="kw">for</span> <span class="ident">AndThen</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">O1</span><span class="op">&gt;</span>
 {
   <span class="kw">fn</span> <span class="ident">parse</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">I</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O2</span>, <span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o1</span>) <span class="op">=</span> <a class="self" href="../../src/nom/internal.rs.html#384">self</a>.<span class="ident">f</span>.<a class="ident" href="../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../src/nom/internal.rs.html#384">i</a>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">o2</span>) <span class="op">=</span> <a class="self" href="../../src/nom/internal.rs.html#384">self</a>.<span class="ident">g</span>.<a class="ident" href="../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../src/nom/internal.rs.html#385">o1</a>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o1</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">f</span>.<span class="ident">parse</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">o2</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">g</span>.<span class="ident">parse</span>(<span class="ident">o1</span>)<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>((<a class="ident" href="../../src/nom/internal.rs.html#385">i</a>, <a class="ident" href="../../src/nom/internal.rs.html#386">o2</a>))
   }
 }
@@ -891,8 +892,8 @@
   <span class="kw">for</span> <span class="ident">And</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">G</span><span class="op">&gt;</span>
 {
   <span class="kw">fn</span> <span class="ident">parse</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">I</span>) -&gt; <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>, (<span class="ident">O1</span>, <span class="ident">O2</span>), <span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o1</span>) <span class="op">=</span> <a class="self" href="../../src/nom/internal.rs.html#401">self</a>.<span class="ident">f</span>.<a class="ident" href="../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../src/nom/internal.rs.html#401">i</a>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o2</span>) <span class="op">=</span> <a class="self" href="../../src/nom/internal.rs.html#401">self</a>.<span class="ident">g</span>.<a class="ident" href="../../src/nom/internal.rs.html#244">parse</a>(<a class="ident" href="../../src/nom/internal.rs.html#402">i</a>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o1</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">f</span>.<span class="ident">parse</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">o2</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">g</span>.<span class="ident">parse</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>((<a class="ident" href="../../src/nom/internal.rs.html#403">i</a>, (<a class="ident" href="../../src/nom/internal.rs.html#402">o1</a>, <a class="ident" href="../../src/nom/internal.rs.html#403">o2</a>)))
   }
 }
@@ -978,5 +979,5 @@
   }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="nom" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="nom" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

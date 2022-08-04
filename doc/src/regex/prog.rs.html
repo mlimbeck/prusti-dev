@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/regex-1.5.5/src/prog.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>prog.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/regex-1.6.0/src/prog.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>prog.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../regex/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../regex/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -459,7 +460,7 @@
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">std::sync::Arc</a>;
 
 <span class="kw">use</span> <a class="ident" href="../../src/regex/input.rs.html#346"><span class="kw">crate</span>::input::Char</a>;
-<span class="kw">use</span> <a class="ident" href="../../src/regex/literal/imp.rs.html#13-18"><span class="kw">crate</span>::literal::LiteralSearcher</a>;
+<span class="kw">use</span> <a class="ident" href="../../src/regex/literal/imp.rs.html#13"><span class="kw">crate</span>::literal::LiteralSearcher</a>;
 
 <span class="doccomment">/// `InstPtr` represents the index of an instruction in a regex program.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">InstPtr</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>;
@@ -469,7 +470,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Program</span> {
     <span class="doccomment">/// A sequence of instructions that represents an NFA.</span>
-    <span class="kw">pub</span> <span class="ident">insts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/prog.rs.html#268-296">Inst</a><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">insts</span>: <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../src/regex/prog.rs.html#268">Inst</a><span class="op">&gt;</span>,
     <span class="doccomment">/// Pointers to each Match instruction in the sequence.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is always length 1 unless this program represents a regex set.</span>
@@ -507,7 +508,7 @@
     <span class="doccomment">/// Whether this program contains a Unicode word boundary instruction.</span>
     <span class="kw">pub</span> <span class="ident">has_unicode_word_boundary</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     <span class="doccomment">/// A possibly empty machine for very quickly matching prefix literals.</span>
-    <span class="kw">pub</span> <span class="ident">prefixes</span>: <a class="ident" href="../../src/regex/literal/imp.rs.html#13-18">LiteralSearcher</a>,
+    <span class="kw">pub</span> <span class="ident">prefixes</span>: <a class="ident" href="../../src/regex/literal/imp.rs.html#13">LiteralSearcher</a>,
     <span class="doccomment">/// A limit on the size of the cache that the DFA is allowed to use while</span>
     <span class="doccomment">/// matching.</span>
     <span class="doccomment">///</span>
@@ -526,17 +527,17 @@
     <span class="kw">pub</span> <span class="ident">dfa_size_limit</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#18-75">Program</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#18">Program</a> {
     <span class="doccomment">/// Creates an empty instruction sequence. Fields are given default</span>
     <span class="doccomment">/// values.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
-        <a class="ident" href="../../src/regex/prog.rs.html#18-75">Program</a> {
-            <span class="ident">insts</span>: <span class="macro">vec!</span>[],
-            <span class="ident">matches</span>: <span class="macro">vec!</span>[],
-            <span class="ident">captures</span>: <span class="macro">vec!</span>[],
+        <a class="ident" href="../../src/regex/prog.rs.html#18">Program</a> {
+            <span class="ident">insts</span>: <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[],
+            <span class="ident">matches</span>: <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[],
+            <span class="ident">captures</span>: <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[],
             <span class="ident">capture_name_idx</span>: <span class="ident">Arc::new</span>(<span class="ident">HashMap::new</span>()),
             <span class="ident">start</span>: <span class="number">0</span>,
-            <span class="ident">byte_classes</span>: <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">256</span>],
+            <span class="ident">byte_classes</span>: <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="number">0</span>; <span class="number">256</span>],
             <span class="ident">only_utf8</span>: <span class="bool-val">true</span>,
             <span class="ident">is_bytes</span>: <span class="bool-val">false</span>,
             <span class="ident">is_dfa</span>: <span class="bool-val">false</span>,
@@ -563,7 +564,7 @@
     <span class="doccomment">/// Return true if and only if an execution engine at instruction `pc` will</span>
     <span class="doccomment">/// always lead to a match.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">leads_to_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pc</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">if</span> <a class="self" href="../../src/regex/prog.rs.html#113">self</a>.<span class="ident">matches</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">1</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">matches</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">1</span> {
             <span class="comment">// If we have a regex set, then we have more than one ending</span>
             <span class="comment">// state, so leading to one of those states is generally</span>
             <span class="comment">// meaningless.</span>
@@ -600,7 +601,7 @@
         <span class="comment">// The only instruction that uses heap space is Ranges (for</span>
         <span class="comment">// Unicode codepoint programs) to store non-overlapping codepoint</span>
         <span class="comment">// ranges. To keep this operation constant time, we ignore them.</span>
-        (<a class="self" href="../../src/regex/prog.rs.html#147">self</a>.<span class="ident">len</span>() <span class="op">*</span> <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../src/regex/prog.rs.html#268-296">Inst</a><span class="op">&gt;</span>())
+        (<a class="self" href="../../src/regex/prog.rs.html#147">self</a>.<span class="ident">len</span>() <span class="op">*</span> <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../src/regex/prog.rs.html#268">Inst</a><span class="op">&gt;</span>())
             <span class="op">+</span> (<a class="self" href="../../src/regex/prog.rs.html#147">self</a>.<span class="ident">matches</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../src/regex/prog.rs.html#13">InstPtr</a><span class="op">&gt;</span>())
             <span class="op">+</span> (<a class="self" href="../../src/regex/prog.rs.html#147">self</a>.<span class="ident">captures</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>())
             <span class="op">+</span> (<a class="self" href="../../src/regex/prog.rs.html#147">self</a>.<span class="ident">capture_name_idx</span>.<span class="ident">len</span>()
@@ -610,8 +611,8 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html">Deref</a> <span class="kw">for</span> <a class="ident" href="../../src/regex/prog.rs.html#18-75">Program</a> {
-    <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> [<a class="ident" href="../../src/regex/prog.rs.html#268-296">Inst</a>];
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html">Deref</a> <span class="kw">for</span> <a class="ident" href="../../src/regex/prog.rs.html#18">Program</a> {
+    <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> [<a class="ident" href="../../src/regex/prog.rs.html#268">Inst</a>];
 
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;perf-inline&quot;</span>, <span class="ident">inline</span>(<span class="ident">always</span>))]</span>
     <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Target</span> {
@@ -619,15 +620,15 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../src/regex/prog.rs.html#18-75">Program</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../src/regex/prog.rs.html#18">Program</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#268-296"><span class="self">self</span>::Inst</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../src/regex/prog.rs.html#268"><span class="self">self</span>::Inst</a>::<span class="kw-2">*</span>;
 
         <span class="kw">fn</span> <span class="ident">with_goto</span>(<span class="ident">cur</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">goto</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="ident">fmtd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
-            <span class="kw">if</span> <a class="ident" href="../../src/regex/prog.rs.html#174">goto</a> <span class="op">==</span> <a class="ident" href="../../src/regex/prog.rs.html#174">cur</a> <span class="op">+</span> <span class="number">1</span> {
+            <span class="kw">if</span> <span class="ident">goto</span> <span class="op">==</span> <span class="ident">cur</span> <span class="op">+</span> <span class="number">1</span> {
                 <a class="ident" href="../../src/regex/prog.rs.html#174">fmtd</a>
             } <span class="kw">else</span> {
-                <span class="macro">format!</span>(<span class="string">&quot;{} (goto: {})&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#174">fmtd</a>, <a class="ident" href="../../src/regex/prog.rs.html#174">goto</a>)
+                <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;{} (goto: {})&quot;</span>, <span class="ident">fmtd</span>, <span class="ident">goto</span>)
             }
         }
 
@@ -637,63 +638,63 @@
             <span class="ident">String::from_utf8_lossy</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/regex/prog.rs.html#184">escaped</a>).<span class="ident">into_owned</span>()
         }
 
-        <span class="kw">for</span> (<span class="ident">pc</span>, <span class="ident">inst</span>) <span class="kw">in</span> <a class="self" href="../../src/regex/prog.rs.html#171">self</a>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">enumerate</a>() {
-            <span class="kw">match</span> <span class="kw-2">*</span><a class="ident" href="../../src/regex/prog.rs.html#188">inst</a> {
-                <a class="ident" href="../../src/regex/prog.rs.html#276">Match</a>(<span class="ident">slot</span>) =&gt; <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot;{:04} Match({:?})&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#190">slot</a>)<span class="question-mark">?</span>,
-                <a class="ident" href="../../src/regex/prog.rs.html#279">Save</a>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
-                    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{:04} Save({})&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#191">inst</a>.<span class="ident">slot</span>);
-                    <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot;{}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#174">with_goto</a>(<a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#191">inst</a>.<span class="ident">goto</span>, <a class="ident" href="../../src/regex/prog.rs.html#192">s</a>))<span class="question-mark">?</span>;
+        <span class="kw">for</span> (<span class="ident">pc</span>, <span class="ident">inst</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="ident">inst</span> {
+                <span class="ident">Match</span>(<span class="ident">slot</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{:04} Match({:?})&quot;</span>, <span class="ident">pc</span>, <span class="ident">slot</span>)<span class="question-mark">?</span>,
+                <span class="ident">Save</span>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
+                    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{:04} Save({})&quot;</span>, <span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">slot</span>);
+                    <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">with_goto</span>(<span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">goto</span>, <span class="ident">s</span>))<span class="question-mark">?</span>;
                 }
-                <a class="ident" href="../../src/regex/prog.rs.html#282">Split</a>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
+                <span class="ident">Split</span>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
                     <span class="macro">write!</span>(
-                        <a class="ident" href="../../src/regex/prog.rs.html#171">f</a>,
+                        <span class="ident">f</span>,
                         <span class="string">&quot;{:04} Split({}, {})&quot;</span>,
-                        <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#195">inst</a>.<span class="ident">goto1</span>, <a class="ident" href="../../src/regex/prog.rs.html#195">inst</a>.<span class="ident">goto2</span>
+                        <span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">goto1</span>, <span class="ident">inst</span>.<span class="ident">goto2</span>
                     )<span class="question-mark">?</span>;
                 }
-                <a class="ident" href="../../src/regex/prog.rs.html#285">EmptyLook</a>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
-                    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#202">inst</a>.<span class="ident">look</span>);
-                    <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot;{:04} {}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#174">with_goto</a>(<a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#202">inst</a>.<span class="ident">goto</span>, <a class="ident" href="../../src/regex/prog.rs.html#203">s</a>))<span class="question-mark">?</span>;
+                <span class="ident">EmptyLook</span>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
+                    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">inst</span>.<span class="ident">look</span>);
+                    <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{:04} {}&quot;</span>, <span class="ident">pc</span>, <span class="ident">with_goto</span>(<span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">goto</span>, <span class="ident">s</span>))<span class="question-mark">?</span>;
                 }
-                <a class="ident" href="../../src/regex/prog.rs.html#288">Char</a>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
-                    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#206">inst</a>.<span class="ident">c</span>);
-                    <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot;{:04} {}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#174">with_goto</a>(<a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#206">inst</a>.<span class="ident">goto</span>, <a class="ident" href="../../src/regex/prog.rs.html#207">s</a>))<span class="question-mark">?</span>;
+                <span class="ident">Char</span>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
+                    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">inst</span>.<span class="ident">c</span>);
+                    <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{:04} {}&quot;</span>, <span class="ident">pc</span>, <span class="ident">with_goto</span>(<span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">goto</span>, <span class="ident">s</span>))<span class="question-mark">?</span>;
                 }
-                <a class="ident" href="../../src/regex/prog.rs.html#291">Ranges</a>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
-                    <span class="kw">let</span> <span class="ident">ranges</span> <span class="op">=</span> <a class="ident" href="../../src/regex/prog.rs.html#210">inst</a>
+                <span class="ident">Ranges</span>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
+                    <span class="kw">let</span> <span class="ident">ranges</span> <span class="op">=</span> <span class="ident">inst</span>
                         .<span class="ident">ranges</span>
                         .<span class="ident">iter</span>()
-                        .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;{:?}-{:?}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#214">r</a>.<span class="number">0</span>, <a class="ident" href="../../src/regex/prog.rs.html#214">r</a>.<span class="number">1</span>))
-                        .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>()
+                        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;{:?}-{:?}&quot;</span>, <span class="ident">r</span>.<span class="number">0</span>, <span class="ident">r</span>.<span class="number">1</span>))
+                        .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>()
                         .<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>);
                     <span class="macro">write!</span>(
-                        <a class="ident" href="../../src/regex/prog.rs.html#171">f</a>,
+                        <span class="ident">f</span>,
                         <span class="string">&quot;{:04} {}&quot;</span>,
-                        <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>,
-                        <a class="ident" href="../../src/regex/prog.rs.html#174">with_goto</a>(<a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#210">inst</a>.<span class="ident">goto</span>, <a class="ident" href="../../src/regex/prog.rs.html#211">ranges</a>)
+                        <span class="ident">pc</span>,
+                        <span class="ident">with_goto</span>(<span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">goto</span>, <span class="ident">ranges</span>)
                     )<span class="question-mark">?</span>;
                 }
-                <a class="ident" href="../../src/regex/prog.rs.html#295">Bytes</a>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
+                <span class="ident">Bytes</span>(<span class="kw-2">ref</span> <span class="ident">inst</span>) =&gt; {
                     <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(
                         <span class="string">&quot;Bytes({}, {})&quot;</span>,
-                        <a class="ident" href="../../src/regex/prog.rs.html#182">visible_byte</a>(<a class="ident" href="../../src/regex/prog.rs.html#224">inst</a>.<span class="ident">start</span>),
-                        <a class="ident" href="../../src/regex/prog.rs.html#182">visible_byte</a>(<a class="ident" href="../../src/regex/prog.rs.html#224">inst</a>.<span class="ident">end</span>)
+                        <span class="ident">visible_byte</span>(<span class="ident">inst</span>.<span class="ident">start</span>),
+                        <span class="ident">visible_byte</span>(<span class="ident">inst</span>.<span class="ident">end</span>)
                     );
-                    <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot;{:04} {}&quot;</span>, <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#174">with_goto</a>(<a class="ident" href="../../src/regex/prog.rs.html#188">pc</a>, <a class="ident" href="../../src/regex/prog.rs.html#224">inst</a>.<span class="ident">goto</span>, <a class="ident" href="../../src/regex/prog.rs.html#225">s</a>))<span class="question-mark">?</span>;
+                    <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{:04} {}&quot;</span>, <span class="ident">pc</span>, <span class="ident">with_goto</span>(<span class="ident">pc</span>, <span class="ident">inst</span>.<span class="ident">goto</span>, <span class="ident">s</span>))<span class="question-mark">?</span>;
                 }
             }
-            <span class="kw">if</span> <a class="ident" href="../../src/regex/prog.rs.html#188">pc</a> <span class="op">==</span> <a class="self" href="../../src/regex/prog.rs.html#171">self</a>.<span class="ident">start</span> {
-                <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot; (start)&quot;</span>)<span class="question-mark">?</span>;
+            <span class="kw">if</span> <span class="ident">pc</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">start</span> {
+                <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot; (start)&quot;</span>)<span class="question-mark">?</span>;
             }
-            <span class="macro">write!</span>(<a class="ident" href="../../src/regex/prog.rs.html#171">f</a>, <span class="string">&quot;\n&quot;</span>)<span class="question-mark">?</span>;
+            <span class="macro">writeln!</span>(<span class="ident">f</span>)<span class="question-mark">?</span>;
         }
         <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">IntoIterator</a> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../src/regex/prog.rs.html#18-75">Program</a> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../src/regex/prog.rs.html#268-296">Inst</a>;
-    <span class="kw">type</span> <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">slice::Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <a class="ident" href="../../src/regex/prog.rs.html#268-296">Inst</a><span class="op">&gt;</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">IntoIterator</a> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../src/regex/prog.rs.html#18">Program</a> {
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../src/regex/prog.rs.html#268">Inst</a>;
+    <span class="kw">type</span> <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">slice::Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <a class="ident" href="../../src/regex/prog.rs.html#268">Inst</a><span class="op">&gt;</span>;
     <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::IntoIter</span> {
         <a class="self" href="../../src/regex/prog.rs.html#245">self</a>.<span class="ident">iter</span>()
     }
@@ -728,26 +729,26 @@
     <span class="ident">Match</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>),
     <span class="doccomment">/// Save causes the program to save the current location of the input in</span>
     <span class="doccomment">/// the slot indicated by InstSave.</span>
-    <span class="ident">Save</span>(<a class="ident" href="../../src/regex/prog.rs.html#310-316">InstSave</a>),
+    <span class="ident">Save</span>(<a class="ident" href="../../src/regex/prog.rs.html#310">InstSave</a>),
     <span class="doccomment">/// Split causes the program to diverge to one of two paths in the</span>
     <span class="doccomment">/// program, preferring goto1 in InstSplit.</span>
-    <span class="ident">Split</span>(<a class="ident" href="../../src/regex/prog.rs.html#320-327">InstSplit</a>),
+    <span class="ident">Split</span>(<a class="ident" href="../../src/regex/prog.rs.html#320">InstSplit</a>),
     <span class="doccomment">/// EmptyLook represents a zero-width assertion in a regex program. A</span>
     <span class="doccomment">/// zero-width assertion does not consume any of the input text.</span>
-    <span class="ident">EmptyLook</span>(<a class="ident" href="../../src/regex/prog.rs.html#331-337">InstEmptyLook</a>),
+    <span class="ident">EmptyLook</span>(<a class="ident" href="../../src/regex/prog.rs.html#331">InstEmptyLook</a>),
     <span class="doccomment">/// Char requires the regex program to match the character in InstChar at</span>
     <span class="doccomment">/// the current position in the input.</span>
-    <span class="ident">Char</span>(<a class="ident" href="../../src/regex/prog.rs.html#362-368">InstChar</a>),
+    <span class="ident">Char</span>(<a class="ident" href="../../src/regex/prog.rs.html#362">InstChar</a>),
     <span class="doccomment">/// Ranges requires the regex program to match the character at the current</span>
     <span class="doccomment">/// position in the input with one of the ranges specified in InstRanges.</span>
-    <span class="ident">Ranges</span>(<a class="ident" href="../../src/regex/prog.rs.html#372-378">InstRanges</a>),
+    <span class="ident">Ranges</span>(<a class="ident" href="../../src/regex/prog.rs.html#372">InstRanges</a>),
     <span class="doccomment">/// Bytes is like Ranges, except it expresses a single byte range. It is</span>
     <span class="doccomment">/// used in conjunction with Split instructions to implement multi-byte</span>
     <span class="doccomment">/// character classes.</span>
-    <span class="ident">Bytes</span>(<a class="ident" href="../../src/regex/prog.rs.html#419-427">InstBytes</a>),
+    <span class="ident">Bytes</span>(<a class="ident" href="../../src/regex/prog.rs.html#419">InstBytes</a>),
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#268-296">Inst</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#268">Inst</a> {
     <span class="doccomment">/// Returns true if and only if this is a match instruction.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../src/regex/prog.rs.html#300">self</a> {
@@ -785,7 +786,7 @@
     <span class="doccomment">/// succeeds.</span>
     <span class="kw">pub</span> <span class="ident">goto</span>: <a class="ident" href="../../src/regex/prog.rs.html#13">InstPtr</a>,
     <span class="doccomment">/// The type of zero-width assertion to check.</span>
-    <span class="kw">pub</span> <span class="ident">look</span>: <a class="ident" href="../../src/regex/prog.rs.html#341-358">EmptyLook</a>,
+    <span class="kw">pub</span> <span class="ident">look</span>: <a class="ident" href="../../src/regex/prog.rs.html#341">EmptyLook</a>,
 }
 
 <span class="doccomment">/// The set of zero-width match instructions.</span>
@@ -829,25 +830,25 @@
     <span class="kw">pub</span> <span class="ident">ranges</span>: <span class="ident">Box</span><span class="op">&lt;</span>[(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>)]<span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#372-378">InstRanges</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#372">InstRanges</a> {
     <span class="doccomment">/// Tests whether the given input character matches this instruction.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matches</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">c</span>: <a class="ident" href="../../src/regex/input.rs.html#346">Char</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="comment">// This speeds up the `match_class_unicode` benchmark by checking</span>
         <span class="comment">// some common cases quickly without binary search. e.g., Matching</span>
         <span class="comment">// a Unicode class on predominantly ASCII text.</span>
-        <span class="kw">for</span> <span class="ident">r</span> <span class="kw">in</span> <a class="self" href="../../src/regex/prog.rs.html#382">self</a>.<span class="ident">ranges</span>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">take</a>(<span class="number">4</span>) {
-            <span class="kw">if</span> <a class="ident" href="../../src/regex/prog.rs.html#382">c</a> <span class="op">&lt;</span> <a class="ident" href="../../src/regex/prog.rs.html#386">r</a>.<span class="number">0</span> {
+        <span class="kw">for</span> <span class="ident">r</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">ranges</span>.<span class="ident">iter</span>().<span class="ident">take</span>(<span class="number">4</span>) {
+            <span class="kw">if</span> <span class="ident">c</span> <span class="op">&lt;</span> <span class="ident">r</span>.<span class="number">0</span> {
                 <span class="kw">return</span> <span class="bool-val">false</span>;
             }
-            <span class="kw">if</span> <a class="ident" href="../../src/regex/prog.rs.html#382">c</a> <span class="op">&lt;</span><span class="op">=</span> <a class="ident" href="../../src/regex/prog.rs.html#386">r</a>.<span class="number">1</span> {
+            <span class="kw">if</span> <span class="ident">c</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">r</span>.<span class="number">1</span> {
                 <span class="kw">return</span> <span class="bool-val">true</span>;
             }
         }
         <a class="self" href="../../src/regex/prog.rs.html#382">self</a>.<span class="ident">ranges</span>
             .<span class="ident">binary_search_by</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> {
-                <span class="kw">if</span> <a class="ident" href="../../src/regex/prog.rs.html#395">r</a>.<span class="number">1</span> <span class="op">&lt;</span> <a class="ident" href="../../src/regex/prog.rs.html#382">c</a> {
+                <span class="kw">if</span> <span class="ident">r</span>.<span class="number">1</span> <span class="op">&lt;</span> <span class="ident">c</span> {
                     <span class="ident">Ordering::Less</span>
-                } <span class="kw">else</span> <span class="kw">if</span> <a class="ident" href="../../src/regex/prog.rs.html#395">r</a>.<span class="number">0</span> <span class="op">&gt;</span> <a class="ident" href="../../src/regex/prog.rs.html#382">c</a> {
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">r</span>.<span class="number">0</span> <span class="op">&gt;</span> <span class="ident">c</span> {
                     <span class="ident">Ordering::Greater</span>
                 } <span class="kw">else</span> {
                     <span class="ident">Ordering::Equal</span>
@@ -878,7 +879,7 @@
     <span class="kw">pub</span> <span class="ident">end</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#419-427">InstBytes</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/regex/prog.rs.html#419">InstBytes</a> {
     <span class="doccomment">/// Returns true if and only if the given byte is in this range.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matches</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">byte</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <a class="self" href="../../src/regex/prog.rs.html#431">self</a>.<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <a class="ident" href="../../src/regex/prog.rs.html#431">byte</a> <span class="op">&amp;&amp;</span> <a class="ident" href="../../src/regex/prog.rs.html#431">byte</a> <span class="op">&lt;</span><span class="op">=</span> <a class="self" href="../../src/regex/prog.rs.html#431">self</a>.<span class="ident">end</span>
@@ -898,5 +899,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

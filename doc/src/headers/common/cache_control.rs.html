@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/headers-0.3.7/src/common/cache_control.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cache_control.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../headers/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/headers-0.3.7/src/common/cache_control.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cache_control.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../headers/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../headers/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../headers/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../headers/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -512,7 +513,7 @@
     <span class="ident">s_max_age</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../src/headers/util/seconds.rs.html#8">Seconds</a><span class="op">&gt;</span>,
 }
 
-<span class="macro">bitflags!</span> {
+<a class="macro" href="../../../bitflags/bitflags/macro.bitflags.html">bitflags!</a> {
     <span class="kw">struct</span> <span class="ident">Flags</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="kw">const</span> <span class="ident">NO_CACHE</span>         <span class="op">=</span> <span class="number">0b00000001</span>;
         <span class="kw">const</span> <span class="ident">NO_STORE</span>         <span class="op">=</span> <span class="number">0b00000010</span>;
@@ -525,10 +526,10 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38-44">CacheControl</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38">CacheControl</a> {
     <span class="doccomment">/// Construct a new empty `CacheControl` header.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
-        <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38-44">CacheControl</a> {
+        <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38">CacheControl</a> {
             <span class="ident">flags</span>: <span class="ident">Flags::empty</span>(),
             <span class="ident">max_age</span>: <span class="prelude-val">None</span>,
             <span class="ident">max_stale</span>: <span class="prelude-val">None</span>,
@@ -652,27 +653,27 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../headers/trait.Header.html">::Header</a> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38-44">CacheControl</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../headers/trait.Header.html">::Header</a> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38">CacheControl</a> {
     <span class="kw">fn</span> <span class="ident">name</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <a class="ident" href="../../../http/header/name/struct.HeaderName.html">::HeaderName</a> {
         <span class="kw-2">&amp;</span><span class="ident">::http::header::CACHE_CONTROL</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;i</span>, <span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;i</span> <span class="ident">HeaderValue</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">values</span>: <span class="kw-2">&amp;mut</span> <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <a class="ident" href="../../../headers/struct.Error.html">::Error</a><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;i</span>, <span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;i</span> <a class="ident" href="../../../http/header/value/struct.HeaderValue.html">HeaderValue</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">values</span>: <span class="kw-2">&amp;mut</span> <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <a class="ident" href="../../../headers/struct.Error.html">::Error</a><span class="op">&gt;</span> {
         <a class="ident" href="../../../src/headers/util/csv.rs.html#4-8">csv::from_comma_delimited</a>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#191">values</a>).<span class="ident">map</span>(<span class="op">|</span><a class="ident" href="../../../src/headers/common/cache_control.rs.html#201">FromIter</a>(<span class="ident">cc</span>)<span class="op">|</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#192">cc</a>)
     }
 
-    <span class="kw">fn</span> <span class="ident">encode</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Extend</span><span class="op">&lt;</span><span class="ident">::HeaderValue</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">values</span>: <span class="kw-2">&amp;mut</span> <span class="ident">E</span>) {
+    <span class="kw">fn</span> <span class="ident">encode</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Extend</span><span class="op">&lt;</span><a class="ident" href="../../../http/header/value/struct.HeaderValue.html">::HeaderValue</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">values</span>: <span class="kw-2">&amp;mut</span> <span class="ident">E</span>) {
         <a class="ident" href="../../../src/headers/common/cache_control.rs.html#195">values</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/sources/once/fn.once.html">::std::iter::once</a>(<a class="ident" href="../../../src/headers/util/fmt.rs.html#5">util::fmt</a>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#261">Fmt</a>(<a class="self" href="../../../src/headers/common/cache_control.rs.html#195">self</a>))));
     }
 }
 
 <span class="comment">// Adapter to be used in Header::decode</span>
-<span class="kw">struct</span> <span class="ident">FromIter</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#38-44">CacheControl</a>);
+<span class="kw">struct</span> <span class="ident">FromIter</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#38">CacheControl</a>);
 
-<span class="kw">impl</span> <span class="ident">FromIterator</span><span class="op">&lt;</span><a class="ident" href="../../../src/headers/common/cache_control.rs.html#307-310">KnownDirective</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#201">FromIter</a> {
+<span class="kw">impl</span> <span class="ident">FromIterator</span><span class="op">&lt;</span><a class="ident" href="../../../src/headers/common/cache_control.rs.html#307">KnownDirective</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#201">FromIter</a> {
     <span class="kw">fn</span> <span class="ident">from_iter</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="ident">iter</span>: <span class="ident">I</span>) -&gt; <span class="self">Self</span>
     <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#307-310">KnownDirective</a><span class="op">&gt;</span>,
+        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#307">KnownDirective</a><span class="op">&gt;</span>,
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cc</span> <span class="op">=</span> <span class="ident">CacheControl::new</span>();
 
@@ -682,43 +683,43 @@
             <a class="ident" href="../../../src/headers/common/cache_control.rs.html#309">KnownDirective::Unknown</a> =&gt; <span class="prelude-val">None</span>,
         });
 
-        <span class="kw">for</span> <span class="ident">directive</span> <span class="kw">in</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#211">iter</a> {
-            <span class="kw">match</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#216">directive</a> {
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#314">Directive::NoCache</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::NO_CACHE</span>);
+        <span class="kw">for</span> <span class="ident">directive</span> <span class="kw">in</span> <span class="ident">iter</span> {
+            <span class="kw">match</span> <span class="ident">directive</span> {
+                <span class="ident">Directive::NoCache</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::NO_CACHE</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#315">Directive::NoStore</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::NO_STORE</span>);
+                <span class="ident">Directive::NoStore</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::NO_STORE</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#316">Directive::NoTransform</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::NO_TRANSFORM</span>);
+                <span class="ident">Directive::NoTransform</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::NO_TRANSFORM</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#317">Directive::OnlyIfCached</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::ONLY_IF_CACHED</span>);
+                <span class="ident">Directive::OnlyIfCached</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::ONLY_IF_CACHED</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#325">Directive::MustRevalidate</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::MUST_REVALIDATE</span>);
+                <span class="ident">Directive::MustRevalidate</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::MUST_REVALIDATE</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#326">Directive::Public</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::PUBLIC</span>);
+                <span class="ident">Directive::Public</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::PUBLIC</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#327">Directive::Private</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::PRIVATE</span>);
+                <span class="ident">Directive::Private</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::PRIVATE</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#328">Directive::ProxyRevalidate</a> =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">insert</a>(<span class="ident">Flags::PROXY_REVALIDATE</span>);
+                <span class="ident">Directive::ProxyRevalidate</span> =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">flags</span>.<span class="ident">insert</span>(<span class="ident">Flags::PROXY_REVALIDATE</span>);
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#320">Directive::MaxAge</a>(<span class="ident">secs</span>) =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">max_age</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#242">secs</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>());
+                <span class="ident">Directive::MaxAge</span>(<span class="ident">secs</span>) =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">max_age</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<span class="ident">secs</span>.<span class="ident">into</span>()).<span class="ident">into</span>());
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#321">Directive::MaxStale</a>(<span class="ident">secs</span>) =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">max_stale</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#245">secs</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>());
+                <span class="ident">Directive::MaxStale</span>(<span class="ident">secs</span>) =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">max_stale</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<span class="ident">secs</span>.<span class="ident">into</span>()).<span class="ident">into</span>());
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#322">Directive::MinFresh</a>(<span class="ident">secs</span>) =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">min_fresh</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#248">secs</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>());
+                <span class="ident">Directive::MinFresh</span>(<span class="ident">secs</span>) =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">min_fresh</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<span class="ident">secs</span>.<span class="ident">into</span>()).<span class="ident">into</span>());
                 }
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#329">Directive::SMaxAge</a>(<span class="ident">secs</span>) =&gt; {
-                    <a class="ident" href="../../../src/headers/common/cache_control.rs.html#208">cc</a>.<span class="ident">s_max_age</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#251">secs</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>());
+                <span class="ident">Directive::SMaxAge</span>(<span class="ident">secs</span>) =&gt; {
+                    <span class="ident">cc</span>.<span class="ident">s_max_age</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Duration::from_secs</span>(<span class="ident">secs</span>.<span class="ident">into</span>()).<span class="ident">into</span>());
                 }
             }
         }
@@ -727,12 +728,12 @@
     }
 }
 
-<span class="kw">struct</span> <span class="ident">Fmt</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38-44">CacheControl</a>);
+<span class="kw">struct</span> <span class="ident">Fmt</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#38">CacheControl</a>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for</span> <span class="ident">Fmt</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <span class="kw">let</span> <span class="ident">if_flag</span> <span class="op">=</span> <span class="op">|</span><span class="ident">f</span>: <a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">Flags</a>, <span class="ident">dir</span>: <a class="ident" href="../../../src/headers/common/cache_control.rs.html#313-330">Directive</a><span class="op">|</span> {
-            <span class="kw">if</span> <a class="self" href="../../../src/headers/common/cache_control.rs.html#264">self</a>.<span class="number">0</span>.<span class="ident">flags</span>.<a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">contains</a>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#265">f</a>) {
+        <span class="kw">let</span> <span class="ident">if_flag</span> <span class="op">=</span> <span class="op">|</span><span class="ident">f</span>: <a class="ident" href="../../../src/headers/common/cache_control.rs.html#46-57">Flags</a>, <span class="ident">dir</span>: <a class="ident" href="../../../src/headers/common/cache_control.rs.html#313">Directive</a><span class="op">|</span> {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">flags</span>.<span class="ident">contains</span>(<span class="ident">f</span>) {
                 <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#265">dir</a>)
             } <span class="kw">else</span> {
                 <span class="prelude-val">None</span>
@@ -774,7 +775,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">enum</span> <span class="ident">KnownDirective</span> {
-    <span class="ident">Known</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#313-330">Directive</a>),
+    <span class="ident">Known</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#313">Directive</a>),
     <span class="ident">Unknown</span>,
 }
 
@@ -798,7 +799,7 @@
     <span class="ident">SMaxAge</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>),
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#313-330">Directive</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#313">Directive</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
         <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display::fmt</a>(
             <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/headers/common/cache_control.rs.html#333">self</a> {
@@ -807,22 +808,22 @@
                 <a class="ident" href="../../../src/headers/common/cache_control.rs.html#316">Directive::NoTransform</a> =&gt; <span class="string">&quot;no-transform&quot;</span>,
                 <a class="ident" href="../../../src/headers/common/cache_control.rs.html#317">Directive::OnlyIfCached</a> =&gt; <span class="string">&quot;only-if-cached&quot;</span>,
 
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#320">Directive::MaxAge</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <span class="macro">write!</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#333">f</a>, <span class="string">&quot;max-age={}&quot;</span>, <a class="ident" href="../../../src/headers/common/cache_control.rs.html#341">secs</a>),
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#321">Directive::MaxStale</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <span class="macro">write!</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#333">f</a>, <span class="string">&quot;max-stale={}&quot;</span>, <a class="ident" href="../../../src/headers/common/cache_control.rs.html#342">secs</a>),
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#322">Directive::MinFresh</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <span class="macro">write!</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#333">f</a>, <span class="string">&quot;min-fresh={}&quot;</span>, <a class="ident" href="../../../src/headers/common/cache_control.rs.html#343">secs</a>),
+                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#320">Directive::MaxAge</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;max-age={}&quot;</span>, <span class="ident">secs</span>),
+                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#321">Directive::MaxStale</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;max-stale={}&quot;</span>, <span class="ident">secs</span>),
+                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#322">Directive::MinFresh</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;min-fresh={}&quot;</span>, <span class="ident">secs</span>),
 
                 <a class="ident" href="../../../src/headers/common/cache_control.rs.html#325">Directive::MustRevalidate</a> =&gt; <span class="string">&quot;must-revalidate&quot;</span>,
                 <a class="ident" href="../../../src/headers/common/cache_control.rs.html#326">Directive::Public</a> =&gt; <span class="string">&quot;public&quot;</span>,
                 <a class="ident" href="../../../src/headers/common/cache_control.rs.html#327">Directive::Private</a> =&gt; <span class="string">&quot;private&quot;</span>,
                 <a class="ident" href="../../../src/headers/common/cache_control.rs.html#328">Directive::ProxyRevalidate</a> =&gt; <span class="string">&quot;proxy-revalidate&quot;</span>,
-                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#329">Directive::SMaxAge</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <span class="macro">write!</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#333">f</a>, <span class="string">&quot;s-maxage={}&quot;</span>, <a class="ident" href="../../../src/headers/common/cache_control.rs.html#349">secs</a>),
+                <a class="ident" href="../../../src/headers/common/cache_control.rs.html#329">Directive::SMaxAge</a>(<span class="ident">secs</span>) =&gt; <span class="kw">return</span> <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;s-maxage={}&quot;</span>, <span class="ident">secs</span>),
             },
             <a class="ident" href="../../../src/headers/common/cache_control.rs.html#333">f</a>,
         )
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html">FromStr</a> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#307-310">KnownDirective</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html">FromStr</a> <span class="kw">for</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#307">KnownDirective</a> {
     <span class="kw">type</span> <span class="prelude-val">Err</span> <span class="op">=</span> ();
     <span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Err</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#308">KnownDirective::Known</a>(<span class="kw">match</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#358">s</a> {
@@ -838,15 +839,15 @@
             <span class="kw">_</span> =&gt; <span class="kw">match</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#358">s</a>.<span class="ident">find</span>(<span class="string">&#39;=&#39;</span>) {
                 <span class="prelude-val">Some</span>(<span class="ident">idx</span>) <span class="kw">if</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#370">idx</a> <span class="op">+</span> <span class="number">1</span> <span class="op">&lt;</span> <a class="ident" href="../../../src/headers/common/cache_control.rs.html#358">s</a>.<span class="ident">len</span>() =&gt; {
                     <span class="kw">match</span> (<span class="kw-2">&amp;</span><a class="ident" href="../../../src/headers/common/cache_control.rs.html#358">s</a>[..<a class="ident" href="../../../src/headers/common/cache_control.rs.html#370">idx</a>], (<span class="kw-2">&amp;</span><a class="ident" href="../../../src/headers/common/cache_control.rs.html#358">s</a>[<a class="ident" href="../../../src/headers/common/cache_control.rs.html#370">idx</a> <span class="op">+</span> <span class="number">1</span>..]).<span class="ident">trim_matches</span>(<span class="string">&#39;&quot;&#39;</span>)) {
-                        (<span class="string">&quot;max-age&quot;</span>, <span class="ident">secs</span>) =&gt; <a class="ident" href="../../../src/headers/common/cache_control.rs.html#372">secs</a>.<span class="ident">parse</span>().<span class="ident">map</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#320">Directive::MaxAge</a>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>,
+                        (<span class="string">&quot;max-age&quot;</span>, <span class="ident">secs</span>) =&gt; <span class="ident">secs</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">Directive::MaxAge</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>,
                         (<span class="string">&quot;max-stale&quot;</span>, <span class="ident">secs</span>) =&gt; {
-                            <a class="ident" href="../../../src/headers/common/cache_control.rs.html#373">secs</a>.<span class="ident">parse</span>().<span class="ident">map</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#321">Directive::MaxStale</a>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>
+                            <span class="ident">secs</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">Directive::MaxStale</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>
                         }
                         (<span class="string">&quot;min-fresh&quot;</span>, <span class="ident">secs</span>) =&gt; {
-                            <a class="ident" href="../../../src/headers/common/cache_control.rs.html#376">secs</a>.<span class="ident">parse</span>().<span class="ident">map</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#322">Directive::MinFresh</a>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>
+                            <span class="ident">secs</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">Directive::MinFresh</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>
                         }
                         (<span class="string">&quot;s-maxage&quot;</span>, <span class="ident">secs</span>) =&gt; {
-                            <a class="ident" href="../../../src/headers/common/cache_control.rs.html#379">secs</a>.<span class="ident">parse</span>().<span class="ident">map</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#329">Directive::SMaxAge</a>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>
+                            <span class="ident">secs</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">Directive::SMaxAge</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>
                         }
                         <span class="ident">_unknown</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/headers/common/cache_control.rs.html#309">KnownDirective::Unknown</a>),
                     }
@@ -932,5 +933,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="headers" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="headers" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

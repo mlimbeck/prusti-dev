@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/multipart-0.17.1/src/server/save.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>save.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../multipart/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/multipart-0.18.0/src/server/save.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>save.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../multipart/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../../multipart/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../multipart/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../multipart/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1065,14 +1066,14 @@
 <span class="kw">use</span> <span class="ident">std::fs</span>::{<a class="self" href="https://doc.rust-lang.org/nightly/std/fs/index.html">self</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.File.html">File</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.OpenOptions.html">OpenOptions</a>};
 <span class="kw">use</span> <span class="ident">std::path</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>};
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/sync/struct.Arc.html">std::sync::Arc</a>;
-<span class="kw">use</span> <span class="ident">std</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/core/cmp/index.html">cmp</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/env/index.html">env</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/index.html">io</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/str/index.html">str</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/u32/index.html">u32</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/u64/index.html">u64</a>};
+<span class="kw">use</span> <span class="ident">std</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/core/cmp/index.html">cmp</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/macro.env.html">env</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/index.html">io</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/str/index.html">str</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/u32/index.html">u32</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/u64/index.html">u64</a>};
 <span class="kw">use</span> <a class="ident" href="../../../tempfile/index.html">tempfile</a>;
 
-<span class="kw">use</span> <span class="ident">server::field</span>::{<a class="ident" href="../../../src/multipart/server/field.rs.html#112-127">FieldHeaders</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#216-226">MultipartField</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#281-283">MultipartData</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#470-477">ReadEntryResult</a>};
+<span class="kw">use</span> <span class="ident">server::field</span>::{<a class="ident" href="../../../src/multipart/server/field.rs.html#112">FieldHeaders</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#216">MultipartField</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#281">MultipartData</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a>, <a class="ident" href="../../../src/multipart/server/field.rs.html#470">ReadEntryResult</a>};
 
-<span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#879-887"><span class="self">self</span>::SaveResult</a>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#62-69"><span class="self">self</span>::TextPolicy</a>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784-797"><span class="self">self</span>::PartialReason</a>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#879"><span class="self">self</span>::SaveResult</a>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#62"><span class="self">self</span>::TextPolicy</a>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784"><span class="self">self</span>::PartialReason</a>::<span class="kw-2">*</span>;
 
 <span class="kw">const</span> <span class="ident">RANDOM_FILENAME_LEN</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> <span class="op">=</span> <span class="number">12</span>;
 
@@ -1186,7 +1187,7 @@
     <span class="ident">size_limit</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
     <span class="ident">count_limit</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
     <span class="ident">memory_threshold</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
-    <span class="ident">text_policy</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#62-69">TextPolicy</a>,
+    <span class="ident">text_policy</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#62">TextPolicy</a>,
 }
 
 <span class="doccomment">/// Common methods for whole requests as well as individual fields.</span>
@@ -1197,7 +1198,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">open_opts</span> <span class="op">=</span> <span class="ident">OpenOptions::new</span>();
         <a class="ident" href="../../../src/multipart/server/save.rs.html#147">open_opts</a>.<span class="ident">write</span>(<span class="bool-val">true</span>).<span class="ident">create_new</span>(<span class="bool-val">true</span>);
 
-        <a class="ident" href="../../../src/multipart/server/save.rs.html#133-140">SaveBuilder</a> {
+        <a class="ident" href="../../../src/multipart/server/save.rs.html#133">SaveBuilder</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#146">savable</a>,
             <a class="ident" href="../../../src/multipart/server/save.rs.html#147">open_opts</a>,
             <span class="comment">// 8 MiB, on the conservative end compared to most frameworks</span>
@@ -1214,7 +1215,7 @@
     <span class="doccomment">/// Set the maximum number of bytes to write out *per file*.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Can be `u64` or `Option&lt;u64&gt;`. If `None` or `u64::MAX`, clears the limit.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">size_limit</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">L</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">size_limit</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">L</span>) -&gt; <span class="self">Self</span> {
         <a class="self" href="../../../src/multipart/server/save.rs.html#167">self</a>.<span class="ident">size_limit</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#167">limit</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>().<span class="ident">unwrap_or</span>(<span class="ident">u64::MAX</span>);
         <a class="self" href="../../../src/multipart/server/save.rs.html#167">self</a>
     }
@@ -1223,7 +1224,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `write` flag will be reset to `true` after the closure returns. (It&#39;d be pretty</span>
     <span class="doccomment">/// pointless otherwise, right?)</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mod_open_opts</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">OpenOptions</span>)<span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opts_fn</span>: <span class="ident">F</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mod_open_opts</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.OpenOptions.html">OpenOptions</a>)<span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">opts_fn</span>: <span class="ident">F</span>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../src/multipart/server/save.rs.html#176">opts_fn</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/multipart/server/save.rs.html#176">self</a>.<span class="ident">open_opts</span>);
         <a class="self" href="../../../src/multipart/server/save.rs.html#176">self</a>.<span class="ident">open_opts</span>.<span class="ident">write</span>(<span class="bool-val">true</span>);
         <a class="self" href="../../../src/multipart/server/save.rs.html#176">self</a>
@@ -1266,11 +1267,11 @@
 }
 
 <span class="doccomment">/// Save API for whole multipart requests.</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="ident">SaveBuilder</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="ident">SaveBuilder</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a> {
     <span class="doccomment">/// Set the maximum number of fields to process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Can be `u32` or `Option&lt;u32&gt;`. If `None` or `u32::MAX`, clears the limit.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">count_limit</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">count_limit</span>: <span class="ident">L</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">count_limit</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">count_limit</span>: <span class="ident">L</span>) -&gt; <span class="self">Self</span> {
         <a class="self" href="../../../src/multipart/server/save.rs.html#223">self</a>.<span class="ident">count_limit</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#223">count_limit</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>().<span class="ident">unwrap_or</span>(<span class="ident">u32::MAX</span>);
         <a class="self" href="../../../src/multipart/server/save.rs.html#223">self</a>
     }
@@ -1318,10 +1319,10 @@
     <span class="doccomment">/// Any nonexistent directories in the path will be created.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See `with_entries()` for more info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_dir</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">P</span>) -&gt; <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_dir</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">P</span>) -&gt; <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#271">dir</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
 
-        <span class="macro">try_start!</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#962">create_dir_all</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#272">dir</a>));
+        <a class="macro" href="../../../src/multipart/server/save.rs.html#33-40">try_start!</a>(<span class="ident">create_dir_all</span>(<span class="kw-2">&amp;</span><span class="ident">dir</span>));
 
         <a class="self" href="../../../src/multipart/server/save.rs.html#271">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#288">with_entries</a>(<span class="ident">Entries::new</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#708">SaveDir::Perm</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#272">dir</a>)))
     }
@@ -1335,8 +1336,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that `PartialReason::CountLimit` will still be returned if the number of fields</span>
     <span class="doccomment">/// reaches `u32::MAX`, but this would be an extremely degenerate case.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_entries</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">entries</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a>) -&gt; <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#133-140">SaveBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_entries</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">entries</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a>) -&gt; <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#133">SaveBuilder</a> {
             <span class="ident">savable</span>, <span class="ident">open_opts</span>, <span class="ident">count_limit</span>, <span class="ident">size_limit</span>,
             <span class="ident">memory_threshold</span>, <span class="ident">text_policy</span>
         } <span class="op">=</span> <a class="self" href="../../../src/multipart/server/save.rs.html#288">self</a>;
@@ -1345,10 +1346,10 @@
 
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#652">recount_fields</a>();
 
-        <span class="kw">let</span> <span class="ident">save_field</span> <span class="op">=</span> <span class="op">|</span><span class="ident">field</span>: <span class="kw-2">&amp;mut</span> <span class="ident">MultipartField</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>, <span class="ident">entries</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">text_policy</span> <span class="op">=</span> <span class="kw">if</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#298">field</a>.<a class="ident" href="../../../src/multipart/server/field.rs.html#238">is_text</a>() { <a class="ident" href="../../../src/multipart/server/save.rs.html#291">text_policy</a> } <span class="kw">else</span> { <a class="ident" href="../../../src/multipart/server/save.rs.html#68">Ignore</a> };
+        <span class="kw">let</span> <span class="ident">save_field</span> <span class="op">=</span> <span class="op">|</span><span class="ident">field</span>: <span class="kw-2">&amp;mut</span> <span class="ident">MultipartField</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>, <span class="ident">entries</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">text_policy</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">field</span>.<span class="ident">is_text</span>() { <a class="ident" href="../../../src/multipart/server/save.rs.html#291">text_policy</a> } <span class="kw">else</span> { <a class="ident" href="../../../src/multipart/server/save.rs.html#68">Ignore</a> };
 
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">saver</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#133-140">SaveBuilder</a> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">saver</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#133">SaveBuilder</a> {
                 <span class="ident">savable</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#298">field</a>.<span class="ident">data</span>, <span class="ident">open_opts</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#290">open_opts</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
                 <a class="ident" href="../../../src/multipart/server/save.rs.html#290">count_limit</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#290">size_limit</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#291">memory_threshold</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#299">text_policy</a>
             };
@@ -1356,43 +1357,43 @@
             <a class="ident" href="../../../src/multipart/server/save.rs.html#301">saver</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#380">with_dir</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#298">entries</a>.<span class="ident">save_dir</span>.<a class="ident" href="../../../src/multipart/server/save.rs.html#713">as_path</a>())
         };
 
-        <span class="kw">while</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>.<span class="ident">fields_count</span> <span class="op">&lt;</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#290">count_limit</a> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">field</span>: <span class="ident">MultipartField</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#294">res</a> {
-                <a class="ident" href="../../../src/multipart/server/field.rs.html#472">ReadEntryResult::Entry</a>(<span class="ident">field</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#311">field</a>,
-                <a class="ident" href="../../../src/multipart/server/field.rs.html#474">ReadEntryResult::End</a>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>), <span class="comment">// normal exit point</span>
-                <a class="ident" href="../../../src/multipart/server/field.rs.html#476">ReadEntryResult::Error</a>(<span class="kw">_</span>, <span class="ident">e</span>) =&gt; <span class="kw">return</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a> (
-                    <a class="ident" href="../../../src/multipart/server/save.rs.html#846-852">PartialEntries</a> {
-                        <a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>,
+        <span class="kw">while</span> <span class="ident">entries</span>.<span class="ident">fields_count</span> <span class="op">&lt;</span> <span class="ident">count_limit</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">field</span>: <span class="ident">MultipartField</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">res</span> {
+                <span class="ident">ReadEntryResult::Entry</span>(<span class="ident">field</span>) =&gt; <span class="ident">field</span>,
+                <span class="ident">ReadEntryResult::End</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="ident">Full</span>(<span class="ident">entries</span>), <span class="comment">// normal exit point</span>
+                <span class="ident">ReadEntryResult::Error</span>(<span class="kw">_</span>, <span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="ident">Partial</span> (
+                    <span class="ident">PartialEntries</span> {
+                        <span class="ident">entries</span>,
                         <span class="ident">partial</span>: <span class="prelude-val">None</span>,
                     },
-                    <a class="ident" href="../../../src/multipart/server/save.rs.html#313">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
+                    <span class="ident">e</span>.<span class="ident">into</span>(),
                 )
             };
 
-            <span class="kw">let</span> (<span class="ident">dest</span>, <span class="ident">reason</span>) <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#298">save_field</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#310">field</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>) {
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<span class="ident">saved</span>) =&gt; {
-                    <a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#659">push_field</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#310">field</a>.<span class="ident">headers</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#323">saved</a>);
-                    <a class="ident" href="../../../src/multipart/server/save.rs.html#294">res</a> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/field.rs.html#386">ReadEntry::read_entry</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#310">field</a>.<span class="ident">data</span>.<a class="ident" href="../../../src/multipart/server/field.rs.html#301">into_inner</a>());
+            <span class="kw">let</span> (<span class="ident">dest</span>, <span class="ident">reason</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">save_field</span>(<span class="kw-2">&amp;mut</span> <span class="ident">field</span>, <span class="kw-2">&amp;</span><span class="ident">entries</span>) {
+                <span class="ident">Full</span>(<span class="ident">saved</span>) =&gt; {
+                    <span class="ident">entries</span>.<span class="ident">push_field</span>(<span class="ident">field</span>.<span class="ident">headers</span>, <span class="ident">saved</span>);
+                    <span class="ident">res</span> <span class="op">=</span> <span class="ident">ReadEntry::read_entry</span>(<span class="ident">field</span>.<span class="ident">data</span>.<span class="ident">into_inner</span>());
                     <span class="kw">continue</span>;
                 },
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<span class="ident">saved</span>, <span class="ident">reason</span>) =&gt; (<span class="prelude-val">Some</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#328">saved</a>), <a class="ident" href="../../../src/multipart/server/save.rs.html#328">reason</a>),
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#886">Error</a>(<span class="ident">error</span>) =&gt; (<span class="prelude-val">None</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#794">PartialReason::IoError</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#329">error</a>)),
+                <span class="ident">Partial</span>(<span class="ident">saved</span>, <span class="ident">reason</span>) =&gt; (<span class="prelude-val">Some</span>(<span class="ident">saved</span>), <span class="ident">reason</span>),
+                <span class="ident">Error</span>(<span class="ident">error</span>) =&gt; (<span class="prelude-val">None</span>, <span class="ident">PartialReason::IoError</span>(<span class="ident">error</span>)),
             };
 
-            <span class="kw">return</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#846-852">PartialEntries</a> {
-                    <a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>,
-                    <span class="ident">partial</span>: <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#831-838">PartialSavedField</a> {
-                        <span class="ident">source</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#310">field</a>,
-                        <a class="ident" href="../../../src/multipart/server/save.rs.html#322">dest</a>,
+            <span class="kw">return</span> <span class="ident">Partial</span>(
+                <span class="ident">PartialEntries</span> {
+                    <span class="ident">entries</span>,
+                    <span class="ident">partial</span>: <span class="prelude-val">Some</span>(<span class="ident">PartialSavedField</span> {
+                        <span class="ident">source</span>: <span class="ident">field</span>,
+                        <span class="ident">dest</span>,
                     }),
                 },
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#322">reason</a>
+                <span class="ident">reason</span>
             );
         }
 
         <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(
-            <a class="ident" href="../../../src/multipart/server/save.rs.html#846-852">PartialEntries</a> {
+            <a class="ident" href="../../../src/multipart/server/save.rs.html#846">PartialEntries</a> {
                 <a class="ident" href="../../../src/multipart/server/save.rs.html#288">entries</a>,
                 <span class="ident">partial</span>: <span class="prelude-val">None</span>,
             },
@@ -1427,7 +1428,7 @@
     <span class="doccomment">/// in the given directory.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See `with_path()` for more details.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_dir</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">P</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#897">FieldSaveResult</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_dir</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">P</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#897">FieldSaveResult</a> {
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#380">dir</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<span class="ident">join</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#29">rand_filename</a>());
         <a class="self" href="../../../src/multipart/server/save.rs.html#380">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#394">with_path</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#381">path</a>)
     }
@@ -1441,9 +1442,9 @@
     <span class="doccomment">/// The no directories or files will be created until the set `memory_threshold` is reached.</span>
     <span class="doccomment">/// If `size_limit` is set and less than or equal to `memory_threshold`,</span>
     <span class="doccomment">/// then the disk will never be touched.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_path</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">path</span>: <span class="ident">P</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#897">FieldSaveResult</a> {
-        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">if</span> <a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<span class="ident">text_policy</span> <span class="op">!</span><span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#68">Ignore</a> {
-            <span class="kw">let</span> (<span class="ident">text</span>, <span class="ident">reason</span>) <span class="op">=</span> <span class="macro">try_partial!</span>(<a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#454">save_text</a>());
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_path</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">path</span>: <span class="ident">P</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#897">FieldSaveResult</a> {
+        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">text_policy</span> <span class="op">!</span><span class="op">=</span> <span class="ident">Ignore</span> {
+            <span class="kw">let</span> (<span class="ident">text</span>, <span class="ident">reason</span>) <span class="op">=</span> <a class="macro" href="../../../src/multipart/server/save.rs.html#51-59">try_partial!</a>(<span class="self">self</span>.<span class="ident">save_text</span>());
             <span class="kw">match</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#396">reason</a> {
                 <a class="ident" href="../../../src/multipart/server/save.rs.html#792">SizeLimit</a> <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#484">cmp_size_limit</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#396">text</a>.<span class="ident">len</span>()) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#396">text</a>.<span class="ident">into_bytes</span>(),
                 <a class="ident" href="../../../src/multipart/server/save.rs.html#796">Utf8Error</a>(<span class="kw">_</span>) <span class="kw">if</span> <a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<span class="ident">text_policy</span> <span class="op">!</span><span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#66">Force</a> =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#396">text</a>.<span class="ident">into_bytes</span>(),
@@ -1453,7 +1454,7 @@
             <span class="ident">Vec::new</span>()
         };
 
-        <span class="kw">let</span> (<span class="ident">bytes</span>, <span class="ident">reason</span>) <span class="op">=</span> <span class="macro">try_partial!</span>(<a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#443">save_mem</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#395">bytes</a>));
+        <span class="kw">let</span> (<span class="ident">bytes</span>, <span class="ident">reason</span>) <span class="op">=</span> <a class="macro" href="../../../src/multipart/server/save.rs.html#51-59">try_partial!</a>(<span class="self">self</span>.<span class="ident">save_mem</span>(<span class="ident">bytes</span>));
 
         <span class="kw">match</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#406">reason</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#792">SizeLimit</a> <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#484">cmp_size_limit</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#406">bytes</a>.<span class="ident">len</span>()) =&gt; (),
@@ -1467,9 +1468,9 @@
             <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#886">Error</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#417">e</a>),
         };
 
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">try_full!</span>(
-            <a class="ident" href="../../../src/multipart/server/save.rs.html#1019">try_write_all</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#406">bytes</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#415">file</a>)
-                .<a class="ident" href="../../../src/multipart/server/save.rs.html#918">map</a>(<span class="kw">move</span> <span class="op">|</span><span class="ident">size</span><span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#506">SavedData::File</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#413">path</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#422">size</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>))
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <a class="macro" href="../../../src/multipart/server/save.rs.html#42-49">try_full!</a>(
+            <span class="ident">try_write_all</span>(<span class="kw-2">&amp;</span><span class="ident">bytes</span>, <span class="kw-2">&amp;mut</span> <span class="ident">file</span>)
+                .<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">size</span><span class="op">|</span> <span class="ident">SavedData::File</span>(<span class="ident">path</span>, <span class="ident">size</span> <span class="kw">as</span> <span class="ident">u64</span>))
         );
 
         <a class="self" href="../../../src/multipart/server/save.rs.html#394">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#435">write_to</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#415">file</a>).<a class="ident" href="../../../src/multipart/server/save.rs.html#918">map</a>(<span class="kw">move</span> <span class="op">|</span><span class="ident">written</span><span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#420">data</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#547">add_size</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#425">written</a>))
@@ -1483,7 +1484,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Retries on interrupts.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_to</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">Write</a><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">dest</span>: <span class="ident">W</span>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
-        <span class="kw">if</span> <a class="self" href="../../../src/multipart/server/save.rs.html#435">self</a>.<span class="ident">size_limit</span> <span class="op">&lt;</span> <span class="ident">u64::MAX</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">size_limit</span> <span class="op">&lt;</span> <span class="ident">u64::MAX</span> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#972">try_copy_limited</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/multipart/server/save.rs.html#435">self</a>.<span class="ident">savable</span>, <span class="op">|</span><span class="ident">buf</span><span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#1019">try_write_all</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#437">buf</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#435">dest</a>), <a class="self" href="../../../src/multipart/server/save.rs.html#435">self</a>.<span class="ident">size_limit</span>)
         } <span class="kw">else</span> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#983">try_read_buf</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/multipart/server/save.rs.html#435">self</a>.<span class="ident">savable</span>, <span class="op">|</span><span class="ident">buf</span><span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#1019">try_write_all</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#439">buf</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#435">dest</a>))
@@ -1495,7 +1496,7 @@
         <span class="kw">match</span> <a class="self" href="../../../src/multipart/server/save.rs.html#443">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#478">read_mem</a>(<span class="op">|</span><span class="ident">buf</span><span class="op">|</span> { <a class="ident" href="../../../src/multipart/server/save.rs.html#443">bytes</a>.<span class="ident">extend_from_slice</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#445">buf</a>); <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#445">buf</a>.<span class="ident">len</span>()) }, <a class="ident" href="../../../src/multipart/server/save.rs.html#444">pre_read</a>) {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<span class="kw">_</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#443">bytes</a>),
             <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<span class="kw">_</span>, <span class="ident">reason</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#443">bytes</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#447">reason</a>),
-            <a class="ident" href="../../../src/multipart/server/save.rs.html#886">Error</a>(<span class="ident">e</span>) =&gt; <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../../src/multipart/server/save.rs.html#443">bytes</a>.<span class="ident">is_empty</span>() { <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#443">bytes</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#448">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()) }
+            <a class="ident" href="../../../src/multipart/server/save.rs.html#886">Error</a>(<span class="ident">e</span>) =&gt; <span class="kw">if</span> <span class="op">!</span><span class="ident">bytes</span>.<span class="ident">is_empty</span>() { <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#443">bytes</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#448">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()) }
             <span class="kw">else</span> { <a class="ident" href="../../../src/multipart/server/save.rs.html#886">Error</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#448">e</a>) }
         }
 
@@ -1509,7 +1510,7 @@
             <span class="kw">match</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/str/converts/fn.from_utf8.html">str::from_utf8</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#458">buf</a>) {
                 <span class="prelude-val">Ok</span>(<span class="ident">s</span>) =&gt; { <a class="ident" href="../../../src/multipart/server/save.rs.html#455">string</a>.<span class="ident">push_str</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#460">s</a>); <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#458">buf</a>.<span class="ident">len</span>()) },
                 <span class="comment">// buffer should always be bigger</span>
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">if</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#458">buf</a>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="number">4</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">if</span> <span class="ident">buf</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="number">4</span> {
                         <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<span class="number">0</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#462">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>())
                     } <span class="kw">else</span> {
                         <a class="ident" href="../../../src/multipart/server/save.rs.html#455">string</a>.<span class="ident">push_str</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/str/converts/fn.from_utf8.html">str::from_utf8</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#458">buf</a>[..<a class="ident" href="../../../src/multipart/server/save.rs.html#462">e</a>.<span class="ident">valid_up_to</span>()]).<span class="ident">unwrap</span>());
@@ -1525,7 +1526,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">read_mem</span><span class="op">&lt;</span><span class="ident">Wb</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">with_buf</span>: <span class="ident">Wb</span>, <span class="ident">pre_read</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">read_mem</span><span class="op">&lt;</span><span class="ident">Wb</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">with_buf</span>: <span class="ident">Wb</span>, <span class="ident">pre_read</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">limit</span> <span class="op">=</span> <span class="ident">cmp::min</span>(<a class="self" href="../../../src/multipart/server/save.rs.html#478">self</a>.<span class="ident">size_limit</span>, <a class="self" href="../../../src/multipart/server/save.rs.html#478">self</a>.<span class="ident">memory_threshold</span>)
             .<span class="ident">saturating_sub</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#478">pre_read</a>);
         <a class="ident" href="../../../src/multipart/server/save.rs.html#972">try_copy_limited</a>(<span class="kw-2">&amp;mut</span> <a class="self" href="../../../src/multipart/server/save.rs.html#478">self</a>.<span class="ident">savable</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#478">with_buf</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#479">limit</a>)
@@ -1540,9 +1541,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SavedField</span> {
     <span class="doccomment">/// The headers of the field that was saved.</span>
-    <span class="kw">pub</span> <span class="ident">headers</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#112-127">FieldHeaders</a>,
+    <span class="kw">pub</span> <span class="ident">headers</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#112">FieldHeaders</a>,
     <span class="doccomment">/// The data of the field which may reside in memory or on disk.</span>
-    <span class="kw">pub</span> <span class="ident">data</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a>,
+    <span class="kw">pub</span> <span class="ident">data</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a>,
 }
 
 <span class="doccomment">/// A saved field&#39;s data container (in memory or on disk)</span>
@@ -1556,17 +1557,17 @@
     <span class="ident">File</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>),
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a> {
     <span class="doccomment">/// Get an adapter for this data which implements `Read`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the data is in a file, the file is opened in read-only mode.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">readable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#570-575">DataReader</a><span class="op">&gt;</span> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507"><span class="self">self</span>::SavedData</a>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">readable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#570">DataReader</a><span class="op">&gt;</span> {
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500"><span class="self">self</span>::SavedData</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#513">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#502">Text</a>(<span class="kw-2">ref</span> <span class="ident">text</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#572">DataReader::Bytes</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#517">text</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>())),
             <a class="ident" href="../../../src/multipart/server/save.rs.html#504">Bytes</a>(<span class="kw-2">ref</span> <span class="ident">bytes</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#572">DataReader::Bytes</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#518">bytes</a>)),
-            <a class="ident" href="../../../src/multipart/server/save.rs.html#506">File</a>(<span class="kw-2">ref</span> <span class="ident">path</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#574">DataReader::File</a>(<span class="ident">BufReader::new</span>(<span class="ident">fs::File::open</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#519">path</a>)<span class="question-mark">?</span>))),
+            <a class="ident" href="../../../src/multipart/server/save.rs.html#506">File</a>(<span class="kw-2">ref</span> <span class="ident">path</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#574">DataReader::File</a>(<span class="ident">BufReader::new</span>(<span class="ident">fs::File::open</span>(<span class="ident">path</span>)<span class="question-mark">?</span>))),
         }
     }
 
@@ -1575,7 +1576,7 @@
     <span class="doccomment">/// #### Note</span>
     <span class="doccomment">/// The size on disk may not match the size of the file if it is externally modified.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507"><span class="self">self</span>::SavedData</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500"><span class="self">self</span>::SavedData</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#527">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#502">Text</a>(<span class="kw-2">ref</span> <span class="ident">text</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#531">text</a>.<span class="ident">len</span>() <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
@@ -1586,7 +1587,7 @@
 
     <span class="doccomment">/// Returns `true` if the data is known to be in memory (`Text | Bytes`)</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_memory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507"><span class="self">self</span>::SavedData</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500"><span class="self">self</span>::SavedData</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#538">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#502">Text</a>(<span class="kw">_</span>) <span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#504">Bytes</a>(<span class="kw">_</span>) =&gt; <span class="bool-val">true</span>,
@@ -1604,13 +1605,13 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">s</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../src/multipart/server/save.rs.html#502">SavedData::Text</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#558">s</a>)
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">b</span>: <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../src/multipart/server/save.rs.html#504">SavedData::Bytes</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#564">b</a>)
     }
@@ -1626,7 +1627,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">Read</a> <span class="kw">for</span> <span class="ident">DataReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#570-575"><span class="self">self</span>::DataReader</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#570"><span class="self">self</span>::DataReader</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#578">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#572">Bytes</a>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#582">bytes</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#578">buf</a>),
@@ -1637,7 +1638,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">BufRead</a> <span class="kw">for</span> <span class="ident">DataReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fill_buf</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#570-575"><span class="self">self</span>::DataReader</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#570"><span class="self">self</span>::DataReader</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#589">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#572">Bytes</a>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#593">bytes</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">fill_buf</a>(),
@@ -1646,7 +1647,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">consume</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">amt</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#570-575"><span class="self">self</span>::DataReader</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#570"><span class="self">self</span>::DataReader</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#598">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#572">Bytes</a>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#602">bytes</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">consume</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#598">amt</a>),
@@ -1666,16 +1667,16 @@
     <span class="doccomment">/// Each vector is guaranteed not to be empty unless externally modified.</span>
     <span class="comment">// Even though individual fields might only have one entry, it&#39;s better to limit the</span>
     <span class="comment">// size of a value type in `HashMap` to improve cache efficiency in lookups.</span>
-        <span class="kw">pub</span> <span class="ident">fields</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#491-496">SavedField</a><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">fields</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#491">SavedField</a><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The directory that the entries in `fields` were saved into.</span>
-    <span class="kw">pub</span> <span class="ident">save_dir</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709">SaveDir</a>,
+    <span class="kw">pub</span> <span class="ident">save_dir</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#700">SaveDir</a>,
     <span class="ident">fields_count</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a> {
     <span class="doccomment">/// Create a new `Entries` with the given `SaveDir`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">save_dir</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709">SaveDir</a>) -&gt; <span class="self">Self</span> {
-        <a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">save_dir</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#700">SaveDir</a>) -&gt; <span class="self">Self</span> {
+        <a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a> {
             <span class="ident">fields</span>: <span class="ident">HashMap::new</span>(),
             <a class="ident" href="../../../src/multipart/server/save.rs.html#627">save_dir</a>,
             <span class="ident">fields_count</span>: <span class="number">0</span>,
@@ -1706,15 +1707,15 @@
         <a class="self" href="../../../src/multipart/server/save.rs.html#652">self</a>.<span class="ident">fields_count</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">push_field</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">headers</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#112-127">FieldHeaders</a>, <span class="ident">data</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a>) {
+    <span class="kw">fn</span> <span class="ident">push_field</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">headers</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#112">FieldHeaders</a>, <span class="ident">data</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a>) {
         <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/collections/hash/map/enum.Entry.html">std::collections::hash_map::Entry</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <a class="self" href="../../../src/multipart/server/save.rs.html#659">self</a>.<span class="ident">fields</span>.<span class="ident">entry</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#659">headers</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()) {
-            <span class="ident">Vacant</span>(<span class="ident">vacant</span>) =&gt; { <a class="ident" href="../../../src/multipart/server/save.rs.html#663">vacant</a>.<span class="ident">insert</span>(<span class="macro">vec!</span>[<a class="ident" href="../../../src/multipart/server/save.rs.html#491-496">SavedField</a> { <a class="ident" href="../../../src/multipart/server/save.rs.html#659">headers</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#659">data</a> }]); },
+            <span class="ident">Vacant</span>(<span class="ident">vacant</span>) =&gt; { <a class="ident" href="../../../src/multipart/server/save.rs.html#663">vacant</a>.<span class="ident">insert</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">SavedField</span> { <span class="ident">headers</span>, <span class="ident">data</span> }]); },
             <span class="ident">Occupied</span>(<span class="ident">occupied</span>) =&gt; {
                 <span class="comment">// dedup the field name by reusing the key&#39;s `Arc`</span>
                 <a class="ident" href="../../../src/multipart/server/save.rs.html#659">headers</a>.<span class="ident">name</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#664">occupied</a>.<span class="ident">key</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#664">occupied</a>.<span class="ident">into_mut</span>().<span class="ident">push</span>({ <a class="ident" href="../../../src/multipart/server/save.rs.html#491-496">SavedField</a> { <a class="ident" href="../../../src/multipart/server/save.rs.html#659">headers</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#659">data</a> }});
+                <a class="ident" href="../../../src/multipart/server/save.rs.html#664">occupied</a>.<span class="ident">into_mut</span>().<span class="ident">push</span>({ <a class="ident" href="../../../src/multipart/server/save.rs.html#491">SavedField</a> { <a class="ident" href="../../../src/multipart/server/save.rs.html#659">headers</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#659">data</a> }});
             },
         }
 
@@ -1730,14 +1731,14 @@
 
     <span class="doccomment">/// Write all fields and their contents to the given output. Mostly for testing purposes.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_debug</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">Write</a><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">writer</span>: <span class="ident">W</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">entries</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><a class="self" href="../../../src/multipart/server/save.rs.html#682">self</a>.<span class="ident">fields</span> {
-            <span class="macro">writeln!</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#682">writer</a>, <span class="string">&quot;Field {:?} has {} entries:&quot;</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#683">name</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#683">entries</a>.<span class="ident">len</span>())<span class="question-mark">?</span>;
+        <span class="kw">for</span> (<span class="ident">name</span>, <span class="ident">entries</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">fields</span> {
+            <span class="macro">writeln!</span>(<span class="ident">writer</span>, <span class="string">&quot;Field {:?} has {} entries:&quot;</span>, <span class="ident">name</span>, <span class="ident">entries</span>.<span class="ident">len</span>())<span class="question-mark">?</span>;
 
-            <span class="kw">for</span> (<span class="ident">idx</span>, <span class="ident">field</span>) <span class="kw">in</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#683">entries</a>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">enumerate</a>() {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#686">field</a>.<span class="ident">data</span>.<a class="ident" href="../../../src/multipart/server/save.rs.html#513">readable</a>()<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#686">field</a>.<span class="ident">headers</span>;
-                <span class="macro">writeln!</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#682">writer</a>, <span class="string">&quot;{}: {:?} ({:?}):&quot;</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#686">idx</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#688">headers</a>.<span class="ident">filename</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#688">headers</a>.<span class="ident">content_type</span>)<span class="question-mark">?</span>;
-                <span class="ident">io::copy</span>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#687">data</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#682">writer</a>)<span class="question-mark">?</span>;
+            <span class="kw">for</span> (<span class="ident">idx</span>, <span class="ident">field</span>) <span class="kw">in</span> <span class="ident">entries</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">field</span>.<span class="ident">data</span>.<span class="ident">readable</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">field</span>.<span class="ident">headers</span>;
+                <span class="macro">writeln!</span>(<span class="ident">writer</span>, <span class="string">&quot;{}: {:?} ({:?}):&quot;</span>, <span class="ident">idx</span>, <span class="ident">headers</span>.<span class="ident">filename</span>, <span class="ident">headers</span>.<span class="ident">content_type</span>)<span class="question-mark">?</span>;
+                <span class="ident">io::copy</span>(<span class="kw-2">&amp;mut</span> <span class="ident">data</span>, <span class="kw-2">&amp;mut</span> <span class="ident">writer</span>)<span class="question-mark">?</span>;
             }
         }
 
@@ -1758,10 +1759,10 @@
     <span class="ident">Perm</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a>),
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709">SaveDir</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700">SaveDir</a> {
     <span class="doccomment">/// Get the path of this directory, either temporary or permanent.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#713">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#703">Temp</a>(<span class="kw-2">ref</span> <span class="ident">tempdir</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#716">tempdir</a>.<span class="ident">path</span>(),
             <a class="ident" href="../../../src/multipart/server/save.rs.html#708">Perm</a>(<span class="kw-2">ref</span> <span class="ident">pathbuf</span>) =&gt; <span class="kw-2">&amp;</span><span class="kw-2">*</span><a class="ident" href="../../../src/multipart/server/save.rs.html#717">pathbuf</a>,
@@ -1770,7 +1771,7 @@
 
     <span class="doccomment">/// Returns `true` if this is a temporary directory which will be deleted on-drop.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_temporary</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#722">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#703">Temp</a>(<span class="kw">_</span>) =&gt; <span class="bool-val">true</span>,
             <a class="ident" href="../../../src/multipart/server/save.rs.html#708">Perm</a>(<span class="kw">_</span>) =&gt; <span class="bool-val">false</span>,
@@ -1780,7 +1781,7 @@
     <span class="doccomment">/// Unwrap the `PathBuf` from `self`; if this is a temporary directory,</span>
     <span class="doccomment">/// it will be converted to a permanent one.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_path</span>(<span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">PathBuf</a> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match</span> <a class="self" href="../../../src/multipart/server/save.rs.html#732">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#703">Temp</a>(<span class="ident">tempdir</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#736">tempdir</a>.<span class="ident">into_path</span>(),
@@ -1799,7 +1800,7 @@
     <span class="doccomment">/// It is recommended that you relocate the files from a request which you want to keep to a</span>
     <span class="doccomment">/// permanent folder on the filesystem.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keep</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
         <span class="kw-2">*</span><a class="self" href="../../../src/multipart/server/save.rs.html#751">self</a> <span class="op">=</span> <span class="kw">match</span> <span class="ident">mem::replace</span>(<a class="self" href="../../../src/multipart/server/save.rs.html#751">self</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#708">Perm</a>(<span class="ident">PathBuf::new</span>())) {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#703">Temp</a>(<span class="ident">tempdir</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#708">Perm</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#754">tempdir</a>.<span class="ident">into_path</span>()),
             <span class="ident">old_self</span> =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#755">old_self</a>,
@@ -1815,7 +1816,7 @@
     <span class="doccomment">/// manager applications which use a staging area from which deleted files can be safely</span>
     <span class="doccomment">/// recovered (i.e. Windows&#39; Recycle Bin, OS X&#39;s Trash Can, etc.).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete</span>(<span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
+        <span class="kw">use</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700"><span class="self">self</span>::SaveDir</a>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <a class="self" href="../../../src/multipart/server/save.rs.html#767">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#703">Temp</a>(<span class="ident">tempdir</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#770">tempdir</a>.<span class="ident">close</span>(),
             <a class="ident" href="../../../src/multipart/server/save.rs.html#708">Perm</a>(<span class="ident">pathbuf</span>) =&gt; <span class="ident">fs::remove_dir_all</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#771">pathbuf</a>),
@@ -1823,7 +1824,7 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700-709">SaveDir</a> {
+<span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#700">SaveDir</a> {
     <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a> {
         <a class="self" href="../../../src/multipart/server/save.rs.html#777">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#713">as_path</a>()
     }
@@ -1846,19 +1847,19 @@
     <span class="ident">Utf8Error</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/str/error/struct.Utf8Error.html">str::Utf8Error</a>),
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784-797">PartialReason</a> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784">PartialReason</a> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">e</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../src/multipart/server/save.rs.html#794">IoError</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#800">e</a>)
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/str/error/struct.Utf8Error.html">str::Utf8Error</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784-797">PartialReason</a> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/str/error/struct.Utf8Error.html">str::Utf8Error</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784">PartialReason</a> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">e</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/str/error/struct.Utf8Error.html">str::Utf8Error</a>) -&gt; <span class="self">Self</span> {
         <a class="ident" href="../../../src/multipart/server/save.rs.html#796">Utf8Error</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#806">e</a>)
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784-797">PartialReason</a> {
+<span class="kw">impl</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#784">PartialReason</a> {
     <span class="doccomment">/// Return `io::Error` in the `IoError` case or panic otherwise.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unwrap_err</span>(<span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a> {
         <a class="self" href="../../../src/multipart/server/save.rs.html#813">self</a>.<a class="ident" href="../../../src/multipart/server/save.rs.html#819">expect_err</a>(<span class="string">&quot;`PartialReason` was not `IoError`&quot;</span>)
@@ -1869,7 +1870,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expect_err</span>(<span class="self">self</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a> {
         <span class="kw">match</span> <a class="self" href="../../../src/multipart/server/save.rs.html#819">self</a> {
             <a class="ident" href="../../../src/multipart/server/save.rs.html#794">PartialReason::IoError</a>(<span class="ident">e</span>) =&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#821">e</a>,
-            <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;{}: {:?}&quot;</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#819">msg</a>, <a class="self" href="../../../src/multipart/server/save.rs.html#819">self</a>),
+            <span class="kw">_</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;{}: {:?}&quot;</span>, <span class="ident">msg</span>, <span class="self">self</span>),
         }
     }
 }
@@ -1878,13 +1879,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// May be partially saved to the filesystem if `dest` is `Some`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PartialSavedField</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PartialSavedField</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a><span class="op">&gt;</span> {
     <span class="doccomment">/// The field that was being read.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// May be partially read if `dest` is `Some`.</span>
     <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MultipartField</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The data from the saving operation, if it got that far.</span>
-    <span class="kw">pub</span> <span class="ident">dest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">dest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// The partial result type for `Multipart::save*()`.</span>
@@ -1893,27 +1894,27 @@
 <span class="doccomment">/// saved file that was in the process of being read when the error occurred,</span>
 <span class="doccomment">/// if applicable.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a><span class="op">&gt;</span> {
     <span class="doccomment">/// The entries that were saved successfully.</span>
-    <span class="kw">pub</span> <span class="ident">entries</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a>,
+    <span class="kw">pub</span> <span class="ident">entries</span>: <a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a>,
     <span class="doccomment">/// The field that was in the process of being read. `None` if the error</span>
     <span class="doccomment">/// occurred between entries.</span>
     <span class="kw">pub</span> <span class="ident">partial</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PartialSavedField</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Discards `partial`</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a><span class="op">&gt;</span> <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">into</span>(<span class="self">self</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a><span class="op">&gt;</span> <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">into</span>(<span class="self">self</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a> {
         <a class="self" href="../../../src/multipart/server/save.rs.html#856">self</a>.<span class="ident">entries</span>
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a><span class="op">&gt;</span> <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a><span class="op">&gt;</span> <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
     <span class="doccomment">/// If `partial` is present and contains a `SavedFile` then just</span>
     <span class="doccomment">/// add it to the `Entries` instance and return it.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Otherwise, returns `self.entries`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keep_partial</span>(<span class="kw-2">mut</span> <span class="self">self</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keep_partial</span>(<span class="kw-2">mut</span> <span class="self">self</span>) -&gt; <a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">partial</span>) <span class="op">=</span> <a class="self" href="../../../src/multipart/server/save.rs.html#866">self</a>.<span class="ident">partial</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">saved</span>) <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#867">partial</a>.<span class="ident">dest</span> {
                 <a class="self" href="../../../src/multipart/server/save.rs.html#866">self</a>.<span class="ident">entries</span>.<a class="ident" href="../../../src/multipart/server/save.rs.html#659">push_field</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#867">partial</a>.<span class="ident">source</span>.<span class="ident">headers</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#868">saved</a>);
@@ -1931,27 +1932,27 @@
     <span class="ident">Full</span>(<span class="ident">Success</span>),
     <span class="doccomment">/// The operation quit partway through. Included is the partial</span>
     <span class="doccomment">/// result along with the reason.</span>
-    <span class="ident">Partial</span>(<span class="ident">Partial</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#784-797">PartialReason</a>),
+    <span class="ident">Partial</span>(<span class="ident">Partial</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#784">PartialReason</a>),
     <span class="doccomment">/// An error occurred at the start of the operation, before anything was done.</span>
     <span class="ident">Error</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>),
 }
 
 <span class="doccomment">/// Shorthand result for methods that return `Entries`</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a>, <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a>, <span class="ident">PartialEntries</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Shorthand result for methods that return `FieldData`s.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The `MultipartData` is not provided here because it is not necessary to return</span>
 <span class="doccomment">/// a borrow when the owned version is probably in the same scope. This hopefully</span>
 <span class="doccomment">/// saves some headache with the borrow-checker.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">FieldSaveResult</span> <span class="op">=</span> <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#500-507">SavedData</a><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">FieldSaveResult</span> <span class="op">=</span> <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a>, <a class="ident" href="../../../src/multipart/server/save.rs.html#500">SavedData</a><span class="op">&gt;</span>;
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384-421">ReadEntry</a><span class="op">&gt;</span> <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <a class="ident" href="../../../src/multipart/server/field.rs.html#384">ReadEntry</a><span class="op">&gt;</span> <span class="ident">EntriesSaveResult</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Take the `Entries` from `self`, if applicable, and discarding</span>
     <span class="doccomment">/// the error, if any.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_entries</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610-623">Entries</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_entries</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#610">Entries</a><span class="op">&gt;</span> {
         <span class="kw">match</span> <a class="self" href="../../../src/multipart/server/save.rs.html#902">self</a> {
-            <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<span class="ident">entries</span>) <span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#846-852">PartialEntries</a> { <span class="ident">entries</span>, .. }, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#904">entries</a>),
+            <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<span class="ident">entries</span>) <span class="op">|</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#846">PartialEntries</a> { <span class="ident">entries</span>, .. }, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#904">entries</a>),
             <a class="ident" href="../../../src/multipart/server/save.rs.html#886">Error</a>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         }
     }
@@ -2014,23 +2015,23 @@
         <span class="ident">fs::create_dir_all</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#963">parent</a>)
     } <span class="kw">else</span> {
         <span class="comment">// RFC: return an error instead?</span>
-        <span class="macro">warn!</span>(<span class="string">&quot;Attempting to save file in what looks like a root directory. File path: {:?}&quot;</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#962">path</a>);
+        <a class="macro" href="../../../log/log/macro.warn.html">warn!</a>(<span class="string">&quot;Attempting to save file in what looks like a root directory. File path: {:?}&quot;</span>, <span class="ident">path</span>);
         <span class="prelude-val">Ok</span>(())
     }
 }
 
-<span class="kw">fn</span> <span class="ident">try_copy_limited</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">BufRead</a>, <span class="ident">Wb</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">src</span>: <span class="ident">R</span>, <span class="kw-2">mut</span> <span class="ident">with_buf</span>: <span class="ident">Wb</span>, <span class="ident">limit</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">try_copy_limited</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">BufRead</a>, <span class="ident">Wb</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">src</span>: <span class="ident">R</span>, <span class="kw-2">mut</span> <span class="ident">with_buf</span>: <span class="ident">Wb</span>, <span class="ident">limit</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">copied</span> <span class="op">=</span> <span class="number">0u64</span>;
     <a class="ident" href="../../../src/multipart/server/save.rs.html#983">try_read_buf</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#972">src</a>, <span class="op">|</span><span class="ident">buf</span><span class="op">|</span> {
         <span class="kw">let</span> <span class="ident">new_copied</span> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#973">copied</a>.<span class="ident">saturating_add</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#974">buf</a>.<span class="ident">len</span>() <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>);
-        <span class="kw">if</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#975">new_copied</a> <span class="op">&gt;</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#972">limit</a> { <span class="kw">return</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<span class="number">0</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#792">PartialReason::SizeLimit</a>) }
+        <span class="kw">if</span> <span class="ident">new_copied</span> <span class="op">&gt;</span> <span class="ident">limit</span> { <span class="kw">return</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#884">Partial</a>(<span class="number">0</span>, <a class="ident" href="../../../src/multipart/server/save.rs.html#792">PartialReason::SizeLimit</a>) }
         <a class="ident" href="../../../src/multipart/server/save.rs.html#973">copied</a> <span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#975">new_copied</a>;
 
         <a class="ident" href="../../../src/multipart/server/save.rs.html#972">with_buf</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#974">buf</a>)
     })
 }
 
-<span class="kw">fn</span> <span class="ident">try_read_buf</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">BufRead</a>, <span class="ident">Wb</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="ident">src</span>: <span class="ident">R</span>, <span class="kw-2">mut</span> <span class="ident">with_buf</span>: <span class="ident">Wb</span>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">try_read_buf</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">BufRead</a>, <span class="ident">Wb</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="ident">src</span>: <span class="ident">R</span>, <span class="kw-2">mut</span> <span class="ident">with_buf</span>: <span class="ident">Wb</span>) -&gt; <span class="ident">SaveResult</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">total_copied</span> <span class="op">=</span> <span class="number">0u64</span>;
 
     <span class="macro">macro_rules!</span> <span class="ident">try_here</span> (
@@ -2046,8 +2047,8 @@
 
     <span class="kw">loop</span> {
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> {
-            <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">try_here!</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#983">src</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">fill_buf</a>());
-            <span class="kw">if</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#999">buf</a>.<span class="ident">is_empty</span>() { <span class="kw">break</span>; }
+            <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <a class="macro" href="../../../src/multipart/server/save.rs.html#986-995">try_here!</a>(<span class="ident">src</span>.<span class="ident">fill_buf</span>());
+            <span class="kw">if</span> <span class="ident">buf</span>.<span class="ident">is_empty</span>() { <span class="kw">break</span>; }
             <a class="ident" href="../../../src/multipart/server/save.rs.html#983">with_buf</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#999">buf</a>)
         };
 
@@ -2080,13 +2081,13 @@
         )
     );
 
-    <span class="kw">while</span> <span class="op">!</span><a class="ident" href="../../../src/multipart/server/save.rs.html#1019">buf</a>.<span class="ident">is_empty</span>() {
-        <span class="kw">match</span> <span class="macro">try_here!</span>(<a class="ident" href="../../../src/multipart/server/save.rs.html#1019">dest</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#1019">buf</a>)) {
+    <span class="kw">while</span> <span class="op">!</span><span class="ident">buf</span>.<span class="ident">is_empty</span>() {
+        <span class="kw">match</span> <span class="macro">try_here!</span>(<span class="ident">dest</span>.<span class="ident">write</span>(<span class="ident">buf</span>)) {
             <span class="number">0</span> =&gt; <span class="macro">try_here!</span>(<span class="prelude-val">Err</span>(<span class="ident">io::Error::new</span>(<span class="ident">io::ErrorKind::WriteZero</span>,
                                           <span class="string">&quot;failed to write whole buffer&quot;</span>))),
             <span class="ident">copied</span> =&gt; {
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#1019">buf</a> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/multipart/server/save.rs.html#1019">buf</a>[<a class="ident" href="../../../src/multipart/server/save.rs.html#1037">copied</a>..];
-                <a class="ident" href="../../../src/multipart/server/save.rs.html#1020">total_copied</a> <span class="op">+</span><span class="op">=</span> <a class="ident" href="../../../src/multipart/server/save.rs.html#1037">copied</a>;
+                <span class="ident">buf</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">buf</span>[<span class="ident">copied</span>..];
+                <span class="ident">total_copied</span> <span class="op">+</span><span class="op">=</span> <span class="ident">copied</span>;
             },
         }
     }
@@ -2094,5 +2095,5 @@
     <a class="ident" href="../../../src/multipart/server/save.rs.html#881">Full</a>(<a class="ident" href="../../../src/multipart/server/save.rs.html#1020">total_copied</a>)
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="multipart" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="multipart" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>

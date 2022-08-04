@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/csv-1.1.6/src/reader.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>reader.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../csv/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/csv-1.1.6/src/reader.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>reader.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../csv/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../../csv/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../csv/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../csv/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
+                                <a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div>
+                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2645,10 +2646,10 @@
 <span class="kw">use</span> <span class="ident">csv_core</span>::{<a class="ident" href="../../csv_core/reader/struct.Reader.html">Reader</a> <span class="kw">as</span> <span class="ident">CoreReader</span>, <a class="ident" href="../../csv_core/reader/struct.ReaderBuilder.html">ReaderBuilder</a> <span class="kw">as</span> <span class="ident">CoreReaderBuilder</span>};
 <span class="kw">use</span> <a class="ident" href="../../serde/de/trait.DeserializeOwned.html">serde::de::DeserializeOwned</a>;
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::byte_record</span>::{<a class="ident" href="../../src/csv/byte_record.rs.html#34">ByteRecord</a>, <a class="ident" href="../../src/csv/byte_record.rs.html#588-592">Position</a>};
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<a class="ident" href="../../src/csv/error.rs.html#21">Error</a>, <a class="ident" href="../../src/csv/error.rs.html#61-108">ErrorKind</a>, <span class="prelude-ty">Result</span>, <a class="ident" href="../../src/csv/error.rs.html#265-270">Utf8Error</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::byte_record</span>::{<a class="ident" href="../../src/csv/byte_record.rs.html#34">ByteRecord</a>, <a class="ident" href="../../src/csv/byte_record.rs.html#588">Position</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<a class="ident" href="../../src/csv/error.rs.html#21">Error</a>, <a class="ident" href="../../src/csv/error.rs.html#61">ErrorKind</a>, <span class="prelude-ty">Result</span>, <a class="ident" href="../../src/csv/error.rs.html#265">Utf8Error</a>};
 <span class="kw">use</span> <a class="ident" href="../../src/csv/string_record.rs.html#36"><span class="kw">crate</span>::string_record::StringRecord</a>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/csv/lib.rs.html#230-242">Terminator</a>, <a class="ident" href="../../src/csv/lib.rs.html#263-279">Trim</a>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/csv/lib.rs.html#230">Terminator</a>, <a class="ident" href="../../src/csv/lib.rs.html#263">Trim</a>};
 
 <span class="doccomment">/// Builds a CSV reader with various configuration knobs.</span>
 <span class="doccomment">///</span>
@@ -2660,7 +2661,7 @@
     <span class="ident">capacity</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
     <span class="ident">flexible</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     <span class="ident">has_headers</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    <span class="ident">trim</span>: <a class="ident" href="../../src/csv/lib.rs.html#263-279">Trim</a>,
+    <span class="ident">trim</span>: <a class="ident" href="../../src/csv/lib.rs.html#263">Trim</a>,
     <span class="doccomment">/// The underlying CSV parser builder.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// We explicitly put this on the heap because CoreReaderBuilder embeds an</span>
@@ -2669,9 +2670,9 @@
     <span class="ident">builder</span>: <span class="ident">Box</span><span class="op">&lt;</span><a class="ident" href="../../csv_core/reader/struct.ReaderBuilder.html">CoreReaderBuilder</a><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
-        <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
+        <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
             <span class="ident">capacity</span>: <span class="number">8</span> <span class="op">*</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">10</span>),
             <span class="ident">flexible</span>: <span class="bool-val">false</span>,
             <span class="ident">has_headers</span>: <span class="bool-val">true</span>,
@@ -2681,7 +2682,7 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
     <span class="doccomment">/// Create a new builder for configuring CSV parsing.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To convert a builder into a reader, call one of the methods starting</span>
@@ -2712,7 +2713,7 @@
     <span class="doccomment">///     Ok(())</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <span class="ident">ReaderBuilder::default</span>()
     }
 
@@ -2738,8 +2739,8 @@
     <span class="doccomment">///     Ok(())</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_path</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Reader</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.File.html">File</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">Reader::new</span>(<a class="self" href="../../src/csv/reader.rs.html#103">self</a>, <span class="ident">File::open</span>(<a class="ident" href="../../src/csv/reader.rs.html#103">path</a>)<span class="question-mark">?</span>))
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_path</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path</span>: <span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Reader</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.File.html">File</a><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">Reader::new</span>(<a class="self" href="../../src/csv/reader.rs.html#103">self</a>, <span class="ident">File::open</span>(<span class="ident">path</span>)<span class="question-mark">?</span>))
     }
 
     <span class="doccomment">/// Build a CSV parser from this configuration that reads data from `rdr`.</span>
@@ -2801,7 +2802,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delimiter</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">delimiter</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delimiter</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">delimiter</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#166">self</a>.<span class="ident">builder</span>.<span class="ident">delimiter</span>(<a class="ident" href="../../src/csv/reader.rs.html#166">delimiter</a>);
         <a class="self" href="../../src/csv/reader.rs.html#166">self</a>
     }
@@ -2856,7 +2857,7 @@
     <span class="doccomment">///     Ok(())</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_headers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_headers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#221">self</a>.<span class="ident">has_headers</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#221">yes</a>;
         <a class="self" href="../../src/csv/reader.rs.html#221">self</a>
     }
@@ -2938,7 +2939,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flexible</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flexible</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#303">self</a>.<span class="ident">flexible</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#303">yes</a>;
         <a class="self" href="../../src/csv/reader.rs.html#303">self</a>
     }
@@ -2989,7 +2990,7 @@
     <span class="doccomment">///     Ok(())</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trim</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">trim</span>: <a class="ident" href="../../src/csv/lib.rs.html#263-279">Trim</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trim</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">trim</span>: <a class="ident" href="../../src/csv/lib.rs.html#263">Trim</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#354">self</a>.<span class="ident">trim</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#354">trim</a>;
         <a class="self" href="../../src/csv/reader.rs.html#354">self</a>
     }
@@ -3022,7 +3023,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">terminator</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">term</span>: <a class="ident" href="../../src/csv/lib.rs.html#230-242">Terminator</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">terminator</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">term</span>: <a class="ident" href="../../src/csv/lib.rs.html#230">Terminator</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#387">self</a>.<span class="ident">builder</span>.<span class="ident">terminator</span>(<a class="ident" href="../../src/csv/reader.rs.html#387">term</a>.<a class="ident" href="../../src/csv/lib.rs.html#246">to_core</a>());
         <a class="self" href="../../src/csv/reader.rs.html#387">self</a>
     }
@@ -3056,7 +3057,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quote</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">quote</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quote</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">quote</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#421">self</a>.<span class="ident">builder</span>.<span class="ident">quote</span>(<a class="ident" href="../../src/csv/reader.rs.html#421">quote</a>);
         <a class="self" href="../../src/csv/reader.rs.html#421">self</a>
     }
@@ -3095,7 +3096,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">escape</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">escape</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">escape</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">escape</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#460">self</a>.<span class="ident">builder</span>.<span class="ident">escape</span>(<a class="ident" href="../../src/csv/reader.rs.html#460">escape</a>);
         <a class="self" href="../../src/csv/reader.rs.html#460">self</a>
     }
@@ -3132,7 +3133,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">double_quote</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">double_quote</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#497">self</a>.<span class="ident">builder</span>.<span class="ident">double_quote</span>(<a class="ident" href="../../src/csv/reader.rs.html#497">yes</a>);
         <a class="self" href="../../src/csv/reader.rs.html#497">self</a>
     }
@@ -3169,7 +3170,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quoting</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quoting</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#534">self</a>.<span class="ident">builder</span>.<span class="ident">quoting</span>(<a class="ident" href="../../src/csv/reader.rs.html#534">yes</a>);
         <a class="self" href="../../src/csv/reader.rs.html#534">self</a>
     }
@@ -3207,7 +3208,7 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">comment</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">comment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">comment</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">comment</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#572">self</a>.<span class="ident">builder</span>.<span class="ident">comment</span>(<a class="ident" href="../../src/csv/reader.rs.html#572">comment</a>);
         <a class="self" href="../../src/csv/reader.rs.html#572">self</a>
     }
@@ -3241,14 +3242,14 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ascii</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ascii</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#606">self</a>.<span class="ident">builder</span>.<span class="ident">ascii</span>();
         <a class="self" href="../../src/csv/reader.rs.html#606">self</a>
     }
 
     <span class="doccomment">/// Set the capacity (in bytes) of the buffer used in the CSV reader.</span>
     <span class="doccomment">/// This defaults to a reasonable setting.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">buffer_capacity</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">capacity</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">buffer_capacity</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">capacity</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#613">self</a>.<span class="ident">capacity</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#613">capacity</a>;
         <a class="self" href="../../src/csv/reader.rs.html#613">self</a>
     }
@@ -3258,7 +3259,7 @@
     <span class="doccomment">/// This is intended to be a debug option. The NFA is always slower than</span>
     <span class="doccomment">/// the DFA.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nfa</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nfa</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">yes</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a> {
         <a class="self" href="../../src/csv/reader.rs.html#623">self</a>.<span class="ident">builder</span>.<span class="ident">nfa</span>(<a class="ident" href="../../src/csv/reader.rs.html#623">yes</a>);
         <a class="self" href="../../src/csv/reader.rs.html#623">self</a>
     }
@@ -3354,7 +3355,7 @@
     <span class="doccomment">/// Various state tracking.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// There is more state embedded in the `CoreReader`.</span>
-    <span class="ident">state</span>: <a class="ident" href="../../src/csv/reader.rs.html#723-759">ReaderState</a>,
+    <span class="ident">state</span>: <a class="ident" href="../../src/csv/reader.rs.html#723">ReaderState</a>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
@@ -3362,7 +3363,7 @@
     <span class="doccomment">/// When set, this contains the first row of any parsed CSV data.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is always populated, regardless of whether `has_headers` is set.</span>
-    <span class="ident">headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/csv/reader.rs.html#782-787">Headers</a><span class="op">&gt;</span>,
+    <span class="ident">headers</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/csv/reader.rs.html#782">Headers</a><span class="op">&gt;</span>,
     <span class="doccomment">/// When set, the first row of parsed CSV data is excluded from things</span>
     <span class="doccomment">/// that read records, like iterators and `read_record`.</span>
     <span class="ident">has_headers</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
@@ -3370,14 +3371,14 @@
     <span class="doccomment">/// set, every record must have the same number of fields, or else an error</span>
     <span class="doccomment">/// is reported.</span>
     <span class="ident">flexible</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-    <span class="ident">trim</span>: <a class="ident" href="../../src/csv/lib.rs.html#263-279">Trim</a>,
+    <span class="ident">trim</span>: <a class="ident" href="../../src/csv/lib.rs.html#263">Trim</a>,
     <span class="doccomment">/// The number of fields in the first record parsed.</span>
     <span class="ident">first_field_count</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span>,
     <span class="doccomment">/// The current position of the parser.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note that this position is only observable by callers at the start</span>
     <span class="doccomment">/// of a record. More granular positions are not supported.</span>
-    <span class="ident">cur_pos</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#588-592">Position</a>,
+    <span class="ident">cur_pos</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#588">Position</a>,
     <span class="doccomment">/// Whether the first record has been read or not.</span>
     <span class="ident">first</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     <span class="doccomment">/// Whether the reader has been seeked or not.</span>
@@ -3393,7 +3394,7 @@
     <span class="doccomment">/// considered because an actual EOF happened, or because we encoundered</span>
     <span class="doccomment">/// an IO error.</span>
     <span class="doccomment">/// This has no additional runtime cost.</span>
-    <span class="ident">eof</span>: <a class="ident" href="../../src/csv/reader.rs.html#772-776">ReaderEofState</a>,
+    <span class="ident">eof</span>: <a class="ident" href="../../src/csv/reader.rs.html#772">ReaderEofState</a>,
 }
 
 <span class="doccomment">/// Whether EOF of the underlying reader has been reached or not.</span>
@@ -3421,7 +3422,7 @@
     <span class="doccomment">/// The header, as raw bytes.</span>
     <span class="ident">byte_record</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#34">ByteRecord</a>,
     <span class="doccomment">/// The header, as valid UTF-8 (or a UTF-8 error).</span>
-    <span class="ident">string_record</span>: <span class="ident">result::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/csv/string_record.rs.html#36">StringRecord</a>, <a class="ident" href="../../src/csv/error.rs.html#265-270">Utf8Error</a><span class="op">&gt;</span>,
+    <span class="ident">string_record</span>: <span class="ident">result::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/csv/string_record.rs.html#36">StringRecord</a>, <a class="ident" href="../../src/csv/error.rs.html#265">Utf8Error</a><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">Reader</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.File.html">File</a><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -3446,7 +3447,7 @@
     <span class="doccomment">///     Ok(())</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_path</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Reader</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.File.html">File</a><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_path</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Reader</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/fs/struct.File.html">File</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="ident">ReaderBuilder::new</span>().<a class="ident" href="../../src/csv/reader.rs.html#103">from_path</a>(<a class="ident" href="../../src/csv/reader.rs.html#811">path</a>)
     }
 }
@@ -3454,11 +3455,11 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a><span class="op">&gt;</span> <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Create a new CSV reader given a builder and a source of underlying</span>
     <span class="doccomment">/// bytes.</span>
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">builder</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/reader.rs.html#21-32">ReaderBuilder</a>, <span class="ident">rdr</span>: <span class="ident">R</span>) -&gt; <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/csv/reader.rs.html#707-720">Reader</a> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">builder</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/reader.rs.html#21">ReaderBuilder</a>, <span class="ident">rdr</span>: <span class="ident">R</span>) -&gt; <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
+        <a class="ident" href="../../src/csv/reader.rs.html#707">Reader</a> {
             <span class="ident">core</span>: <span class="ident">Box::new</span>(<a class="ident" href="../../src/csv/reader.rs.html#819">builder</a>.<span class="ident">builder</span>.<span class="ident">build</span>()),
             <span class="ident">rdr</span>: <span class="ident">io::BufReader::with_capacity</span>(<a class="ident" href="../../src/csv/reader.rs.html#819">builder</a>.<span class="ident">capacity</span>, <a class="ident" href="../../src/csv/reader.rs.html#819">rdr</a>),
-            <span class="ident">state</span>: <a class="ident" href="../../src/csv/reader.rs.html#723-759">ReaderState</a> {
+            <span class="ident">state</span>: <a class="ident" href="../../src/csv/reader.rs.html#723">ReaderState</a> {
                 <span class="ident">headers</span>: <span class="prelude-val">None</span>,
                 <span class="ident">has_headers</span>: <a class="ident" href="../../src/csv/reader.rs.html#819">builder</a>.<span class="ident">has_headers</span>,
                 <span class="ident">flexible</span>: <a class="ident" href="../../src/csv/reader.rs.html#819">builder</a>.<span class="ident">flexible</span>,
@@ -3965,15 +3966,15 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">headers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/string_record.rs.html#36">StringRecord</a><span class="op">&gt;</span> {
-        <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1329">self</a>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">is_none</span>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">is_none</span>() {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">record</span> <span class="op">=</span> <span class="ident">ByteRecord::new</span>();
-            <a class="self" href="../../src/csv/reader.rs.html#1329">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1624-1627">read_byte_record_impl</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#1331">record</a>)<span class="question-mark">?</span>;
+            <span class="self">self</span>.<span class="ident">read_byte_record_impl</span>(<span class="kw-2">&amp;mut</span> <span class="ident">record</span>)<span class="question-mark">?</span>;
             <a class="self" href="../../src/csv/reader.rs.html#1329">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1469-1472">set_headers_impl</a>(<span class="prelude-val">Err</span>(<a class="ident" href="../../src/csv/reader.rs.html#1331">record</a>));
         }
         <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <a class="self" href="../../src/csv/reader.rs.html#1329">self</a>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>();
         <span class="kw">match</span> <a class="ident" href="../../src/csv/reader.rs.html#1335">headers</a>.<span class="ident">string_record</span> {
             <span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="ident">record</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/csv/reader.rs.html#1337">record</a>),
-            <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<a class="ident" href="../../src/csv/error.rs.html#66-72">ErrorKind::Utf8</a> {
+            <span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<a class="ident" href="../../src/csv/error.rs.html#66">ErrorKind::Utf8</a> {
                 <span class="ident">pos</span>: <a class="ident" href="../../src/csv/reader.rs.html#1335">headers</a>.<span class="ident">byte_record</span>.<a class="ident" href="../../src/csv/byte_record.rs.html#438">position</a>().<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone::clone</a>),
                 <span class="ident">err</span>: <a class="ident" href="../../src/csv/reader.rs.html#1338">err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
             })),
@@ -4034,9 +4035,9 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">byte_headers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/byte_record.rs.html#34">ByteRecord</a><span class="op">&gt;</span> {
-        <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1398">self</a>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">is_none</span>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">is_none</span>() {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">record</span> <span class="op">=</span> <span class="ident">ByteRecord::new</span>();
-            <a class="self" href="../../src/csv/reader.rs.html#1398">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1624-1627">read_byte_record_impl</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/reader.rs.html#1400">record</a>)<span class="question-mark">?</span>;
+            <span class="self">self</span>.<span class="ident">read_byte_record_impl</span>(<span class="kw-2">&amp;mut</span> <span class="ident">record</span>)<span class="question-mark">?</span>;
             <a class="self" href="../../src/csv/reader.rs.html#1398">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1469-1472">set_headers_impl</a>(<span class="prelude-val">Err</span>(<a class="ident" href="../../src/csv/reader.rs.html#1400">record</a>));
         }
         <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><a class="self" href="../../src/csv/reader.rs.html#1398">self</a>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="ident">byte_record</span>)
@@ -4122,13 +4123,13 @@
                 }
             }
         };
-        <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1470">self</a>.<span class="ident">state</span>.<span class="ident">trim</span>.<a class="ident" href="../../src/csv/lib.rs.html#286">should_trim_headers</a>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">trim</span>.<span class="ident">should_trim_headers</span>() {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">str_headers</span>) <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#1475">str_headers</a>.<span class="ident">as_mut</span>() {
                 <a class="ident" href="../../src/csv/reader.rs.html#1488">str_headers</a>.<a class="ident" href="../../src/csv/string_record.rs.html#428">trim</a>();
             }
             <a class="ident" href="../../src/csv/reader.rs.html#1475">byte_headers</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#364">trim</a>();
         }
-        <a class="self" href="../../src/csv/reader.rs.html#1470">self</a>.<span class="ident">state</span>.<span class="ident">headers</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/csv/reader.rs.html#782-787">Headers</a> {
+        <a class="self" href="../../src/csv/reader.rs.html#1470">self</a>.<span class="ident">state</span>.<span class="ident">headers</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/csv/reader.rs.html#782">Headers</a> {
             <span class="ident">byte_record</span>: <a class="ident" href="../../src/csv/reader.rs.html#1475">byte_headers</a>,
             <span class="ident">string_record</span>: <a class="ident" href="../../src/csv/reader.rs.html#1475">str_headers</a>,
         });
@@ -4176,7 +4177,7 @@
         <span class="comment">// We need to trim again because trimming string records includes</span>
         <span class="comment">// Unicode whitespace. (ByteRecord trimming only includes ASCII</span>
         <span class="comment">// whitespace.)</span>
-        <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1536">self</a>.<span class="ident">state</span>.<span class="ident">trim</span>.<a class="ident" href="../../src/csv/lib.rs.html#282">should_trim_fields</a>() {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">trim</span>.<span class="ident">should_trim_fields</span>() {
             <a class="ident" href="../../src/csv/reader.rs.html#1536">record</a>.<a class="ident" href="../../src/csv/string_record.rs.html#428">trim</a>();
         }
         <a class="ident" href="../../src/csv/reader.rs.html#1537">result</a>
@@ -4223,34 +4224,34 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">record</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/csv/byte_record.rs.html#34">ByteRecord</a>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">seeked</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">has_headers</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">first</span> {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">seeked</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">has_headers</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">first</span> {
             <span class="comment">// If the caller indicated &quot;no headers&quot; and we haven&#39;t yielded the</span>
             <span class="comment">// first record yet, then we should yield our header row if we have</span>
             <span class="comment">// one.</span>
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">headers</span>) <span class="op">=</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">headers</span> {
                 <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">first</span> <span class="op">=</span> <span class="bool-val">true</span>;
                 <a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone_from</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/reader.rs.html#1592">headers</a>.<span class="ident">byte_record</span>);
-                <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">trim</span>.<a class="ident" href="../../src/csv/lib.rs.html#282">should_trim_fields</a>() {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">trim</span>.<span class="ident">should_trim_fields</span>() {
                     <a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#364">trim</a>();
                 }
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="op">!</span><a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#283">is_empty</a>());
             }
         }
-        <span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1624-1627">read_byte_record_impl</a>(<a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">read_byte_record_impl</span>(<span class="ident">record</span>)<span class="question-mark">?</span>;
         <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">first</span> <span class="op">=</span> <span class="bool-val">true</span>;
-        <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">seeked</span> <span class="op">&amp;&amp;</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">is_none</span>() {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">seeked</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">headers</span>.<span class="ident">is_none</span>() {
             <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1469-1472">set_headers_impl</a>(<span class="prelude-val">Err</span>(<a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
             <span class="comment">// If the end user indicated that we have headers, then we should</span>
             <span class="comment">// never return the first row. Instead, we should attempt to</span>
             <span class="comment">// read and return the next one.</span>
-            <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">has_headers</span> {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">has_headers</span> {
                 <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1624-1627">read_byte_record_impl</a>(<a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>);
-                <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">trim</span>.<a class="ident" href="../../src/csv/lib.rs.html#282">should_trim_fields</a>() {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">trim</span>.<span class="ident">should_trim_fields</span>() {
                     <a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#364">trim</a>();
                 }
                 <span class="kw">return</span> <a class="ident" href="../../src/csv/reader.rs.html#1609">result</a>;
             }
-        } <span class="kw">else</span> <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1585">self</a>.<span class="ident">state</span>.<span class="ident">trim</span>.<a class="ident" href="../../src/csv/lib.rs.html#282">should_trim_fields</a>() {
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">trim</span>.<span class="ident">should_trim_fields</span>() {
             <a class="ident" href="../../src/csv/reader.rs.html#1586">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#364">trim</a>();
         }
         <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/csv/reader.rs.html#1601">ok</a>)
@@ -4267,17 +4268,17 @@
 
         <a class="ident" href="../../src/csv/reader.rs.html#1626">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#343">clear</a>();
         <a class="ident" href="../../src/csv/reader.rs.html#1626">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#459">set_position</a>(<span class="prelude-val">Some</span>(<a class="self" href="../../src/csv/reader.rs.html#1625">self</a>.<span class="ident">state</span>.<span class="ident">cur_pos</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
-        <span class="kw">if</span> <a class="self" href="../../src/csv/reader.rs.html#1625">self</a>.<span class="ident">state</span>.<span class="ident">eof</span> <span class="op">!</span><span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#773">ReaderEofState::NotEof</a> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">eof</span> <span class="op">!</span><span class="op">=</span> <span class="ident">ReaderEofState::NotEof</span> {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
         }
         <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">outlen</span>, <span class="kw-2">mut</span> <span class="ident">endlen</span>) <span class="op">=</span> (<span class="number">0</span>, <span class="number">0</span>);
         <span class="kw">loop</span> {
             <span class="kw">let</span> (<span class="ident">res</span>, <span class="ident">nin</span>, <span class="ident">nout</span>, <span class="ident">nend</span>) <span class="op">=</span> {
                 <span class="kw">let</span> <span class="ident">input_res</span> <span class="op">=</span> <a class="self" href="../../src/csv/reader.rs.html#1625">self</a>.<span class="ident">rdr</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.BufRead.html">fill_buf</a>();
-                <span class="kw">if</span> <a class="ident" href="../../src/csv/reader.rs.html#1638">input_res</a>.<span class="ident">is_err</span>() {
+                <span class="kw">if</span> <span class="ident">input_res</span>.<span class="ident">is_err</span>() {
                     <a class="self" href="../../src/csv/reader.rs.html#1625">self</a>.<span class="ident">state</span>.<span class="ident">eof</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#775">ReaderEofState::IOError</a>;
                 }
-                <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#1638">input_res</a><span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">input_res</span><span class="question-mark">?</span>;
                 <span class="kw">let</span> (<span class="ident">fields</span>, <span class="ident">ends</span>) <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#1626">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#514">as_parts</a>();
                 <a class="self" href="../../src/csv/reader.rs.html#1625">self</a>.<span class="ident">core</span>.<span class="ident">read_record</span>(
                     <a class="ident" href="../../src/csv/reader.rs.html#1642">input</a>,
@@ -4305,7 +4306,7 @@
                 }
                 <span class="ident">Record</span> =&gt; {
                     <a class="ident" href="../../src/csv/reader.rs.html#1626">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#521">set_len</a>(<a class="ident" href="../../src/csv/reader.rs.html#1635">endlen</a>);
-                    <a class="self" href="../../src/csv/reader.rs.html#1625">self</a>.<span class="ident">state</span>.<a class="ident" href="../../src/csv/reader.rs.html#1890">add_record</a>(<a class="ident" href="../../src/csv/reader.rs.html#1626">record</a>)<span class="question-mark">?</span>;
+                    <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">add_record</span>(<span class="ident">record</span>)<span class="question-mark">?</span>;
                     <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>);
                 }
                 <span class="ident">End</span> =&gt; {
@@ -4356,7 +4357,7 @@
     <span class="doccomment">///     Ok(())</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/byte_record.rs.html#588-592">Position</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/byte_record.rs.html#588">Position</a> {
         <span class="kw-2">&amp;</span><a class="self" href="../../src/csv/reader.rs.html#1721">self</a>.<span class="ident">state</span>.<span class="ident">cur_pos</span>
     }
 
@@ -4480,13 +4481,13 @@
     <span class="doccomment">///     }</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">seek</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">pos</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#588-592">Position</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1398">byte_headers</a>()<span class="question-mark">?</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">seek</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">pos</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#588">Position</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">byte_headers</span>()<span class="question-mark">?</span>;
         <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<span class="ident">state</span>.<span class="ident">seeked</span> <span class="op">=</span> <span class="bool-val">true</span>;
-        <span class="kw">if</span> <a class="ident" href="../../src/csv/reader.rs.html#1845">pos</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#603">byte</a>() <span class="op">==</span> <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<span class="ident">state</span>.<span class="ident">cur_pos</span>.<a class="ident" href="../../src/csv/byte_record.rs.html#603">byte</a>() {
+        <span class="kw">if</span> <span class="ident">pos</span>.<span class="ident">byte</span>() <span class="op">==</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">cur_pos</span>.<span class="ident">byte</span>() {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
         }
-        <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<span class="ident">rdr</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Seek.html">seek</a>(<span class="ident">io::SeekFrom::Start</span>(<a class="ident" href="../../src/csv/reader.rs.html#1845">pos</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#603">byte</a>()))<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">rdr</span>.<span class="ident">seek</span>(<span class="ident">io::SeekFrom::Start</span>(<span class="ident">pos</span>.<span class="ident">byte</span>()))<span class="question-mark">?</span>;
         <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<span class="ident">core</span>.<span class="ident">reset</span>();
         <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<span class="ident">core</span>.<span class="ident">set_line</span>(<a class="ident" href="../../src/csv/reader.rs.html#1845">pos</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#608">line</a>());
         <a class="self" href="../../src/csv/reader.rs.html#1845">self</a>.<span class="ident">state</span>.<span class="ident">cur_pos</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#1845">pos</a>;
@@ -4510,11 +4511,11 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">seek_raw</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">seek_from</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/enum.SeekFrom.html">io::SeekFrom</a>,
-        <span class="ident">pos</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#588-592">Position</a>,
+        <span class="ident">pos</span>: <a class="ident" href="../../src/csv/byte_record.rs.html#588">Position</a>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="self" href="../../src/csv/reader.rs.html#1873">self</a>.<a class="ident" href="../../src/csv/reader.rs.html#1398">byte_headers</a>()<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">byte_headers</span>()<span class="question-mark">?</span>;
         <a class="self" href="../../src/csv/reader.rs.html#1873">self</a>.<span class="ident">state</span>.<span class="ident">seeked</span> <span class="op">=</span> <span class="bool-val">true</span>;
-        <a class="self" href="../../src/csv/reader.rs.html#1873">self</a>.<span class="ident">rdr</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Seek.html">seek</a>(<a class="ident" href="../../src/csv/reader.rs.html#1874">seek_from</a>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">rdr</span>.<span class="ident">seek</span>(<span class="ident">seek_from</span>)<span class="question-mark">?</span>;
         <a class="self" href="../../src/csv/reader.rs.html#1873">self</a>.<span class="ident">core</span>.<span class="ident">reset</span>();
         <a class="self" href="../../src/csv/reader.rs.html#1873">self</a>.<span class="ident">core</span>.<span class="ident">set_line</span>(<a class="ident" href="../../src/csv/reader.rs.html#1875">pos</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#608">line</a>());
         <a class="self" href="../../src/csv/reader.rs.html#1873">self</a>.<span class="ident">state</span>.<span class="ident">cur_pos</span> <span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#1875">pos</a>;
@@ -4523,17 +4524,17 @@
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/csv/reader.rs.html#723-759">ReaderState</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/csv/reader.rs.html#723">ReaderState</a> {
     <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
     <span class="kw">fn</span> <span class="ident">add_record</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/csv/byte_record.rs.html#34">ByteRecord</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <a class="self" href="../../src/csv/reader.rs.html#1890">self</a>.<span class="ident">cur_pos</span>.<a class="ident" href="../../src/csv/byte_record.rs.html#613">record</a>();
         <a class="self" href="../../src/csv/reader.rs.html#1890">self</a>.<span class="ident">cur_pos</span>.<a class="ident" href="../../src/csv/byte_record.rs.html#636">set_record</a>(<a class="ident" href="../../src/csv/reader.rs.html#1891">i</a>.<span class="ident">checked_add</span>(<span class="number">1</span>).<span class="ident">unwrap</span>());
-        <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../src/csv/reader.rs.html#1890">self</a>.<span class="ident">flexible</span> {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">flexible</span> {
             <span class="kw">match</span> <a class="self" href="../../src/csv/reader.rs.html#1890">self</a>.<span class="ident">first_field_count</span> {
                 <span class="prelude-val">None</span> =&gt; <a class="self" href="../../src/csv/reader.rs.html#1890">self</a>.<span class="ident">first_field_count</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/csv/reader.rs.html#1890">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#298">len</a>() <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>),
                 <span class="prelude-val">Some</span>(<span class="ident">expected</span>) =&gt; {
-                    <span class="kw">if</span> <a class="ident" href="../../src/csv/reader.rs.html#1890">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#298">len</a>() <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> <span class="op">!</span><span class="op">=</span> <a class="ident" href="../../src/csv/reader.rs.html#1896">expected</a> {
-                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<a class="ident" href="../../src/csv/error.rs.html#76-86">ErrorKind::UnequalLengths</a> {
+                    <span class="kw">if</span> <span class="ident">record</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span> <span class="op">!</span><span class="op">=</span> <span class="ident">expected</span> {
+                        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<a class="ident" href="../../src/csv/error.rs.html#76">ErrorKind::UnequalLengths</a> {
                             <span class="ident">pos</span>: <a class="ident" href="../../src/csv/reader.rs.html#1890">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#438">position</a>().<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone::clone</a>),
                             <span class="ident">expected_len</span>: <a class="ident" href="../../src/csv/reader.rs.html#1896">expected</a>,
                             <span class="ident">len</span>: <a class="ident" href="../../src/csv/reader.rs.html#1890">record</a>.<a class="ident" href="../../src/csv/byte_record.rs.html#298">len</a>() <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,
@@ -4559,12 +4560,12 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">D</span>: <a class="ident" href="../../serde/de/trait.DeserializeOwned.html">DeserializeOwned</a><span class="op">&gt;</span> <span class="ident">DeserializeRecordsIntoIter</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">D</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="kw-2">mut</span> <span class="ident">rdr</span>: <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>) -&gt; <span class="ident">DeserializeRecordsIntoIter</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">D</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../src/csv/reader.rs.html#1923">rdr</a>.<span class="ident">state</span>.<span class="ident">has_headers</span> {
+        <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">rdr</span>.<span class="ident">state</span>.<span class="ident">has_headers</span> {
             <span class="prelude-val">None</span>
         } <span class="kw">else</span> {
             <a class="ident" href="../../src/csv/reader.rs.html#1923">rdr</a>.<a class="ident" href="../../src/csv/reader.rs.html#1329">headers</a>().<span class="ident">ok</span>().<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone::clone</a>)
         };
-        <a class="ident" href="../../src/csv/reader.rs.html#1915-1920">DeserializeRecordsIntoIter</a> {
+        <a class="ident" href="../../src/csv/reader.rs.html#1915">DeserializeRecordsIntoIter</a> {
             <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#1923">rdr</a>,
             <span class="ident">rec</span>: <span class="ident">StringRecord::new</span>(),
             <span class="ident">headers</span>: <a class="ident" href="../../src/csv/reader.rs.html#1924">headers</a>,
@@ -4617,12 +4618,12 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a>, <span class="ident">D</span>: <a class="ident" href="../../serde/de/trait.DeserializeOwned.html">DeserializeOwned</a><span class="op">&gt;</span> <span class="ident">DeserializeRecordsIter</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span>, <span class="ident">D</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">rdr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> <span class="kw-2">mut</span> <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>) -&gt; <span class="ident">DeserializeRecordsIter</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span>, <span class="ident">D</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../src/csv/reader.rs.html#1981">rdr</a>.<span class="ident">state</span>.<span class="ident">has_headers</span> {
+        <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">rdr</span>.<span class="ident">state</span>.<span class="ident">has_headers</span> {
             <span class="prelude-val">None</span>
         } <span class="kw">else</span> {
             <a class="ident" href="../../src/csv/reader.rs.html#1981">rdr</a>.<a class="ident" href="../../src/csv/reader.rs.html#1329">headers</a>().<span class="ident">ok</span>().<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">Clone::clone</a>)
         };
-        <a class="ident" href="../../src/csv/reader.rs.html#1973-1978">DeserializeRecordsIter</a> {
+        <a class="ident" href="../../src/csv/reader.rs.html#1973">DeserializeRecordsIter</a> {
             <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#1981">rdr</a>,
             <span class="ident">rec</span>: <span class="ident">StringRecord::new</span>(),
             <span class="ident">headers</span>: <a class="ident" href="../../src/csv/reader.rs.html#1982">headers</a>,
@@ -4663,7 +4664,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a><span class="op">&gt;</span> <span class="ident">StringRecordsIntoIter</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">rdr</span>: <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>) -&gt; <span class="ident">StringRecordsIntoIter</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/csv/reader.rs.html#2021-2024">StringRecordsIntoIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2027">rdr</a>, <span class="ident">rec</span>: <span class="ident">StringRecord::new</span>() }
+        <a class="ident" href="../../src/csv/reader.rs.html#2021">StringRecordsIntoIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2027">rdr</a>, <span class="ident">rec</span>: <span class="ident">StringRecord::new</span>() }
     }
 
     <span class="doccomment">/// Return a reference to the underlying CSV reader.</span>
@@ -4705,7 +4706,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a><span class="op">&gt;</span> <span class="ident">StringRecordsIter</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">rdr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> <span class="kw-2">mut</span> <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>) -&gt; <span class="ident">StringRecordsIter</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/csv/reader.rs.html#2063-2066">StringRecordsIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2069">rdr</a>, <span class="ident">rec</span>: <span class="ident">StringRecord::new</span>() }
+        <a class="ident" href="../../src/csv/reader.rs.html#2063">StringRecordsIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2069">rdr</a>, <span class="ident">rec</span>: <span class="ident">StringRecord::new</span>() }
     }
 
     <span class="doccomment">/// Return a reference to the underlying CSV reader.</span>
@@ -4739,7 +4740,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a><span class="op">&gt;</span> <span class="ident">ByteRecordsIntoIter</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">rdr</span>: <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>) -&gt; <span class="ident">ByteRecordsIntoIter</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/csv/reader.rs.html#2097-2100">ByteRecordsIntoIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2103">rdr</a>, <span class="ident">rec</span>: <span class="ident">ByteRecord::new</span>() }
+        <a class="ident" href="../../src/csv/reader.rs.html#2097">ByteRecordsIntoIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2103">rdr</a>, <span class="ident">rec</span>: <span class="ident">ByteRecord::new</span>() }
     }
 
     <span class="doccomment">/// Return a reference to the underlying CSV reader.</span>
@@ -4781,7 +4782,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">io::Read</a><span class="op">&gt;</span> <span class="ident">ByteRecordsIter</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">rdr</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> <span class="kw-2">mut</span> <span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>) -&gt; <span class="ident">ByteRecordsIter</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/csv/reader.rs.html#2139-2142">ByteRecordsIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2145">rdr</a>, <span class="ident">rec</span>: <span class="ident">ByteRecord::new</span>() }
+        <a class="ident" href="../../src/csv/reader.rs.html#2139">ByteRecordsIter</a> { <span class="ident">rdr</span>: <a class="ident" href="../../src/csv/reader.rs.html#2145">rdr</a>, <span class="ident">rec</span>: <span class="ident">ByteRecord::new</span>() }
     }
 
     <span class="doccomment">/// Return a reference to the underlying CSV reader.</span>
@@ -5270,5 +5271,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="csv" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="csv" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
 </body></html>
