@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":[["counterexample_snapshot2",""],["counterexample_translation_snapshot",""]]};

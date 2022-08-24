@@ -1,10 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `vir/src/legacy/ast/predicate.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>predicate.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../vir/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"></h2>
-    </nav>
-    <nav class="sidebar"><a class="sidebar-logo" href="../../../../vir/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../vir/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
-                                <a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div>
-                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `vir/src/legacy/ast/predicate.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>predicate.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../vir/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../vir/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../vir/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -273,29 +267,13 @@
 <span id="267">267</span>
 <span id="268">268</span>
 <span id="269">269</span>
-<span id="270">270</span>
-<span id="271">271</span>
-<span id="272">272</span>
-<span id="273">273</span>
-<span id="274">274</span>
-<span id="275">275</span>
-<span id="276">276</span>
-<span id="277">277</span>
-<span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
 </pre><pre class="rust"><code><span class="comment">// © 2019, ETH Zurich</span>
 <span class="comment">//</span>
 <span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../../../src/vir/common/identifier.rs.html#1">common::identifier::WithIdentifier</a>, <a class="ident" href="../../../../src/vir/legacy/mod.rs.html#12">legacy::ast</a>::<span class="kw-2">*</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../../../src/vir/common/identifier.rs.html#1">common::identifier::WithIdentifier</a>, <a class="ident" href="../../../../src/vir/common/ast/predicate.rs.html#2">enum_predicate</a>, <a class="ident" href="../../../../src/vir/legacy/mod.rs.html#12">legacy::ast</a>::<span class="kw-2">*</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/std/collections/hash/set/struct.HashSet.html">collections::HashSet</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">serde::Serialize</span>, <span class="ident">serde::Deserialize</span>)]</span>
@@ -308,9 +286,9 @@
 <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for</span> <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#11">Predicate</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
         <span class="kw">match</span> <a class="self" href="../../../../src/vir/legacy/ast/predicate.rs.html#18">self</a> {
-            <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#12">Predicate::Struct</a>(<span class="ident">p</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">p</span>),
-            <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#13">Predicate::Enum</a>(<span class="ident">p</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">p</span>),
-            <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#14">Predicate::Bodyless</a>(<span class="ident">name</span>, <span class="ident">this</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;bodyless_predicate {}({});&quot;</span>, <span class="ident">name</span>, <span class="ident">this</span>),
+            <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#12">Predicate::Struct</a>(<span class="ident">p</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#18">f</a>, <span class="string">&quot;{}&quot;</span>, <span class="ident">p</span>),
+            <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#13">Predicate::Enum</a>(<span class="ident">p</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#18">f</a>, <span class="string">&quot;{}&quot;</span>, <span class="ident">p</span>),
+            <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#14">Predicate::Bodyless</a>(<span class="ident">name</span>, <span class="ident">this</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#18">f</a>, <span class="string">&quot;bodyless_predicate {}({});&quot;</span>, <span class="ident">name</span>, <span class="ident">this</span>),
         }
     }
 }
@@ -439,11 +417,11 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;struct_predicate {}({}&quot;</span>, <span class="self">self</span>.<span class="ident">name</span>, <span class="self">self</span>.<span class="ident">this</span>)<span class="question-mark">?</span>;
         <span class="kw">match</span> <a class="self" href="../../../../src/vir/legacy/ast/predicate.rs.html#148">self</a>.<span class="ident">body</span> {
-            <span class="prelude-val">None</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.writeln.html">writeln!</a>(<span class="ident">f</span>, <span class="string">&quot;);&quot;</span>),
+            <span class="prelude-val">None</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.writeln.html">writeln!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#148">f</a>, <span class="string">&quot;);&quot;</span>),
             <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">body</span>) =&gt; {
                 <span class="macro">writeln!</span>(<span class="ident">f</span>, <span class="string">&quot;){{&quot;</span>)<span class="question-mark">?</span>;
                 <span class="macro">writeln!</span>(<span class="ident">f</span>, <span class="string">&quot;  {}&quot;</span>, <span class="ident">body</span>)<span class="question-mark">?</span>;
-                <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.writeln.html">writeln!</a>(<span class="ident">f</span>, <span class="string">&quot;}}&quot;</span>)
+                <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.writeln.html">writeln!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#148">f</a>, <span class="string">&quot;}}&quot;</span>)
             }
         }
     }
@@ -536,44 +514,27 @@
         <span class="kw">for</span> (<span class="ident">guard</span>, <span class="ident">name</span>, <span class="ident">variant</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">variants</span>.<span class="ident">iter</span>() {
             <span class="macro">writeln!</span>(<span class="ident">f</span>, <span class="string">&quot;  {}: {} ==&gt; {}\n&quot;</span>, <span class="ident">name</span>, <span class="ident">guard</span>, <span class="ident">variant</span>)<span class="question-mark">?</span>;
         }
-        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.writeln.html">writeln!</a>(<span class="ident">f</span>, <span class="string">&quot;}}&quot;</span>)
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.writeln.html">writeln!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#242">f</a>, <span class="string">&quot;}}&quot;</span>)
     }
 }
 
 <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for</span> <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#220">EnumVariantIndex</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<span class="ident">f</span>, <span class="string">&quot;{{{}}}&quot;</span>, <span class="self">self</span>.<span class="number">0</span>)
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#253">f</a>, <span class="string">&quot;{{{}}}&quot;</span>, <span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
 <span class="kw">impl</span> <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#205">EnumPredicate</a> {
     <span class="doccomment">/// Construct an expression that represents the body of this predicate.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../../src/vir/legacy/ast/expr.rs.html#19">Expr</a> {
-        <span class="kw">let</span> <span class="ident">discriminant_loc</span> <span class="op">=</span> <span class="ident">Expr::from</span>(<a class="self" href="../../../../src/vir/legacy/ast/predicate.rs.html#260">self</a>.<span class="ident">this</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()).<a class="ident" href="../../../../src/vir/legacy/ast/expr.rs.html#764">field</a>(<a class="self" href="../../../../src/vir/legacy/ast/predicate.rs.html#260">self</a>.<span class="ident">discriminant_field</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>());
-        <span class="kw">let</span> <span class="ident">discriminant_perm</span> <span class="op">=</span> <span class="ident">Expr::acc_permission</span>(<a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#261">discriminant_loc</a>, <a class="ident" href="../../../../src/vir/legacy/ast/common.rs.html#69">PermAmount::Write</a>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">parts</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">discriminant_perm</span>, <span class="self">self</span>.<span class="ident">discriminant_bounds</span>.<span class="ident">clone</span>()];
-        <span class="kw">for</span> (<span class="ident">guard</span>, <span class="ident">name</span>, <span class="ident">variant</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">variants</span>.<span class="ident">iter</span>() {
-            <span class="kw">if</span> <span class="ident">variant</span>.<span class="ident">has_empty_body</span>() {
-                <span class="kw">continue</span>;
-            }
-            <span class="kw">let</span> <span class="ident">field</span> <span class="op">=</span> <span class="ident">Field::new</span>(<span class="macro">format!</span>(<span class="string">&quot;enum_{}&quot;</span>, <span class="ident">name</span>), <span class="ident">variant</span>.<span class="ident">this</span>.<span class="ident">typ</span>.<span class="ident">clone</span>());
-            <span class="kw">let</span> <span class="ident">location</span>: <span class="ident">Expr</span> <span class="op">=</span> <span class="ident">Expr::from</span>(<span class="self">self</span>.<span class="ident">this</span>.<span class="ident">clone</span>()).<span class="ident">field</span>(<span class="ident">field</span>);
-            <span class="kw">let</span> <span class="ident">field_perm</span> <span class="op">=</span> <span class="ident">Expr::acc_permission</span>(<span class="ident">location</span>.<span class="ident">clone</span>(), <span class="ident">PermAmount::Write</span>);
-            <span class="kw">let</span> <span class="ident">pred_perm</span> <span class="op">=</span> <span class="ident">variant</span>.<span class="ident">construct_access</span>(<span class="ident">location</span>, <span class="ident">PermAmount::Write</span>);
-            <span class="ident">parts</span>.<span class="ident">push</span>(<span class="ident">Expr::and</span>(
-                <span class="ident">field_perm</span>,
-                <span class="ident">Expr::implies</span>(<span class="ident">guard</span>.<span class="ident">clone</span>(), <span class="ident">pred_perm</span>),
-            ));
-        }
-        <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#263">parts</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a class="ident" href="../../../../src/vir/legacy/ast/expr.rs.html#1884">conjoin</a>()
+        <a class="macro" href="../../../../src/vir/common/ast/predicate.rs.html#2-34">enum_predicate!</a>(<span class="self">self</span>)
     }
 }
 
 <span class="kw">impl</span> <a class="ident" href="../../../../src/vir/common/identifier.rs.html#1">WithIdentifier</a> <span class="kw">for</span> <a class="ident" href="../../../../src/vir/legacy/ast/predicate.rs.html#205">EnumPredicate</a> {
     <span class="kw">fn</span> <span class="ident">get_identifier</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a> {
-        <a class="self" href="../../../../src/vir/legacy/ast/predicate.rs.html#282">self</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()
+        <a class="self" href="../../../../src/vir/legacy/ast/predicate.rs.html#266">self</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="vir" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
-</body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="vir" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>

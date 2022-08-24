@@ -1,10 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `prusti-interface/src/specs/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../prusti_interface/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"></h2>
-    </nav>
-    <nav class="sidebar"><a class="sidebar-logo" href="../../../prusti_interface/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../prusti_interface/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1">
-                                <a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div>
-                        </div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `prusti-interface/src/specs/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../prusti_interface/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../prusti_interface/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../prusti_interface/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -543,13 +537,13 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <a class="ident" href="../../../src/prusti_interface/specs/checker/mod.rs.html#1-44">checker</a>;
 <span class="kw">pub</span> <span class="kw">mod</span> <a class="ident" href="../../../src/prusti_interface/specs/external.rs.html#1-292">external</a>;
-<span class="kw">pub</span> <span class="kw">mod</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#1-878">typed</a>;
+<span class="kw">pub</span> <span class="kw">mod</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#1-870">typed</a>;
 
 <span class="kw">use</span> <a class="ident" href="../../../prusti_interface/specs/typed/enum.SpecIdRef.html">typed::SpecIdRef</a>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::specs</span>::{
     <a class="ident" href="../../../src/prusti_interface/specs/external.rs.html#86">external::ExternSpecResolver</a>,
-    <span class="ident">typed</span>::{<a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#60">ProcedureSpecification</a>, <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#85">ProcedureSpecificationKind</a>, <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#158">SpecGraph</a>, <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#354">SpecificationItem</a>},
+    <span class="ident">typed</span>::{<a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#62">ProcedureSpecification</a>, <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#87">ProcedureSpecificationKind</a>, <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#160">SpecGraph</a>, <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#356">SpecificationItem</a>},
 };
 <span class="kw">use</span> <a class="ident" href="../../../prusti_interface/specs/typed/struct.SpecificationId.html">prusti_specs::specifications::common::SpecificationId</a>;
 
@@ -609,7 +603,7 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_def_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_def_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">def_spec</span> <span class="op">=</span> <span class="ident">typed::DefSpecificationMap::new</span>();
         <a class="self" href="../../../src/prusti_interface/specs/mod.rs.html#88">self</a>.<a class="ident" href="../../../src/prusti_interface/specs/mod.rs.html#101">determine_procedure_specs</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/mod.rs.html#89">def_spec</a>);
         <a class="self" href="../../../src/prusti_interface/specs/mod.rs.html#88">self</a>.<a class="ident" href="../../../src/prusti_interface/specs/mod.rs.html#173">determine_extern_specs</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/mod.rs.html#89">def_spec</a>);
@@ -622,7 +616,7 @@
         <a class="ident" href="../../../src/prusti_interface/specs/mod.rs.html#89">def_spec</a>
     }
 
-    <span class="kw">fn</span> <span class="ident">determine_procedure_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_procedure_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <span class="kw">for</span> (<span class="ident">local_id</span>, <span class="ident">refs</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">procedure_specs</span>.<span class="ident">iter</span>() {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">spec</span> <span class="op">=</span> <span class="ident">SpecGraph::new</span>(<span class="ident">ProcedureSpecification::empty</span>());
             <span class="ident">spec</span>.<span class="ident">set_span</span>(<span class="self">self</span>.<span class="ident">env</span>.<span class="ident">get_def_span</span>(<span class="ident">local_id</span>.<span class="ident">to_def_id</span>()));
@@ -694,7 +688,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">determine_extern_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_extern_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <a class="self" href="../../../src/prusti_interface/specs/mod.rs.html#173">self</a>.<span class="ident">extern_resolver</span>.<a class="ident" href="../../../src/prusti_interface/specs/external.rs.html#204">check_errors</a>(<a class="self" href="../../../src/prusti_interface/specs/mod.rs.html#173">self</a>.<span class="ident">env</span>);
         <span class="kw">for</span> (<span class="ident">extern_spec_decl</span>, <span class="ident">spec_id</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">extern_resolver</span>.<span class="ident">extern_fn_map</span>.<span class="ident">iter</span>() {
             <span class="kw">let</span> <span class="ident">target_def_id</span> <span class="op">=</span> <span class="ident">extern_spec_decl</span>.<span class="ident">get_target_def_id</span>();
@@ -715,7 +709,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">determine_loop_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_loop_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <span class="kw">for</span> <span class="ident">local_id</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">loop_specs</span>.<span class="ident">iter</span>() {
             <span class="ident">def_spec</span>.<span class="ident">loop_specs</span>.<span class="ident">insert</span>(
                 <span class="ident">local_id</span>.<span class="ident">to_def_id</span>(),
@@ -726,7 +720,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">determine_type_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_type_specs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <span class="kw">for</span> (<span class="ident">type_id</span>, <span class="ident">refs</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">type_specs</span>.<span class="ident">iter</span>() {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">refs</span>.<span class="ident">invariants</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">prusti_common::config::enable_type_invariants</span>() {
                 <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">env</span>.<span class="ident">tcx</span>().<span class="ident">def_span</span>(<span class="ident">type_id</span>.<span class="ident">to_def_id</span>());
@@ -748,7 +742,7 @@
             );
         }
     }
-    <span class="kw">fn</span> <span class="ident">determine_prusti_assertions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_prusti_assertions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <span class="kw">for</span> <span class="ident">local_id</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">prusti_assertions</span>.<span class="ident">iter</span>() {
             <span class="ident">def_spec</span>.<span class="ident">prusti_assertions</span>.<span class="ident">insert</span>(
                 <span class="ident">local_id</span>.<span class="ident">to_def_id</span>(),
@@ -758,7 +752,7 @@
             );
         }
     }
-    <span class="kw">fn</span> <span class="ident">determine_prusti_assumptions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_prusti_assumptions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <span class="kw">for</span> <span class="ident">local_id</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">prusti_assumptions</span>.<span class="ident">iter</span>() {
             <span class="ident">def_spec</span>.<span class="ident">prusti_assumptions</span>.<span class="ident">insert</span>(
                 <span class="ident">local_id</span>.<span class="ident">to_def_id</span>(),
@@ -768,7 +762,7 @@
             );
         }
     }
-    <span class="kw">fn</span> <span class="ident">determine_ghost_begin_ends</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#15">typed::DefSpecificationMap</a>) {
+    <span class="kw">fn</span> <span class="ident">determine_ghost_begin_ends</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">def_spec</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/prusti_interface/specs/typed.rs.html#17">typed::DefSpecificationMap</a>) {
         <span class="kw">for</span> <span class="ident">local_id</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">ghost_begin</span>.<span class="ident">iter</span>() {
             <span class="ident">def_spec</span>.<span class="ident">ghost_begin</span>.<span class="ident">insert</span>(
                 <span class="ident">local_id</span>.<span class="ident">to_def_id</span>(),
@@ -1041,5 +1035,4 @@
     <span class="prelude-val">None</span>
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="prusti_interface" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c2f428d2f 2022-07-14)" ></div>
-</body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="prusti_interface" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>
