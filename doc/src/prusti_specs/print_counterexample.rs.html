@@ -325,80 +325,33 @@
 <span id="325">325</span>
 <span id="326">326</span>
 <span id="327">327</span>
-<span id="328">328</span>
-<span id="329">329</span>
-<span id="330">330</span>
-<span id="331">331</span>
-<span id="332">332</span>
-<span id="333">333</span>
-<span id="334">334</span>
-<span id="335">335</span>
-<span id="336">336</span>
-<span id="337">337</span>
-<span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
-<span id="345">345</span>
-<span id="346">346</span>
-<span id="347">347</span>
-<span id="348">348</span>
-<span id="349">349</span>
-<span id="350">350</span>
-<span id="351">351</span>
-<span id="352">352</span>
-<span id="353">353</span>
-<span id="354">354</span>
-<span id="355">355</span>
-<span id="356">356</span>
-<span id="357">357</span>
-<span id="358">358</span>
-<span id="359">359</span>
-<span id="360">360</span>
-<span id="361">361</span>
-<span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
-<span id="365">365</span>
-<span id="366">366</span>
-<span id="367">367</span>
-<span id="368">368</span>
-<span id="369">369</span>
-<span id="370">370</span>
-<span id="371">371</span>
-<span id="372">372</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">syn</span>::{<a class="ident" href="../../syn/punctuated/struct.Punctuated.html">punctuated::Punctuated</a>, <a class="ident" href="../../syn/parse/trait.Parser.html">parse::Parser</a>, <a class="ident" href="../../syn/expr/enum.Expr.html">Expr</a>, <a class="ident" href="../../syn/macro.Token.html">Token</a>, <a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="ident" href="../../syn/pat/struct.PatLit.html">PatLit</a>, <a class="ident" href="../../syn/expr/struct.ExprLit.html">ExprLit</a>, <span class="ident">Lit</span>, <a class="ident" href="../../syn/data/enum.Fields.html">Fields</a>, <a class="ident" href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned</a>, <span class="ident">Ident</span>, <a class="ident" href="../../syn/generics/struct.Generics.html">Generics</a>};
-<span class="kw">use</span> <span class="ident">log</span>::{<a class="ident" href="../../log/macro.error.html">error</a>};
 <span class="kw">use</span> <span class="ident">proc_macro2</span>::{<a class="ident" href="../../proc_macro2/struct.Span.html">Span</a>, <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>};
 <span class="kw">use</span> <span class="ident">quote</span>::{<a class="ident" href="../../quote/macro.quote_spanned.html">quote_spanned</a>, <a class="ident" href="../../quote/to_tokens/trait.ToTokens.html">ToTokens</a>};
 <span class="kw">use</span> <a class="ident" href="../../src/prusti_specs/rewriter.rs.html#13"><span class="kw">super</span>::rewriter::AstRewriter</a>;
 <span class="kw">use</span> <a class="ident" href="../../itertools/trait.Itertools.html">itertools::Itertools</a>;
-<span class="kw">use</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#646"><span class="kw">crate</span>::type_model</a>;
 <span class="kw">use</span> <a class="ident" href="../../syn/spanned/trait.Spanned.html">syn::spanned::Spanned</a>;
 
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rewrite_struct</span>(<span class="ident">attrs</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_struct</span>: <a class="ident" href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; <span class="ident">syn::Result</span><span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rewrite_struct</span>(<span class="ident">attrs</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_struct</span>: <a class="ident" href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; <span class="ident">syn::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../syn/item/enum.Item.html">syn::Item</a><span class="op">&gt;</span><span class="op">&gt;</span>{
 
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">rewrite_internal_struct</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#11">attrs</a>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#11">item_struct</a>);
-    <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#13">res</a> {
-        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#15">result</a>),
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#16">err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">rewrite_internal_struct</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#9">attrs</a>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#9">item_struct</a>);
+    <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#11">res</a> {
+        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#13">result</a>),
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#14">err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
     }
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rewrite_enum</span>(<span class="ident">attrs</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_enum</span>: <a class="ident" href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>) -&gt; <span class="ident">syn::Result</span><span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rewrite_enum</span>(<span class="ident">attrs</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_enum</span>: <a class="ident" href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>) -&gt; <span class="ident">syn::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../syn/item/enum.Item.html">syn::Item</a><span class="op">&gt;</span><span class="op">&gt;</span> {
 
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">rewrite_internal_enum</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#20">attrs</a>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#20">item_enum</a>);
-    <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#22">res</a> {
-        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#24">result</a>),
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#25">err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">rewrite_internal_enum</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#18">attrs</a>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#18">item_enum</a>);
+    <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#20">res</a> {
+        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#22">result</a>),
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#23">err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
     }
 }
 
-<span class="kw">type</span> <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">R</span>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError</a><span class="op">&gt;</span>;
+<span class="kw">type</span> <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">R</span>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#30">TypeCounterexampleError</a><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">enum</span> <span class="ident">TypeCounterexampleError</span> {
@@ -412,62 +365,56 @@
     <span class="ident">ParsingError</span>(<a class="ident" href="../../syn/error/struct.Error.html">syn::Error</a>),
 }
 
-<span class="kw">impl</span> <span class="ident">std::convert::From</span><span class="op">&lt;</span><a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../syn/error/struct.Error.html">syn::Error</a> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError</a>) -&gt; <span class="self">Self</span> {
-        <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#44">err</a> {
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::ArgumentsDoNotMatch</a>(<span class="ident">span</span>) =&gt; {
-                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#46">span</a>, <span class="string">&quot;Number of arguments and number of {} do not match&quot;</span>)
+<span class="kw">impl</span> <span class="ident">std::convert::From</span><span class="op">&lt;</span><a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#30">TypeCounterexampleError</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../syn/error/struct.Error.html">syn::Error</a> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#30">TypeCounterexampleError</a>) -&gt; <span class="self">Self</span> {
+        <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#42">err</a> {
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError::ArgumentsDoNotMatch</a>(<span class="ident">span</span>) =&gt; {
+                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#44">span</a>, <span class="string">&quot;Number of arguments and number of {} do not match&quot;</span>)
             }
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongFirstArgument</a>(<span class="ident">span</span>) =&gt; {
-                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#49">span</a>, <span class="string">&quot;First argument must be a string literal&quot;</span>)
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#33">TypeCounterexampleError::WrongFirstArgument</a>(<span class="ident">span</span>) =&gt; {
+                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#47">span</a>, <span class="string">&quot;First argument must be a string literal&quot;</span>)
             }
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::AtLeastOneArgument</a>(<span class="ident">span</span>) =&gt; {
-                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#52">span</a>, <span class="string">&quot;At least one argument is expected&quot;</span>)
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::AtLeastOneArgument</a>(<span class="ident">span</span>) =&gt; {
+                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#50">span</a>, <span class="string">&quot;At least one argument is expected&quot;</span>)
             }
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::InvalidName</a>(<span class="ident">span</span>) =&gt; {
-                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#55">span</a>, <span class="string">&quot;Invalid argument name&quot;</span>)
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::InvalidName</a>(<span class="ident">span</span>) =&gt; {
+                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#53">span</a>, <span class="string">&quot;Invalid argument name&quot;</span>)
             }
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#39">TypeCounterexampleError::InvalidArgument</a>(<span class="ident">span</span>, <span class="ident">name</span>, <span class="ident">arg</span> ) =&gt; {
-                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#58">span</a>, <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;`{}` does not have a field named {}&quot;</span>, <span class="ident">name</span>, <span class="ident">arg</span>))
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::InvalidArgument</a>(<span class="ident">span</span>, <span class="ident">name</span>, <span class="ident">arg</span> ) =&gt; {
+                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#56">span</a>, <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;`{}` does not have a field named {}&quot;</span>, <span class="ident">name</span>, <span class="ident">arg</span>))
             }
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<span class="ident">span</span>) =&gt; {
-                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#61">span</a>, <span class="string">&quot;Number of arguments are incorrect&quot;</span>)
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<span class="ident">span</span>) =&gt; {
+                <span class="ident">syn::Error::new</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#59">span</a>, <span class="string">&quot;Number of arguments are incorrect&quot;</span>)
             }
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#40">TypeCounterexampleError::ParsingError</a>(<span class="ident">parse_err</span>) =&gt; <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#64">parse_err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::ParsingError</a>(<span class="ident">parse_err</span>) =&gt; <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#62">parse_err</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
         }
     }
 }
 
-<span class="kw">fn</span> <span class="ident">rewrite_internal_struct</span>(<span class="ident">attr</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_struct</span>: <a class="ident" href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a><span class="op">&gt;</span> {
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print attr: {}&quot;</span>, <span class="ident">attr</span>);
-    <span class="kw">let</span> <span class="ident">spec_model</span> <span class="op">=</span> <span class="ident">check_model</span>(<span class="kw-2">&amp;</span><span class="ident">attr</span>, <span class="ident">item_struct</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
-    <span class="kw">if</span> <span class="ident">spec_model</span>.<span class="ident">is_empty</span>(){
-        <span class="kw">let</span> <span class="ident">parser</span> <span class="op">=</span> <span class="ident">Punctuated</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span><span class="ident">::parse_terminated</span>; <span class="comment">//parse_separated_nonempty;</span>
-    <span class="kw">let</span> <span class="ident">attrs</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#73">parser</a>.<a class="ident" href="../../syn/parse/trait.Parser.html">parse</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">attr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()){
-        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#75">result</a>,
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#40">TypeCounterexampleError::ParsingError</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#76">err</a>)),
+<span class="kw">fn</span> <span class="ident">rewrite_internal_struct</span>(<span class="ident">attr</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_struct</span>: <a class="ident" href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../syn/item/enum.Item.html">syn::Item</a><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">parser</span> <span class="op">=</span> <span class="ident">Punctuated</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span><span class="ident">::parse_terminated</span>;
+    <span class="kw">let</span> <span class="ident">attrs</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#68">parser</a>.<a class="ident" href="../../syn/parse/trait.Parser.html">parse</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">attr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()){
+        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#70">result</a>,
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::ParsingError</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#71">err</a>)),
     };
-    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#74">attrs</a>.<span class="ident">len</span>();
+    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">attrs</a>.<span class="ident">len</span>();
     
     <span class="kw">let</span> (<span class="ident">first_arg</span>, <span class="ident">args</span>) <span class="op">=</span> <span class="ident">process_attr</span>(<span class="kw-2">&amp;</span><span class="ident">attrs</span>, <span class="ident">len</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rewriter</span> <span class="op">=</span> <span class="ident">AstRewriter::new</span>();
-    <span class="kw">let</span> <span class="ident">spec_id</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#81">rewriter</a>.<a class="ident" href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
-    <span class="kw">let</span> <span class="ident">spec_id_str</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#82">spec_id</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print spec_id: {:?}&quot;</span>, <span class="ident">spec_id</span>);
-    <span class="kw">let</span> <span class="ident">item_span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">item_struct</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print span: {:?}&quot;</span>, <span class="ident">item_span</span>);
+    <span class="kw">let</span> <span class="ident">spec_id</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#76">rewriter</a>.<a class="ident" href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
+    <span class="kw">let</span> <span class="ident">spec_id_str</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#77">spec_id</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
+    <span class="kw">let</span> <span class="ident">item_span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
     <span class="kw">let</span> <span class="ident">item_name</span> <span class="op">=</span> <span class="ident">syn::Ident::new</span>(
         <span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;prusti_print_counterexample_item_{}_{}&quot;</span>, <span class="ident">item_struct</span>.<span class="ident">ident</span>, <span class="ident">spec_id</span>),
-        <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#85">item_span</a>,
+        <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#79">item_span</a>,
     );
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args2</span>: <span class="ident">Punctuated</span><span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#74">attrs</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">skip</a>(<span class="number">1</span>).<a class="ident" href="../../itertools/trait.Itertools.html">unique</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Punctuated</span><span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span><span class="op">&gt;</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">args2</span>: <span class="ident">Punctuated</span><span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">attrs</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">skip</a>(<span class="number">1</span>).<a class="ident" href="../../itertools/trait.Itertools.html">unique</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Punctuated</span><span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span><span class="op">&gt;</span>();
     <span class="comment">//add trailing punctuation</span>
     <span class="kw">if</span> <span class="op">!</span><span class="ident">args2</span>.<span class="ident">empty_or_trailing</span>(){
-        <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#91">args2</a>.<span class="ident">push_punct</span>(<span class="op">&lt;</span><a class="macro" href="../../syn/macro.Token.html">syn::Token!</a>[,]<span class="op">&gt;</span><span class="ident">::default</span>());
+        <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#84">args2</a>.<span class="ident">push_punct</span>(<span class="op">&lt;</span><a class="macro" href="../../syn/macro.Token.html">syn::Token!</a>[,]<span class="op">&gt;</span><span class="ident">::default</span>());
     }
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print item_name: {:?}&quot;</span>, <span class="ident">item_name</span>);
-    <span class="kw">let</span> <span class="ident">typ</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">item_struct</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-    <span class="kw">let</span> <span class="ident">spec_item</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">item_struct</a>.<span class="ident">fields</span>{
+    <span class="kw">let</span> <span class="ident">typ</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let</span> <span class="ident">spec_item</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<span class="ident">fields</span>{
         <span class="ident">Fields::Named</span>(<span class="kw">_</span>) =&gt; {
             <span class="kw">let</span> <span class="ident">spec_item</span>: <a class="ident" href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a> <span class="op">=</span> <a class="macro" href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned!</a> {<span class="ident">item_span</span>=&gt;
                 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_must_use</span>, <span class="ident">unused_parens</span>, <span class="ident">unused_variables</span>, <span class="ident">dead_code</span>, <span class="ident">non_snake_case</span>, <span class="ident">irrefutable_let_patterns</span>)]</span>
@@ -481,7 +428,7 @@
                     }
                 }
             };
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#100">spec_item</a>
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#92">spec_item</a>
         },
         <span class="ident">Fields::Unnamed</span>(<span class="kw-2">ref</span> <span class="ident">fields_unnamed</span>) =&gt; {
                     
@@ -500,7 +447,7 @@
                     }
                 }
             };
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#119">spec_item</a>
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#111">spec_item</a>
         },
         <span class="ident">Fields::Unit</span> =&gt; {
             <span class="kw">if</span> <span class="ident">len</span> <span class="op">==</span> <span class="number">1</span>{
@@ -515,49 +462,37 @@
                         }
                     }
                 };
-                <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#135">spec_item</a>
+                <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#127">spec_item</a>
             } <span class="kw">else</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">attr</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">attr</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
             }
         },
     };
     
-    <span class="kw">let</span> <span class="ident">item_impl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#357">generate_generics</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">item_struct</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">item_struct</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="kw-2">&amp;</span><a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#69">item_struct</a>.<span class="ident">generics</span>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#98">spec_item</a>.<a class="ident" href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>());
-    
-    <span class="kw">let</span> <span class="ident">final_token</span> <span class="op">=</span> <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> { <span class="ident">item_span</span> =&gt;
-        #<span class="ident">item_struct</span>
-        #<span class="ident">item_impl</span>
-    };
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print impl: {}&quot;</span>, <span class="ident">final_token</span>);
-    <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#155">final_token</a>)
-    } <span class="kw">else</span> {
-        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#71">spec_model</a>)
-    }
+    <span class="kw">let</span> <span class="ident">item_impl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#312">generate_generics</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="kw-2">&amp;</span><a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<span class="ident">generics</span>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#90">spec_item</a>.<a class="ident" href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>());
+    <span class="prelude-val">Ok</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">syn::Item::Impl</span>(<span class="ident">item_impl</span>)])
 }
 
 
-<span class="kw">fn</span> <span class="ident">rewrite_internal_enum</span>(<span class="ident">attr</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_enum</span>: <a class="ident" href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a><span class="op">&gt;</span> {
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print attr: {}&quot;</span>, <span class="ident">attr</span>);
-    <span class="kw">let</span> <span class="ident">parser</span> <span class="op">=</span> <span class="ident">Punctuated</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span><span class="ident">::parse_terminated</span>; <span class="comment">//parse_separated_nonempty;</span>
-    <span class="kw">let</span> <span class="ident">attrs</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#169">parser</a>.<a class="ident" href="../../syn/parse/trait.Parser.html">parse</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">attr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()){
-        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#171">result</a>,
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#40">TypeCounterexampleError::ParsingError</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#172">err</a>)),
+<span class="kw">fn</span> <span class="ident">rewrite_internal_enum</span>(<span class="ident">attr</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_enum</span>: <a class="ident" href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../syn/item/enum.Item.html">syn::Item</a><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">parser</span> <span class="op">=</span> <span class="ident">Punctuated</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span><span class="ident">::parse_terminated</span>; 
+    <span class="kw">let</span> <span class="ident">attrs</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#151">parser</a>.<a class="ident" href="../../syn/parse/trait.Parser.html">parse</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">attr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()){
+        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#153">result</a>,
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::ParsingError</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#154">err</a>)),
     };
-    <span class="kw">let</span> <span class="ident">item_span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">item_enum</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
-    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#170">attrs</a>.<span class="ident">len</span>();
+    <span class="kw">let</span> <span class="ident">item_span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
+    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#152">attrs</a>.<span class="ident">len</span>();
     <span class="kw">if</span> <span class="ident">len</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>{
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#174">item_span</a>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#156">item_span</a>));
     }
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">spec_items</span>:<span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a><span class="op">&gt;</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[]; 
-    <span class="kw">let</span> <span class="ident">enum_name</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">item_enum</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let</span> <span class="ident">enum_name</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rewriter</span> <span class="op">=</span> <span class="ident">AstRewriter::new</span>();
-    <span class="kw">let</span> <span class="ident">spec_id</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#181">rewriter</a>.<a class="ident" href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
-    <span class="kw">let</span> <span class="ident">spec_id_str</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#182">spec_id</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>(); <span class="comment">//Does this have to be unique?</span>
+    <span class="kw">let</span> <span class="ident">spec_id</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#163">rewriter</a>.<a class="ident" href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
+    <span class="kw">let</span> <span class="ident">spec_id_str</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#164">spec_id</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>(); <span class="comment">//Does this have to be unique?</span>
     
     <span class="kw">for</span> <span class="ident">variant</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">item_enum</span>.<span class="ident">variants</span>{
-        <span class="macro">error!</span>(<span class="string">&quot;print variant: {:?}&quot;</span>, <span class="ident">variant</span>);
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">custom_print</span>) <span class="op">=</span> <span class="ident">variant</span>.<span class="ident">attrs</span>.<span class="ident">iter</span>().<span class="ident">find</span>( <span class="op">|</span><span class="ident">attr</span><span class="op">|</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">get_ident</span>().<span class="ident">and_then</span>(<span class="op">|</span> <span class="ident">x</span> <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">x</span>.<span class="ident">to_string</span>())) <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="string">&quot;print_counterexample&quot;</span>.<span class="ident">to_string</span>())){
-            <span class="macro">error!</span>(<span class="string">&quot;print custom print: {:?}&quot;</span>, <span class="ident">custom_print</span>);
             <span class="kw">let</span> <span class="ident">variant_name</span> <span class="op">=</span> <span class="ident">variant</span>.<span class="ident">ident</span>.<span class="ident">clone</span>();
             <span class="kw">let</span> <span class="ident">item_span</span> <span class="op">=</span> <span class="ident">variant</span>.<span class="ident">ident</span>.<span class="ident">span</span>();
             <span class="kw">let</span> <span class="ident">item_name</span> <span class="op">=</span> <span class="ident">syn::Ident::new</span>(
@@ -572,8 +507,6 @@
             };
 
             <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">attrs</span>.<span class="ident">len</span>();
-            <span class="macro">error!</span>(<span class="string">&quot;print attrs: {:?}&quot;</span>, <span class="ident">attrs</span>);
-            <span class="macro">error!</span>(<span class="string">&quot;print length: {:?}&quot;</span>, <span class="ident">len</span>);
             <span class="kw">let</span> (<span class="ident">first_arg</span>, <span class="ident">args</span>) <span class="op">=</span> <span class="ident">process_attr</span>(<span class="kw-2">&amp;</span><span class="ident">attrs</span>, <span class="ident">len</span>)<span class="question-mark">?</span>;
                 <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">variant</span>.<span class="ident">fields</span>{
                     <span class="ident">Fields::Named</span>(<span class="kw">_</span>) =&gt; {
@@ -635,65 +568,43 @@
                 }
         } 
     }
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print new function: {:?}&quot;</span>, <span class="ident">spec_items</span>);
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">spec_item_as_tokens</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
     <span class="kw">for</span> <span class="ident">x</span> <span class="kw">in</span> <span class="ident">spec_items</span>{
         <span class="ident">x</span>.<span class="ident">to_tokens</span>(<span class="kw-2">&amp;mut</span> <span class="ident">spec_item_as_tokens</span>);
     }      
 
-    <span class="kw">let</span> <span class="ident">item_impl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#357">generate_generics</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">item_enum</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">item_enum</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="kw-2">&amp;</span><a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">item_enum</a>.<span class="ident">generics</span>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#267">spec_item_as_tokens</a>.<a class="ident" href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>());
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">item_enum</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#167">item_enum</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let</span> <span class="ident">item_impl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#312">generate_generics</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="kw-2">&amp;</span><a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<span class="ident">generics</span>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#244">spec_item_as_tokens</a>.<a class="ident" href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>());
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">item_enum</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
     <span class="kw">for</span> <span class="ident">variant</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">item_enum</span>.<span class="ident">variants</span>{
         <span class="comment">//remove all macros inside the enum</span>
         <span class="ident">variant</span>.<span class="ident">attrs</span>.<span class="ident">retain</span>( <span class="op">|</span><span class="ident">attr</span><span class="op">|</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">get_ident</span>().<span class="ident">and_then</span>(<span class="op">|</span> <span class="ident">x</span> <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">x</span>.<span class="ident">to_string</span>())) <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;print_counterexample&quot;</span>.<span class="ident">to_string</span>()));
     }
-
-    <span class="kw">let</span> <span class="ident">final_token</span> <span class="op">=</span> <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> { <span class="ident">item_span</span> =&gt;
-        #<span class="ident">item_enum</span>
-        #<span class="ident">item_impl</span>
-    };
-    <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;print impl: {}&quot;</span>, <span class="ident">final_token</span>);
-    <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#279">final_token</a>)
-}
-
-<span class="kw">fn</span> <span class="ident">check_model</span>(<span class="ident">attr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">item_struct</span>: <a class="ident" href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a><span class="op">&gt;</span>{
-    <span class="comment">//check if type is a model</span>
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#287">item_struct</a>.<span class="ident">attrs</span>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">find</a>( <span class="op">|</span><span class="ident">attr</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#289">attr</a>.<span class="ident">path</span>.<span class="ident">get_ident</span>().<span class="ident">and_then</span>(<span class="op">|</span> <span class="ident">x</span> <span class="op">|</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#289">x</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>())) <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="string">&quot;model&quot;</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>())){
-        <span class="kw">let</span> <span class="ident">item_span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#287">item_struct</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
-        <span class="kw">let</span> <span class="ident">spec_item</span>: <a class="ident" href="../../syn/item/enum.Item.html">syn::Item</a> <span class="op">=</span> <a class="macro" href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned!</a> {<span class="ident">item_span</span>=&gt;
-            <span class="attribute">#[<span class="ident">print_counterexample</span>(#<span class="ident">attr</span>)]</span>
-            #<span class="ident">item_struct</span>
-        };
-        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/prusti_specs/lib.rs.html#646">type_model</a>(<span class="ident">TokenStream::new</span>(), <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#291">spec_item</a>.<a class="ident" href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>()))
-    }
-    <span class="prelude-val">Ok</span>(<span class="ident">TokenStream::new</span>())
+    <span class="prelude-val">Ok</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[<span class="ident">syn::Item::Enum</span>(<span class="ident">item_enum</span>) , <span class="ident">syn::Item::Impl</span>(<span class="ident">item_impl</span>)])
 }
 
 <span class="kw">fn</span> <span class="ident">process_attr</span>(<span class="ident">attrs</span>: <span class="kw-2">&amp;</span><span class="ident">Punctuated</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span>, <span class="ident">len</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span>(<a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>)<span class="op">&gt;</span>{
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">attrs_iter</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#300">attrs</a>.<span class="ident">iter</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">attrs_iter</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#258">attrs</a>.<span class="ident">iter</span>();
     <span class="kw">let</span> <span class="ident">callsite_span</span> <span class="op">=</span> <span class="ident">Span::call_site</span>();
     <span class="comment">//first arg</span>
-    <span class="kw">let</span> <span class="ident">first_as_token</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">text</span>) <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#301">attrs_iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>(){
-        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#304">text</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
-        <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#304">text</a> {
+    <span class="kw">let</span> <span class="ident">first_as_token</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">text</span>) <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#259">attrs_iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>(){
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#262">text</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>();
+        <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#262">text</a> {
             <span class="ident">Pat::Lit</span>(<a class="ident" href="../../syn/pat/struct.PatLit.html">PatLit</a> { <span class="ident">attrs</span>: <span class="kw">_</span>, <span class="ident">expr</span>: <span class="kw">box</span> <span class="ident">Expr::Lit</span>(<a class="ident" href="../../syn/expr/struct.ExprLit.html">ExprLit</a> { <span class="ident">attrs</span>: <span class="kw">_</span>, <span class="ident">lit</span>: <span class="ident">Lit::Str</span>(<span class="ident">lit_str</span>) }) }) =&gt; {
-                <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#307">lit_str</a>.<span class="ident">value</span>();
-                <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;value of text node: {}&quot;</span>, <span class="ident">value</span>);
-                <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#308">value</a>.<span class="ident">matches</span>(<span class="string">&quot;{}&quot;</span>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">count</a>();
-                <a class="macro" href="../../log/macro.error.html">error!</a>(<span class="string">&quot;count of {{}} in text node: {}&quot;</span>, <span class="ident">count</span>);
+                <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#265">lit_str</a>.<span class="ident">value</span>();
+                <span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#266">value</a>.<span class="ident">matches</span>(<span class="string">&quot;{}&quot;</span>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">count</a>();
                 <span class="kw">if</span> <span class="ident">count</span> <span class="op">!</span><span class="op">=</span> <span class="ident">len</span><span class="op">-</span><span class="number">1</span>{
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::ArgumentsDoNotMatch</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#305">span</a>));
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError::ArgumentsDoNotMatch</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#263">span</a>));
                 }
                 <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> {<span class="ident">callsite_span</span>=&gt; #<span class="ident">value</span>;}
             },
-            <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongFirstArgument</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#305">span</a>)),
+            <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#33">TypeCounterexampleError::WrongFirstArgument</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#263">span</a>)),
         }
     } <span class="kw">else</span> {
-       <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::AtLeastOneArgument</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#300">attrs</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
+       <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::AtLeastOneArgument</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#258">attrs</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
     };
     <span class="comment">//other args</span>
-    <span class="kw">let</span> <span class="ident">args_as_token</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#301">attrs_iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span><span class="ident">pat</span> <span class="op">|</span> {
-        <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#323">pat</a> {
+    <span class="kw">let</span> <span class="ident">args_as_token</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#259">attrs_iter</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span><span class="ident">pat</span> <span class="op">|</span> {
+        <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#279">pat</a> {
             <span class="ident">Pat::Ident</span>(<span class="ident">pat_ident</span>) =&gt; {
                 <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> {<span class="ident">callsite_span</span>=&gt; #<span class="ident">pat_ident</span>; }
             },
@@ -701,12 +612,12 @@
                 <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> {<span class="ident">callsite_span</span>=&gt; #<span class="ident">lit_int</span>; }
             },
             <span class="kw">_</span> =&gt; {
-            <span class="kw">let</span> <span class="ident">err</span>: <a class="ident" href="../../syn/error/struct.Error.html">syn::Error</a> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::InvalidName</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#302">callsite_span</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
-            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#332">err</a>.<span class="ident">to_compile_error</span>()
+            <span class="kw">let</span> <span class="ident">err</span>: <a class="ident" href="../../syn/error/struct.Error.html">syn::Error</a> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::InvalidName</a>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#260">callsite_span</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
+            <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#288">err</a>.<span class="ident">to_compile_error</span>()
         },  
         }
     }).<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a><span class="op">&gt;</span>();
-    <span class="prelude-val">Ok</span>((<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#304">first_as_token</a>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#323">args_as_token</a>))
+    <span class="prelude-val">Ok</span>((<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#262">first_as_token</a>, <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#279">args_as_token</a>))
 }
 <span class="kw">fn</span> <span class="ident">check_validity_of_args</span>(<span class="ident">args</span>: <span class="ident">Punctuated</span><span class="op">&lt;</span><a class="ident" href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]<span class="op">&gt;</span>, <span class="ident">len</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <span class="ident">TypeCounterexampleResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>{
     <span class="kw">for</span> <span class="ident">arg</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">args</span> {
@@ -715,7 +626,6 @@
                 <span class="prelude-val">Ok</span>(<span class="ident">result</span>) =&gt; <span class="ident">result</span>,
                 <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TypeCounterexampleError::ParsingError</span>(<span class="ident">err</span>))
             };
-            <span class="macro">error!</span>(<span class="string">&quot;print value: {}&quot;</span>, <span class="ident">value</span>);
             <span class="kw">if</span> <span class="ident">value</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">len</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TypeCounterexampleError::InvalidArgument</span>(<span class="ident">arg</span>.<span class="ident">span</span>(), <span class="ident">name</span>.<span class="ident">to_string</span>(), <span class="ident">value</span>.<span class="ident">to_string</span>()));
             }
@@ -727,11 +637,11 @@
 }
 
 <span class="kw">fn</span> <span class="ident">generate_generics</span>(<span class="ident">item_span</span>: <a class="ident" href="../../proc_macro2/struct.Span.html">Span</a>, <span class="ident">typ</span>: <a class="ident" href="../../proc_macro2/struct.Ident.html">Ident</a>, <span class="ident">generics</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../syn/generics/struct.Generics.html">Generics</a>, <span class="ident">spec_item</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a class="ident" href="../../syn/item/struct.ItemImpl.html">syn::ItemImpl</a>{
-    <span class="kw">let</span> <span class="ident">generics_idents</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#357">generics</a>
+    <span class="kw">let</span> <span class="ident">generics_idents</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#312">generics</a>
         .<span class="ident">params</span>
         .<span class="ident">iter</span>()
-        .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter_map</a>(<span class="op">|</span><span class="ident">generic_param</span><span class="op">|</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#361">generic_param</a> {
-            <span class="ident">syn::GenericParam::Type</span>(<span class="ident">type_param</span>) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#362">type_param</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
+        .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter_map</a>(<span class="op">|</span><span class="ident">generic_param</span><span class="op">|</span> <span class="kw">match</span> <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#316">generic_param</a> {
+            <span class="ident">syn::GenericParam::Type</span>(<span class="ident">type_param</span>) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#317">type_param</a>.<span class="ident">ident</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
             <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         })
         .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">syn::punctuated::Punctuated</span><span class="op">&lt;</span><span class="kw">_</span>, <a class="macro" href="../../syn/macro.Token.html">syn::Token!</a>[,]<span class="op">&gt;</span><span class="op">&gt;</span>();
@@ -740,6 +650,6 @@
             #<span class="ident">spec_item</span>
         }
     };
-    <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#366">item_impl</a>
+    <a class="ident" href="../../src/prusti_specs/print_counterexample.rs.html#321">item_impl</a>
 }</code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="prusti_specs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>

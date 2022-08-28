@@ -6944,7 +6944,7 @@
     <a class="ident" href="../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#87">pure::PureFunctionEncoderInterface</a>,
     <a class="ident" href="../../../src/prusti_viper/encoder/mir/types/interface.rs.html#24">types::MirTypeEncoderInterface</a>,
     <a class="ident" href="../../../src/prusti_viper/encoder/mir/pure/specifications/interface.rs.html#36">pure::SpecificationEncoderInterface</a>,
-    <a class="ident" href="../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#77">specifications::SpecificationsInterface</a>,
+    <a class="ident" href="../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#76">specifications::SpecificationsInterface</a>,
     <a class="ident" href="../../../src/prusti_viper/encoder/mir/type_invariants/interface.rs.html#13">type_invariants::TypeInvariantEncoderInterface</a>,
 };
 <span class="kw">use</span> <a class="ident" href="../../../src/prusti_viper/encoder/high/generics/interface.rs.html#8"><span class="kw">super</span>::high::generics::HighGenericsEncoderInterface</a>;
@@ -9354,7 +9354,7 @@
                             <span class="kw">let</span> (<span class="ident">called_def_id</span>, <span class="ident">call_substs</span>) <span class="op">=</span> <a class="self" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2084">self</a>.<span class="ident">encoder</span>.<a class="ident" href="../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>()
                                 .<span class="ident">resolve_method_call</span>(<a class="self" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2084">self</a>.<span class="ident">proc_def_id</span>, <a class="ident" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2289">called_def_id</a>, <a class="ident" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2288">call_substs</a>);
 
-                            <span class="kw">let</span> <span class="ident">is_pure_function</span> <span class="op">=</span> <a class="self" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2084">self</a>.<span class="ident">encoder</span>.<a class="ident" href="../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#79">is_pure</a>(<a class="ident" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2482">called_def_id</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2482">call_substs</a>)) <span class="op">&amp;&amp;</span>
+                            <span class="kw">let</span> <span class="ident">is_pure_function</span> <span class="op">=</span> <a class="self" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2084">self</a>.<span class="ident">encoder</span>.<a class="ident" href="../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#78">is_pure</a>(<a class="ident" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2482">called_def_id</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../src/prusti_viper/encoder/procedure_encoder.rs.html#2482">call_substs</a>)) <span class="op">&amp;&amp;</span>
                                 <span class="comment">// We are verifying this pure function and,</span>
                                 <span class="comment">// therefore, need to always encode it as a</span>
                                 <span class="comment">// method.</span>

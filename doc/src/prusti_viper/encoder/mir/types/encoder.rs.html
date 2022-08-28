@@ -773,7 +773,7 @@
     <span class="ident">errors</span>::{<a class="ident" href="../../../../../src/prusti_viper/encoder/errors/spanned_encoding_error.rs.html#16">SpannedEncodingError</a>, <a class="ident" href="../../../../../src/prusti_viper/encoder/errors/spanned_encoding_error.rs.html#23">SpannedEncodingResult</a>},
     <span class="ident">mir</span>::{
         <a class="ident" href="../../../../../src/prusti_viper/encoder/mir/constants/interface.rs.html#10">constants::ConstantsEncoderInterface</a>, <a class="ident" href="../../../../../src/prusti_viper/encoder/mir/generics/interface.rs.html#10">generics::MirGenericsEncoderInterface</a>,
-        <a class="ident" href="../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#77">specifications::SpecificationsInterface</a>, <a class="ident" href="../../../../../src/prusti_viper/encoder/mir/types/helpers.rs.html#29-32">types::helpers::compute_discriminant_ranges</a>,
+        <a class="ident" href="../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#76">specifications::SpecificationsInterface</a>, <a class="ident" href="../../../../../src/prusti_viper/encoder/mir/types/helpers.rs.html#29-32">types::helpers::compute_discriminant_ranges</a>,
     },
     <a class="ident" href="../../../../../src/prusti_viper/encoder/encoder.rs.html#67">Encoder</a>,
 };
@@ -840,7 +840,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">is_trusted_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">did</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_span/def_id/struct.DefId.html">DefId</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">type_specs</span>) <span class="op">=</span> <a class="self" href="../../../../../src/prusti_viper/encoder/mir/types/encoder.rs.html#78">self</a>.<span class="ident">encoder</span>.<a class="ident" href="../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#96">get_type_specs</a>(<a class="ident" href="../../../../../src/prusti_viper/encoder/mir/types/encoder.rs.html#78">did</a>) {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">type_specs</span>) <span class="op">=</span> <a class="self" href="../../../../../src/prusti_viper/encoder/mir/types/encoder.rs.html#78">self</a>.<span class="ident">encoder</span>.<a class="ident" href="../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#95">get_type_specs</a>(<a class="ident" href="../../../../../src/prusti_viper/encoder/mir/types/encoder.rs.html#78">did</a>) {
             <span class="kw-2">*</span><a class="ident" href="../../../../../src/prusti_viper/encoder/mir/types/encoder.rs.html#79">type_specs</a>.<span class="ident">trusted</span>.<span class="ident">expect_inherent</span>()
         } <span class="kw">else</span> {
             <span class="bool-val">false</span>
