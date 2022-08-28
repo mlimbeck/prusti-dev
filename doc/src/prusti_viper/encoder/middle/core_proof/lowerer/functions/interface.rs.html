@@ -524,9 +524,9 @@
         <a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#179">function_decl</a>.<span class="ident">walk_types</span>(<span class="op">|</span><span class="ident">ty</span><span class="op">|</span> <a class="self" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#178">self</a>.<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/types/interface.rs.html#298">ensure_type_definition</a>(<a class="ident" href="../../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#181">ty</a>))
     }
     <span class="comment">/*
-    This has not needed at moment, as long as there is an axioms in snapshot domains that compares 
+    This has not needed at moment; as long as there is an axioms in snapshot domains that compares 
     a snapshot variable directly with its constructors/destructors, e.g.
-    forall value: Snap :: valid(value) ==&gt; value == destructor$Snap$$value(constructor$Snap$$(value)))
+    forall value: Snap :: valid(value) ==&gt; value == destructor$Snap$$(constructor$Snap$$(value)))
 
     fn unroll_model(&amp;mut self, typ: vir_mid::Type, expr: vir_low::Expression, bound: usize) -&gt; SpannedEncodingResult&lt;vir_low::Expression&gt;{
         use vir_low::macros::*;
