@@ -189,6 +189,17 @@
 <span id="189">189</span>
 <span id="190">190</span>
 <span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <a class="ident" href="../../../../prusti_interface/data/type.ProcedureDefId.html">prusti_interface::data::ProcedureDefId</a>;
 <span class="kw">use</span> <span class="ident">prusti_rustc_interface::errors::MultiSpan</span>;
 <span class="kw">use</span> <a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#67"><span class="kw">crate</span>::encoder::Encoder</a>;
@@ -362,15 +373,26 @@
             <span class="comment">//inhale destruct_field_value(destruct_field(_1$snapshot$1)) == snapvar_2     (unions)</span>
             <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }) <span class="op">|</span> 
             <span class="ident">vir_low::Expression::BinaryOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html">BinaryOp</a>{ <span class="ident">op_kind</span>:<span class="ident">BinaryOpKind::EqCmp</span> ,  <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }), ..}) =&gt; {
-                <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;target_current&quot;</span>) <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(<span class="ident">arguments</span>.<span class="ident">first</span>().<span class="ident">unwrap</span>(), <span class="ident">vir_low::Expression::Local</span>(<span class="kw">_</span>)) { <span class="comment">//references </span>
-                    <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#151">self</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#37">extract_var_from_assume</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>{<span class="ident">expression</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#172">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="ident">position</span>: <span class="ident">vir_low::Position::default</span>()})
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;destructor&quot;</span>) <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(<span class="ident">arguments</span>.<span class="ident">first</span>().<span class="ident">unwrap</span>(), <span class="ident">vir_low::Expression::Local</span>(<span class="kw">_</span>)) { <span class="comment">//fields struct/enum</span>
-                    <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#151">self</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#37">extract_var_from_assume</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>{<span class="ident">expression</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#172">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="ident">position</span>: <span class="ident">vir_low::Position::default</span>()})
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;destructor&quot;</span>) <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(<span class="ident">arguments</span>.<span class="ident">first</span>().<span class="ident">unwrap</span>(), <span class="ident">vir_low::Expression::DomainFuncApp</span>(<span class="kw">_</span>)) { <span class="comment">//fields union</span>
-                    <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#151">self</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#37">extract_var_from_assume</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>{<span class="ident">expression</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#172">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="ident">position</span>: <span class="ident">vir_low::Position::default</span>()})
-                }<span class="kw">else</span> {
-                    <span class="prelude-val">None</span>
+                <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> {
+                    <span class="kw">if</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;target_current&quot;</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;destructor&quot;</span>) {
+                        <span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">arguments</span>.<span class="ident">first</span>().<span class="ident">unwrap</span>(), <span class="ident">vir_low::Expression::Local</span>(<span class="kw">_</span>)) <span class="op">|</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">arguments</span>.<span class="ident">first</span>().<span class="ident">unwrap</span>(), <span class="ident">vir_low::Expression::DomainFuncApp</span>(<span class="kw">_</span>)) {
+                            <span class="kw">return</span> <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#151">self</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#37">extract_var_from_assume</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/gen/low/ast/statement/struct.Assume.html">Assume</a>{<span class="ident">expression</span>: <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#172">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="ident">position</span>: <span class="ident">vir_low::Position::default</span>()})
+                        }
+                    }   
                 }
+                <span class="prelude-val">None</span>
+                
+                
+                <span class="comment">/*/
+                if arguments.len() == 1 &amp;&amp; function_name.contains(&quot;target_current&quot;) &amp;&amp; matches!(arguments.first().unwrap(), vir_low::Expression::Local(_)) { //references 
+                    self.extract_var_from_assume(&amp;Assume{expression: arguments.first().unwrap().clone(), position: vir_low::Position::default()})
+                } else if arguments.len() == 1 &amp;&amp; function_name.contains(&quot;destructor&quot;) &amp;&amp; matches!(arguments.first().unwrap(), vir_low::Expression::Local(_)) { //fields struct/enum
+                    self.extract_var_from_assume(&amp;Assume{expression: arguments.first().unwrap().clone(), position: vir_low::Position::default()})
+                } else if arguments.len() == 1 &amp;&amp; function_name.contains(&quot;destructor&quot;) &amp;&amp; matches!(arguments.first().unwrap(), vir_low::Expression::DomainFuncApp(_)) { //fields union
+                    self.extract_var_from_assume(&amp;Assume{expression: arguments.first().unwrap().clone(), position: vir_low::Position::default()})
+                }else {
+                    None
+                }*/</span>
             },
             <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>
         }
@@ -378,6 +400,6 @@
 }
 
 <span class="kw">fn</span> <span class="ident">position_equality</span>(<span class="ident">p1</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>, <span class="ident">p2</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>{
-    <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#189">p1</a>.<span class="ident">line</span> <span class="op">==</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#189">p2</a>.<span class="ident">line</span> <span class="op">&amp;&amp;</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#189">p1</a>.<span class="ident">column</span> <span class="op">==</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#189">p2</a>.<span class="ident">column</span>
+    <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#200">p1</a>.<span class="ident">line</span> <span class="op">==</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#200">p2</a>.<span class="ident">line</span> <span class="op">&amp;&amp;</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#200">p1</a>.<span class="ident">column</span> <span class="op">==</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#200">p2</a>.<span class="ident">column</span>
 }</code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="prusti_viper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>

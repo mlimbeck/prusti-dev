@@ -966,8 +966,6 @@
 <span id="966">966</span>
 <span id="967">967</span>
 <span id="968">968</span>
-<span id="969">969</span>
-<span id="970">970</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">deny</span>(<span class="ident">unused_must_use</span>)]</span>
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">drain_filter</span>)]</span>
 <span class="attribute">#![<span class="ident">feature</span>(<span class="ident">box_patterns</span>)]</span>
@@ -1659,9 +1657,9 @@
         <a class="macro" href="../../src/prusti_specs/lib.rs.html#43-50">handle_result!</a>(<span class="ident">generate_spec_and_assertions_for_types</span>(<span class="ident">prusti_attributes</span>, <span class="kw-2">&amp;mut</span> <span class="ident">item</span>));
 
     <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> {<span class="ident">item</span>.<span class="ident">span</span>()=&gt;
-        #(#<span class="ident">generated_spec_items</span>)<span class="op">*</span>
         #(#<span class="ident">generated_attributes</span>)<span class="op">*</span>
         #<span class="ident">item</span>
+        #(#<span class="ident">generated_spec_items</span>)<span class="op">*</span>
     }
 }
 
@@ -1796,7 +1794,6 @@
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_model</span>(<span class="ident">attr</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">tokens</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-    <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">env_logger::try_init</span>();
     <span class="kw">if</span> <span class="ident">syn::parse2</span>::<span class="op">&lt;</span><span class="ident">syn::DeriveInput</span><span class="op">&gt;</span>(<span class="ident">tokens</span>.<span class="ident">clone</span>()).<span class="ident">is_ok</span>() {
         <a class="ident" href="../../src/prusti_specs/lib.rs.html#661-665">rewrite_prusti_attributes_for_types</a>(<a class="ident" href="../../src/prusti_specs/spec_attribute_kind.rs.html#15">SpecAttributeKind::Model</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#828">attr</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#828">tokens</a>)
     } <span class="kw">else</span> {
@@ -1809,12 +1806,11 @@
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">print_counterexample</span>(<span class="ident">attr</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <span class="ident">tokens</span>: <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-    <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">env_logger::try_init</span>();
     <span class="kw">if</span> <span class="ident">syn::parse2</span>::<span class="op">&lt;</span><span class="ident">syn::DeriveInput</span><span class="op">&gt;</span>(<span class="ident">tokens</span>.<span class="ident">clone</span>()).<span class="ident">is_ok</span>() {
-        <a class="ident" href="../../src/prusti_specs/lib.rs.html#661-665">rewrite_prusti_attributes_for_types</a>(<a class="ident" href="../../src/prusti_specs/spec_attribute_kind.rs.html#16">SpecAttributeKind::PrintCounterexample</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#841">attr</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#841">tokens</a>)
+        <a class="ident" href="../../src/prusti_specs/lib.rs.html#661-665">rewrite_prusti_attributes_for_types</a>(<a class="ident" href="../../src/prusti_specs/spec_attribute_kind.rs.html#16">SpecAttributeKind::PrintCounterexample</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#840">attr</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#840">tokens</a>)
     } <span class="kw">else</span> {
         <span class="ident">syn::Error::new</span>(
-            <a class="ident" href="../../src/prusti_specs/lib.rs.html#841">attr</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>(),
+            <a class="ident" href="../../src/prusti_specs/lib.rs.html#840">attr</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>(),
             <span class="string">&quot;Only structs and enums can be attributed with print_counterexample&quot;</span>,
         )
         .<span class="ident">to_compile_error</span>()
@@ -1824,8 +1820,8 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rewriter</span> <span class="op">=</span> <span class="ident">rewriter::AstRewriter::new</span>();
     <span class="kw">let</span> <span class="ident">callsite_span</span> <span class="op">=</span> <span class="ident">Span::call_site</span>();
 
-    <span class="kw">let</span> <span class="ident">spec_id</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#854">rewriter</a>.<a class="ident" href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
-    <span class="kw">let</span> <span class="ident">spec_id_str</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#857">spec_id</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
+    <span class="kw">let</span> <span class="ident">spec_id</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#852">rewriter</a>.<a class="ident" href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
+    <span class="kw">let</span> <span class="ident">spec_id_str</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#855">spec_id</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
 
     <span class="kw">let</span> <span class="ident">make_closure</span> <span class="op">=</span> <span class="op">|</span><span class="ident">kind</span><span class="op">|</span> {
         <a class="macro" href="../../quote/macro.quote.html">quote!</a> {
@@ -1845,47 +1841,47 @@
         <span class="ident">returns</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../proc_macro2/struct.Span.html">Span</a><span class="op">&gt;</span>,
     }
 
-    <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;ast</span><span class="op">&gt;</span> <span class="ident">Visit</span><span class="op">&lt;</span><span class="lifetime">&#39;ast</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#872">Visitor</a> {
+    <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;ast</span><span class="op">&gt;</span> <span class="ident">Visit</span><span class="op">&lt;</span><span class="lifetime">&#39;ast</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#870">Visitor</a> {
         <span class="kw">fn</span> <span class="ident">visit_expr_for_loop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">ex</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;ast</span> <a class="ident" href="../../syn/expr/struct.ExprForLoop.html">syn::ExprForLoop</a>) {
-            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#879">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#880">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#881">c</a>.<span class="ident">name</span>.<span class="ident">ident</span>);
-            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#880">e</a>.<span class="ident">body</span>.<span class="ident">brace_token</span>.<span class="ident">span</span>;
-            <a class="self" href="../../src/prusti_specs/lib.rs.html#879">self</a>.<span class="ident">loops</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#881">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#882">span</a>));
-            <span class="ident">syn::visit::visit_expr_for_loop</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#879">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#879">ex</a>);
+            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#877">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#878">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#879">c</a>.<span class="ident">name</span>.<span class="ident">ident</span>);
+            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#878">e</a>.<span class="ident">body</span>.<span class="ident">brace_token</span>.<span class="ident">span</span>;
+            <a class="self" href="../../src/prusti_specs/lib.rs.html#877">self</a>.<span class="ident">loops</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#879">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#880">span</a>));
+            <span class="ident">syn::visit::visit_expr_for_loop</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#877">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#877">ex</a>);
         }
         <span class="kw">fn</span> <span class="ident">visit_expr_while</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">ex</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;ast</span> <a class="ident" href="../../syn/expr/struct.ExprWhile.html">syn::ExprWhile</a>) {
-            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#886">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#887">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#888">c</a>.<span class="ident">name</span>.<span class="ident">ident</span>);
-            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#887">e</a>.<span class="ident">body</span>.<span class="ident">brace_token</span>.<span class="ident">span</span>;
-            <a class="self" href="../../src/prusti_specs/lib.rs.html#886">self</a>.<span class="ident">loops</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#888">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#889">span</a>));
-            <span class="ident">syn::visit::visit_expr_while</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#886">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#886">ex</a>);
+            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#884">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#885">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#886">c</a>.<span class="ident">name</span>.<span class="ident">ident</span>);
+            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#885">e</a>.<span class="ident">body</span>.<span class="ident">brace_token</span>.<span class="ident">span</span>;
+            <a class="self" href="../../src/prusti_specs/lib.rs.html#884">self</a>.<span class="ident">loops</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#886">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#887">span</a>));
+            <span class="ident">syn::visit::visit_expr_while</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#884">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#884">ex</a>);
         }
         <span class="kw">fn</span> <span class="ident">visit_expr_loop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">ex</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;ast</span> <a class="ident" href="../../syn/expr/struct.ExprLoop.html">syn::ExprLoop</a>) {
-            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#893">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#894">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#895">c</a>.<span class="ident">name</span>.<span class="ident">ident</span>);
-            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#894">e</a>.<span class="ident">body</span>.<span class="ident">brace_token</span>.<span class="ident">span</span>;
-            <a class="self" href="../../src/prusti_specs/lib.rs.html#893">self</a>.<span class="ident">loops</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#895">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#896">span</a>));
-            <span class="ident">syn::visit::visit_expr_loop</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#893">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#893">ex</a>);
+            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#891">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#892">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#893">c</a>.<span class="ident">name</span>.<span class="ident">ident</span>);
+            <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#892">e</a>.<span class="ident">body</span>.<span class="ident">brace_token</span>.<span class="ident">span</span>;
+            <a class="self" href="../../src/prusti_specs/lib.rs.html#891">self</a>.<span class="ident">loops</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#893">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#894">span</a>));
+            <span class="ident">syn::visit::visit_expr_loop</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#891">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#891">ex</a>);
         }
         <span class="kw">fn</span> <span class="ident">visit_expr_continue</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">ex</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;ast</span> <a class="ident" href="../../syn/expr/struct.ExprContinue.html">syn::ExprContinue</a>) {
-            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#900">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#901">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#902">c</a>.<span class="ident">ident</span>);
-            <a class="self" href="../../src/prusti_specs/lib.rs.html#900">self</a>.<span class="ident">breaks</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#902">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#900">ex</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
-            <span class="ident">syn::visit::visit_expr_continue</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#900">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#900">ex</a>);
+            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#898">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#899">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#900">c</a>.<span class="ident">ident</span>);
+            <a class="self" href="../../src/prusti_specs/lib.rs.html#898">self</a>.<span class="ident">breaks</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#900">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#898">ex</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
+            <span class="ident">syn::visit::visit_expr_continue</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#898">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#898">ex</a>);
         }
         <span class="kw">fn</span> <span class="ident">visit_expr_break</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">ex</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;ast</span> <a class="ident" href="../../syn/expr/struct.ExprBreak.html">syn::ExprBreak</a>) {
-            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#906">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#907">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#908">c</a>.<span class="ident">ident</span>);
-            <a class="self" href="../../src/prusti_specs/lib.rs.html#906">self</a>.<span class="ident">breaks</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#908">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#906">ex</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
-            <span class="ident">syn::visit::visit_expr_break</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#906">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#906">ex</a>);
+            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#904">ex</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#905">e</a>.<span class="ident">label</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#906">c</a>.<span class="ident">ident</span>);
+            <a class="self" href="../../src/prusti_specs/lib.rs.html#904">self</a>.<span class="ident">breaks</span>.<span class="ident">push</span>((<a class="ident" href="../../src/prusti_specs/lib.rs.html#906">lbl</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#904">ex</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>()));
+            <span class="ident">syn::visit::visit_expr_break</span>(<a class="self" href="../../src/prusti_specs/lib.rs.html#904">self</a>, <a class="ident" href="../../src/prusti_specs/lib.rs.html#904">ex</a>);
         }
         <span class="kw">fn</span> <span class="ident">visit_expr_return</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">e</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;ast</span> <a class="ident" href="../../syn/expr/struct.ExprReturn.html">syn::ExprReturn</a>) {
-            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#912">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <a class="self" href="../../src/prusti_specs/lib.rs.html#912">self</a>.<span class="ident">returns</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/prusti_specs/lib.rs.html#913">e</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>());
+            <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#910">e</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <a class="self" href="../../src/prusti_specs/lib.rs.html#910">self</a>.<span class="ident">returns</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<a class="ident" href="../../src/prusti_specs/lib.rs.html#911">e</a>.<a class="ident" href="../../syn/spanned/trait.Spanned.html">span</a>());
         }
     }
 
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">visitor</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#872">Visitor</a> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">visitor</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#870">Visitor</a> {
         <span class="ident">loops</span>: <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[],
         <span class="ident">breaks</span>: <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[],
         <span class="ident">returns</span>: <span class="prelude-val">None</span>,
@@ -1895,11 +1891,11 @@
         {#<span class="ident">tokens</span>}
     };
 
-    <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">syn::parse</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/stmt/struct.Block.html">syn::Block</a><span class="op">&gt;</span>(<a class="ident" href="../../src/prusti_specs/lib.rs.html#924">tokens</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">syn::parse</span>::<span class="op">&lt;</span><a class="ident" href="../../syn/stmt/struct.Block.html">syn::Block</a><span class="op">&gt;</span>(<a class="ident" href="../../src/prusti_specs/lib.rs.html#922">tokens</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()).<span class="ident">unwrap</span>();
 
-    <a class="ident" href="../../src/prusti_specs/lib.rs.html#918">visitor</a>.<a class="ident" href="../../syn/gen/visit/trait.Visit.html">visit_block</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/prusti_specs/lib.rs.html#928">input</a>);
+    <a class="ident" href="../../src/prusti_specs/lib.rs.html#916">visitor</a>.<a class="ident" href="../../syn/gen/visit/trait.Visit.html">visit_block</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/prusti_specs/lib.rs.html#926">input</a>);
 
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">exit_errors</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#918">visitor</a>.<span class="ident">returns</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">exit_errors</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#916">visitor</a>.<span class="ident">returns</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
     <span class="lifetime">&#39;breaks</span>: <span class="kw">for</span> (<span class="ident">break_label</span>, <span class="ident">break_span</span>) <span class="kw">in</span> <span class="ident">visitor</span>.<span class="ident">breaks</span>.<span class="ident">iter</span>() {
         <span class="kw">for</span> (<span class="ident">loop_label</span>, <span class="ident">loop_span</span>) <span class="kw">in</span> <span class="ident">visitor</span>.<span class="ident">loops</span>.<span class="ident">iter</span>() {
@@ -1913,8 +1909,8 @@
         <span class="ident">exit_errors</span>.<span class="ident">push</span>(<span class="kw-2">*</span><span class="ident">break_span</span>);
     }
 
-    <span class="kw">let</span> <span class="ident">begin</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#860">make_closure</a>(<a class="macro" href="../../quote/macro.quote.html">quote!</a> {<span class="ident">ghost_begin</span>});
-    <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#860">make_closure</a>(<a class="macro" href="../../quote/macro.quote.html">quote!</a> {<span class="ident">ghost_end</span>});
+    <span class="kw">let</span> <span class="ident">begin</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#858">make_closure</a>(<a class="macro" href="../../quote/macro.quote.html">quote!</a> {<span class="ident">ghost_begin</span>});
+    <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#858">make_closure</a>(<a class="macro" href="../../quote/macro.quote.html">quote!</a> {<span class="ident">ghost_end</span>});
 
     <span class="kw">if</span> <span class="ident">exit_errors</span>.<span class="ident">is_empty</span>() {
         <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned!</a> {<span class="ident">callsite_span</span>=&gt;
@@ -1935,7 +1931,7 @@
                 #<span class="ident">error</span>
             }
         }
-        <a class="ident" href="../../src/prusti_specs/lib.rs.html#959">syn_errors</a>
+        <a class="ident" href="../../src/prusti_specs/lib.rs.html#957">syn_errors</a>
     }
 }
 </code></pre></div>

@@ -224,7 +224,7 @@
 </pre><pre class="rust"><code><span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/collections/btree/map/struct.BTreeMap.html">std::collections::BTreeMap</a>;
 
 <span class="kw">use</span> <span class="self">self</span>::{
-    <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#10">domains::DomainsLowererState</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#22">functions::FunctionsLowererState</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/methods/interface.rs.html#6">methods::MethodsLowererState</a>,
+    <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#10">domains::DomainsLowererState</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#21">functions::FunctionsLowererState</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/methods/interface.rs.html#6">methods::MethodsLowererState</a>,
     <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/predicates/interface.rs.html#6">predicates::PredicatesLowererState</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/variables/interface.rs.html#6">variables::VariablesLowererState</a>,
 };
 <span class="kw">use</span> <span class="kw">super</span>::{
@@ -253,7 +253,7 @@
 <span class="kw">mod</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/variables/mod.rs.html#1-4">variables</a>;
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use</span> <span class="self">self</span>::{
-    <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#79">domains::DomainsLowererInterface</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#265">functions::FunctionsLowererInterface</a>,
+    <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#79">domains::DomainsLowererInterface</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#264">functions::FunctionsLowererInterface</a>,
     <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/methods/interface.rs.html#16">methods::MethodsLowererInterface</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/predicates/interface.rs.html#16">predicates::PredicatesLowererInterface</a>,
     <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/variables/interface.rs.html#21">variables::VariablesLowererInterface</a>,
 };
@@ -288,7 +288,7 @@
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">procedure_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="ident">check_mode</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../../../../vir/common/check_mode/enum.CheckMode.html">CheckMode</a><span class="op">&gt;</span>,
     <span class="ident">variables_state</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/variables/interface.rs.html#6">VariablesLowererState</a>,
-    <span class="ident">functions_state</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#22">FunctionsLowererState</a>,
+    <span class="ident">functions_state</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#21">FunctionsLowererState</a>,
     <span class="ident">domains_state</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/domains/interface.rs.html#10">DomainsLowererState</a>,
     <span class="ident">predicates_state</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/predicates/interface.rs.html#6">PredicatesLowererState</a>,
     <span class="ident">methods_state</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/methods/interface.rs.html#6">MethodsLowererState</a>,
@@ -417,7 +417,7 @@
         <span class="prelude-val">Ok</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#38">LoweringResult</a> {
             <span class="ident">procedure</span>: <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#181">lowered_procedure</a>,
             <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#178">domains</a>,
-            <span class="ident">functions</span>: <a class="self" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#105">self</a>.<span class="ident">functions_state</span>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#27">destruct</a>(),
+            <span class="ident">functions</span>: <a class="self" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#105">self</a>.<span class="ident">functions_state</span>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/functions/interface.rs.html#26">destruct</a>(),
             <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#177">predicates</a>,
             <a class="ident" href="../../../../../../src/prusti_viper/encoder/middle/core_proof/lowerer/mod.rs.html#186">methods</a>,
         })
