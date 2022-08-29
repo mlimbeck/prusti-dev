@@ -1669,7 +1669,7 @@
 ) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<a class="ident" href="../../src/prusti_specs/spec_attribute_kind.rs.html#5">SpecAttributeKind</a>, <a class="ident" href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>)<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prusti_attributes</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">regular_attributes</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-    <span class="kw">for</span> <span class="ident">attr</span> <span class="kw">in</span> (<span class="kw-2">&amp;mut</span> <span class="ident">item</span>.<span class="ident">attrs</span>).<span class="ident">drain</span>(<span class="number">0</span>..) {
+    <span class="kw">for</span> <span class="ident">attr</span> <span class="kw">in</span> <span class="ident">item</span>.<span class="ident">attrs</span>.<span class="ident">drain</span>(<span class="number">0</span>..) {
         <span class="kw">if</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">attr_kind</span>) <span class="op">=</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">segments</span>[<span class="number">0</span>].<span class="ident">ident</span>.<span class="ident">to_string</span>().<span class="ident">try_into</span>() {
                 <span class="kw">let</span> <span class="ident">tokens</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">attr_kind</span> {
@@ -1703,7 +1703,7 @@
             <span class="ident">regular_attributes</span>.<span class="ident">push</span>(<span class="ident">attr</span>);
         }
     }
-    <span class="kw-2">*</span>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#700">item</a>.<span class="ident">attrs</span>) <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#703">regular_attributes</a>;
+    <a class="ident" href="../../src/prusti_specs/lib.rs.html#700">item</a>.<span class="ident">attrs</span> <span class="op">=</span> <a class="ident" href="../../src/prusti_specs/lib.rs.html#703">regular_attributes</a>;
     <a class="ident" href="../../src/prusti_specs/lib.rs.html#702">prusti_attributes</a>
 }
 
