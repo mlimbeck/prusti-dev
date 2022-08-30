@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/pin-project-internal-1.0.11/src/pin_project/derive.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>derive.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../pin_project_internal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../pin_project_internal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../pin_project_internal/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/pin-project-internal-1.0.12/src/pin_project/derive.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>derive.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../pin_project_internal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../pin_project_internal/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../pin_project_internal/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1124,6 +1124,7 @@
 <span id="1124">1124</span>
 <span id="1125">1125</span>
 <span id="1126">1126</span>
+<span id="1127">1127</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">proc_macro2</span>::{<a class="ident" href="../../../proc_macro2/enum.Delimiter.html">Delimiter</a>, <a class="ident" href="../../../proc_macro2/struct.Group.html">Group</a>, <a class="ident" href="../../../proc_macro2/struct.Span.html">Span</a>, <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a>};
 <span class="kw">use</span> <span class="ident">quote</span>::{<a class="ident" href="../../../quote/macro.format_ident.html">format_ident</a>, <a class="ident" href="../../../quote/macro.quote.html">quote</a>, <a class="ident" href="../../../quote/macro.quote_spanned.html">quote_spanned</a>, <a class="ident" href="../../../quote/to_tokens/trait.ToTokens.html">ToTokens</a>};
 <span class="kw">use</span> <span class="ident">syn</span>::{
@@ -1190,8 +1191,8 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tokens</span> <span class="op">=</span> <a class="self" href="../../../src/pin_project_internal/pin_project/derive.rs.html#63">self</a>.<span class="ident">exposed</span>;
         <span class="kw">let</span> <span class="ident">scoped</span> <span class="op">=</span> <a class="self" href="../../../src/pin_project_internal/pin_project/derive.rs.html#63">self</a>.<span class="ident">scoped</span>;
 
-        <span class="kw">let</span> <span class="ident">unpin_impl</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">make_unpin_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#63">cx</a>);
-        <span class="kw">let</span> <span class="ident">drop_impl</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#839">make_drop_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#63">cx</a>);
+        <span class="kw">let</span> <span class="ident">unpin_impl</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">make_unpin_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#63">cx</a>);
+        <span class="kw">let</span> <span class="ident">drop_impl</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#840">make_drop_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#63">cx</a>);
         <span class="kw">let</span> <span class="ident">allowed_lints</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#104">global_allowed_lints</a>();
 
         <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#64">tokens</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html">extend</a>(<a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
@@ -1234,6 +1235,7 @@
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">explicit_outlives_requirements</span>)]</span> <span class="comment">// https://github.com/rust-lang/rust/issues/60993</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">single_use_lifetimes</span>)]</span> <span class="comment">// https://github.com/rust-lang/rust/issues/55058</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_pub</span>)]</span> <span class="comment">// This lint warns `pub` field in private struct.</span>
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_tuple_struct_fields</span>)]</span>
         <span class="comment">// This lint warns of `clippy::*` generated by external macros.</span>
         <span class="comment">// We allow this lint for compatibility with older compilers.</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::unknown_clippy_lints</span>)]</span>
@@ -1254,37 +1256,37 @@
         <span class="prelude-val">None</span>
     };
     <span class="kw">let</span> <span class="ident">global_allowed_lints</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#104">global_allowed_lints</a>();
-    <span class="kw">let</span> <span class="ident">proj_mut_allowed_lints</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project</span> { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#130">global_allowed_lints</a>) } <span class="kw">else</span> { <span class="prelude-val">None</span> };
+    <span class="kw">let</span> <span class="ident">proj_mut_allowed_lints</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project</span> { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#131">global_allowed_lints</a>) } <span class="kw">else</span> { <span class="prelude-val">None</span> };
     <span class="kw">let</span> <span class="ident">proj_mut</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         #<span class="ident">proj_mut_allowed_lints</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span> <span class="comment">// This lint warns unused fields/variants.</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::mut_mut</span>)]</span> <span class="comment">// This lint warns `&amp;mut &amp;mut &lt;ty&gt;`.</span>
     };
-    <span class="kw">let</span> <span class="ident">proj_ref_allowed_lints</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_ref</span> { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#130">global_allowed_lints</a>) } <span class="kw">else</span> { <span class="prelude-val">None</span> };
+    <span class="kw">let</span> <span class="ident">proj_ref_allowed_lints</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_ref</span> { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#131">global_allowed_lints</a>) } <span class="kw">else</span> { <span class="prelude-val">None</span> };
     <span class="kw">let</span> <span class="ident">proj_ref</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         #<span class="ident">proj_ref_allowed_lints</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span> <span class="comment">// This lint warns unused fields/variants.</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::ref_option_ref</span>)]</span> <span class="comment">// This lint warns `&amp;Option&lt;&amp;&lt;ty&gt;&gt;`.</span>
     };
     <span class="kw">let</span> <span class="ident">proj_own_allowed_lints</span> <span class="op">=</span>
-        <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_replace</span>.<span class="ident">ident</span>().<span class="ident">is_some</span>() { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#130">global_allowed_lints</a>) } <span class="kw">else</span> { <span class="prelude-val">None</span> };
+        <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_replace</span>.<span class="ident">ident</span>().<span class="ident">is_some</span>() { <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#131">global_allowed_lints</a>) } <span class="kw">else</span> { <span class="prelude-val">None</span> };
     <span class="kw">let</span> <span class="ident">proj_own</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         #<span class="ident">proj_own_allowed_lints</span>
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span> <span class="comment">// This lint warns unused fields/variants.</span>
         #<span class="ident">large_enum_variant</span>
     };
-    (<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#132">proj_mut</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#138">proj_ref</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#145">proj_own</a>)
+    (<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#133">proj_mut</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#139">proj_ref</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#146">proj_own</a>)
 }
 
 <span class="kw">struct</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// The original type.</span>
     <span class="ident">orig</span>: <span class="ident">OriginalType</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The projected types.</span>
-    <span class="ident">proj</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#256">ProjectedType</a>,
+    <span class="ident">proj</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#257">ProjectedType</a>,
     <span class="doccomment">/// Types of the pinned fields.</span>
     <span class="ident">pinned_fields</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../syn/ty/enum.Type.html">Type</a><span class="op">&gt;</span>,
     <span class="doccomment">/// Kind of the original type: struct or enum</span>
-    <span class="ident">kind</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#238">TypeKind</a>,
+    <span class="ident">kind</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#239">TypeKind</a>,
 
     <span class="doccomment">/// `PinnedDrop` argument.</span>
     <span class="ident">pinned_drop</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../../proc_macro2/struct.Span.html">Span</a><span class="op">&gt;</span>,
@@ -1304,57 +1306,57 @@
         <span class="ident">vis</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../syn/data/enum.Visibility.html">Visibility</a>,
         <span class="ident">ident</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../proc_macro2/struct.Ident.html">Ident</a>,
         <span class="ident">generics</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <a class="ident" href="../../../syn/generics/struct.Generics.html">Generics</a>,
-        <span class="ident">kind</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#238">TypeKind</a>,
+        <span class="ident">kind</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#239">TypeKind</a>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#60">Args</a> { <span class="ident">pinned_drop</span>, <span class="ident">unpin_impl</span>, <span class="ident">project</span>, <span class="ident">project_ref</span>, <span class="ident">project_replace</span> } <span class="op">=</span>
             <span class="ident">parse_args</span>(<span class="ident">attrs</span>)<span class="question-mark">?</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> [<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project</a>.<span class="ident">as_ref</span>(), <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project_ref</a>.<span class="ident">as_ref</span>(), <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project_replace</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#247">ident</a>()]
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">name</span>) <span class="op">=</span> [<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project</a>.<span class="ident">as_ref</span>(), <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project_ref</a>.<span class="ident">as_ref</span>(), <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project_replace</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#247">ident</a>()]
             .<span class="ident">iter</span>()
             .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter_map</a>(<span class="ident">Option::as_ref</span>)
-            .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">find</a>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="kw-2">*</span><span class="kw-2">*</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#189">name</a> <span class="op">==</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#179">ident</a>)
+            .<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">find</a>(<span class="op">|</span><span class="ident">name</span><span class="op">|</span> <span class="kw-2">*</span><span class="kw-2">*</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#190">name</a> <span class="op">==</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">ident</a>)
         {
             <a class="macro" href="../../../src/pin_project_internal/utils.rs.html#27-31">bail!</a>(<span class="ident">name</span>, <span class="string">&quot;name `{}` is the same as the original type name&quot;</span>, <span class="ident">name</span>);
         }
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lifetime_name</span> <span class="op">=</span> <span class="ident">String::from</span>(<span class="string">&quot;&#39;pin&quot;</span>);
-        <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#41">determine_lifetime_name</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#194">lifetime_name</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">generics</a>);
-        <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="ident">Lifetime::new</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#194">lifetime_name</a>, <span class="ident">Span::call_site</span>());
+        <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#41">determine_lifetime_name</a>(<span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#195">lifetime_name</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#181">generics</a>);
+        <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="ident">Lifetime::new</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#195">lifetime_name</a>, <span class="ident">Span::call_site</span>());
 
-        <span class="kw">let</span> <span class="ident">ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">generics</a>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
+        <span class="kw">let</span> <span class="ident">ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#181">generics</a>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
         <span class="kw">let</span> <span class="ident">ty_generics_as_generics</span> <span class="op">=</span> <a class="macro" href="../../../syn/macro.parse_quote.html">parse_quote!</a>(#<span class="ident">ty_generics</span>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">generics</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#181">generics</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
         <span class="kw">let</span> <span class="ident">pred</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#63-68">insert_lifetime_and_bound</a>(
-            <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#200">proj_generics</a>,
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#196">lifetime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
-            <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#199">ty_generics_as_generics</a>,
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#179">ident</a>,
+            <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#201">proj_generics</a>,
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#197">lifetime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#200">ty_generics_as_generics</a>,
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">ident</a>,
         );
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">generics</a>.<span class="ident">make_where_clause</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#207">where_clause</a>.<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#201">pred</a>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#181">generics</a>.<span class="ident">make_where_clause</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#208">where_clause</a>.<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#202">pred</a>);
 
-        <span class="kw">let</span> <span class="ident">own_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project_replace</a>
+        <span class="kw">let</span> <span class="ident">own_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project_replace</a>
             .<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#247">ident</a>()
             .<span class="ident">cloned</span>()
             .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__{}ProjectionOwned&quot;</span>, <span class="ident">ident</span>));
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#181">kind</a>,
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">pinned_drop</a>,
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">unpin_impl</a>,
-            <span class="ident">project</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project</a>.<span class="ident">is_some</span>(),
-            <span class="ident">project_ref</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project_ref</a>.<span class="ident">is_some</span>(),
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project_replace</a>,
-            <span class="ident">proj</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#256">ProjectedType</a> {
-                <span class="ident">vis</span>: <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#94">determine_visibility</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#178">vis</a>),
-                <span class="ident">mut_ident</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project</a>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__{}Projection&quot;</span>, <span class="ident">ident</span>)),
-                <span class="ident">ref_ident</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#183">project_ref</a>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__{}ProjectionRef&quot;</span>, <span class="ident">ident</span>)),
-                <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#210">own_ident</a>,
-                <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#196">lifetime</a>,
-                <span class="ident">generics</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#200">proj_generics</a>,
-                <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#207">where_clause</a>,
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#182">kind</a>,
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">pinned_drop</a>,
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">unpin_impl</a>,
+            <span class="ident">project</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project</a>.<span class="ident">is_some</span>(),
+            <span class="ident">project_ref</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project_ref</a>.<span class="ident">is_some</span>(),
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project_replace</a>,
+            <span class="ident">proj</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#257">ProjectedType</a> {
+                <span class="ident">vis</span>: <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#94">determine_visibility</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#179">vis</a>),
+                <span class="ident">mut_ident</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project</a>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__{}Projection&quot;</span>, <span class="ident">ident</span>)),
+                <span class="ident">ref_ident</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#184">project_ref</a>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__{}ProjectionRef&quot;</span>, <span class="ident">ident</span>)),
+                <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#211">own_ident</a>,
+                <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#197">lifetime</a>,
+                <span class="ident">generics</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#201">proj_generics</a>,
+                <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#208">where_clause</a>,
             },
-            <span class="ident">orig</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#245">OriginalType</a> { <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#177">attrs</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#178">vis</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#179">ident</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">generics</a> },
+            <span class="ident">orig</span>: <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#246">OriginalType</a> { <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#178">attrs</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#179">vis</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#180">ident</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#181">generics</a> },
             <span class="ident">pinned_fields</span>: <span class="ident">Vec::new</span>(),
         })
     }
@@ -1366,7 +1368,7 @@
     <span class="ident">Struct</span>,
 }
 
-<span class="kw">use</span> <span class="ident">TypeKind</span>::{<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#239">Enum</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#240">Struct</a>};
+<span class="kw">use</span> <span class="ident">TypeKind</span>::{<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#240">Enum</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#241">Struct</a>};
 
 <span class="kw">struct</span> <span class="ident">OriginalType</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Attributes of the original type.</span>
@@ -1419,7 +1421,7 @@
 <span class="kw">fn</span> <span class="ident">validate_struct</span>(<span class="ident">ident</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../proc_macro2/struct.Ident.html">Ident</a>, <span class="ident">fields</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../syn/data/enum.Fields.html">Fields</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">fields</span>.<span class="ident">is_empty</span>() {
         <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;#[pin_project] attribute may not be used on structs with zero fields&quot;</span>;
-        <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Fields::Unit</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#293">fields</a> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Fields::Unit</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#294">fields</a> {
             <a class="macro" href="../../../src/pin_project_internal/utils.rs.html#27-31">bail!</a>(<span class="ident">ident</span>, <span class="ident">msg</span>)
         }
         <a class="macro" href="../../../src/pin_project_internal/utils.rs.html#27-31">bail!</a>(<span class="ident">fields</span>, <span class="ident">msg</span>)
@@ -1430,7 +1432,7 @@
 <span class="kw">fn</span> <span class="ident">validate_enum</span>(<span class="ident">brace_token</span>: <a class="ident" href="../../../syn/token/struct.Brace.html">token::Brace</a>, <span class="ident">variants</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/utils.rs.html#16">Variants</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">variants</span>.<span class="ident">is_empty</span>() {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#304">brace_token</a>.<span class="ident">span</span>,
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#305">brace_token</a>.<span class="ident">span</span>,
             <span class="string">&quot;#[pin_project] attribute may not be used on enums without variants&quot;</span>,
         ));
     }
@@ -1462,31 +1464,31 @@
 
     <span class="ident">validate_struct</span>(<span class="ident">cx</span>.<span class="ident">orig</span>.<span class="ident">ident</span>, <span class="ident">fields</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#284">ProjectedFields</a> {
+    <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#285">ProjectedFields</a> {
         <span class="ident">proj_pat</span>,
         <span class="ident">proj_body</span>,
         <span class="ident">proj_fields</span>,
         <span class="ident">proj_ref_fields</span>,
         <span class="ident">proj_own_fields</span>,
         <span class="ident">proj_own_body</span>,
-    } <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">fields</a> {
+    } <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">fields</a> {
         <span class="ident">Fields::Named</span>(<span class="kw">_</span>) =&gt; <span class="ident">visit_fields</span>(<span class="ident">cx</span>, <span class="prelude-val">None</span>, <span class="ident">fields</span>, <span class="ident">Delimiter::Brace</span>)<span class="question-mark">?</span>,
         <span class="ident">Fields::Unnamed</span>(<span class="kw">_</span>) =&gt; <span class="ident">visit_fields</span>(<span class="ident">cx</span>, <span class="prelude-val">None</span>, <span class="ident">fields</span>, <span class="ident">Delimiter::Parenthesis</span>)<span class="question-mark">?</span>,
         <span class="ident">Fields::Unit</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(),
     };
 
-    <span class="kw">let</span> <span class="ident">proj_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">proj</span>.<span class="ident">mut_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_ref_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">proj</span>.<span class="ident">ref_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_own_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
-    <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">proj</span>.<span class="ident">vis</span>;
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">orig_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-    <span class="kw">let</span> <span class="ident">orig_where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#356">orig_generics</a>.<span class="ident">where_clause</span>.<span class="ident">take</span>();
-    <span class="kw">let</span> <span class="ident">proj_generics</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>;
-    <span class="kw">let</span> <span class="ident">proj_where_clause</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">proj</span>.<span class="ident">where_clause</span>;
+    <span class="kw">let</span> <span class="ident">proj_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">proj</span>.<span class="ident">mut_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_ref_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">proj</span>.<span class="ident">ref_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_own_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
+    <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">proj</span>.<span class="ident">vis</span>;
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">orig_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let</span> <span class="ident">orig_where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#357">orig_generics</a>.<span class="ident">where_clause</span>.<span class="ident">take</span>();
+    <span class="kw">let</span> <span class="ident">proj_generics</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>;
+    <span class="kw">let</span> <span class="ident">proj_where_clause</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">proj</span>.<span class="ident">where_clause</span>;
 
     <span class="comment">// For tuple structs, we need to generate `(T1, T2) where Foo: Bar`</span>
     <span class="comment">// For non-tuple structs, we need to generate `where Foo: Bar { field1: T }`</span>
-    <span class="kw">let</span> (<span class="ident">where_clause_fields</span>, <span class="ident">where_clause_ref_fields</span>, <span class="ident">where_clause_own_fields</span>) <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">fields</a> {
+    <span class="kw">let</span> (<span class="ident">where_clause_fields</span>, <span class="ident">where_clause_ref_fields</span>, <span class="ident">where_clause_own_fields</span>) <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">fields</a> {
         <span class="ident">Fields::Named</span>(<span class="kw">_</span>) =&gt; (
             <a class="macro" href="../../../quote/macro.quote.html">quote!</a>(#<span class="ident">proj_where_clause</span> #<span class="ident">proj_fields</span>),
             <a class="macro" href="../../../quote/macro.quote.html">quote!</a>(#<span class="ident">proj_where_clause</span> #<span class="ident">proj_ref_fields</span>),
@@ -1500,17 +1502,17 @@
         <span class="ident">Fields::Unit</span> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(),
     };
 
-    <span class="kw">let</span> (<span class="ident">proj_attrs</span>, <span class="ident">proj_ref_attrs</span>, <span class="ident">proj_own_attrs</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#121">proj_allowed_lints</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>);
-    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">project</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
+    <span class="kw">let</span> (<span class="ident">proj_attrs</span>, <span class="ident">proj_ref_attrs</span>, <span class="ident">proj_own_attrs</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#122">proj_allowed_lints</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>);
+    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#333">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">project</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         #<span class="ident">proj_attrs</span>
         #<span class="ident">vis</span> <span class="kw">struct</span> #<span class="ident">proj_ident</span> #<span class="ident">proj_generics</span> #<span class="ident">where_clause_fields</span>
     });
-    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">project_ref</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
+    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#333">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">project_ref</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         #<span class="ident">proj_ref_attrs</span>
         #<span class="ident">vis</span> <span class="kw">struct</span> #<span class="ident">proj_ref_ident</span> #<span class="ident">proj_generics</span> #<span class="ident">where_clause_ref_fields</span>
     });
     <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_replace</span>.<span class="ident">span</span>().<span class="ident">is_some</span>() {
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>.<span class="ident">project_replace</span>.<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#247">ident</a>().<span class="ident">is_some</span>(), <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#333">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>.<span class="ident">project_replace</span>.<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#247">ident</a>().<span class="ident">is_some</span>(), <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
             #<span class="ident">proj_own_attrs</span>
             #<span class="ident">vis</span> <span class="kw">struct</span> #<span class="ident">proj_own_ident</span> #<span class="ident">orig_generics</span> #<span class="ident">where_clause_own_fields</span>
         });
@@ -1528,9 +1530,9 @@
         <span class="kw">let</span> <span class="self">Self</span> #<span class="ident">proj_pat</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">__self_ptr</span>;
         #<span class="ident">proj_own_body</span>
     };
-    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">false</span>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#920-925">make_proj_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#330">cx</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#393">proj_mut_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#397">proj_ref_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#401">proj_own_body</a>));
+    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#333">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">false</span>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921-926">make_proj_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#331">cx</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#394">proj_mut_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#398">proj_ref_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#402">proj_own_body</a>));
 
-    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#332">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">false</span>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#335">packed_check</a>);
+    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#333">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">false</span>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#336">packed_check</a>);
     <span class="prelude-val">Ok</span>(())
 }
 
@@ -1539,9 +1541,9 @@
     <a class="ident" href="../../../syn/derive/struct.DataEnum.html">DataEnum</a> { <span class="ident">brace_token</span>, <span class="ident">variants</span>, .. }: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../syn/derive/struct.DataEnum.html">DataEnum</a>,
     <span class="ident">generate</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#49">GenerateTokens</a>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">if</span> <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#227">ProjReplace::Unnamed</a> { <span class="ident">span</span> } <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">project_replace</span> {
+    <span class="kw">if</span> <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#227">ProjReplace::Unnamed</a> { <span class="ident">span</span> } <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">project_replace</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(
-            <span class="kw-2">*</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#416">span</a>,
+            <span class="kw-2">*</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#417">span</a>,
             <span class="string">&quot;`project_replace` argument requires a value when used on enums&quot;</span>,
         ));
     }
@@ -1555,7 +1557,7 @@
 
     <span class="ident">validate_enum</span>(<span class="kw-2">*</span><span class="ident">brace_token</span>, <span class="ident">variants</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#274">ProjectedVariants</a> {
+    <span class="kw">let</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#275">ProjectedVariants</a> {
         <span class="ident">proj_variants</span>,
         <span class="ident">proj_ref_variants</span>,
         <span class="ident">proj_own_variants</span>,
@@ -1564,18 +1566,18 @@
         <span class="ident">proj_own_arms</span>,
     } <span class="op">=</span> <span class="ident">visit_variants</span>(<span class="ident">cx</span>, <span class="ident">variants</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">let</span> <span class="ident">proj_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">proj</span>.<span class="ident">mut_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_ref_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">proj</span>.<span class="ident">ref_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_own_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
-    <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">proj</span>.<span class="ident">vis</span>;
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">orig_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-    <span class="kw">let</span> <span class="ident">orig_where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#445">orig_generics</a>.<span class="ident">where_clause</span>.<span class="ident">take</span>();
-    <span class="kw">let</span> <span class="ident">proj_generics</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>;
-    <span class="kw">let</span> <span class="ident">proj_where_clause</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>.<span class="ident">proj</span>.<span class="ident">where_clause</span>;
+    <span class="kw">let</span> <span class="ident">proj_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">proj</span>.<span class="ident">mut_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_ref_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">proj</span>.<span class="ident">ref_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_own_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
+    <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">proj</span>.<span class="ident">vis</span>;
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">orig_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let</span> <span class="ident">orig_where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#446">orig_generics</a>.<span class="ident">where_clause</span>.<span class="ident">take</span>();
+    <span class="kw">let</span> <span class="ident">proj_generics</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>;
+    <span class="kw">let</span> <span class="ident">proj_where_clause</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>.<span class="ident">proj</span>.<span class="ident">where_clause</span>;
 
-    <span class="kw">let</span> (<span class="ident">proj_attrs</span>, <span class="ident">proj_ref_attrs</span>, <span class="ident">proj_own_attrs</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#121">proj_allowed_lints</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>);
+    <span class="kw">let</span> (<span class="ident">proj_attrs</span>, <span class="ident">proj_ref_attrs</span>, <span class="ident">proj_own_attrs</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#122">proj_allowed_lints</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>);
     <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project</span> {
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#414">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">true</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#415">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">true</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
             #<span class="ident">proj_attrs</span>
             #<span class="ident">vis</span> <span class="kw">enum</span> #<span class="ident">proj_ident</span> #<span class="ident">proj_generics</span> #<span class="ident">proj_where_clause</span> {
                 #<span class="ident">proj_variants</span>
@@ -1583,7 +1585,7 @@
         });
     }
     <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_ref</span> {
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#414">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">true</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#415">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">true</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
             #<span class="ident">proj_ref_attrs</span>
             #<span class="ident">vis</span> <span class="kw">enum</span> #<span class="ident">proj_ref_ident</span> #<span class="ident">proj_generics</span> #<span class="ident">proj_where_clause</span> {
                 #<span class="ident">proj_ref_variants</span>
@@ -1591,7 +1593,7 @@
         });
     }
     <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_replace</span>.<span class="ident">ident</span>().<span class="ident">is_some</span>() {
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#414">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">true</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#415">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">true</span>, <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
             #<span class="ident">proj_own_attrs</span>
             #<span class="ident">vis</span> <span class="kw">enum</span> #<span class="ident">proj_own_ident</span> #<span class="ident">orig_generics</span> #<span class="ident">orig_where_clause</span> {
                 #<span class="ident">proj_own_variants</span>
@@ -1614,12 +1616,12 @@
             #<span class="ident">proj_own_arms</span>
         }
     };
-    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#414">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">false</span>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#920-925">make_proj_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#412">cx</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#476">proj_mut_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#481">proj_ref_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#486">proj_own_body</a>));
+    <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#415">generate</a>.<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#55">extend</a>(<span class="bool-val">false</span>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921-926">make_proj_impl</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#413">cx</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#477">proj_mut_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#482">proj_ref_body</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#487">proj_own_body</a>));
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">fn</span> <span class="ident">visit_variants</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">variants</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#16">Variants</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#274">ProjectedVariants</a><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">visit_variants</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">variants</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../src/pin_project_internal/utils.rs.html#16">Variants</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#275">ProjectedVariants</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_variants</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_ref_variants</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_own_variants</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
@@ -1666,13 +1668,13 @@
         });
     }
 
-    <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#274">ProjectedVariants</a> {
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#497">proj_variants</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#498">proj_ref_variants</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#499">proj_own_variants</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#500">proj_arms</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#501">proj_ref_arms</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#502">proj_own_arms</a>,
+    <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#275">ProjectedVariants</a> {
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#498">proj_variants</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#499">proj_ref_variants</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#500">proj_own_variants</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#501">proj_arms</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#502">proj_ref_arms</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#503">proj_own_arms</a>,
     })
 }
 
@@ -1681,9 +1683,9 @@
     <span class="ident">variant_ident</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="../../../proc_macro2/struct.Ident.html">Ident</a><span class="op">&gt;</span>,
     <span class="ident">fields</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../../syn/data/enum.Fields.html">Fields</a>,
     <span class="ident">delim</span>: <a class="ident" href="../../../proc_macro2/enum.Delimiter.html">Delimiter</a>,
-) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#284">ProjectedFields</a><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#285">ProjectedFields</a><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">surround</span>(<span class="ident">delim</span>: <a class="ident" href="../../../proc_macro2/enum.Delimiter.html">Delimiter</a>, <span class="ident">tokens</span>: <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-        <span class="ident">Group::new</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">tokens</a>).<a class="ident" href="../../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>()
+        <span class="ident">Group::new</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">tokens</a>).<a class="ident" href="../../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>()
     }
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_pat</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
@@ -1692,7 +1694,7 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_ref_fields</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_own_fields</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_move</span> <span class="op">=</span> <span class="ident">TokenStream::new</span>();
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pinned_bindings</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#556">fields</a>.<span class="ident">len</span>());
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pinned_bindings</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">fields</a>.<span class="ident">len</span>());
 
     <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">Field</span> { <span class="ident">attrs</span>, <span class="ident">vis</span>, <span class="ident">ident</span>, <span class="ident">colon_token</span>, <span class="ident">ty</span> }) <span class="kw">in</span> <span class="ident">fields</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
         <span class="kw">let</span> <span class="ident">binding</span> <span class="op">=</span> <span class="ident">ident</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format_ident!</span>(<span class="string">&quot;_{}&quot;</span>, <span class="ident">i</span>));
@@ -1736,22 +1738,22 @@
         }
     }
 
-    <span class="kw">let</span> <span class="ident">proj_pat</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#563">proj_pat</a>);
-    <span class="kw">let</span> <span class="ident">proj_body</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#564">proj_body</a>);
-    <span class="kw">let</span> <span class="ident">proj_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#565">proj_fields</a>);
-    <span class="kw">let</span> <span class="ident">proj_ref_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#566">proj_ref_fields</a>);
-    <span class="kw">let</span> <span class="ident">proj_own_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#559">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#567">proj_own_fields</a>);
+    <span class="kw">let</span> <span class="ident">proj_pat</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#558">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#564">proj_pat</a>);
+    <span class="kw">let</span> <span class="ident">proj_body</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#558">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#565">proj_body</a>);
+    <span class="kw">let</span> <span class="ident">proj_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#558">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#566">proj_fields</a>);
+    <span class="kw">let</span> <span class="ident">proj_ref_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#558">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#567">proj_ref_fields</a>);
+    <span class="kw">let</span> <span class="ident">proj_own_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#560">surround</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#558">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#568">proj_own_fields</a>);
 
-    <span class="kw">let</span> <span class="ident">proj_move</span> <span class="op">=</span> <span class="ident">Group::new</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#557">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#568">proj_move</a>);
-    <span class="kw">let</span> <span class="ident">proj_own_body</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#635-640">proj_own_body</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#554">cx</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#555">variant_ident</a>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#619">proj_move</a>), <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#569">pinned_bindings</a>);
+    <span class="kw">let</span> <span class="ident">proj_move</span> <span class="op">=</span> <span class="ident">Group::new</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#558">delim</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#569">proj_move</a>);
+    <span class="kw">let</span> <span class="ident">proj_own_body</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#636-641">proj_own_body</a>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#555">cx</a>, <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#556">variant_ident</a>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#620">proj_move</a>), <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#570">pinned_bindings</a>);
 
-    <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#284">ProjectedFields</a> {
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#613">proj_pat</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#614">proj_body</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#620">proj_own_body</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#615">proj_fields</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#616">proj_ref_fields</a>,
-        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#617">proj_own_fields</a>,
+    <span class="prelude-val">Ok</span>(<a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#285">ProjectedFields</a> {
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#614">proj_pat</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#615">proj_body</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#621">proj_own_body</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#616">proj_fields</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#617">proj_ref_fields</a>,
+        <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#618">proj_own_fields</a>,
     })
 }
 
@@ -1764,8 +1766,8 @@
     <span class="ident">proj_move</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="../../../proc_macro2/struct.Group.html">Group</a><span class="op">&gt;</span>,
     <span class="ident">pinned_fields</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="../../../proc_macro2/struct.Ident.html">Ident</a>],
 ) -&gt; <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-    <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#636">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_own</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#637">variant_ident</a> {
+    <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#637">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_own</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#638">variant_ident</a> {
         <span class="prelude-val">Some</span>(<span class="ident">variant_ident</span>) =&gt; <a class="macro" href="../../../quote/macro.quote.html">quote!</a>(#<span class="ident">ident</span>::#<span class="ident">variant_ident</span>),
         <span class="prelude-val">None</span> =&gt; <a class="macro" href="../../../quote/macro.quote.html">quote!</a>(#<span class="ident">ident</span>),
     };
@@ -1773,7 +1775,7 @@
     <span class="comment">// The fields of the struct and the active enum variant are dropped</span>
     <span class="comment">// in declaration order.</span>
     <span class="comment">// Refs: https://doc.rust-lang.org/reference/destructors.html</span>
-    <span class="kw">let</span> <span class="ident">pinned_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#639">pinned_fields</a>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">rev</a>();
+    <span class="kw">let</span> <span class="ident">pinned_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#640">pinned_fields</a>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">rev</a>();
 
     <a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         <span class="comment">// First, extract all the unpinned fields.</span>
@@ -1802,19 +1804,19 @@
 <span class="doccomment">/// - `UnpinImpl::Negative` - Generates `Unpin` impl with bounds that will never be true.</span>
 <span class="doccomment">/// - `UnpinImpl::Default` - Generates `Unpin` impl that requires `Unpin` for all pinned fields.</span>
 <span class="kw">fn</span> <span class="ident">make_unpin_impl</span>(<span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-    <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">unpin_impl</span> {
+    <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">unpin_impl</span> {
         <a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#218">UnpinImpl::Unsafe</a>(<span class="ident">span</span>) =&gt; {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
-            <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
+            <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
 
             <span class="comment">// Make the error message highlight `UnsafeUnpin` argument.</span>
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#681">proj_generics</a>.<span class="ident">make_where_clause</span>().<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="macro" href="../../../src/pin_project_internal/utils.rs.html#33-37">parse_quote_spanned!</a> { <span class="ident">span</span> =&gt;
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#682">proj_generics</a>.<span class="ident">make_where_clause</span>().<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="macro" href="../../../src/pin_project_internal/utils.rs.html#33-37">parse_quote_spanned!</a> { <span class="ident">span</span> =&gt;
                 <span class="ident">_pin_project::__private::Wrapper</span><span class="op">&lt;</span>#<span class="ident">lifetime</span>, <span class="self">Self</span><span class="op">&gt;</span>: <span class="ident">_pin_project::UnsafeUnpin</span>
             });
 
-            <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="kw">_</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#681">proj_generics</a>.<span class="ident">split_for_impl</span>();
-            <span class="kw">let</span> <span class="ident">ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
+            <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="kw">_</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#682">proj_generics</a>.<span class="ident">split_for_impl</span>();
+            <span class="kw">let</span> <span class="ident">ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
 
             <a class="macro" href="../../../quote/macro.quote_spanned.html">quote_spanned!</a> { <span class="ident">span</span> =&gt;
                 <span class="kw">impl</span> #<span class="ident">impl_generics</span> <span class="ident">_pin_project::__private::Unpin</span> <span class="kw">for</span> #<span class="ident">orig_ident</span> #<span class="ident">ty_generics</span>
@@ -1824,18 +1826,18 @@
             }
         }
         <a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#220">UnpinImpl::Negative</a>(<span class="ident">span</span>) =&gt; {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-            <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
-            <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proj_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+            <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
+            <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
 
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#701">proj_generics</a>.<span class="ident">make_where_clause</span>().<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="macro" href="../../../syn/macro.parse_quote.html">parse_quote!</a> {
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#702">proj_generics</a>.<span class="ident">make_where_clause</span>().<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="macro" href="../../../syn/macro.parse_quote.html">parse_quote!</a> {
                 <span class="ident">_pin_project::__private::Wrapper</span><span class="op">&lt;</span>
                     #<span class="ident">lifetime</span>, <span class="ident">_pin_project::__private::PhantomPinned</span>
                 <span class="op">&gt;</span>: <span class="ident">_pin_project::__private::Unpin</span>
             });
 
-            <span class="kw">let</span> (<span class="ident">proj_impl_generics</span>, <span class="kw">_</span>, <span class="ident">proj_where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#701">proj_generics</a>.<span class="ident">split_for_impl</span>();
-            <span class="kw">let</span> <span class="ident">ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
+            <span class="kw">let</span> (<span class="ident">proj_impl_generics</span>, <span class="kw">_</span>, <span class="ident">proj_where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#702">proj_generics</a>.<span class="ident">split_for_impl</span>();
+            <span class="kw">let</span> <span class="ident">ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
 
             <span class="comment">// For interoperability with `forbid(unsafe_code)`, `unsafe` token should be</span>
             <span class="comment">// call-site span.</span>
@@ -1862,11 +1864,11 @@
             }
         }
         <a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#216">UnpinImpl::Default</a> =&gt; {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">full_where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">where_clause</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<span class="ident">unwrap</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">full_where_clause</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">where_clause</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<span class="ident">unwrap</span>();
 
             <span class="comment">// Generate a field in our new struct for every</span>
             <span class="comment">// pinned field in the original type.</span>
-            <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">pinned_fields</span>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">enumerate</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span>(<span class="ident">i</span>, <span class="ident">ty</span>)<span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">pinned_fields</span>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">enumerate</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span>(<span class="ident">i</span>, <span class="ident">ty</span>)<span class="op">|</span> {
                 <span class="kw">let</span> <span class="ident">field_ident</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__field{}&quot;</span>, <span class="ident">i</span>);
                 <a class="macro" href="../../../quote/macro.quote.html">quote!</a>(#<span class="ident">field_ident</span>: #<span class="ident">ty</span>)
             });
@@ -1892,23 +1894,23 @@
             <span class="comment">//</span>
             <span class="comment">// This ensures that any unused type parameters</span>
             <span class="comment">// don&#39;t end up with `Unpin` bounds.</span>
-            <span class="kw">let</span> <span class="ident">lifetime_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">lifetimes</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">enumerate</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(
+            <span class="kw">let</span> <span class="ident">lifetime_fields</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">lifetimes</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">enumerate</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(
                 <span class="op">|</span>(<span class="ident">i</span>, <a class="ident" href="../../../syn/generics/struct.LifetimeDef.html">LifetimeDef</a> { <span class="ident">lifetime</span>, .. })<span class="op">|</span> {
                     <span class="kw">let</span> <span class="ident">field_ident</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__lifetime{}&quot;</span>, <span class="ident">i</span>);
                     <a class="macro" href="../../../quote/macro.quote.html">quote!</a>(#<span class="ident">field_ident</span>: <span class="kw-2">&amp;</span>#<span class="ident">lifetime</span> ())
                 },
             );
 
-            <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
+            <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
             <span class="kw">let</span> <span class="ident">struct_ident</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.format_ident.html">format_ident!</a>(<span class="string">&quot;__{}&quot;</span>, <span class="ident">orig_ident</span>);
-            <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">vis</span>;
-            <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
-            <span class="kw">let</span> <span class="ident">type_params</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">type_params</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#780">t</a>.<span class="ident">ident</span>);
-            <span class="kw">let</span> <span class="ident">proj_generics</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>;
-            <span class="kw">let</span> (<span class="ident">proj_impl_generics</span>, <span class="ident">proj_ty_generics</span>, <span class="kw">_</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#781">proj_generics</a>.<span class="ident">split_for_impl</span>();
-            <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#678">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
+            <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">vis</span>;
+            <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
+            <span class="kw">let</span> <span class="ident">type_params</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">type_params</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#781">t</a>.<span class="ident">ident</span>);
+            <span class="kw">let</span> <span class="ident">proj_generics</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>;
+            <span class="kw">let</span> (<span class="ident">proj_impl_generics</span>, <span class="ident">proj_ty_generics</span>, <span class="kw">_</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#782">proj_generics</a>.<span class="ident">split_for_impl</span>();
+            <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#679">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
 
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#739">full_where_clause</a>.<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="macro" href="../../../syn/macro.parse_quote.html">parse_quote!</a> {
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#740">full_where_clause</a>.<span class="ident">predicates</span>.<span class="ident">push</span>(<a class="macro" href="../../../syn/macro.parse_quote.html">parse_quote!</a> {
                 #<span class="ident">struct_ident</span> #<span class="ident">proj_ty_generics</span>: <span class="ident">_pin_project::__private::Unpin</span>
             });
 
@@ -1963,10 +1965,10 @@
 <span class="doccomment">/// - `None` - generates code that ensures that `Drop` trait is not implemented,</span>
 <span class="doccomment">///            instead of generating `Drop` impl.</span>
 <span class="kw">fn</span> <span class="ident">make_drop_impl</span>(<span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-    <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#839">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
-    <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#839">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
+    <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#840">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
+    <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#840">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
 
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">span</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#839">cx</a>.<span class="ident">pinned_drop</span> {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">span</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#840">cx</a>.<span class="ident">pinned_drop</span> {
         <span class="comment">// For interoperability with `forbid(unsafe_code)`, `unsafe` token should be</span>
         <span class="comment">// call-site span.</span>
         <span class="kw">let</span> <span class="ident">unsafety</span> <span class="op">=</span> <span class="op">&lt;</span><a class="macro" href="../../../syn/macro.Token.html">Token!</a>[<span class="kw">unsafe</span>]<span class="op">&gt;</span><span class="ident">::default</span>();
@@ -2049,16 +2051,16 @@
     <span class="ident">proj_ref_body</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a>,
     <span class="ident">proj_own_body</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a>,
 ) -&gt; <a class="ident" href="../../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
-    <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">proj</span>.<span class="ident">vis</span>;
-    <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
-    <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">proj</span>.<span class="ident">mut_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_ref_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">proj</span>.<span class="ident">ref_ident</span>;
-    <span class="kw">let</span> <span class="ident">proj_own_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
+    <span class="kw">let</span> <span class="ident">vis</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">proj</span>.<span class="ident">vis</span>;
+    <span class="kw">let</span> <span class="ident">lifetime</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">proj</span>.<span class="ident">lifetime</span>;
+    <span class="kw">let</span> <span class="ident">orig_ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">orig</span>.<span class="ident">ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">proj</span>.<span class="ident">mut_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_ref_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">proj</span>.<span class="ident">ref_ident</span>;
+    <span class="kw">let</span> <span class="ident">proj_own_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">proj</span>.<span class="ident">own_ident</span>;
 
-    <span class="kw">let</span> <span class="ident">orig_ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
-    <span class="kw">let</span> <span class="ident">proj_ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
-    <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
+    <span class="kw">let</span> <span class="ident">orig_ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
+    <span class="kw">let</span> <span class="ident">proj_ty_generics</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">proj</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>().<span class="number">1</span>;
+    <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">orig</span>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
     <span class="comment">// TODO: For enums and project_replace, dead_code warnings should not be</span>
     <span class="comment">// allowed because methods are not generated unless explicitly specified.</span>
     <span class="comment">// However, there is currently no good way to allow warnings for generated</span>
@@ -2086,7 +2088,7 @@
             }
         }
     });
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">project_replace</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#921">cx</a>.<span class="ident">project_replace</span>.<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#240">span</a>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">span</span><span class="op">|</span> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">project_replace</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#922">cx</a>.<span class="ident">project_replace</span>.<a class="ident" href="../../../src/pin_project_internal/pin_project/args.rs.html#240">span</a>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">span</span><span class="op">|</span> {
         <span class="comment">// It is enough to only set the span of the signature.</span>
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <a class="macro" href="../../../quote/macro.quote_spanned.html">quote_spanned!</a> { <span class="ident">span</span> =&gt;
             #<span class="ident">allow_dead_code</span>
@@ -2115,13 +2117,13 @@
 
     <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">kind</span> <span class="op">==</span> <span class="ident">Enum</span> {
         <span class="kw">if</span> <span class="op">!</span><span class="ident">cx</span>.<span class="ident">project</span> {
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#942">project</a> <span class="op">=</span> <span class="prelude-val">None</span>;
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#943">project</a> <span class="op">=</span> <span class="prelude-val">None</span>;
         }
         <span class="kw">if</span> <span class="op">!</span><span class="ident">cx</span>.<span class="ident">project_ref</span> {
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#952">project_ref</a> <span class="op">=</span> <span class="prelude-val">None</span>;
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#953">project_ref</a> <span class="op">=</span> <span class="prelude-val">None</span>;
         }
         <span class="kw">if</span> <span class="ident">cx</span>.<span class="ident">project_replace</span>.<span class="ident">ident</span>().<span class="ident">is_none</span>() {
-            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#963">project_replace</a> <span class="op">=</span> <span class="prelude-val">None</span>;
+            <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#964">project_replace</a> <span class="op">=</span> <span class="prelude-val">None</span>;
         }
     }
 
@@ -2174,8 +2176,8 @@
         }
     }
 
-    <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1017">fields</a> {
-        <span class="prelude-val">Some</span>(<span class="ident">fields</span>) =&gt; <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1052">fields</a>,
+    <span class="kw">let</span> <span class="ident">fields</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1018">fields</a> {
+        <span class="prelude-val">Some</span>(<span class="ident">fields</span>) =&gt; <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1053">fields</a>,
         <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">TokenStream::new</span>()),
     };
 
@@ -2226,7 +2228,7 @@
     <span class="comment">//   https://github.com/taiki-e/pin-project-lite/pull/55</span>
     <span class="comment">//   https://github.com/rust-lang/rust/pull/82525</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">field_refs</span> <span class="op">=</span> <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[];
-    <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1051">fields</a> {
+    <span class="kw">match</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1052">fields</a> {
         <span class="ident">Fields::Named</span>(<a class="ident" href="../../../syn/data/struct.FieldsNamed.html">FieldsNamed</a> { <span class="ident">named</span>, .. }) =&gt; {
             <span class="kw">for</span> <span class="ident">Field</span> { <span class="ident">ident</span>, .. } <span class="kw">in</span> <span class="ident">named</span> {
                 <span class="ident">field_refs</span>.<span class="ident">push</span>(<span class="macro">quote!</span>(<span class="kw-2">&amp;</span><span class="ident">this</span>.#<span class="ident">ident</span>));
@@ -2241,8 +2243,8 @@
         <span class="ident">Fields::Unit</span> =&gt; {}
     }
 
-    <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1017">orig</a>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
-    <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1017">orig</a>.<span class="ident">ident</span>;
+    <span class="kw">let</span> (<span class="ident">impl_generics</span>, <span class="ident">ty_generics</span>, <span class="ident">where_clause</span>) <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1018">orig</a>.<span class="ident">generics</span>.<span class="ident">split_for_impl</span>();
+    <span class="kw">let</span> <span class="ident">ident</span> <span class="op">=</span> <a class="ident" href="../../../src/pin_project_internal/pin_project/derive.rs.html#1018">orig</a>.<span class="ident">ident</span>;
     <span class="prelude-val">Ok</span>(<a class="macro" href="../../../quote/macro.quote.html">quote!</a> {
         <span class="attribute">#[<span class="ident">forbid</span>(<span class="ident">unaligned_references</span>, <span class="ident">safe_packed_borrows</span>)]</span>
         <span class="kw">fn</span> <span class="ident">__assert_not_repr_packed</span> #<span class="ident">impl_generics</span> (<span class="ident">this</span>: <span class="kw-2">&amp;</span>#<span class="ident">ident</span> #<span class="ident">ty_generics</span>) #<span class="ident">where_clause</span> {

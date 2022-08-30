@@ -569,13 +569,12 @@
 <span id="569">569</span>
 <span id="570">570</span>
 <span id="571">571</span>
-<span id="572">572</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A public interface to the pure function encoder.</span>
 
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::encoder</span>::{<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#585">FunctionCallInfo</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#603">FunctionCallInfoHigh</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#38">PureFunctionEncoder</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::encoder</span>::{<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#578">FunctionCallInfo</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#596">FunctionCallInfoHigh</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#38">PureFunctionEncoder</a>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::encoder</span>::{
     <span class="ident">errors</span>::{<a class="ident" href="../../../../../../src/prusti_viper/encoder/errors/spanned_encoding_error.rs.html#23">SpannedEncodingResult</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/errors/with_span.rs.html#13">WithSpan</a>},
-    <span class="ident">mir</span>::{<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/generics/interface.rs.html#10">generics::MirGenericsEncoderInterface</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#76">specifications::SpecificationsInterface</a>},
+    <span class="ident">mir</span>::{<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/generics/interface.rs.html#10">generics::MirGenericsEncoderInterface</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#72">specifications::SpecificationsInterface</a>},
     <a class="ident" href="../../../../../../src/prusti_viper/encoder/snapshot/interface.rs.html#12">snapshot::interface::SnapshotEncoderInterface</a>,
     <a class="ident" href="../../../../../../src/prusti_viper/encoder/stub_function_encoder.rs.html#21">stub_function_encoder::StubFunctionEncoder</a>,
 };
@@ -628,9 +627,9 @@
     <span class="ident">bodies_poly</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#24">Key</a>, <a class="ident" href="../../../../../../vir/gen/polymorphic/ast/expr/enum.Expr.html">vir_poly::Expr</a><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Information necessary to encode a function call. FIXME: Remove this one</span>
     <span class="doccomment">/// and have only call_infos_high.</span>
-    <span class="ident">call_infos_poly</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#24">Key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#585">FunctionCallInfo</a><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">call_infos_poly</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#24">Key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#578">FunctionCallInfo</a><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Information necessary to encode a function call.</span>
-    <span class="ident">call_infos_high</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#24">Key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#603">FunctionCallInfoHigh</a><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">call_infos_high</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#24">Key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/encoder.rs.html#596">FunctionCallInfoHigh</a><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Pure functions whose encoding started (and potentially already</span>
     <span class="doccomment">/// finished). This is used to break recursion.</span>
     <span class="ident">pure_functions_encoding_started</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">FxHashSet</span><span class="op">&lt;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#24">Key</a><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -743,7 +742,7 @@
         <span class="ident">parent_def_id</span>: <a class="ident" href="../../../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>,
         <span class="ident">substs</span>: <span class="ident">SubstsRef</span><span class="op">&lt;</span><span class="lifetime">&#39;tcx</span><span class="op">&gt;</span>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../vir/gen/high/ast/expression/enum.Expression.html">vir_high::Expression</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#169">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#170">proc_def_id</a>);
+        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#169">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">query</span>.<span class="ident">get_def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#170">proc_def_id</a>);
         <span class="kw">let</span> <span class="ident">substs_key</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">encode_generic_arguments_high</span>(<span class="ident">proc_def_id</span>, <span class="ident">substs</span>)
             .<span class="ident">with_span</span>(<span class="ident">mir_span</span>)<span class="question-mark">?</span>;
@@ -784,7 +783,7 @@
         <span class="ident">parent_def_id</span>: <a class="ident" href="../../../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>,
         <span class="ident">substs</span>: <span class="ident">SubstsRef</span><span class="op">&lt;</span><span class="lifetime">&#39;tcx</span><span class="op">&gt;</span>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../vir/gen/polymorphic/ast/expr/enum.Expr.html">vir_poly::Expr</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#210">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#211">proc_def_id</a>);
+        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#210">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">query</span>.<span class="ident">get_def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#211">proc_def_id</a>);
         <span class="kw">let</span> <span class="ident">substs_key</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">encode_generic_arguments_high</span>(<span class="ident">proc_def_id</span>, <span class="ident">substs</span>)
             .<span class="ident">with_span</span>(<span class="ident">mir_span</span>)<span class="question-mark">?</span>;
@@ -828,7 +827,7 @@
             <span class="ident">proc_def_id</span>
         );
 
-        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>);
+        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">query</span>.<span class="ident">get_def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>);
         <span class="kw">let</span> <span class="ident">substs_key</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">encode_generic_arguments_high</span>(<span class="ident">proc_def_id</span>, <span class="ident">substs</span>)
             .<span class="ident">with_span</span>(<span class="ident">mir_span</span>)<span class="question-mark">?</span>;
@@ -861,10 +860,9 @@
             );
 
             <span class="kw">let</span> <span class="ident">maybe_identifier</span>: <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><a class="ident" href="../../../../../../vir/gen/polymorphic/ast/function/struct.FunctionIdentifier.html">vir_poly::FunctionIdentifier</a><span class="op">&gt;</span> <span class="op">=</span> (<span class="op">|</span><span class="op">|</span> {
-                <span class="kw">let</span> <span class="ident">proc_kind</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#80-84">get_proc_kind</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>));
-                <span class="kw">let</span> <span class="ident">is_bodyless</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#86">is_trusted</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>))
-                    <span class="op">|</span><span class="op">|</span> <span class="op">!</span><a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">is_mir_available</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>)
-                    <span class="op">|</span><span class="op">|</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">is_constructor</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>);
+                <span class="kw">let</span> <span class="ident">proc_kind</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#76-80">get_proc_kind</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>));
+                <span class="kw">let</span> <span class="ident">is_bodyless</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#82">is_trusted</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="prelude-val">Some</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>))
+                    <span class="op">|</span><span class="op">|</span> <span class="op">!</span><a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">query</span>.<span class="ident">has_body</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>);
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">function</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_bodyless</span> {
                     <span class="ident">pure_function_encoder</span>.<span class="ident">encode_bodyless_function</span>()<span class="question-mark">?</span>
                 } <span class="kw">else</span> {
@@ -886,7 +884,7 @@
                                     <span class="ident">substs</span>,
                                 )<span class="question-mark">?</span>;
                             }
-                            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#307">function</a>
+                            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#306">function</a>
                         }
                         <span class="ident">ProcedureSpecificationKind::Impure</span> =&gt; {
                             <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(<span class="string">&quot;trying to encode an impure function in pure encoder&quot;</span>)
@@ -902,15 +900,15 @@
                 <span class="kw">if</span> <span class="ident">needs_patching</span> {
                     <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<span class="ident">mirror_encoder</span>
                         .<span class="ident">borrow_mut</span>()
-                        .<a class="ident" href="../../../../../../src/prusti_viper/encoder/mirror_function_encoder.rs.html#45-50">encode_mirrors</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#296">function</a>);
+                        .<a class="ident" href="../../../../../../src/prusti_viper/encoder/mirror_function_encoder.rs.html#45-50">encode_mirrors</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="kw-2">&amp;mut</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#295">function</a>);
                 }
 
-                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#296">function</a> <span class="op">=</span> <span class="self">self</span>
+                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#295">function</a> <span class="op">=</span> <span class="self">self</span>
                     .<span class="ident">patch_snapshots_function</span>(<span class="ident">function</span>)
                     .<span class="ident">with_span</span>(<span class="ident">mir_span</span>)<span class="question-mark">?</span>;
 
-                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#190">log_vir_program_before_viper</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#296">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>());
-                <span class="prelude-val">Ok</span>(<a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#258">insert_function</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#296">function</a>))
+                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#190">log_vir_program_before_viper</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#295">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>());
+                <span class="prelude-val">Ok</span>(<a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#258">insert_function</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#295">function</a>))
             })(
             );
             <span class="kw">match</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#291">maybe_identifier</a> {
@@ -918,21 +916,21 @@
                     <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<span class="ident">pure_function_encoder_state</span>
                         .<span class="ident">function_identifiers</span>
                         .<span class="ident">borrow_mut</span>()
-                        .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#263">key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#345">identifier</a>);
+                        .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#263">key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#344">identifier</a>);
                 }
                 <span class="prelude-val">Err</span>(<span class="ident">error</span>) =&gt; {
-                    <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#241">register_encoding_error</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#351">error</a>);
+                    <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#241">register_encoding_error</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#350">error</a>);
                     <a class="macro" href="../../../../../../log/macro.debug.html">debug!</a>(<span class="string">&quot;Error encoding pure function: {:?}&quot;</span>, <span class="ident">proc_def_id</span>);
-                    <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">external_mir</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>);
+                    <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">body</span>.<span class="ident">get_pure_fn_body</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>);
                     <span class="comment">// TODO(tymap): does stub encoder need substs?</span>
-                    <span class="kw">let</span> <span class="ident">stub_encoder</span> <span class="op">=</span> <span class="ident">StubFunctionEncoder::new</span>(<a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#354">body</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>);
+                    <span class="kw">let</span> <span class="ident">stub_encoder</span> <span class="op">=</span> <span class="ident">StubFunctionEncoder::new</span>(<a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#249">proc_def_id</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#353">body</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#250">substs</a>);
                     <span class="kw">let</span> <span class="ident">function</span> <span class="op">=</span> <span class="ident">stub_encoder</span>.<span class="ident">encode_function</span>()<span class="question-mark">?</span>;
-                    <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#190">log_vir_program_before_viper</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#357">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>());
-                    <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#258">insert_function</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#357">function</a>);
+                    <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#190">log_vir_program_before_viper</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#356">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>());
+                    <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#258">insert_function</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#356">function</a>);
                     <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#248">self</a>.<span class="ident">pure_function_encoder_state</span>
                         .<span class="ident">function_identifiers</span>
                         .<span class="ident">borrow_mut</span>()
-                        .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#263">key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#359">identifier</a>);
+                        .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#263">key</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#358">identifier</a>);
                 }
             }
         }
@@ -945,15 +943,15 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">identifier</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../vir/gen/polymorphic/ast/function/struct.FunctionIdentifier.html">vir_poly::FunctionIdentifier</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">function_descriptions</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#373">self</a>
+        <span class="kw">let</span> <span class="ident">function_descriptions</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#372">self</a>
             .<span class="ident">pure_function_encoder_state</span>
             .<span class="ident">function_descriptions</span>
             .<span class="ident">borrow</span>();
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">function_description</span>) <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#376">function_descriptions</a>.<span class="ident">get</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#374">identifier</a>) {
-            <span class="kw">let</span> <span class="ident">function_description</span> <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#380">function_description</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">function_description</span>) <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#375">function_descriptions</a>.<span class="ident">get</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#373">identifier</a>) {
+            <span class="kw">let</span> <span class="ident">function_description</span> <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#379">function_description</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
             <span class="comment">// We need to release the borrow here before encoding the function</span>
             <span class="comment">// because otherwise encoding recursive functions cause a panic.</span>
-            <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#376">function_descriptions</a>);
+            <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#375">function_descriptions</a>);
             <span class="self">self</span>.<span class="ident">encode_pure_function_def</span>(
                 <span class="ident">function_description</span>.<span class="ident">proc_def_id</span>,
                 <span class="ident">function_description</span>.<span class="ident">substs</span>,
@@ -976,13 +974,13 @@
             <span class="ident">proc_def_id</span>
         );
 
-        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#397">proc_def_id</a>);
+        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#395">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">query</span>.<span class="ident">get_def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">proc_def_id</a>);
         <span class="kw">let</span> <span class="ident">substs_key</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">encode_generic_arguments_high</span>(<span class="ident">proc_def_id</span>, <span class="ident">substs</span>)
             .<span class="ident">with_span</span>(<span class="ident">mir_span</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#397">proc_def_id</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#408">substs_key</a>);
+        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">proc_def_id</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#407">substs_key</a>);
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">call_infos</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">self</a>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">call_infos</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#395">self</a>
             .<span class="ident">pure_function_encoder_state</span>
             .<span class="ident">call_infos_poly</span>
             .<span class="ident">borrow_mut</span>();
@@ -990,18 +988,18 @@
             <span class="comment">// Compute information necessary to encode the function call and</span>
             <span class="comment">// memoize it.</span>
             <span class="kw">let</span> <span class="ident">pure_function_encoder</span> <span class="op">=</span> <span class="ident">PureFunctionEncoder::new</span>(
-                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">self</a>,
-                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#397">proc_def_id</a>,
+                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#395">self</a>,
+                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">proc_def_id</a>,
                 <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#39">PureEncodingContext::Code</a>,
-                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#398">parent_def_id</a>,
-                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#399">substs</a>,
+                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#397">parent_def_id</a>,
+                <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#398">substs</a>,
             );
             <span class="kw">let</span> <span class="ident">function_call_info</span> <span class="op">=</span> <span class="ident">pure_function_encoder</span>.<span class="ident">encode_function_call_info</span>()<span class="question-mark">?</span>;
 
             <span class="comment">// Save the information necessary to encode the function definition.</span>
             <span class="kw">let</span> <span class="ident">function_identifier</span>: <a class="ident" href="../../../../../../vir/gen/polymorphic/ast/function/struct.FunctionIdentifier.html">vir_poly::FunctionIdentifier</a> <span class="op">=</span>
-                <a class="ident" href="../../../../../../vir/common/identifier/trait.WithIdentifier.html">WithIdentifier::get_identifier</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#427">function_call_info</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">function_descriptions</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">self</a>
+                <a class="ident" href="../../../../../../vir/common/identifier/trait.WithIdentifier.html">WithIdentifier::get_identifier</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#426">function_call_info</a>).<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">function_descriptions</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#395">self</a>
                 .<span class="ident">pure_function_encoder_state</span>
                 .<span class="ident">function_descriptions</span>
                 .<span class="ident">borrow_mut</span>();
@@ -1010,20 +1008,20 @@
             <span class="comment">// but the pure function call does not use these generics.</span>
             <span class="comment">// For instance a pure function call in a trait and then a trait impl;</span>
             <span class="comment">// in the former `substs` is empty, but in the latter the generic `Self` is mapped.</span>
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#432">function_descriptions</a>
-                .<span class="ident">entry</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#430">function_identifier</a>)
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#431">function_descriptions</a>
+                .<span class="ident">entry</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#429">function_identifier</a>)
                 .<span class="ident">or_insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#82">FunctionDescription</a> {
-                    <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#397">proc_def_id</a>,
-                    <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#399">substs</a>,
+                    <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#396">proc_def_id</a>,
+                    <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#398">substs</a>,
                 });
 
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#413">call_infos</a>.<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#411">key</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#427">function_call_info</a>);
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#412">call_infos</a>.<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#410">key</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#426">function_call_info</a>);
         }
-        <span class="kw">let</span> <span class="ident">function_call_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#413">call_infos</a>[<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#411">key</a>];
+        <span class="kw">let</span> <span class="ident">function_call_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#412">call_infos</a>[<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#410">key</a>];
 
         <span class="prelude-val">Ok</span>((
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#450">function_call_info</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#450">function_call_info</a>.<span class="ident">return_type</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#449">function_call_info</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#449">function_call_info</a>.<span class="ident">return_type</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
         ))
     }
 
@@ -1039,13 +1037,13 @@
             <span class="ident">proc_def_id</span>
         );
 
-        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#459">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">tcx</span>().<span class="ident">def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#460">proc_def_id</a>);
+        <span class="kw">let</span> <span class="ident">mir_span</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#458">self</a>.<a class="ident" href="../../../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">query</span>.<span class="ident">get_def_span</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#459">proc_def_id</a>);
         <span class="kw">let</span> <span class="ident">substs_key</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">encode_generic_arguments_high</span>(<span class="ident">proc_def_id</span>, <span class="ident">substs</span>)
             .<span class="ident">with_span</span>(<span class="ident">mir_span</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#460">proc_def_id</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#471">substs_key</a>);
+        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#459">proc_def_id</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#470">substs_key</a>);
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">call_infos</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#459">self</a>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">call_infos</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#458">self</a>
             .<span class="ident">pure_function_encoder_state</span>
             .<span class="ident">call_infos_high</span>
             .<span class="ident">borrow_mut</span>();
@@ -1059,13 +1057,13 @@
                 <span class="ident">substs</span>,
             )<span class="question-mark">?</span>;
 
-            <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#483">function_call_info</a>.<a class="ident" href="../../../../../../vir/common/identifier/trait.WithIdentifier.html">get_identifier</a>();
+            <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#482">function_call_info</a>.<a class="ident" href="../../../../../../vir/common/identifier/trait.WithIdentifier.html">get_identifier</a>();
 
             <span class="kw">if</span> <span class="ident">prusti_common::config::counterexample</span>() {
-                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#459">self</a>.<span class="ident">pure_function_encoder_state</span>
+                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#458">self</a>.<span class="ident">pure_function_encoder_state</span>
                     .<span class="ident">function_proc_ids</span>
                     .<span class="ident">borrow_mut</span>()
-                    .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#490">identifier</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#460">proc_def_id</a>);
+                    .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#489">identifier</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#459">proc_def_id</a>);
             }
 
             <span class="self">self</span>.<span class="ident">register_function_constructor_mir</span>(
@@ -1085,13 +1083,13 @@
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encode_pure_function_use</span>(<span class="ident">proc_def_id</span>, <span class="ident">parent_def_id</span>, <span class="ident">substs</span>)<span class="question-mark">?</span>;
             }
 
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#476">call_infos</a>.<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#474">key</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#483">function_call_info</a>);
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#475">call_infos</a>.<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#473">key</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#482">function_call_info</a>);
         }
-        <span class="kw">let</span> <span class="ident">function_call_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#476">call_infos</a>[<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#474">key</a>];
+        <span class="kw">let</span> <span class="ident">function_call_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#475">call_infos</a>[<span class="kw-2">&amp;</span><a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#473">key</a>];
 
         <span class="prelude-val">Ok</span>((
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#518">function_call_info</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
-            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#518">function_call_info</a>.<span class="ident">return_type</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#517">function_call_info</a>.<span class="ident">name</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#517">function_call_info</a>.<span class="ident">return_type</span>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
         ))
     }
 
@@ -1099,29 +1097,29 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">function_identifier</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
     ) -&gt; <span class="ident">SpannedEncodingResult</span><span class="op">&lt;</span><span class="ident">std::rc::Rc</span><span class="op">&lt;</span><a class="ident" href="../../../../../../vir/gen/high/ast/function/struct.FunctionDecl.html">vir_high::FunctionDecl</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">functions_borrow</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#527">self</a>.<span class="ident">pure_function_encoder_state</span>.<span class="ident">functions</span>.<span class="ident">borrow</span>();
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">function</span>) <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#530">functions_borrow</a>.<span class="ident">get</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#528">function_identifier</a>) {
+        <span class="kw">let</span> <span class="ident">functions_borrow</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#526">self</a>.<span class="ident">pure_function_encoder_state</span>.<span class="ident">functions</span>.<span class="ident">borrow</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">function</span>) <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#529">functions_borrow</a>.<span class="ident">get</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#527">function_identifier</a>) {
             <span class="comment">// The function is already encoded.</span>
-            <span class="prelude-val">Ok</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#531">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>())
+            <span class="prelude-val">Ok</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#530">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>())
         } <span class="kw">else</span> {
-            <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#530">functions_borrow</a>); <span class="comment">// Release the borrow.</span>
+            <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#529">functions_borrow</a>); <span class="comment">// Release the borrow.</span>
 
-            <span class="kw">let</span> <span class="ident">constructor</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#527">self</a>
+            <span class="kw">let</span> <span class="ident">constructor</span> <span class="op">=</span> <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#526">self</a>
                 .<span class="ident">pure_function_encoder_state</span>
                 .<span class="ident">function_constructors</span>
                 .<span class="ident">borrow_mut</span>()
-                .<span class="ident">remove</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#528">function_identifier</a>);
+                .<span class="ident">remove</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#527">function_identifier</a>);
 
             <span class="comment">// The function is not yet encoded. Trigger the encoding.</span>
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">constructor</span>) <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#537">constructor</a> {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">constructor</span>) <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#536">constructor</a> {
                 <span class="kw">let</span> <span class="ident">function</span> <span class="op">=</span> <span class="ident">std::rc::Rc::new</span>(<span class="ident">constructor</span>(<span class="self">self</span>)<span class="question-mark">?</span>);
-                <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#545">function</a>.<a class="ident" href="../../../../../../vir/common/identifier/trait.WithIdentifier.html">get_identifier</a>();
+                <span class="kw">let</span> <span class="ident">identifier</span> <span class="op">=</span> <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#544">function</a>.<a class="ident" href="../../../../../../vir/common/identifier/trait.WithIdentifier.html">get_identifier</a>();
                 <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert_eq.html">assert_eq!</a>(<span class="kw-2">&amp;</span><span class="ident">identifier</span>, <span class="ident">function_identifier</span>);
-                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#527">self</a>.<span class="ident">pure_function_encoder_state</span>
+                <a class="self" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#526">self</a>.<span class="ident">pure_function_encoder_state</span>
                     .<span class="ident">functions</span>
                     .<span class="ident">borrow_mut</span>()
-                    .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#546">identifier</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#545">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>());
-                <span class="prelude-val">Ok</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#545">function</a>)
+                    .<span class="ident">insert</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#545">identifier</a>, <a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#544">function</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>());
+                <span class="prelude-val">Ok</span>(<a class="ident" href="../../../../../../src/prusti_viper/encoder/mir/pure/pure_functions/interface.rs.html#544">function</a>)
             } <span class="kw">else</span> {
                 <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(<span class="string">&quot;not found constructor for {}&quot;</span>, <span class="ident">function_identifier</span>);
             }

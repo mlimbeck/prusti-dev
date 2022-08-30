@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_json-1.0.82/src/de.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>de.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../serde_json/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../serde_json/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../serde_json/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_json-1.0.85/src/de.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>de.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../serde_json/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../serde_json/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../serde_json/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2618,7 +2618,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;float_roundtrip&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::lexical</span>;
 <span class="kw">use</span> <a class="ident" href="../../src/serde_json/number.rs.html#22"><span class="kw">crate</span>::number::Number</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::read</span>::{<a class="self" href="../../src/serde_json/lib.rs.html#417">self</a>, <a class="ident" href="../../src/serde_json/read.rs.html#781">Fused</a>, <a class="ident" href="../../src/serde_json/read.rs.html#122">Reference</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::read</span>::{<a class="self" href="../../src/serde_json/lib.rs.html#418">self</a>, <a class="ident" href="../../src/serde_json/read.rs.html#781">Fused</a>, <a class="ident" href="../../src/serde_json/read.rs.html#122">Reference</a>};
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">alloc::string::String</a>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">alloc::vec::Vec</a>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;float_roundtrip&quot;</span>)]</span>
@@ -2751,7 +2751,7 @@
     <span class="doccomment">/// This allows the `Deserializer` to validate that the input stream is at the end or that it</span>
     <span class="doccomment">/// only has trailing whitespace.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">end</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#139">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#240">ErrorCode::TrailingCharacters</a>)),
             <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Ok</span>(()),
         }
@@ -2828,7 +2828,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">peek_or_null</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()).<span class="ident">unwrap_or</span>(<span class="string">b&#39;\x00&#39;</span>))
+        <span class="prelude-val">Ok</span>(<a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()).<span class="ident">unwrap_or</span>(<span class="string">b&#39;\x00&#39;</span>))
     }
 
     <span class="kw">fn</span> <span class="ident">eat_char</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
@@ -2840,7 +2840,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">next_char_or_null</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">next_char</span>()).<span class="ident">unwrap_or</span>(<span class="string">b&#39;\x00&#39;</span>))
+        <span class="prelude-val">Ok</span>(<a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">next_char</span>()).<span class="ident">unwrap_or</span>(<span class="string">b&#39;\x00&#39;</span>))
     }
 
     <span class="doccomment">/// Error caused by a byte from next_char().</span>
@@ -2861,7 +2861,7 @@
     <span class="doccomment">/// EOF is encountered.</span>
     <span class="kw">fn</span> <span class="ident">parse_whitespace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
+            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
                 <span class="prelude-val">Some</span>(<span class="string">b&#39; &#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;\n&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;\t&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;\r&#39;</span>) =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#248">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 }
@@ -2927,7 +2927,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#317">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#312">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -2937,9 +2937,9 @@
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#316">peek</a> {
             <span class="string">b&#39;-&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#312">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_integer</span>(<span class="bool-val">false</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#312">visitor</a>)
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_integer</span>(<span class="bool-val">false</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#312">visitor</a>)
             }
-            <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_integer</span>(<span class="bool-val">true</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#312">visitor</a>),
+            <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_integer</span>(<span class="bool-val">true</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#312">visitor</a>),
             <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#312">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#262">peek_invalid_type</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/serde_json/de.rs.html#312">visitor</a>)),
         };
 
@@ -2951,11 +2951,11 @@
 
     <span class="macro">serde_if_integer128!</span> {
         <span class="kw">fn</span> <span class="ident">scan_integer128</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">next_char_or_null</span>()) {
+            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">next_char_or_null</span>()) {
                 <span class="string">b&#39;0&#39;</span> =&gt; {
                     <a class="ident" href="../../src/serde_json/de.rs.html#339">buf</a>.<span class="ident">push</span>(<span class="string">&#39;0&#39;</span>);
                     <span class="comment">// There can be only one leading &#39;0&#39;.</span>
-                    <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+                    <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
                         <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; {
                             <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#339">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>))
                         }
@@ -3000,7 +3000,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">parse_integer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">positive</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/serde_json/de.rs.html#102">ParserNumber</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">next_char</span>()) {
+        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">next_char</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#390">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#388">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#234">error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -3010,7 +3010,7 @@
         <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#389">next</a> {
             <span class="string">b&#39;0&#39;</span> =&gt; {
                 <span class="comment">// There can be only one leading &#39;0&#39;.</span>
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
                     <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#388">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>)),
                     <span class="kw">_</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#388">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#435">parse_number</a>(<a class="ident" href="../../src/serde_json/de.rs.html#388">positive</a>, <span class="number">0</span>),
                 }
@@ -3019,7 +3019,7 @@
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">significand</span> <span class="op">=</span> (<a class="ident" href="../../src/serde_json/de.rs.html#404">c</a> <span class="op">-</span> <span class="string">b&#39;0&#39;</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>;
 
                 <span class="kw">loop</span> {
-                    <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+                    <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
                         <span class="ident">c</span> @ <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; {
                             <span class="kw">let</span> <span class="ident">digit</span> <span class="op">=</span> (<a class="ident" href="../../src/serde_json/de.rs.html#409">c</a> <span class="op">-</span> <span class="string">b&#39;0&#39;</span>) <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>;
 
@@ -3028,7 +3028,7 @@
                             <span class="comment">// too large. At that point, switch to parsing the</span>
                             <span class="comment">// value as a `f64`.</span>
                             <span class="kw">if</span> <a class="macro" href="../../src/serde_json/de.rs.html#94-100">overflow!</a>(<span class="ident">significand</span> <span class="op">*</span> <span class="number">10</span> <span class="op">+</span> <span class="ident">digit</span>, <span class="ident">u64::max_value</span>()) {
-                                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/serde_json/de.rs.html#103">ParserNumber::F64</a>(<a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(
+                                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/serde_json/de.rs.html#103">ParserNumber::F64</a>(<a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(
                                     <span class="self">self</span>.<span class="ident">parse_long_integer</span>(<span class="ident">positive</span>, <span class="ident">significand</span>),
                                 )));
                             }
@@ -3047,9 +3047,9 @@
     }
 
     <span class="kw">fn</span> <span class="ident">parse_number</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">positive</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <span class="ident">significand</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/serde_json/de.rs.html#102">ParserNumber</a><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
-            <span class="string">b&#39;.&#39;</span> =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#103">ParserNumber::F64</a>(<a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_decimal</span>(<span class="ident">positive</span>, <span class="ident">significand</span>, <span class="number">0</span>))),
-            <span class="string">b&#39;e&#39;</span> <span class="op">|</span> <span class="string">b&#39;E&#39;</span> =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#103">ParserNumber::F64</a>(<a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_exponent</span>(<span class="ident">positive</span>, <span class="ident">significand</span>, <span class="number">0</span>))),
+        <span class="prelude-val">Ok</span>(<span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+            <span class="string">b&#39;.&#39;</span> =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#103">ParserNumber::F64</a>(<a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_decimal</span>(<span class="ident">positive</span>, <span class="ident">significand</span>, <span class="number">0</span>))),
+            <span class="string">b&#39;e&#39;</span> <span class="op">|</span> <span class="string">b&#39;E&#39;</span> =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#103">ParserNumber::F64</a>(<a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_exponent</span>(<span class="ident">positive</span>, <span class="ident">significand</span>, <span class="number">0</span>))),
             <span class="kw">_</span> =&gt; {
                 <span class="kw">if</span> <span class="ident">positive</span> {
                     <a class="ident" href="../../src/serde_json/de.rs.html#104">ParserNumber::U64</a>(<a class="ident" href="../../src/serde_json/de.rs.html#435">significand</a>)
@@ -3089,13 +3089,13 @@
 
         <span class="comment">// Error if there is not at least one digit after the decimal point.</span>
         <span class="kw">if</span> <span class="ident">exponent</span> <span class="op">==</span> <span class="number">0</span> {
-            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
+            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
                 <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#457">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>)),
                 <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#457">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>)),
             }
         }
 
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
             <span class="string">b&#39;e&#39;</span> <span class="op">|</span> <span class="string">b&#39;E&#39;</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#457">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#490-495">parse_exponent</a>(<a class="ident" href="../../src/serde_json/de.rs.html#458">positive</a>, <a class="ident" href="../../src/serde_json/de.rs.html#459">significand</a>, <a class="ident" href="../../src/serde_json/de.rs.html#460">exponent</a>),
             <span class="kw">_</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#457">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#562-567">f64_from_parts</a>(<a class="ident" href="../../src/serde_json/de.rs.html#458">positive</a>, <a class="ident" href="../../src/serde_json/de.rs.html#459">significand</a>, <a class="ident" href="../../src/serde_json/de.rs.html#460">exponent</a>),
         }
@@ -3109,7 +3109,7 @@
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a><span class="op">&gt;</span> {
         <a class="self" href="../../src/serde_json/de.rs.html#491">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
 
-        <span class="kw">let</span> <span class="ident">positive_exp</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+        <span class="kw">let</span> <span class="ident">positive_exp</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
             <span class="string">b&#39;+&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#491">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <span class="bool-val">true</span>
@@ -3121,7 +3121,7 @@
             <span class="kw">_</span> =&gt; <span class="bool-val">true</span>,
         };
 
-        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">next_char</span>()) {
+        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">next_char</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#511">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#491">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#234">error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -3254,7 +3254,7 @@
     <span class="kw">fn</span> <span class="ident">parse_long_integer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">positive</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, <span class="ident">significand</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">exponent</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">loop</span> {
-            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
                 <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#640">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                     <span class="comment">// This could overflow... if your integer is gigabytes long.</span>
@@ -3383,7 +3383,7 @@
             <span class="self">self</span>.<span class="ident">eat_char</span>();
         }
 
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
             <span class="string">b&#39;e&#39;</span> <span class="op">|</span> <span class="string">b&#39;E&#39;</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#761">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#490-495">parse_exponent</a>(<a class="ident" href="../../src/serde_json/de.rs.html#762">positive</a>, <a class="ident" href="../../src/serde_json/de.rs.html#763">significand</a>, <a class="ident" href="../../src/serde_json/de.rs.html#764">exponent</a>),
             <span class="kw">_</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#761">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#562-567">f64_from_parts</a>(<a class="ident" href="../../src/serde_json/de.rs.html#762">positive</a>, <a class="ident" href="../../src/serde_json/de.rs.html#763">significand</a>, <a class="ident" href="../../src/serde_json/de.rs.html#764">exponent</a>),
         }
@@ -3434,7 +3434,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">parse_any_signed_number</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../src/serde_json/de.rs.html#102">ParserNumber</a><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#824">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#822">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -3450,7 +3450,7 @@
             <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#822">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>)),
         };
 
-        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek</span>()) {
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#822">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>)),
             <span class="prelude-val">None</span> =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#830">value</a>,
         };
@@ -3594,7 +3594,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">parse_object_colon</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;:&#39;</span>) =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#982">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <span class="prelude-val">Ok</span>(())
@@ -3605,7 +3605,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">end_seq</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;]&#39;</span>) =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#993">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <span class="prelude-val">Ok</span>(())
@@ -3623,7 +3623,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">end_map</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;}&#39;</span>) =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1011">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <span class="prelude-val">Ok</span>(())
@@ -3639,7 +3639,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">enclosing</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
         <span class="kw">loop</span> {
-            <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+            <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                 <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1029">b</a>,
                 <span class="prelude-val">None</span> =&gt; {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -3649,31 +3649,31 @@
             <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1028">peek</a> {
                 <span class="string">b&#39;n&#39;</span> =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
+                    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
                     <span class="prelude-val">None</span>
                 }
                 <span class="string">b&#39;t&#39;</span> =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;rue&quot;</span>));
+                    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;rue&quot;</span>));
                     <span class="prelude-val">None</span>
                 }
                 <span class="string">b&#39;f&#39;</span> =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;alse&quot;</span>));
+                    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;alse&quot;</span>));
                     <span class="prelude-val">None</span>
                 }
                 <span class="string">b&#39;-&#39;</span> =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">ignore_integer</span>());
+                    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">ignore_integer</span>());
                     <span class="prelude-val">None</span>
                 }
                 <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; {
-                    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">ignore_integer</span>());
+                    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">ignore_integer</span>());
                     <span class="prelude-val">None</span>
                 }
                 <span class="string">b&#39;&quot;&#39;</span> =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">ignore_str</span>());
+                    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">ignore_str</span>());
                     <span class="prelude-val">None</span>
                 }
                 <span class="ident">frame</span> @ <span class="string">b&#39;[&#39;</span> <span class="op">|</span> <span class="ident">frame</span> @ <span class="string">b&#39;{&#39;</span> =&gt; {
@@ -3696,7 +3696,7 @@
             };
 
             <span class="kw">loop</span> {
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                     <span class="prelude-val">Some</span>(<span class="string">b&#39;,&#39;</span>) <span class="kw">if</span> <a class="ident" href="../../src/serde_json/de.rs.html#1073">accept_comma</a> =&gt; {
                         <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                         <span class="kw">break</span>;
@@ -3732,13 +3732,13 @@
             }
 
             <span class="kw">if</span> <span class="ident">frame</span> <span class="op">==</span> <span class="string">b&#39;{&#39;</span> {
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                     <span class="prelude-val">Some</span>(<span class="string">b&#39;&quot;&#39;</span>) =&gt; <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>(),
                     <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#231">ErrorCode::KeyMustBeAString</a>)),
                     <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#192">ErrorCode::EofWhileParsingObject</a>)),
                 }
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">ignore_str</span>());
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">ignore_str</span>());
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                     <span class="prelude-val">Some</span>(<span class="string">b&#39;:&#39;</span>) =&gt; <a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>(),
                     <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#201">ErrorCode::ExpectedColon</a>)),
                     <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1023">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#192">ErrorCode::EofWhileParsingObject</a>)),
@@ -3750,10 +3750,10 @@
     }
 
     <span class="kw">fn</span> <span class="ident">ignore_integer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">next_char_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">next_char_or_null</span>()) {
             <span class="string">b&#39;0&#39;</span> =&gt; {
                 <span class="comment">// There can be only one leading &#39;0&#39;.</span>
-                <span class="kw">if</span> <span class="kw">let</span> <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1138">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>));
                 }
             }
@@ -3767,7 +3767,7 @@
             }
         }
 
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
             <span class="string">b&#39;.&#39;</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#1138">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#1163">ignore_decimal</a>(),
             <span class="string">b&#39;e&#39;</span> <span class="op">|</span> <span class="string">b&#39;E&#39;</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#1138">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#1182">ignore_exponent</a>(),
             <span class="kw">_</span> =&gt; <span class="prelude-val">Ok</span>(()),
@@ -3787,7 +3787,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1163">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>));
         }
 
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
             <span class="string">b&#39;e&#39;</span> <span class="op">|</span> <span class="string">b&#39;E&#39;</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#1163">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#1182">ignore_exponent</a>(),
             <span class="kw">_</span> =&gt; <span class="prelude-val">Ok</span>(()),
         }
@@ -3796,13 +3796,13 @@
     <span class="kw">fn</span> <span class="ident">ignore_exponent</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <a class="self" href="../../src/serde_json/de.rs.html#1182">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
 
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">peek_or_null</span>()) {
             <span class="string">b&#39;+&#39;</span> <span class="op">|</span> <span class="string">b&#39;-&#39;</span> =&gt; <a class="self" href="../../src/serde_json/de.rs.html#1182">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>(),
             <span class="kw">_</span> =&gt; {}
         }
 
         <span class="comment">// Make sure a digit follows the exponent place.</span>
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">next_char_or_null</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">next_char_or_null</span>()) {
             <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; {}
             <span class="kw">_</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1182">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#234">error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#219">ErrorCode::InvalidNumber</a>));
@@ -3925,7 +3925,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1315">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -3935,28 +3935,28 @@
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1314">peek</a> {
             <span class="string">b&#39;n&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_unit</a>()
             }
             <span class="string">b&#39;t&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;rue&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;rue&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_bool</a>(<span class="bool-val">true</span>)
             }
             <span class="string">b&#39;f&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;alse&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;alse&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_bool</a>(<span class="bool-val">false</span>)
             }
             <span class="string">b&#39;-&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_any_number</span>(<span class="bool-val">false</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>)
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_any_number</span>(<span class="bool-val">false</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>)
             }
-            <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_any_number</span>(<span class="bool-val">true</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>),
+            <span class="string">b&#39;0&#39;</span>..<span class="op">=</span><span class="string">b&#39;9&#39;</span> =&gt; <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_any_number</span>(<span class="bool-val">true</span>)).<a class="ident" href="../../src/serde_json/de.rs.html#111-113">visit</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>),
             <span class="string">b&#39;&quot;&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <a class="self" href="../../src/serde_json/de.rs.html#1310">self</a>.<span class="ident">scratch</span>.<span class="ident">clear</span>();
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">parse_str</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">scratch</span>)) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">parse_str</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">scratch</span>)) {
                     <a class="ident" href="../../src/serde_json/read.rs.html#126">Reference::Borrowed</a>(<span class="ident">s</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_borrowed_str</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1346">s</a>),
                     <a class="ident" href="../../src/serde_json/read.rs.html#127">Reference::Copied</a>(<span class="ident">s</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1310">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_str</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1347">s</a>),
                 }
@@ -4001,7 +4001,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1391">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1386">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4011,12 +4011,12 @@
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1390">peek</a> {
             <span class="string">b&#39;t&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1386">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;rue&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;rue&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1386">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_bool</a>(<span class="bool-val">true</span>)
             }
             <span class="string">b&#39;f&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1386">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;alse&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;alse&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1386">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_bool</a>(<span class="bool-val">false</span>)
             }
             <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1386">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#262">peek_invalid_type</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/serde_json/de.rs.html#1386">visitor</a>)),
@@ -4058,7 +4058,7 @@
         {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">String::new</span>();
 
-            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                 <span class="prelude-val">Some</span>(<span class="string">b&#39;-&#39;</span>) =&gt; {
                     <a class="self" href="../../src/serde_json/de.rs.html#1441">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                     <a class="ident" href="../../src/serde_json/de.rs.html#1445">buf</a>.<span class="ident">push</span>(<span class="string">&#39;-&#39;</span>);
@@ -4069,7 +4069,7 @@
                 }
             };
 
-            <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">scan_integer128</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>));
+            <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">scan_integer128</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>));
 
             <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1445">buf</a>.<span class="ident">parse</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">int</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1441">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_i128</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1461">int</a>),
@@ -4088,7 +4088,7 @@
         <span class="kw">where</span>
             <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
         {
-            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+            <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                 <span class="prelude-val">Some</span>(<span class="string">b&#39;-&#39;</span>) =&gt; {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1473">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#222">ErrorCode::NumberOutOfRange</a>));
                 }
@@ -4099,7 +4099,7 @@
             }
 
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">String::new</span>();
-            <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">scan_integer128</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>));
+            <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">scan_integer128</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>));
 
             <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1487">buf</a>.<span class="ident">parse</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">int</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1473">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_u128</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1491">int</a>),
@@ -4126,7 +4126,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1516">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1511">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4137,7 +4137,7 @@
             <span class="string">b&#39;&quot;&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1511">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <a class="self" href="../../src/serde_json/de.rs.html#1511">self</a>.<span class="ident">scratch</span>.<span class="ident">clear</span>();
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">parse_str</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">scratch</span>)) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">parse_str</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">scratch</span>)) {
                     <a class="ident" href="../../src/serde_json/read.rs.html#126">Reference::Borrowed</a>(<span class="ident">s</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1511">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_borrowed_str</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1527">s</a>),
                     <a class="ident" href="../../src/serde_json/read.rs.html#127">Reference::Copied</a>(<span class="ident">s</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1511">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_str</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1528">s</a>),
                 }
@@ -4232,7 +4232,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1622">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1617">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4243,7 +4243,7 @@
             <span class="string">b&#39;&quot;&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1617">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                 <a class="self" href="../../src/serde_json/de.rs.html#1617">self</a>.<span class="ident">scratch</span>.<span class="ident">clear</span>();
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">parse_str_raw</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">scratch</span>)) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">read</span>.<span class="ident">parse_str_raw</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">scratch</span>)) {
                     <a class="ident" href="../../src/serde_json/read.rs.html#126">Reference::Borrowed</a>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1617">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_borrowed_bytes</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1633">b</a>),
                     <a class="ident" href="../../src/serde_json/read.rs.html#127">Reference::Copied</a>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1617">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_bytes</a>(<a class="ident" href="../../src/serde_json/de.rs.html#1634">b</a>),
                 }
@@ -4272,10 +4272,10 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;n&#39;</span>) =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1657">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1657">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_none</a>()
             }
             <span class="kw">_</span> =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1657">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_some</a>(<a class="self" href="../../src/serde_json/de.rs.html#1657">self</a>),
@@ -4286,7 +4286,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1676">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1671">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4296,7 +4296,7 @@
         <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1675">peek</a> {
             <span class="string">b&#39;n&#39;</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1671">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_ident</span>(<span class="string">b&quot;ull&quot;</span>));
                 <a class="ident" href="../../src/serde_json/de.rs.html#1671">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_unit</a>()
             }
             <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1671">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#262">peek_invalid_type</a>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/serde_json/de.rs.html#1671">visitor</a>)),
@@ -4336,7 +4336,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1726">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1721">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4387,7 +4387,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1777">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1772">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4424,7 +4424,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#1814">b</a>,
             <span class="prelude-val">None</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1805">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>));
@@ -4475,14 +4475,14 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;{&#39;</span>) =&gt; {
                 <a class="macro" href="../../src/serde_json/de.rs.html#1289-1304">check_recursion!</a> {
                     <span class="self">self</span>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="ident">visitor</span>.<span class="ident">visit_enum</span>(<span class="ident">VariantAccess::new</span>(<span class="self">self</span>)));
+                    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="ident">visitor</span>.<span class="ident">visit_enum</span>(<span class="ident">VariantAccess::new</span>(<span class="self">self</span>)));
                 }
 
-                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
+                <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">parse_whitespace</span>()) {
                     <span class="prelude-val">Some</span>(<span class="string">b&#39;}&#39;</span>) =&gt; {
                         <a class="self" href="../../src/serde_json/de.rs.html#1856">self</a>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
                         <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/serde_json/de.rs.html#1868">value</a>)
@@ -4508,7 +4508,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">ignore_value</span>());
+        <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">ignore_value</span>());
         <a class="ident" href="../../src/serde_json/de.rs.html#1893">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_unit</a>()
     }
 }
@@ -4531,13 +4531,13 @@
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">de::DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;]&#39;</span>) =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
             }
             <span class="prelude-val">Some</span>(<span class="string">b&#39;,&#39;</span>) <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../src/serde_json/de.rs.html#1916">self</a>.<span class="ident">first</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1916">self</a>.<span class="ident">de</span>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>())
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>())
             }
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">first</span> {
@@ -4554,7 +4554,7 @@
 
         <span class="kw">match</span> <a class="ident" href="../../src/serde_json/de.rs.html#1920">peek</a> {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;]&#39;</span>) =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1916">self</a>.<span class="ident">de</span>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#237">ErrorCode::TrailingComma</a>)),
-            <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="ident">seed</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">de</span>)))),
+            <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="ident">seed</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">de</span>)))),
             <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Err</span>(<a class="self" href="../../src/serde_json/de.rs.html#1916">self</a>.<span class="ident">de</span>.<a class="ident" href="../../src/serde_json/de.rs.html#241">peek_error</a>(<a class="ident" href="../../src/serde_json/error.rs.html#198">ErrorCode::EofWhileParsingValue</a>)),
         }
     }
@@ -4578,13 +4578,13 @@
     <span class="kw">where</span>
         <span class="ident">K</span>: <span class="ident">de::DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>()) {
+        <span class="kw">let</span> <span class="ident">peek</span> <span class="op">=</span> <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;}&#39;</span>) =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
             }
             <span class="prelude-val">Some</span>(<span class="string">b&#39;,&#39;</span>) <span class="kw">if</span> <span class="op">!</span><a class="self" href="../../src/serde_json/de.rs.html#1963">self</a>.<span class="ident">first</span> =&gt; {
                 <a class="self" href="../../src/serde_json/de.rs.html#1963">self</a>.<span class="ident">de</span>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
-                <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>())
+                <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_whitespace</span>())
             }
             <span class="prelude-val">Some</span>(<span class="ident">b</span>) =&gt; {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">first</span> {
@@ -4611,7 +4611,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_object_colon</span>());
+        <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_object_colon</span>());
 
         <a class="ident" href="../../src/serde_json/de.rs.html#1996">seed</a>.<a class="ident" href="../../serde/de/trait.DeserializeSeed.html">deserialize</a>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/serde_json/de.rs.html#1996">self</a>.<span class="ident">de</span>)
     }
@@ -4635,8 +4635,8 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="ident">seed</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">de</span>));
-        <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_object_colon</span>());
+        <span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="ident">seed</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">de</span>));
+        <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">parse_object_colon</span>());
         <span class="prelude-val">Ok</span>((<a class="ident" href="../../src/serde_json/de.rs.html#2024">val</a>, <a class="self" href="../../src/serde_json/de.rs.html#2020">self</a>))
     }
 }
@@ -4688,7 +4688,7 @@
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::DeserializeSeed</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="ident">seed</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">de</span>));
+        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="ident">seed</span>.<span class="ident">deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">de</span>));
         <span class="prelude-val">Ok</span>((<a class="ident" href="../../src/serde_json/de.rs.html#2077">variant</a>, <a class="self" href="../../src/serde_json/de.rs.html#2073">self</a>))
     }
 }
@@ -4768,7 +4768,7 @@
     {
         <a class="self" href="../../src/serde_json/de.rs.html#2151">self</a>.<span class="ident">de</span>.<a class="ident" href="../../src/serde_json/de.rs.html#220">eat_char</a>();
         <a class="self" href="../../src/serde_json/de.rs.html#2151">self</a>.<span class="ident">de</span>.<span class="ident">scratch</span>.<span class="ident">clear</span>();
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">read</span>.<span class="ident">parse_str</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">de</span>.<span class="ident">scratch</span>)) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">read</span>.<span class="ident">parse_str</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">de</span>.<span class="ident">scratch</span>)) {
             <a class="ident" href="../../src/serde_json/read.rs.html#126">Reference::Borrowed</a>(<span class="ident">s</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#2151">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_borrowed_str</a>(<a class="ident" href="../../src/serde_json/de.rs.html#2158">s</a>),
             <a class="ident" href="../../src/serde_json/read.rs.html#127">Reference::Copied</a>(<span class="ident">s</span>) =&gt; <a class="ident" href="../../src/serde_json/de.rs.html#2151">visitor</a>.<a class="ident" href="../../serde/de/trait.Visitor.html">visit_str</a>(<a class="ident" href="../../src/serde_json/de.rs.html#2159">s</a>),
         }
@@ -4939,7 +4939,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">peek_end_of_value</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">peek</span>()) {
+        <span class="kw">match</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="self">self</span>.<span class="ident">de</span>.<span class="ident">peek</span>()) {
             <span class="prelude-val">Some</span>(<span class="string">b&#39; &#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;\n&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;\t&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;\r&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;&quot;&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;[&#39;</span>)
             <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;]&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;{&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;}&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;,&#39;</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="string">b&#39;:&#39;</span>) <span class="op">|</span> <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Ok</span>(()),
             <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; {
@@ -5023,10 +5023,10 @@
     <span class="ident">T</span>: <span class="ident">de::Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
 {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">de</span> <span class="op">=</span> <span class="ident">Deserializer::new</span>(<a class="ident" href="../../src/serde_json/de.rs.html#2406">read</a>);
-    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="ident">de::Deserialize::deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">de</span>));
+    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="ident">de::Deserialize::deserialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">de</span>));
 
     <span class="comment">// Make sure the whole stream has been consumed.</span>
-    <a class="macro" href="../../src/serde_json/lib.rs.html#387-394">tri!</a>(<span class="ident">de</span>.<span class="ident">end</span>());
+    <a class="macro" href="../../src/serde_json/lib.rs.html#388-395">tri!</a>(<span class="ident">de</span>.<span class="ident">end</span>());
     <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/serde_json/de.rs.html#2412">value</a>)
 }
 

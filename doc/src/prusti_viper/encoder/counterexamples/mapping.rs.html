@@ -213,22 +213,22 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">VarMapping</span>{
     <span class="comment">//Mapping between mir varable names and basic blocks of snapshotvariables</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">var_snaphot_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#21">SnapshotVar</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>, 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">var_snaphot_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#21">SnapshotVar</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="comment">//Mapping of all labels and its successors label</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">labels_successor_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>, 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">labels_successor_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="comment">//Mapping of pure function calls per basic block</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">pure_functions_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#27">PureFunction</a><span class="op">&gt;</span><span class="op">&gt;</span>, 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">pure_functions_mapping</span>: <span class="ident">FxHashMap</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#27">PureFunction</a><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">SnapshotVar</span>{
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">name</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">name</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">position</span>: <a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">PureFunction</span>{
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">name</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">name</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">args</span>: <span class="ident">Vec</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">position</span>: <a class="ident" href="../../../../vir/common/position/struct.Position.html">vir_low::Position</a>
 }
@@ -243,7 +243,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;ce</span>, <span class="lifetime">&#39;tcx</span>, <span class="lifetime">&#39;v</span><span class="op">&gt;</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#33">VarMappingInterface</a> <span class="kw">for</span> <span class="ident"><span class="kw">super</span>::counterexample_translation_refactored::CounterexampleTranslator</span><span class="op">&lt;</span><span class="lifetime">&#39;ce</span>, <span class="lifetime">&#39;tcx</span>, <span class="lifetime">&#39;v</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">create_mapping</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">proc_def_id</span>: <a class="ident" href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#67">Encoder</a>){
-        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#42">encoder</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">get_absolute_item_name</span>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#42">proc_def_id</a>);
+        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#42">encoder</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/encoder.rs.html#212">env</a>().<span class="ident">name</span>.<span class="ident">get_absolute_item_name</span>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#42">proc_def_id</a>);
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">mir_procedure_mapping</span>) <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#42">encoder</a>.<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#79">get_mapping</a>(<a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#43">name</a>){
             <span class="kw">for</span> <span class="ident">basic_block</span> <span class="kw">in</span> <span class="ident">mir_procedure_mapping</span>{
                 <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">basic_block</span>.<span class="ident">label</span>;
@@ -260,12 +260,12 @@
                         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">var_snaphot_mapping</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">mir_var</span>) {
                             <span class="prelude-val">Some</span>(<span class="ident">label_snapshot_mapping</span>) =&gt; { <span class="comment">//mir var already in mapping</span>
                                 <span class="kw">match</span> <span class="ident">label_snapshot_mapping</span>.<span class="ident">get_mut</span>(<span class="ident">label</span>){ <span class="comment">//other snapshot vars are in mapping for that label</span>
-                                    <span class="prelude-val">Some</span>(<span class="ident">snapshot_var_vec</span>) =&gt; { 
+                                    <span class="prelude-val">Some</span>(<span class="ident">snapshot_var_vec</span>) =&gt; {
                                         <span class="comment">//filter duplicates</span>
                                         <span class="kw">if</span> <span class="op">!</span><span class="ident">position_equality</span>(<span class="kw-2">&amp;</span><span class="ident">snapshot_var_vec</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>().<span class="ident">position</span>, <span class="kw-2">&amp;</span><span class="ident">snapshot_var</span>.<span class="ident">position</span>){ <span class="comment">//safe because vec.len =&gt; 1</span>
                                             <span class="ident">snapshot_var_vec</span>.<span class="ident">push</span>(<span class="ident">snapshot_var</span>);
-                                        } 
-                                    } 
+                                        }
+                                    }
                                     <span class="prelude-val">None</span> =&gt; { <span class="comment">//no snapshot vars in mapping for that label</span>
                                         <span class="kw">let</span> <span class="ident">snapshot_var_vec</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">snapshot_var</span>];
                                         <span class="ident">label_snapshot_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">snapshot_var_vec</span>);
@@ -275,9 +275,9 @@
                             <span class="prelude-val">None</span> =&gt; { <span class="comment">//mir var not in mapping</span>
                                 <span class="kw">let</span> <span class="ident">snapshot_var_vec</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">snapshot_var</span>];
                                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">label_snapshot_mapping</span> <span class="op">=</span> <span class="ident">FxHashMap::default</span>();
-                                <span class="ident">label_snapshot_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">snapshot_var_vec</span>);          
-                                <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">var_snaphot_mapping</span>.<span class="ident">insert</span>(<span class="ident">mir_var</span>, <span class="ident">label_snapshot_mapping</span>);          
-                            }   
+                                <span class="ident">label_snapshot_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">snapshot_var_vec</span>);
+                                <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">var_snaphot_mapping</span>.<span class="ident">insert</span>(<span class="ident">mir_var</span>, <span class="ident">label_snapshot_mapping</span>);
+                            }
                         }
                     }
 
@@ -290,14 +290,14 @@
                         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">pure_functions_mapping</span>.<span class="ident">get_mut</span>(<span class="ident">label</span>) {
                             <span class="prelude-val">Some</span>(<span class="ident">pure_fn_vec</span>) =&gt; { <span class="comment">//further function calls</span>
                                 <span class="ident">pure_fn_vec</span>.<span class="ident">push</span>(<span class="ident">pure_fn</span>);
-                            } 
+                            }
                             <span class="prelude-val">None</span> =&gt; { <span class="comment">//first function call at that label</span>
                                 <span class="kw">let</span> <span class="ident">pure_fn_vec</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">pure_fn</span>];
                                 <span class="self">self</span>.<span class="ident">var_mapping</span>.<span class="ident">pure_functions_mapping</span>.<span class="ident">insert</span>(<span class="ident">label</span>.<span class="ident">clone</span>(), <span class="ident">pure_fn_vec</span>);
                             }
                         }
                     }
-                } 
+                }
             }
         }
     }
@@ -310,7 +310,7 @@
                <span class="kw">let</span> <span class="ident">successor</span> <span class="op">=</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#106">possible_successors</a>.<span class="ident">iter</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter</a>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="kw-2">*</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#104">label_markers</a>.<span class="ident">get</span>(<span class="kw-2">*</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#107">x</a>).<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="bool-val">false</span>)).<a class="ident" href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span><span class="op">&gt;</span>();
                <span class="kw">if</span> <span class="ident">successor</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> { <span class="comment">//there should always be at most one successor</span>
                     <span class="prelude-val">Some</span>(<span class="ident">successor</span>.<span class="ident">first</span>()<span class="question-mark">?</span>)
-               } <span class="kw">else</span> { 
+               } <span class="kw">else</span> {
                     <span class="comment">//the block has no successor; end of method or verification failure in that block</span>
                     <span class="comment">//multiple succesors should not be possible</span>
                     <span class="prelude-val">None</span>
@@ -355,9 +355,9 @@
         <span class="comment">//</span>
         <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#151">statement</a>.<span class="ident">expression</span> {
             <span class="comment">//variable assignment of the following form:</span>
-            <span class="comment">//inhale snapvar_1 == snapvar_2 </span>
-            <span class="comment">//inhale snapvar_1[0] == snapvar_2 </span>
-            <span class="ident">vir_low::Expression::Local</span>(<span class="ident">local</span>) <span class="op">|</span> 
+            <span class="comment">//inhale snapvar_1 == snapvar_2</span>
+            <span class="comment">//inhale snapvar_1[0] == snapvar_2</span>
+            <span class="ident">vir_low::Expression::Local</span>(<span class="ident">local</span>) <span class="op">|</span>
             <span class="ident">vir_low::Expression::BinaryOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html">BinaryOp</a>{ <span class="ident">op_kind</span>:<span class="ident">BinaryOpKind::EqCmp</span> ,  <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::Local</span>(<span class="ident">local</span>), .. }) <span class="op">|</span>
             <span class="ident">vir_low::Expression::BinaryOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html">BinaryOp</a>{ <span class="ident">op_kind</span>:<span class="ident">BinaryOpKind::EqCmp</span> ,  <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::ContainerOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.ContainerOp.html">ContainerOp</a> { <span class="ident">op_kind</span>: <span class="ident">ContainerOpKind::SeqIndex</span>, <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::Local</span>(<span class="ident">local</span>), .. }), ..}) =&gt; {
                 <span class="kw">if</span> <span class="ident">local</span>.<span class="ident">variable</span>.<span class="ident">name</span>.<span class="ident">contains</span>(<span class="string">&quot;snapshot&quot;</span>){
@@ -368,11 +368,11 @@
                 } <span class="kw">else</span> {
                     <span class="prelude-val">None</span>
                 }
-            }, 
+            },
             <span class="comment">//variable assignments of the following form:</span>
             <span class="comment">//inhale destruct_field(_1$snapshot$1) == snapvar_2                     (structs and enums)</span>
             <span class="comment">//inhale destruct_field_value(destruct_field(_1$snapshot$1)) == snapvar_2     (unions)</span>
-            <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }) <span class="op">|</span> 
+            <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }) <span class="op">|</span>
             <span class="ident">vir_low::Expression::BinaryOp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.BinaryOp.html">BinaryOp</a>{ <span class="ident">op_kind</span>:<span class="ident">BinaryOpKind::EqCmp</span> ,  <span class="ident">left</span>:<span class="kw">box</span> <span class="ident">vir_low::Expression::DomainFuncApp</span>(<a class="ident" href="../../../../vir/gen/low/ast/expression/struct.DomainFuncApp.html">DomainFuncApp</a>{<span class="ident">domain_name</span>: <span class="kw">_</span>, <span class="ident">function_name</span>, <span class="ident">arguments</span>, .. }), ..}) =&gt; {
                 <span class="kw">if</span> <span class="ident">arguments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> <span class="op">&amp;&amp;</span> (<span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;target_current&quot;</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">function_name</span>.<span class="ident">contains</span>(<span class="string">&quot;destructor&quot;</span>)) {
                     <span class="kw">match</span> <a class="ident" href="../../../../src/prusti_viper/encoder/counterexamples/mapping.rs.html#172">arguments</a>.<span class="ident">first</span>().<span class="ident">unwrap</span>(){
@@ -381,12 +381,12 @@
                         <span class="kw">_</span> =&gt; ()
                     }
                 }
-                    
+
                 <span class="prelude-val">None</span>
-                
-                
+
+
                 <span class="comment">/*/
-                if arguments.len() == 1 &amp;&amp; function_name.contains(&quot;target_current&quot;) &amp;&amp; matches!(arguments.first().unwrap(), vir_low::Expression::Local(_)) { //references 
+                if arguments.len() == 1 &amp;&amp; function_name.contains(&quot;target_current&quot;) &amp;&amp; matches!(arguments.first().unwrap(), vir_low::Expression::Local(_)) { //references
                     self.extract_var_from_assume(&amp;Assume{expression: arguments.first().unwrap().clone(), position: vir_low::Position::default()})
                 } else if arguments.len() == 1 &amp;&amp; function_name.contains(&quot;destructor&quot;) &amp;&amp; matches!(arguments.first().unwrap(), vir_low::Expression::Local(_)) { //fields struct/enum
                     self.extract_var_from_assume(&amp;Assume{expression: arguments.first().unwrap().clone(), position: vir_low::Position::default()})

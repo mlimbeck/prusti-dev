@@ -206,7 +206,7 @@
                 <span class="kw">loop</span> {
                     <span class="kw">let</span> <span class="ident">accept</span> <span class="op">=</span> <a class="ident" href="../../src/viper/smt_manager.rs.html#50">listener</a>.<span class="ident">accept</span>().<a class="ident" href="../../futures_util/future/future/trait.FutureExt.html">fuse</a>();
                     <a class="macro" href="../../pin_utils/pin_utils/macro.pin_mut.html">futures::pin_mut!</a>(<span class="ident">accept</span>);
-                    <a class="macro" href="../../futures_util/futures_util/macro.select.html">futures::select!</a> {
+                    <a class="macro" href="../../futures_util/macro.select.html">futures::select!</a> {
                         <span class="ident">value</span> <span class="op">=</span> <span class="ident">termination_receiver</span> =&gt; {
                             <span class="ident">value</span>.<span class="ident">unwrap</span>();
                             <span class="kw">break</span>;

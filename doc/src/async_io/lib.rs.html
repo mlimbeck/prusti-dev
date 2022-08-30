@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/async-io-1.7.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../async_io/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../async_io/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../async_io/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/async-io-1.8.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../async_io/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../async_io/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../async_io/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1784,6 +1784,61 @@
 <span id="1784">1784</span>
 <span id="1785">1785</span>
 <span id="1786">1786</span>
+<span id="1787">1787</span>
+<span id="1788">1788</span>
+<span id="1789">1789</span>
+<span id="1790">1790</span>
+<span id="1791">1791</span>
+<span id="1792">1792</span>
+<span id="1793">1793</span>
+<span id="1794">1794</span>
+<span id="1795">1795</span>
+<span id="1796">1796</span>
+<span id="1797">1797</span>
+<span id="1798">1798</span>
+<span id="1799">1799</span>
+<span id="1800">1800</span>
+<span id="1801">1801</span>
+<span id="1802">1802</span>
+<span id="1803">1803</span>
+<span id="1804">1804</span>
+<span id="1805">1805</span>
+<span id="1806">1806</span>
+<span id="1807">1807</span>
+<span id="1808">1808</span>
+<span id="1809">1809</span>
+<span id="1810">1810</span>
+<span id="1811">1811</span>
+<span id="1812">1812</span>
+<span id="1813">1813</span>
+<span id="1814">1814</span>
+<span id="1815">1815</span>
+<span id="1816">1816</span>
+<span id="1817">1817</span>
+<span id="1818">1818</span>
+<span id="1819">1819</span>
+<span id="1820">1820</span>
+<span id="1821">1821</span>
+<span id="1822">1822</span>
+<span id="1823">1823</span>
+<span id="1824">1824</span>
+<span id="1825">1825</span>
+<span id="1826">1826</span>
+<span id="1827">1827</span>
+<span id="1828">1828</span>
+<span id="1829">1829</span>
+<span id="1830">1830</span>
+<span id="1831">1831</span>
+<span id="1832">1832</span>
+<span id="1833">1833</span>
+<span id="1834">1834</span>
+<span id="1835">1835</span>
+<span id="1836">1836</span>
+<span id="1837">1837</span>
+<span id="1838">1838</span>
+<span id="1839">1839</span>
+<span id="1840">1840</span>
+<span id="1841">1841</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Async I/O and timers.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This crate provides two tools:</span>
@@ -1850,6 +1905,8 @@
 <span class="kw">use</span> <span class="ident">std::task</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/core/task/wake/struct.Context.html">Context</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/task/poll/enum.Poll.html">Poll</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/task/wake/struct.Waker.html">Waker</a>};
 <span class="kw">use</span> <span class="ident">std::time</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>};
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">unix</span>))]</span>
+<span class="kw">use</span> <span class="ident">std::os::unix::io</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/trait.AsFd.html">AsFd</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.BorrowedFd.html">BorrowedFd</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.OwnedFd.html">OwnedFd</a>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">os::unix::io</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/trait.AsRawFd.html">AsRawFd</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>},
@@ -1859,6 +1916,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
 <span class="kw">use</span> <span class="ident">std::os::windows::io</span>::{<span class="ident">AsRawSocket</span>, <span class="ident">RawSocket</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">windows</span>))]</span>
+<span class="kw">use</span> <span class="ident">std::os::windows::io</span>::{<span class="ident">AsSocket</span>, <span class="ident">BorrowedSocket</span>, <span class="ident">OwnedSocket</span>};
 
 <span class="kw">use</span> <span class="ident">futures_lite::io</span>::{<a class="ident" href="../../futures_io/if_std/trait.AsyncRead.html">AsyncRead</a>, <a class="ident" href="../../futures_io/if_std/trait.AsyncWrite.html">AsyncWrite</a>};
 <span class="kw">use</span> <span class="ident">futures_lite::stream</span>::{<a class="self" href="../../futures_lite/stream/index.html">self</a>, <a class="ident" href="../../futures_core/stream/trait.Stream.html">Stream</a>};
@@ -1927,7 +1986,7 @@
     <span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>,
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
     <span class="doccomment">/// Creates a timer that emits an event once after the given duration of time.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
@@ -1940,8 +1999,8 @@
     <span class="doccomment">/// Timer::after(Duration::from_secs(1)).await;</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">after</span>(<span class="ident">duration</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
-        <span class="ident">Timer::at</span>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#157">duration</a>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">after</span>(<span class="ident">duration</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
+        <span class="ident">Timer::at</span>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#161">duration</a>)
     }
 
     <span class="doccomment">/// Creates a timer that emits an event once at the given time instant.</span>
@@ -1958,9 +2017,9 @@
     <span class="doccomment">/// Timer::at(when).await;</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">at</span>(<span class="ident">instant</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">at</span>(<span class="ident">instant</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
         <span class="comment">// Use Duration::MAX once duration_constants are stabilized.</span>
-        <span class="ident">Timer::interval_at</span>(<a class="ident" href="../../src/async_io/lib.rs.html#175">instant</a>, <a class="ident" href="../../src/async_io/lib.rs.html#91">duration_max</a>())
+        <span class="ident">Timer::interval_at</span>(<a class="ident" href="../../src/async_io/lib.rs.html#179">instant</a>, <a class="ident" href="../../src/async_io/lib.rs.html#95">duration_max</a>())
     }
 
     <span class="doccomment">/// Creates a timer that emits events periodically.</span>
@@ -1977,8 +2036,8 @@
     <span class="doccomment">/// Timer::interval(period).next().await;</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interval</span>(<span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
-        <span class="ident">Timer::interval_at</span>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#194">period</a>, <a class="ident" href="../../src/async_io/lib.rs.html#194">period</a>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interval</span>(<span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
+        <span class="ident">Timer::interval_at</span>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#198">period</a>, <a class="ident" href="../../src/async_io/lib.rs.html#198">period</a>)
     }
 
     <span class="doccomment">/// Creates a timer that emits events periodically, starting at `start`.</span>
@@ -1996,11 +2055,11 @@
     <span class="doccomment">/// Timer::interval_at(start, period).next().await;</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interval_at</span>(<span class="ident">start</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>, <span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
-        <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">interval_at</span>(<span class="ident">start</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>, <span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
+        <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
             <span class="ident">id_and_waker</span>: <span class="prelude-val">None</span>,
-            <span class="ident">when</span>: <a class="ident" href="../../src/async_io/lib.rs.html#213">start</a>,
-            <a class="ident" href="../../src/async_io/lib.rs.html#213">period</a>,
+            <span class="ident">when</span>: <a class="ident" href="../../src/async_io/lib.rs.html#217">start</a>,
+            <a class="ident" href="../../src/async_io/lib.rs.html#217">period</a>,
         }
     }
 
@@ -2022,7 +2081,7 @@
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_after</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">duration</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) {
-        <a class="self" href="../../src/async_io/lib.rs.html#238">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#262">set_at</a>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#238">duration</a>);
+        <a class="self" href="../../src/async_io/lib.rs.html#242">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#266">set_at</a>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#242">duration</a>);
     }
 
     <span class="doccomment">/// Sets the timer to emit an event once at the given time instant.</span>
@@ -2046,17 +2105,17 @@
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_at</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">instant</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#262">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_ref</span>() {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#266">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_ref</span>() {
             <span class="comment">// Deregister the timer from the reactor.</span>
-            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#262">self</a>.<span class="ident">when</span>, <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#263">id</a>);
+            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#266">self</a>.<span class="ident">when</span>, <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#267">id</a>);
         }
 
         <span class="comment">// Update the timeout.</span>
-        <a class="self" href="../../src/async_io/lib.rs.html#262">self</a>.<span class="ident">when</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#262">instant</a>;
+        <a class="self" href="../../src/async_io/lib.rs.html#266">self</a>.<span class="ident">when</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#266">instant</a>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="ident">waker</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#262">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_mut</span>() {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="ident">waker</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#266">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_mut</span>() {
             <span class="comment">// Re-register the timer with the new timeout.</span>
-            <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#271">id</a> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#262">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#271">waker</a>);
+            <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#275">id</a> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#266">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#275">waker</a>);
         }
     }
 
@@ -2081,7 +2140,7 @@
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_interval</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) {
-        <a class="self" href="../../src/async_io/lib.rs.html#297">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#322">set_interval_at</a>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#297">period</a>, <a class="ident" href="../../src/async_io/lib.rs.html#297">period</a>);
+        <a class="self" href="../../src/async_io/lib.rs.html#301">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#326">set_interval_at</a>(<span class="ident">Instant::now</span>() <span class="op">+</span> <a class="ident" href="../../src/async_io/lib.rs.html#301">period</a>, <a class="ident" href="../../src/async_io/lib.rs.html#301">period</a>);
     }
 
     <span class="doccomment">/// Sets the timer to emit events periodically, starting at `start`.</span>
@@ -2106,74 +2165,74 @@
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_interval_at</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">start</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>, <span class="ident">period</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#322">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_ref</span>() {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#326">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_ref</span>() {
             <span class="comment">// Deregister the timer from the reactor.</span>
-            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#322">self</a>.<span class="ident">when</span>, <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#323">id</a>);
+            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#326">self</a>.<span class="ident">when</span>, <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#327">id</a>);
         }
 
-        <a class="self" href="../../src/async_io/lib.rs.html#322">self</a>.<span class="ident">when</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#322">start</a>;
-        <a class="self" href="../../src/async_io/lib.rs.html#322">self</a>.<span class="ident">period</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#322">period</a>;
+        <a class="self" href="../../src/async_io/lib.rs.html#326">self</a>.<span class="ident">when</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#326">start</a>;
+        <a class="self" href="../../src/async_io/lib.rs.html#326">self</a>.<span class="ident">period</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#326">period</a>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="ident">waker</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#322">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_mut</span>() {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="ident">waker</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#326">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">as_mut</span>() {
             <span class="comment">// Re-register the timer with the new timeout.</span>
-            <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#331">id</a> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#322">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#331">waker</a>);
+            <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#335">id</a> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#326">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#335">waker</a>);
         }
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html">Drop</a> <span class="kw">for</span> <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html">Drop</a> <span class="kw">for</span> <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#339">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">take</span>() {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#343">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">take</span>() {
             <span class="comment">// Deregister the timer from the reactor.</span>
-            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#339">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#340">id</a>);
+            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#343">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#344">id</a>);
         }
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html">Future</a> <span class="kw">for</span> <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html">Future</a> <span class="kw">for</span> <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
     <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>;
 
     <span class="kw">fn</span> <span class="ident">poll</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="self" href="../../src/async_io/lib.rs.html#350">self</a>.<a class="ident" href="../../futures_core/stream/trait.Stream.html">poll_next</a>(<a class="ident" href="../../src/async_io/lib.rs.html#350">cx</a>) {
-            <span class="ident">Poll::Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">when</span>)) =&gt; <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#352">when</a>),
+        <span class="kw">match</span> <a class="self" href="../../src/async_io/lib.rs.html#354">self</a>.<a class="ident" href="../../futures_core/stream/trait.Stream.html">poll_next</a>(<a class="ident" href="../../src/async_io/lib.rs.html#354">cx</a>) {
+            <span class="ident">Poll::Ready</span>(<span class="prelude-val">Some</span>(<span class="ident">when</span>)) =&gt; <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#356">when</a>),
             <span class="ident">Poll::Pending</span> =&gt; <span class="ident">Poll::Pending</span>,
             <span class="ident">Poll::Ready</span>(<span class="prelude-val">None</span>) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(),
         }
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="../../futures_core/stream/trait.Stream.html">Stream</a> <span class="kw">for</span> <a class="ident" href="../../src/async_io/lib.rs.html#131">Timer</a> {
+<span class="kw">impl</span> <a class="ident" href="../../futures_core/stream/trait.Stream.html">Stream</a> <span class="kw">for</span> <a class="ident" href="../../src/async_io/lib.rs.html#135">Timer</a> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/time/struct.Instant.html">Instant</a>;
 
     <span class="kw">fn</span> <span class="ident">poll_next</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="comment">// Check if the timer has already fired.</span>
         <span class="kw">if</span> <span class="ident">Instant::now</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">when</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">take</span>() {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="kw">_</span>)) <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">id_and_waker</span>.<span class="ident">take</span>() {
                 <span class="comment">// Deregister the timer from the reactor.</span>
-                <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#365">id</a>);
+                <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#369">id</a>);
             }
-            <span class="kw">let</span> <span class="ident">when</span> <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span>;
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">next</span>) <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#369">when</a>.<span class="ident">checked_add</span>(<a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">period</span>) {
-                <a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#370">next</a>;
+            <span class="kw">let</span> <span class="ident">when</span> <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span>;
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">next</span>) <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#373">when</a>.<span class="ident">checked_add</span>(<a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">period</span>) {
+                <a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#374">next</a>;
                 <span class="comment">// Register the timer in the reactor.</span>
-                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>());
-                <a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">id_and_waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#373">id</a>, <a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>());
+                <a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">id_and_waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#377">id</a>, <a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
             }
-            <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="prelude-val">Some</span>(<a class="ident" href="../../src/async_io/lib.rs.html#369">when</a>));
+            <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="prelude-val">Some</span>(<a class="ident" href="../../src/async_io/lib.rs.html#373">when</a>));
         } <span class="kw">else</span> {
-            <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">id_and_waker</span> {
+            <span class="kw">match</span> <span class="kw-2">&amp;</span><a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">id_and_waker</span> {
                 <span class="prelude-val">None</span> =&gt; {
                     <span class="comment">// Register the timer in the reactor.</span>
-                    <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>());
-                    <a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">id_and_waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#381">id</a>, <a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
+                    <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>());
+                    <a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">id_and_waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#385">id</a>, <a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
                 }
-                <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="ident">w</span>)) <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../src/async_io/lib.rs.html#384">w</a>.<span class="ident">will_wake</span>(<a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>()) =&gt; {
+                <span class="prelude-val">Some</span>((<span class="ident">id</span>, <span class="ident">w</span>)) <span class="kw">if</span> <span class="op">!</span><a class="ident" href="../../src/async_io/lib.rs.html#388">w</a>.<span class="ident">will_wake</span>(<a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>()) =&gt; {
                     <span class="comment">// Deregister the timer from the reactor to remove the old waker.</span>
-                    <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span>, <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#384">id</a>);
+                    <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#151">remove_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span>, <span class="kw-2">*</span><a class="ident" href="../../src/async_io/lib.rs.html#388">id</a>);
 
                     <span class="comment">// Register the timer in the reactor with the new waker.</span>
-                    <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>());
-                    <a class="self" href="../../src/async_io/lib.rs.html#362">self</a>.<span class="ident">id_and_waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#389">id</a>, <a class="ident" href="../../src/async_io/lib.rs.html#362">cx</a>.<span class="ident">waker</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
+                    <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#128">insert_timer</a>(<a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">when</span>, <a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>());
+                    <a class="self" href="../../src/async_io/lib.rs.html#366">self</a>.<span class="ident">id_and_waker</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#393">id</a>, <a class="ident" href="../../src/async_io/lib.rs.html#366">cx</a>.<span class="ident">waker</span>().<a class="ident" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()));
                 }
                 <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; {}
             }
@@ -2311,22 +2370,22 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">io</span>: <span class="ident">T</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#527">io</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/trait.AsRawFd.html">as_raw_fd</a>();
+        <span class="kw">let</span> <span class="ident">fd</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#531">io</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/trait.AsRawFd.html">as_raw_fd</a>();
 
         <span class="comment">// Put the file descriptor in non-blocking mode.</span>
         <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">libc::fcntl</span>(<a class="ident" href="../../src/async_io/lib.rs.html#528">fd</a>, <span class="ident">libc::F_GETFL</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">libc::fcntl</span>(<a class="ident" href="../../src/async_io/lib.rs.html#532">fd</a>, <span class="ident">libc::F_GETFL</span>);
             <span class="kw">if</span> <span class="ident">res</span> <span class="op">!</span><span class="op">=</span> <span class="op">-</span><span class="number">1</span> {
-                <a class="ident" href="../../src/async_io/lib.rs.html#532">res</a> <span class="op">=</span> <span class="ident">libc::fcntl</span>(<a class="ident" href="../../src/async_io/lib.rs.html#528">fd</a>, <span class="ident">libc::F_SETFL</span>, <a class="ident" href="../../src/async_io/lib.rs.html#532">res</a> <span class="op">|</span> <span class="ident">libc::O_NONBLOCK</span>);
+                <a class="ident" href="../../src/async_io/lib.rs.html#536">res</a> <span class="op">=</span> <span class="ident">libc::fcntl</span>(<a class="ident" href="../../src/async_io/lib.rs.html#532">fd</a>, <span class="ident">libc::F_SETFL</span>, <a class="ident" href="../../src/async_io/lib.rs.html#536">res</a> <span class="op">|</span> <span class="ident">libc::O_NONBLOCK</span>);
             }
             <span class="kw">if</span> <span class="ident">res</span> <span class="op">==</span> <span class="op">-</span><span class="number">1</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io::Error::last_os_error</span>());
             }
         }
 
-        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/async_io/lib.rs.html#491">Async</a> {
+        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/async_io/lib.rs.html#495">Async</a> {
             <span class="ident">source</span>: <span class="ident">Reactor::get</span>().<span class="ident">insert_io</span>(<span class="ident">fd</span>)<span class="question-mark">?</span>,
-            <span class="ident">io</span>: <span class="prelude-val">Some</span>(<a class="ident" href="../../src/async_io/lib.rs.html#527">io</a>),
+            <span class="ident">io</span>: <span class="prelude-val">Some</span>(<a class="ident" href="../../src/async_io/lib.rs.html#531">io</a>),
         })
     }
 }
@@ -2334,7 +2393,32 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/trait.AsRawFd.html">AsRawFd</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/trait.AsRawFd.html">AsRawFd</a> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">as_raw_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a> {
-        <a class="self" href="../../src/async_io/lib.rs.html#550">self</a>.<span class="ident">source</span>.<span class="ident">raw</span>
+        <a class="self" href="../../src/async_io/lib.rs.html#554">self</a>.<span class="ident">source</span>.<span class="ident">raw</span>
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">unix</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/trait.AsFd.html">AsFd</a><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/trait.AsFd.html">AsFd</a> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">as_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BorrowedFd</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <a class="self" href="../../src/async_io/lib.rs.html#561">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/trait.AsFd.html">as_fd</a>()
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">unix</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/trait.AsRawFd.html">AsRawFd</a> <span class="op">+</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.OwnedFd.html">OwnedFd</a><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.OwnedFd.html">OwnedFd</a><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
+
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.OwnedFd.html">OwnedFd</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#570">value</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>())
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">unix</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.OwnedFd.html">OwnedFd</a><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/owned/struct.OwnedFd.html">OwnedFd</a> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
+
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+        <a class="ident" href="../../src/async_io/lib.rs.html#579">value</a>.<a class="ident" href="../../src/async_io/lib.rs.html#722">into_inner</a>().<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">Into::into</a>)
     }
 }
 
@@ -2368,19 +2452,20 @@
         <span class="kw">let</span> <span class="ident">sock</span> <span class="op">=</span> <span class="ident">io</span>.<span class="ident">as_raw_socket</span>();
 
         <span class="comment">// Put the socket in non-blocking mode.</span>
-        <span class="kw">unsafe</span> {
-            <span class="kw">use</span> <span class="ident">winapi::ctypes</span>;
-            <span class="kw">use</span> <span class="ident">winapi::um::winsock2</span>;
 
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nonblocking</span> <span class="op">=</span> <span class="bool-val">true</span> <span class="kw">as</span> <span class="ident">ctypes::c_ulong</span>;
-            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">winsock2::ioctlsocket</span>(
+        <span class="kw">use</span> <span class="ident">winapi::ctypes</span>;
+        <span class="kw">use</span> <span class="ident">winapi::um::winsock2</span>;
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nonblocking</span> <span class="op">=</span> <span class="bool-val">true</span> <span class="kw">as</span> <span class="ident">ctypes::c_ulong</span>;
+        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+            <span class="ident">winsock2::ioctlsocket</span>(
                 <span class="ident">sock</span> <span class="kw">as</span> <span class="ident">winsock2::SOCKET</span>,
                 <span class="ident">winsock2::FIONBIO</span>,
                 <span class="kw-2">&amp;mut</span> <span class="ident">nonblocking</span>,
-            );
-            <span class="kw">if</span> <span class="ident">res</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io::Error::last_os_error</span>());
-            }
+            )
+        };
+        <span class="kw">if</span> <span class="ident">res</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io::Error::last_os_error</span>());
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">Async</span> {
@@ -2394,6 +2479,31 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRawSocket</span><span class="op">&gt;</span> <span class="ident">AsRawSocket</span> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">as_raw_socket</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RawSocket</span> {
         <span class="self">self</span>.<span class="ident">source</span>.<span class="ident">raw</span>
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">windows</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsSocket</span><span class="op">&gt;</span> <span class="ident">AsSocket</span> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">as_socket</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BorrowedSocket</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">get_ref</span>().<span class="ident">as_socket</span>()
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">windows</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRawSocket</span> <span class="op">+</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">OwnedSocket</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">OwnedSocket</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">io::Error</span>;
+
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">OwnedSocket</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+        <span class="ident">Async::new</span>(<span class="ident">value</span>.<span class="ident">into</span>())
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">async_io_no_io_safety</span>), <span class="ident">windows</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">OwnedSocket</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OwnedSocket</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">io::Error</span>;
+
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+        <span class="ident">value</span>.<span class="ident">into_inner</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>)
     }
 }
 
@@ -2412,7 +2522,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#628">self</a>.<span class="ident">io</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>()
+        <a class="self" href="../../src/async_io/lib.rs.html#683">self</a>.<span class="ident">io</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>()
     }
 
     <span class="doccomment">/// Gets a mutable reference to the inner I/O handle.</span>
@@ -2429,7 +2539,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">T</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#645">self</a>.<span class="ident">io</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>()
+        <a class="self" href="../../src/async_io/lib.rs.html#700">self</a>.<span class="ident">io</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>()
     }
 
     <span class="doccomment">/// Unwraps the inner I/O handle.</span>
@@ -2451,9 +2561,9 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="kw-2">mut</span> <span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#667">self</a>.<span class="ident">io</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">io</span> <span class="op">=</span> <a class="self" href="../../src/async_io/lib.rs.html#722">self</a>.<span class="ident">io</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>();
         <span class="ident">Reactor::get</span>().<span class="ident">remove_io</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">source</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/async_io/lib.rs.html#668">io</a>)
+        <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/async_io/lib.rs.html#723">io</a>)
     }
 
     <span class="doccomment">/// Waits until the I/O handle is readable.</span>
@@ -2474,14 +2584,14 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">readable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Readable</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="ident">Source::readable</span>(<a class="self" href="../../src/async_io/lib.rs.html#690">self</a>)
+        <span class="ident">Source::readable</span>(<a class="self" href="../../src/async_io/lib.rs.html#745">self</a>)
     }
 
     <span class="doccomment">/// Waits until the I/O handle is readable.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method completes when a read operation on this I/O handle wouldn&#39;t block.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">readable_owned</span>(<span class="self">self</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">ReadableOwned</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="ident">Source::readable_owned</span>(<a class="self" href="../../src/async_io/lib.rs.html#697">self</a>)
+        <span class="ident">Source::readable_owned</span>(<a class="self" href="../../src/async_io/lib.rs.html#752">self</a>)
     }
 
     <span class="doccomment">/// Waits until the I/O handle is writable.</span>
@@ -2503,14 +2613,14 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">writable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Writable</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="ident">Source::writable</span>(<a class="self" href="../../src/async_io/lib.rs.html#719">self</a>)
+        <span class="ident">Source::writable</span>(<a class="self" href="../../src/async_io/lib.rs.html#774">self</a>)
     }
 
     <span class="doccomment">/// Waits until the I/O handle is writable.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method completes when a write operation on this I/O handle wouldn&#39;t block.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">writable_owned</span>(<span class="self">self</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">WritableOwned</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="ident">Source::writable_owned</span>(<a class="self" href="../../src/async_io/lib.rs.html#726">self</a>)
+        <span class="ident">Source::writable_owned</span>(<a class="self" href="../../src/async_io/lib.rs.html#781">self</a>)
     }
 
     <span class="doccomment">/// Polls the I/O handle for readability.</span>
@@ -2541,7 +2651,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll_readable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#757">self</a>.<span class="ident">source</span>.<a class="ident" href="../../src/async_io/reactor.rs.html#397">poll_readable</a>(<a class="ident" href="../../src/async_io/lib.rs.html#757">cx</a>)
+        <a class="self" href="../../src/async_io/lib.rs.html#812">self</a>.<span class="ident">source</span>.<a class="ident" href="../../src/async_io/reactor.rs.html#397">poll_readable</a>(<a class="ident" href="../../src/async_io/lib.rs.html#812">cx</a>)
     }
 
     <span class="doccomment">/// Polls the I/O handle for writability.</span>
@@ -2573,7 +2683,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll_writable</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#789">self</a>.<span class="ident">source</span>.<a class="ident" href="../../src/async_io/reactor.rs.html#402">poll_writable</a>(<a class="ident" href="../../src/async_io/lib.rs.html#789">cx</a>)
+        <a class="self" href="../../src/async_io/lib.rs.html#844">self</a>.<span class="ident">source</span>.<a class="ident" href="../../src/async_io/reactor.rs.html#402">poll_writable</a>(<a class="ident" href="../../src/async_io/lib.rs.html#844">cx</a>)
     }
 
     <span class="doccomment">/// Performs a read operation asynchronously.</span>
@@ -2719,13 +2829,13 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#935">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#628">get_ref</a>()
+        <a class="self" href="../../src/async_io/lib.rs.html#990">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>()
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">AsMut</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Async</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">as_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">T</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#941">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#645">get_mut</a>()
+        <a class="self" href="../../src/async_io/lib.rs.html#996">self</a>.<a class="ident" href="../../src/async_io/lib.rs.html#700">get_mut</a>()
     }
 }
 
@@ -2733,10 +2843,10 @@
     <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">io</span>.<span class="ident">is_some</span>() {
             <span class="comment">// Deregister and ignore errors because destructors should not panic.</span>
-            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#119">remove_io</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/async_io/lib.rs.html#947">self</a>.<span class="ident">source</span>).<span class="ident">ok</span>();
+            <span class="ident">Reactor::get</span>().<a class="ident" href="../../src/async_io/reactor.rs.html#119">remove_io</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/async_io/lib.rs.html#1002">self</a>.<span class="ident">source</span>).<span class="ident">ok</span>();
 
             <span class="comment">// Drop the I/O handle to close it.</span>
-            <a class="self" href="../../src/async_io/lib.rs.html#947">self</a>.<span class="ident">io</span>.<span class="ident">take</span>();
+            <a class="self" href="../../src/async_io/lib.rs.html#1002">self</a>.<span class="ident">io</span>.<span class="ident">take</span>();
         }
     }
 }
@@ -2748,9 +2858,9 @@
         <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#960">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#645">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read</a>(<a class="ident" href="../../src/async_io/lib.rs.html#962">buf</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#966">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#967">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1015">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#700">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1017">buf</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1021">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1022">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_readable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2762,9 +2872,9 @@
         <span class="ident">bufs</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#974">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#645">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#976">bufs</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#980">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#981">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1029">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#700">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1031">bufs</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1035">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1036">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_readable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2781,9 +2891,9 @@
         <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#993">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#628">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read</a>(<a class="ident" href="../../src/async_io/lib.rs.html#995">buf</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#999">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1000">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1048">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1050">buf</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1054">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1055">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_readable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2795,9 +2905,9 @@
         <span class="ident">bufs</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1007">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#628">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1009">bufs</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1013">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1014">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1062">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">read_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1064">bufs</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1068">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1069">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_readable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2811,9 +2921,9 @@
         <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1023">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#645">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1025">buf</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1029">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1030">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1078">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#700">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1080">buf</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1084">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1085">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_writable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2825,9 +2935,9 @@
         <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1037">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#645">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1039">bufs</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1043">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1044">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1092">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#700">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1094">bufs</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1098">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1099">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_writable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2835,16 +2945,16 @@
 
     <span class="kw">fn</span> <span class="ident">poll_flush</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1050">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#645">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">flush</a>() {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1053">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1054">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1105">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#700">get_mut</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">flush</a>() {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1108">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1109">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_writable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
     }
 
     <span class="kw">fn</span> <span class="ident">poll_close</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#1060">self</a>.<a class="ident" href="../../futures_io/if_std/trait.AsyncWrite.html">poll_flush</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1060">cx</a>)
+        <a class="self" href="../../src/async_io/lib.rs.html#1115">self</a>.<a class="ident" href="../../futures_io/if_std/trait.AsyncWrite.html">poll_flush</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1115">cx</a>)
     }
 }
 
@@ -2858,9 +2968,9 @@
         <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1070">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#628">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1072">buf</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1076">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1077">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1125">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1127">buf</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1131">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1132">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_writable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2872,9 +2982,9 @@
         <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
     ) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1084">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#628">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1086">bufs</a>) {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1090">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1091">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1139">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">write_vectored</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1141">bufs</a>) {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1145">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1146">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_writable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
@@ -2882,16 +2992,16 @@
 
     <span class="kw">fn</span> <span class="ident">poll_flush</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">loop</span> {
-            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1097">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#628">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">flush</a>() {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1100">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1101">res</a>),
+            <span class="kw">match</span> (<span class="kw-2">*</span><a class="self" href="../../src/async_io/lib.rs.html#1152">self</a>).<a class="ident" href="../../src/async_io/lib.rs.html#683">get_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">flush</a>() {
+                <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1155">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+                <span class="ident">res</span> =&gt; <span class="kw">return</span> <span class="ident">Poll::Ready</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1156">res</a>),
             }
             <span class="macro">ready!</span>(<span class="self">self</span>.<span class="ident">poll_writable</span>(<span class="ident">cx</span>))<span class="question-mark">?</span>;
         }
     }
 
     <span class="kw">fn</span> <span class="ident">poll_close</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <a class="self" href="../../src/async_io/lib.rs.html#1107">self</a>.<a class="ident" href="../../futures_io/if_std/trait.AsyncWrite.html">poll_flush</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1107">cx</a>)
+        <a class="self" href="../../src/async_io/lib.rs.html#1162">self</a>.<a class="ident" href="../../futures_io/if_std/trait.AsyncWrite.html">poll_flush</a>(<a class="ident" href="../../src/async_io/lib.rs.html#1162">cx</a>)
     }
 }
 
@@ -2912,7 +3022,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">addr</span>: <span class="ident">A</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/tcp/struct.TcpListener.html">TcpListener</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1128">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
+        <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1183">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
         <span class="ident">Async::new</span>(<span class="ident">TcpListener::bind</span>(<span class="ident">addr</span>)<span class="question-mark">?</span>)
     }
 
@@ -2961,9 +3071,9 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">incoming</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/tcp/struct.TcpStream.html">TcpStream</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> <span class="op">+</span> <span class="lifetime">&#39;_</span> {
-        <span class="ident">stream::unfold</span>(<a class="self" href="../../src/async_io/lib.rs.html#1177">self</a>, <span class="op">|</span><span class="ident">listener</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
-            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">listener</span>.<span class="ident">accept</span>().<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">stream</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/async_io/lib.rs.html#1179">stream</a>);
-            <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#1179">res</a>, <a class="ident" href="../../src/async_io/lib.rs.html#1178">listener</a>))
+        <span class="ident">stream::unfold</span>(<a class="self" href="../../src/async_io/lib.rs.html#1232">self</a>, <span class="op">|</span><span class="ident">listener</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
+            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">listener</span>.<span class="ident">accept</span>().<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">stream</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/async_io/lib.rs.html#1234">stream</a>);
+            <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#1234">res</a>, <a class="ident" href="../../src/async_io/lib.rs.html#1233">listener</a>))
         })
     }
 }
@@ -2972,7 +3082,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">listener</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/tcp/struct.TcpListener.html">std::net::TcpListener</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1188">listener</a>)
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1243">listener</a>)
     }
 }
 
@@ -3039,7 +3149,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">stream</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/tcp/struct.TcpStream.html">std::net::TcpStream</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1255">stream</a>)
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1310">stream</a>)
     }
 }
 
@@ -3060,7 +3170,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">Into</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">addr</span>: <span class="ident">A</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/udp/struct.UdpSocket.html">UdpSocket</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1276">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
+        <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1331">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
         <span class="ident">Async::new</span>(<span class="ident">UdpSocket::bind</span>(<span class="ident">addr</span>)<span class="question-mark">?</span>)
     }
 
@@ -3222,7 +3332,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">socket</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/udp/struct.UdpSocket.html">std::net::UdpSocket</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1438">socket</a>)
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1493">socket</a>)
     }
 }
 
@@ -3242,7 +3352,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="ident">P</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/unix/net/listener/struct.UnixListener.html">UnixListener</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1458">path</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">to_owned</a>();
+        <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1513">path</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">to_owned</a>();
         <span class="ident">Async::new</span>(<span class="ident">UnixListener::bind</span>(<span class="ident">path</span>)<span class="question-mark">?</span>)
     }
 
@@ -3291,9 +3401,9 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">incoming</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/unix/net/stream/struct.UnixStream.html">UnixStream</a><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> <span class="op">+</span> <span class="lifetime">&#39;_</span> {
-        <span class="ident">stream::unfold</span>(<a class="self" href="../../src/async_io/lib.rs.html#1507">self</a>, <span class="op">|</span><span class="ident">listener</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
-            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">listener</span>.<span class="ident">accept</span>().<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">stream</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/async_io/lib.rs.html#1509">stream</a>);
-            <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#1509">res</a>, <a class="ident" href="../../src/async_io/lib.rs.html#1508">listener</a>))
+        <span class="ident">stream::unfold</span>(<a class="self" href="../../src/async_io/lib.rs.html#1562">self</a>, <span class="op">|</span><span class="ident">listener</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
+            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">listener</span>.<span class="ident">accept</span>().<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">stream</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/async_io/lib.rs.html#1564">stream</a>);
+            <span class="prelude-val">Some</span>((<a class="ident" href="../../src/async_io/lib.rs.html#1564">res</a>, <a class="ident" href="../../src/async_io/lib.rs.html#1563">listener</a>))
         })
     }
 }
@@ -3303,7 +3413,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">listener</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/unix/net/listener/struct.UnixListener.html">std::os::unix::net::UnixListener</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1519">listener</a>)
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1574">listener</a>)
     }
 }
 
@@ -3358,7 +3468,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">stream</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/unix/net/stream/struct.UnixStream.html">std::os::unix::net::UnixStream</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1574">stream</a>)
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1629">stream</a>)
     }
 }
 
@@ -3377,7 +3487,7 @@
     <span class="doccomment">/// # std::io::Result::Ok(()) });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="ident">P</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Async</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/unix/net/datagram/struct.UnixDatagram.html">UnixDatagram</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1593">path</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">to_owned</a>();
+        <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1648">path</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/borrow/trait.ToOwned.html">to_owned</a>();
         <span class="ident">Async::new</span>(<span class="ident">UnixDatagram::bind</span>(<span class="ident">path</span>)<span class="question-mark">?</span>)
     }
 
@@ -3513,7 +3623,7 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">io::Error</a>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">socket</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/unix/net/datagram/struct.UnixDatagram.html">std::os::unix::net::UnixDatagram</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1729">socket</a>)
+        <span class="ident">Async::new</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1784">socket</a>)
     }
 }
 
@@ -3546,7 +3656,7 @@
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>
     ))]</span>
     <span class="comment">// If we can, set nonblocking at socket creation for unix</span>
-    <span class="kw">let</span> <span class="ident">sock_type</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1751">sock_type</a>.<span class="ident">nonblocking</span>();
+    <span class="kw">let</span> <span class="ident">sock_type</span> <span class="op">=</span> <a class="ident" href="../../src/async_io/lib.rs.html#1806">sock_type</a>.<span class="ident">nonblocking</span>();
     <span class="comment">// This automatically handles cloexec on unix, no_inherit on windows and nosigpipe on macos</span>
     <span class="kw">let</span> <span class="ident">socket</span> <span class="op">=</span> <span class="ident">Socket::new</span>(<span class="ident">domain</span>, <span class="ident">sock_type</span>, <span class="ident">protocol</span>)<span class="question-mark">?</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
@@ -3561,14 +3671,14 @@
     )))]</span>
     <span class="comment">// If the current platform doesn&#39;t support nonblocking at creation, enable it after creation</span>
     <span class="ident">socket</span>.<span class="ident">set_nonblocking</span>(<span class="bool-val">true</span>)<span class="question-mark">?</span>;
-    <span class="kw">match</span> <a class="ident" href="../../src/async_io/lib.rs.html#1765">socket</a>.<span class="ident">connect</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/async_io/lib.rs.html#1750">addr</a>) {
+    <span class="kw">match</span> <a class="ident" href="../../src/async_io/lib.rs.html#1820">socket</a>.<span class="ident">connect</span>(<span class="kw-2">&amp;</span><a class="ident" href="../../src/async_io/lib.rs.html#1805">addr</a>) {
         <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {}
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1781">err</a>.<span class="ident">raw_os_error</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="ident">libc::EINPROGRESS</span>) =&gt; {}
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1782">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1783">err</a>),
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1836">err</a>.<span class="ident">raw_os_error</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="ident">libc::EINPROGRESS</span>) =&gt; {}
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="kw">if</span> <a class="ident" href="../../src/async_io/lib.rs.html#1837">err</a>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::WouldBlock</span> =&gt; {}
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1838">err</a>),
     }
-    <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1765">socket</a>)
+    <span class="prelude-val">Ok</span>(<a class="ident" href="../../src/async_io/lib.rs.html#1820">socket</a>)
 }
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="async_io" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>

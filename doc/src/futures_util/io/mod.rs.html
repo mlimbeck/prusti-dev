@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-util-0.3.21/src/io/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../futures_util/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../futures_util/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../futures_util/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/futures-util-0.3.24/src/io/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../futures_util/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../futures_util/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../futures_util/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -836,6 +836,9 @@
 <span id="836">836</span>
 <span id="837">837</span>
 <span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Asynchronous I/O.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module is the asynchronous version of `std::io`. It defines four</span>
@@ -903,6 +906,9 @@
 
 <span class="kw">mod</span> <a class="ident" href="../../../src/futures_util/io/copy_buf.rs.html#1-78">copy_buf</a>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::copy_buf</span>::{<a class="ident" href="../../../src/futures_util/io/copy_buf.rs.html#34-37">copy_buf</a>, <a class="ident" href="../../../src/futures_util/io/copy_buf.rs.html#42-52">CopyBuf</a>};
+
+<span class="kw">mod</span> <a class="ident" href="../../../src/futures_util/io/copy_buf_abortable.rs.html#1-124">copy_buf_abortable</a>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::copy_buf_abortable</span>::{<a class="ident" href="../../../src/futures_util/io/copy_buf_abortable.rs.html#47-53">copy_buf_abortable</a>, <a class="ident" href="../../../src/futures_util/io/copy_buf_abortable.rs.html#59-70">CopyBufAbortable</a>};
 
 <span class="kw">mod</span> <a class="ident" href="../../../src/futures_util/io/cursor.rs.html#1-240">cursor</a>;
 <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../../src/futures_util/io/cursor.rs.html#25"><span class="self">self</span>::cursor::Cursor</a>;
@@ -1009,7 +1015,7 @@
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>,
         <span class="ident">R</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncRead.html">AsyncRead</a>,
     {
-        <a class="ident" href="../../../src/futures_util/io/mod.rs.html#825-827">assert_read</a>(<span class="ident">Chain::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#169">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#169">next</a>))
+        <a class="ident" href="../../../src/futures_util/io/mod.rs.html#828-830">assert_read</a>(<span class="ident">Chain::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#172">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#172">next</a>))
     }
 
     <span class="doccomment">/// Tries to read some bytes directly into the given `buf` in asynchronous</span>
@@ -1040,7 +1046,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Read::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#201">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#201">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Read::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#204">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#204">buf</a>))
     }
 
     <span class="doccomment">/// Creates a future which will read from the `AsyncRead` into `bufs` using vectored</span>
@@ -1052,7 +1058,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadVectored::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#213">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#213">bufs</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadVectored::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#216">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#216">bufs</a>))
     }
 
     <span class="doccomment">/// Creates a future which will read exactly enough bytes to fill `buf`,</span>
@@ -1096,7 +1102,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadExact::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#257">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#257">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadExact::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#260">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#260">buf</a>))
     }
 
     <span class="doccomment">/// Creates a future which will read all the bytes from this `AsyncRead`.</span>
@@ -1122,7 +1128,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadToEnd::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#283">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#283">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadToEnd::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#286">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#286">buf</a>))
     }
 
     <span class="doccomment">/// Creates a future which will read all the bytes from this `AsyncRead`.</span>
@@ -1148,7 +1154,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadToString::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#309">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#309">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadToString::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#312">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#312">buf</a>))
     }
 
     <span class="doccomment">/// Helper method for splitting this read/write object into two halves.</span>
@@ -1184,8 +1190,8 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncWrite.html">AsyncWrite</a> <span class="op">+</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>,
     {
-        <span class="kw">let</span> (<span class="ident">r</span>, <span class="ident">w</span>) <span class="op">=</span> <a class="ident" href="../../../src/futures_util/io/split.rs.html#29">split::split</a>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#345">self</a>);
-        (<a class="ident" href="../../../src/futures_util/io/mod.rs.html#825-827">assert_read</a>(<a class="ident" href="../../../src/futures_util/io/mod.rs.html#349">r</a>), <a class="ident" href="../../../src/futures_util/io/mod.rs.html#833-835">assert_write</a>(<a class="ident" href="../../../src/futures_util/io/mod.rs.html#349">w</a>))
+        <span class="kw">let</span> (<span class="ident">r</span>, <span class="ident">w</span>) <span class="op">=</span> <a class="ident" href="../../../src/futures_util/io/split.rs.html#29">split::split</a>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#348">self</a>);
+        (<a class="ident" href="../../../src/futures_util/io/mod.rs.html#828-830">assert_read</a>(<a class="ident" href="../../../src/futures_util/io/mod.rs.html#352">r</a>), <a class="ident" href="../../../src/futures_util/io/mod.rs.html#836-838">assert_write</a>(<a class="ident" href="../../../src/futures_util/io/mod.rs.html#352">w</a>))
     }
 
     <span class="doccomment">/// Creates an AsyncRead adapter which will read at most `limit` bytes</span>
@@ -1211,7 +1217,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>,
     {
-        <a class="ident" href="../../../src/futures_util/io/mod.rs.html#825-827">assert_read</a>(<span class="ident">Take::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#372">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#372">limit</a>))
+        <a class="ident" href="../../../src/futures_util/io/mod.rs.html#828-830">assert_read</a>(<span class="ident">Take::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#375">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#375">limit</a>))
     }
 
     <span class="doccomment">/// Wraps an [`AsyncRead`] in a compatibility wrapper that allows it to be</span>
@@ -1230,7 +1236,7 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncRead.html">AsyncRead</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#145">AsyncReadExt</a> <span class="kw">for</span> <span class="ident">R</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncRead.html">AsyncRead</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#148">AsyncReadExt</a> <span class="kw">for</span> <span class="ident">R</span> {}
 
 <span class="doccomment">/// An extension trait which adds utility methods to `AsyncWrite` types.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AsyncWriteExt</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncWrite.html">AsyncWrite</a> {
@@ -1260,7 +1266,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Flush::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#421">self</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Flush::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#424">self</a>))
     }
 
     <span class="doccomment">/// Creates a future which will entirely close this `AsyncWrite`.</span>
@@ -1268,7 +1274,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Close::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#429">self</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Close::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#432">self</a>))
     }
 
     <span class="doccomment">/// Creates a future which will write bytes from `buf` into the object.</span>
@@ -1279,7 +1285,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Write::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#440">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#440">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Write::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#443">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#443">buf</a>))
     }
 
     <span class="doccomment">/// Creates a future which will write bytes from `bufs` into the object using vectored</span>
@@ -1291,7 +1297,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">WriteVectored::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#452">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#452">bufs</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">WriteVectored::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#455">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#455">bufs</a>))
     }
 
     <span class="doccomment">/// Write data into this object.</span>
@@ -1318,7 +1324,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">WriteAll::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#479">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#479">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">WriteAll::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#482">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#482">buf</a>))
     }
 
     <span class="doccomment">/// Attempts to write multiple buffers into this writer.</span>
@@ -1420,11 +1426,11 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>,
     {
-        <span class="ident"><span class="kw">crate</span>::sink::assert_sink</span>::<span class="op">&lt;</span><span class="ident">Item</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">Error</a>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">IntoSink::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#581">self</a>))
+        <span class="ident"><span class="kw">crate</span>::sink::assert_sink</span>::<span class="op">&lt;</span><span class="ident">Item</span>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html">Error</a>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">IntoSink::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#584">self</a>))
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncWrite.html">AsyncWrite</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#398">AsyncWriteExt</a> <span class="kw">for</span> <span class="ident">W</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">W</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncWrite.html">AsyncWrite</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#401">AsyncWriteExt</a> <span class="kw">for</span> <span class="ident">W</span> {}
 
 <span class="doccomment">/// An extension trait which adds utility methods to `AsyncSeek` types.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AsyncSeekExt</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncSeek.html">AsyncSeek</a> {
@@ -1437,7 +1443,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Seek::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#598">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#598">pos</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Seek::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#601">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#601">pos</a>))
     }
 
     <span class="doccomment">/// Creates a future which will return the current seek position from the</span>
@@ -1448,11 +1454,11 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <a class="self" href="../../../src/futures_util/io/mod.rs.html#609">self</a>.<a class="ident" href="../../../src/futures_util/io/mod.rs.html#598-600">seek</a>(<span class="ident">SeekFrom::Current</span>(<span class="number">0</span>))
+        <a class="self" href="../../../src/futures_util/io/mod.rs.html#612">self</a>.<a class="ident" href="../../../src/futures_util/io/mod.rs.html#601-603">seek</a>(<span class="ident">SeekFrom::Current</span>(<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncSeek.html">AsyncSeek</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#592">AsyncSeekExt</a> <span class="kw">for</span> <span class="ident">S</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">S</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncSeek.html">AsyncSeek</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#595">AsyncSeekExt</a> <span class="kw">for</span> <span class="ident">S</span> {}
 
 <span class="doccomment">/// An extension trait which adds utility methods to `AsyncBufRead` types.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AsyncBufReadExt</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncBufRead.html">AsyncBufRead</a> {
@@ -1483,7 +1489,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">FillBuf::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#644">self</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]<span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">FillBuf::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#647">self</a>))
     }
 
     <span class="doccomment">/// A convenience for calling [`AsyncBufRead::consume`] on [`Unpin`] IO types.</span>
@@ -1507,7 +1513,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">Pin::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#668">self</a>).<a class="ident" href="../../../futures_util/io/trait.AsyncBufRead.html">consume</a>(<a class="ident" href="../../../src/futures_util/io/mod.rs.html#668">amt</a>)
+        <span class="ident">Pin::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#671">self</a>).<a class="ident" href="../../../futures_util/io/trait.AsyncBufRead.html">consume</a>(<a class="ident" href="../../../src/futures_util/io/mod.rs.html#671">amt</a>)
     }
 
     <span class="doccomment">/// Creates a future which will read all the bytes associated with this I/O</span>
@@ -1555,7 +1561,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadUntil::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#716">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#716">byte</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#716">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadUntil::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#719">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#719">byte</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#719">buf</a>))
     }
 
     <span class="doccomment">/// Creates a future which will read all the bytes associated with this I/O</span>
@@ -1613,7 +1619,7 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Unpin.html">Unpin</a>,
     {
-        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadLine::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#774">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#774">buf</a>))
+        <span class="ident">assert_future</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">ReadLine::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#777">self</a>, <a class="ident" href="../../../src/futures_util/io/mod.rs.html#777">buf</a>))
     }
 
     <span class="doccomment">/// Returns a stream over the lines of this reader.</span>
@@ -1652,11 +1658,11 @@
     <span class="kw">where</span>
         <span class="self">Self</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a>,
     {
-        <span class="ident">assert_stream</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Lines::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#813">self</a>))
+        <span class="ident">assert_stream</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">Lines::new</span>(<a class="self" href="../../../src/futures_util/io/mod.rs.html#816">self</a>))
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncBufRead.html">AsyncBufRead</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#620">AsyncBufReadExt</a> <span class="kw">for</span> <span class="ident">R</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncBufRead.html">AsyncBufRead</a> <span class="op">+</span> <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a><span class="op">&gt;</span> <a class="ident" href="../../../src/futures_util/io/mod.rs.html#623">AsyncBufReadExt</a> <span class="kw">for</span> <span class="ident">R</span> {}
 
 <span class="comment">// Just a helper function to ensure the reader we&#39;re returning all have the</span>
 <span class="comment">// right implementations.</span>
@@ -1664,7 +1670,7 @@
 <span class="kw">where</span>
     <span class="ident">R</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncRead.html">AsyncRead</a>,
 {
-    <a class="ident" href="../../../src/futures_util/io/mod.rs.html#825">reader</a>
+    <a class="ident" href="../../../src/futures_util/io/mod.rs.html#828">reader</a>
 }
 <span class="comment">// Just a helper function to ensure the writer we&#39;re returning all have the</span>
 <span class="comment">// right implementations.</span>
@@ -1672,7 +1678,7 @@
 <span class="kw">where</span>
     <span class="ident">W</span>: <a class="ident" href="../../../futures_util/io/trait.AsyncWrite.html">AsyncWrite</a>,
 {
-    <a class="ident" href="../../../src/futures_util/io/mod.rs.html#833">writer</a>
+    <a class="ident" href="../../../src/futures_util/io/mod.rs.html#836">writer</a>
 }
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="futures_util" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>

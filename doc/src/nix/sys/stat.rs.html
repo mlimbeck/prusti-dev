@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nix-0.24.2/src/sys/stat.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>stat.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../nix/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../nix/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../nix/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nix-0.25.0/src/sys/stat.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>stat.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../nix/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../nix/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../nix/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -322,15 +322,135 @@
 <span id="322">322</span>
 <span id="323">323</span>
 <span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
 </pre><pre class="rust"><code><span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libc</span>::{<a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a>, <a class="ident" href="../../../nix/sys/stat/type.mode_t.html">mode_t</a>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>))]</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libc::c_uint</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>
+))]</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libc::c_ulong</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <a class="ident" href="../../../nix/sys/stat/fn.FileStat.html">libc::stat</a> <span class="kw">as</span> <span class="ident">FileStat</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="prelude-ty">Result</span>, <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a>, <a class="ident" href="../../../src/nix/errno.rs.html#776">errno::Errno</a>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="prelude-ty">Result</span>, <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a>, <a class="ident" href="../../../src/nix/errno.rs.html#1163">errno::Errno</a>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::fcntl</span>::{<a class="ident" href="../../../src/nix/fcntl.rs.html#32-45">AtFlags</a>, <a class="ident" href="../../../src/nix/fcntl.rs.html#380">at_rawfd</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::fcntl</span>::{<a class="ident" href="../../../src/nix/fcntl.rs.html#28-41">AtFlags</a>, <a class="ident" href="../../../src/nix/fcntl.rs.html#373">at_rawfd</a>};
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/index.html">std::mem</a>;
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">std::os::unix::io::RawFd</a>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sys::time</span>::{<a class="ident" href="../../../src/nix/sys/time.rs.html#174">TimeSpec</a>, <a class="ident" href="../../../src/nix/sys/time.rs.html#414">TimeVal</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sys::time</span>::{<a class="ident" href="../../../src/nix/sys/time.rs.html#189">TimeSpec</a>, <a class="ident" href="../../../src/nix/sys/time.rs.html#451">TimeVal</a>};
 
 <a class="macro" href="../../../src/nix/macros.rs.html#55-75">libc_bitflags!</a>(
     <span class="doccomment">/// &quot;File type&quot; flags for `mknod` and related functions.</span>
@@ -367,61 +487,165 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>, <span class="ident">target_os</span><span class="op">=</span><span class="string">&quot;openbsd&quot;</span>))]</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">type_of_file_flag</span> <span class="op">=</span> <span class="ident">c_uint</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>
+))]</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">type_of_file_flag</span> <span class="op">=</span> <span class="ident">c_ulong</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>,
+    <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>
+))]</span>
+<span class="macro">libc_bitflags!</span> {
+    <span class="doccomment">/// File flags.</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FileFlag</span>: <span class="ident">type_of_file_flag</span> {
+        <span class="doccomment">/// The file may only be appended to.</span>
+        <span class="ident">SF_APPEND</span>;
+        <span class="doccomment">/// The file has been archived.</span>
+        <span class="ident">SF_ARCHIVED</span>;
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">SF_CACHE</span>;
+        <span class="doccomment">/// The file may not be changed.</span>
+        <span class="ident">SF_IMMUTABLE</span>;
+        <span class="doccomment">/// Indicates a WAPBL journal file.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>))]</span>
+        <span class="ident">SF_LOG</span>;
+        <span class="doccomment">/// Do not retain history for file</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">SF_NOHISTORY</span>;
+        <span class="doccomment">/// The file may not be renamed or deleted.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">SF_NOUNLINK</span>;
+        <span class="doccomment">/// Mask of superuser changeable flags</span>
+        <span class="ident">SF_SETTABLE</span>;
+        <span class="doccomment">/// Snapshot is invalid.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>))]</span>
+        <span class="ident">SF_SNAPINVAL</span>;
+        <span class="doccomment">/// The file is a snapshot file.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">SF_SNAPSHOT</span>;
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">SF_XLINK</span>;
+        <span class="doccomment">/// The file may only be appended to.</span>
+        <span class="ident">UF_APPEND</span>;
+        <span class="doccomment">/// The file needs to be archived.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">UF_ARCHIVE</span>;
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">UF_CACHE</span>;
+        <span class="doccomment">/// File is compressed at the file system level.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>))]</span>
+        <span class="ident">UF_COMPRESSED</span>;
+        <span class="doccomment">/// The file may be hidden from directory listings at the application&#39;s</span>
+        <span class="doccomment">/// discretion.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>,
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>,
+        ))]</span>
+        <span class="ident">UF_HIDDEN</span>;
+        <span class="doccomment">/// The file may not be changed.</span>
+        <span class="ident">UF_IMMUTABLE</span>;
+        <span class="doccomment">/// Do not dump the file.</span>
+        <span class="ident">UF_NODUMP</span>;
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">UF_NOHISTORY</span>;
+        <span class="doccomment">/// The file may not be renamed or deleted.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">UF_NOUNLINK</span>;
+        <span class="doccomment">/// The file is offline, or has the Windows and CIFS</span>
+        <span class="doccomment">/// `FILE_ATTRIBUTE_OFFLINE` attribute.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">UF_OFFLINE</span>;
+        <span class="doccomment">/// The directory is opaque when viewed through a union stack.</span>
+        <span class="ident">UF_OPAQUE</span>;
+        <span class="doccomment">/// The file is read only, and may not be written or appended.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">UF_READONLY</span>;
+        <span class="doccomment">/// The file contains a Windows reparse point.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">UF_REPARSE</span>;
+        <span class="doccomment">/// Mask of owner changeable flags.</span>
+        <span class="ident">UF_SETTABLE</span>;
+        <span class="doccomment">/// The file has the Windows `FILE_ATTRIBUTE_SPARSE_FILE` attribute.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">UF_SPARSE</span>;
+        <span class="doccomment">/// The file has the DOS, Windows and CIFS `FILE_ATTRIBUTE_SYSTEM`</span>
+        <span class="doccomment">/// attribute.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
+        <span class="ident">UF_SYSTEM</span>;
+        <span class="doccomment">/// File renames and deletes are tracked.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>))]</span>
+        <span class="ident">UF_TRACKED</span>;
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>))]</span>
+        <span class="ident">UF_XLINK</span>;
+    }
+}
+
 <span class="doccomment">/// Create a special or ordinary file, by pathname.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mknod</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">kind</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#11-23">SFlag</a>, <span class="ident">perm</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a>, <span class="ident">dev</span>: <a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mknod</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">kind</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#19-31">SFlag</a>, <span class="ident">perm</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a>, <span class="ident">dev</span>: <a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">libc::mknod</span>(<span class="ident">cstr</span>.<span class="ident">as_ptr</span>(), <span class="ident">kind</span>.<span class="ident">bits</span> <span class="op">|</span> <span class="ident">perm</span>.<span class="ident">bits</span>() <span class="kw">as</span> <span class="ident">mode_t</span>, <span class="ident">dev</span>)
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#48">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#160">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="doccomment">/// Create a special or ordinary file, relative to a given directory.</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>)))]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;haiku&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mknodat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mknodat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(
     <span class="ident">dirfd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>,
     <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
-    <span class="ident">kind</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#11-23">SFlag</a>,
-    <span class="ident">perm</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a>,
+    <span class="ident">kind</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#19-31">SFlag</a>,
+    <span class="ident">perm</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a>,
     <span class="ident">dev</span>: <a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">libc::mknodat</span>(<span class="ident">dirfd</span>, <span class="ident">cstr</span>.<span class="ident">as_ptr</span>(), <span class="ident">kind</span>.<span class="ident">bits</span> <span class="op">|</span> <span class="ident">perm</span>.<span class="ident">bits</span>() <span class="kw">as</span> <span class="ident">mode_t</span>, <span class="ident">dev</span>)
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#65">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#177">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">major</span>(<span class="ident">dev</span>: <a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> {
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#74">dev</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">32</span>) <span class="op">&amp;</span> <span class="number">0xffff_f000</span>) <span class="op">|</span>
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#74">dev</a> <span class="op">&gt;</span><span class="op">&gt;</span>  <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">0x0000_0fff</span>)
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#186">dev</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">32</span>) <span class="op">&amp;</span> <span class="number">0xffff_f000</span>) <span class="op">|</span>
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#186">dev</a> <span class="op">&gt;</span><span class="op">&gt;</span>  <span class="number">8</span>) <span class="op">&amp;</span> <span class="number">0x0000_0fff</span>)
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">minor</span>(<span class="ident">dev</span>: <a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a> {
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#81">dev</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">12</span>) <span class="op">&amp;</span> <span class="number">0xffff_ff00</span>) <span class="op">|</span>
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#81">dev</a>      ) <span class="op">&amp;</span> <span class="number">0x0000_00ff</span>)
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#193">dev</a> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">12</span>) <span class="op">&amp;</span> <span class="number">0xffff_ff00</span>) <span class="op">|</span>
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#193">dev</a>      ) <span class="op">&amp;</span> <span class="number">0x0000_00ff</span>)
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">makedev</span>(<span class="ident">major</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <span class="ident">minor</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) -&gt; <a class="ident" href="../../../nix/sys/stat/type.dev_t.html">dev_t</a> {
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#88">major</a> <span class="op">&amp;</span> <span class="number">0xffff_f000</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">32</span>) <span class="op">|</span>
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#88">major</a> <span class="op">&amp;</span> <span class="number">0x0000_0fff</span>) <span class="op">&lt;</span><span class="op">&lt;</span>  <span class="number">8</span>) <span class="op">|</span>
-    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#88">minor</a> <span class="op">&amp;</span> <span class="number">0xffff_ff00</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">12</span>) <span class="op">|</span>
-     (<a class="ident" href="../../../src/nix/sys/stat.rs.html#88">minor</a> <span class="op">&amp;</span> <span class="number">0x0000_00ff</span>)
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#200">major</a> <span class="op">&amp;</span> <span class="number">0xffff_f000</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">32</span>) <span class="op">|</span>
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#200">major</a> <span class="op">&amp;</span> <span class="number">0x0000_0fff</span>) <span class="op">&lt;</span><span class="op">&lt;</span>  <span class="number">8</span>) <span class="op">|</span>
+    ((<a class="ident" href="../../../src/nix/sys/stat.rs.html#200">minor</a> <span class="op">&amp;</span> <span class="number">0xffff_ff00</span>) <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">12</span>) <span class="op">|</span>
+     (<a class="ident" href="../../../src/nix/sys/stat.rs.html#200">minor</a> <span class="op">&amp;</span> <span class="number">0x0000_00ff</span>)
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">umask</span>(<span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a>) -&gt; <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a> {
-    <span class="kw">let</span> <span class="ident">prev</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::umask</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#95">mode</a>.<a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">bits</a>() <span class="kw">as</span> <a class="ident" href="../../../nix/sys/stat/type.mode_t.html">mode_t</a>) };
-    <span class="ident">Mode::from_bits</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#96">prev</a>).<span class="ident">expect</span>(<span class="string">&quot;[BUG] umask returned invalid Mode&quot;</span>)
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">umask</span>(<span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a>) -&gt; <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a> {
+    <span class="kw">let</span> <span class="ident">prev</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::umask</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#207">mode</a>.<a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">bits</a>() <span class="kw">as</span> <a class="ident" href="../../../nix/sys/stat/type.mode_t.html">mode_t</a>) };
+    <span class="ident">Mode::from_bits</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#208">prev</a>).<span class="ident">expect</span>(<span class="string">&quot;[BUG] umask returned invalid Mode&quot;</span>)
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dst</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> {
         <span class="kw">unsafe</span> {
@@ -431,10 +655,10 @@
 
     <span class="ident">Errno::result</span>(<span class="ident">res</span>)<span class="question-mark">?</span>;
 
-    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#101">dst</a>.<span class="ident">assume_init</span>()})
+    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#213">dst</a>.<span class="ident">assume_init</span>()})
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lstat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lstat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dst</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> {
         <span class="kw">unsafe</span> {
@@ -444,21 +668,21 @@
 
     <span class="ident">Errno::result</span>(<span class="ident">res</span>)<span class="question-mark">?</span>;
 
-    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#114">dst</a>.<span class="ident">assume_init</span>()})
+    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#226">dst</a>.<span class="ident">assume_init</span>()})
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fstat</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dst</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::fstat</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#126">fd</a>, <a class="ident" href="../../../src/nix/sys/stat.rs.html#127">dst</a>.<span class="ident">as_mut_ptr</span>()) };
+    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::fstat</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#238">fd</a>, <a class="ident" href="../../../src/nix/sys/stat.rs.html#239">dst</a>.<span class="ident">as_mut_ptr</span>()) };
 
     <span class="ident">Errno::result</span>(<span class="ident">res</span>)<span class="question-mark">?</span>;
 
-    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#127">dst</a>.<span class="ident">assume_init</span>()})
+    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#239">dst</a>.<span class="ident">assume_init</span>()})
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fstatat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">dirfd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">pathname</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">f</span>: <a class="ident" href="../../../src/nix/fcntl.rs.html#32-45">AtFlags</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fstatat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">dirfd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">pathname</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">f</span>: <a class="ident" href="../../../src/nix/fcntl.rs.html#28-41">AtFlags</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><a class="ident" href="../../../nix/sys/stat/struct.FileStat.html">FileStat</a><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dst</span> <span class="op">=</span> <span class="ident">mem::MaybeUninit::uninit</span>();
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">pathname</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> {
         <span class="kw">unsafe</span> { <span class="ident">libc::fstatat</span>(<span class="ident">dirfd</span>, <span class="ident">cstr</span>.<span class="ident">as_ptr</span>(), <span class="ident">dst</span>.<span class="ident">as_mut_ptr</span>(), <span class="ident">f</span>.<span class="ident">bits</span>() <span class="kw">as</span> <span class="ident">libc::c_int</span>) }
@@ -466,7 +690,7 @@
 
     <span class="ident">Errno::result</span>(<span class="ident">res</span>)<span class="question-mark">?</span>;
 
-    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#138">dst</a>.<span class="ident">assume_init</span>()})
+    <span class="prelude-val">Ok</span>(<span class="kw">unsafe</span>{<a class="ident" href="../../../src/nix/sys/stat.rs.html#250">dst</a>.<span class="ident">assume_init</span>()})
 }
 
 <span class="doccomment">/// Change the file permission bits of the file specified by a file descriptor.</span>
@@ -474,10 +698,10 @@
 <span class="doccomment">/// # References</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [fchmod(2)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/fchmod.html).</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fchmod</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::fchmod</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#153">fd</a>, <a class="ident" href="../../../src/nix/sys/stat.rs.html#153">mode</a>.<a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">bits</a>() <span class="kw">as</span> <a class="ident" href="../../../nix/sys/stat/type.mode_t.html">mode_t</a>) };
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fchmod</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::fchmod</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#265">fd</a>, <a class="ident" href="../../../src/nix/sys/stat.rs.html#265">mode</a>.<a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">bits</a>() <span class="kw">as</span> <a class="ident" href="../../../nix/sys/stat/type.mode_t.html">mode_t</a>) };
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#154">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#266">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="doccomment">/// Flags for `fchmodat` function.</span>
@@ -505,16 +729,16 @@
 <span class="doccomment">/// [fchmodat(2)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/fchmodat.html).</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fchmodat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fchmodat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(
     <span class="ident">dirfd</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a><span class="op">&gt;</span>,
     <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
-    <span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a>,
-    <span class="ident">flag</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#161">FchmodatFlags</a>,
+    <span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a>,
+    <span class="ident">flag</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#273">FchmodatFlags</a>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">atflag</span> <span class="op">=</span>
-        <span class="kw">match</span> <a class="ident" href="../../../src/nix/sys/stat.rs.html#188">flag</a> {
-            <a class="ident" href="../../../src/nix/sys/stat.rs.html#162">FchmodatFlags::FollowSymlink</a> =&gt; <span class="ident">AtFlags::empty</span>(),
-            <a class="ident" href="../../../src/nix/sys/stat.rs.html#163">FchmodatFlags::NoFollowSymlink</a> =&gt; <span class="ident">AtFlags::AT_SYMLINK_NOFOLLOW</span>,
+        <span class="kw">match</span> <a class="ident" href="../../../src/nix/sys/stat.rs.html#300">flag</a> {
+            <a class="ident" href="../../../src/nix/sys/stat.rs.html#274">FchmodatFlags::FollowSymlink</a> =&gt; <span class="ident">AtFlags::empty</span>(),
+            <a class="ident" href="../../../src/nix/sys/stat.rs.html#275">FchmodatFlags::NoFollowSymlink</a> =&gt; <span class="ident">AtFlags::AT_SYMLINK_NOFOLLOW</span>,
         };
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">libc::fchmodat</span>(
@@ -525,7 +749,7 @@
         )
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#195">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#307">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="doccomment">/// Change the access and modification times of a file.</span>
@@ -538,13 +762,13 @@
 <span class="doccomment">/// # References</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [utimes(2)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/utimes.html).</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">utimes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#414">TimeVal</a>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#414">TimeVal</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timeval.html">libc::timeval</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#217">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#217">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">utimes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#451">TimeVal</a>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#451">TimeVal</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timeval.html">libc::timeval</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#329">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#329">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">libc::utimes</span>(<span class="ident">cstr</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="ident">times</span>[<span class="number">0</span>])
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#219">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#331">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="doccomment">/// Change the access and modification times of a file without following symlinks.</span>
@@ -564,13 +788,13 @@
           <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
           <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lutimes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#414">TimeVal</a>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#414">TimeVal</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timeval.html">libc::timeval</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#243">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#243">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lutimes</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#451">TimeVal</a>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#451">TimeVal</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timeval.html">libc::timeval</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#355">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#355">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">libc::lutimes</span>(<span class="ident">cstr</span>.<span class="ident">as_ptr</span>(), <span class="kw-2">&amp;</span><span class="ident">times</span>[<span class="number">0</span>])
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#245">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#357">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="doccomment">/// Change the access and modification times of the file specified by a file descriptor.</span>
@@ -579,11 +803,11 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [futimens(2)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/futimens.html).</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">futimens</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#174">TimeSpec</a>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#174">TimeSpec</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timespec.html">libc::timespec</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#258">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#258">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::futimens</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#258">fd</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#259">times</a>[<span class="number">0</span>]) };
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">futimens</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#189">TimeSpec</a>, <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#189">TimeSpec</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timespec.html">libc::timespec</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#370">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#370">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
+    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc::futimens</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#370">fd</a>, <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#371">times</a>[<span class="number">0</span>]) };
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#260">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#372">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="doccomment">/// Flags for `utimensat` function.</span>
@@ -612,19 +836,19 @@
 <span class="doccomment">/// [utimensat(2)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/utimens.html).</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">utimensat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">utimensat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(
     <span class="ident">dirfd</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a><span class="op">&gt;</span>,
     <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>,
-    <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#174">TimeSpec</a>,
-    <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#174">TimeSpec</a>,
-    <span class="ident">flag</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#268">UtimensatFlags</a>
+    <span class="ident">atime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#189">TimeSpec</a>,
+    <span class="ident">mtime</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../../src/nix/sys/time.rs.html#189">TimeSpec</a>,
+    <span class="ident">flag</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#380">UtimensatFlags</a>
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">atflag</span> <span class="op">=</span>
-        <span class="kw">match</span> <a class="ident" href="../../../src/nix/sys/stat.rs.html#296">flag</a> {
-            <a class="ident" href="../../../src/nix/sys/stat.rs.html#269">UtimensatFlags::FollowSymlink</a> =&gt; <span class="ident">AtFlags::empty</span>(),
-            <a class="ident" href="../../../src/nix/sys/stat.rs.html#270">UtimensatFlags::NoFollowSymlink</a> =&gt; <span class="ident">AtFlags::AT_SYMLINK_NOFOLLOW</span>,
+        <span class="kw">match</span> <a class="ident" href="../../../src/nix/sys/stat.rs.html#408">flag</a> {
+            <a class="ident" href="../../../src/nix/sys/stat.rs.html#381">UtimensatFlags::FollowSymlink</a> =&gt; <span class="ident">AtFlags::empty</span>(),
+            <a class="ident" href="../../../src/nix/sys/stat.rs.html#382">UtimensatFlags::NoFollowSymlink</a> =&gt; <span class="ident">AtFlags::AT_SYMLINK_NOFOLLOW</span>,
         };
-    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timespec.html">libc::timespec</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#294">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#295">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
+    <span class="kw">let</span> <span class="ident">times</span>: [<a class="ident" href="../../../libc/unix/struct.timespec.html">libc::timespec</a>; <span class="number">2</span>] <span class="op">=</span> [<span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#406">atime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="kw-2">*</span><a class="ident" href="../../../src/nix/sys/stat.rs.html#407">mtime</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()];
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> <span class="kw">unsafe</span> {
         <span class="ident">libc::utimensat</span>(
             <span class="ident">at_rawfd</span>(<span class="ident">dirfd</span>),
@@ -634,17 +858,17 @@
         )
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#304">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#416">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>())))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mkdirat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#184">NixPath</a><span class="op">&gt;</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#25-44">Mode</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mkdirat</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="question-mark">?</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html">Sized</a> <span class="op">+</span> <a class="ident" href="../../../src/nix/lib.rs.html#182">NixPath</a><span class="op">&gt;</span>(<span class="ident">fd</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/os/fd/raw/type.RawFd.html">RawFd</a>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">P</span>, <span class="ident">mode</span>: <a class="ident" href="../../../src/nix/sys/stat.rs.html#33-52">Mode</a>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">with_nix_path</span>(<span class="op">|</span><span class="ident">cstr</span><span class="op">|</span> {
         <span class="kw">unsafe</span> { <span class="ident">libc::mkdirat</span>(<span class="ident">fd</span>, <span class="ident">cstr</span>.<span class="ident">as_ptr</span>(), <span class="ident">mode</span>.<span class="ident">bits</span>() <span class="kw">as</span> <span class="ident">mode_t</span>) }
     })<span class="question-mark">?</span>;
 
-    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#319">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
+    <span class="ident">Errno::result</span>(<a class="ident" href="../../../src/nix/sys/stat.rs.html#431">res</a>).<span class="ident">map</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.drop.html">drop</a>)
 }
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="nix" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (f9cba6374 2022-07-31)" ></div></body></html>

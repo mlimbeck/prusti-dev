@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/socket2-0.4.4/src/sockaddr.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sockaddr.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../socket2/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/socket2-0.4.6/src/sockaddr.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sockaddr.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../socket2/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -346,6 +346,7 @@
 <span id="346">346</span>
 <span id="347">347</span>
 <span id="348">348</span>
+<span id="349">349</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::mem</span>::{<a class="self" href="https://doc.rust-lang.org/nightly/core/mem/index.html">self</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/fn.size_of.html">size_of</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>};
 <span class="kw">use</span> <span class="ident">std::net</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV4.html">SocketAddrV4</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV6.html">SocketAddrV6</a>};
 <span class="kw">use</span> <span class="ident">std</span>::{<a class="ident" href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/index.html">io</a>};
@@ -361,13 +362,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// `SockAddr`s may be constructed directly to and from the standard library</span>
 <span class="doccomment">/// [`SocketAddr`], [`SocketAddrV4`], and [`SocketAddrV6`] types.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SockAddr</span> {
     <span class="ident">storage</span>: <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a>,
     <span class="ident">len</span>: <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a>,
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::len_without_is_empty</span>)]</span>
-<span class="kw">impl</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
+<span class="kw">impl</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
     <span class="doccomment">/// Create a `SockAddr` from the underlying storage and its length.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Safety</span>
@@ -413,8 +415,8 @@
     <span class="doccomment">/// # Ok(())</span>
     <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">storage</span>: <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a>, <span class="ident">len</span>: <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-        <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> { <a class="ident" href="../../src/socket2/sockaddr.rs.html#68">storage</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#68">len</a> }
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">storage</span>: <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a>, <span class="ident">len</span>: <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+        <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> { <a class="ident" href="../../src/socket2/sockaddr.rs.html#69">storage</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#69">len</a> }
     }
 
     <span class="doccomment">/// Initialise a `SockAddr` by calling the function `init`.</span>
@@ -462,7 +464,7 @@
     <span class="doccomment">/// # Ok(())</span>
     <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">init</span>: <span class="ident">F</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<span class="ident">T</span>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">init</span>: <span class="ident">F</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<span class="ident">T</span>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">*mut</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a>, <span class="kw-2">*mut</span> <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
     {
@@ -473,38 +475,38 @@
         <span class="comment">// storage being zeroed before calling `init` as the OS might not</span>
         <span class="comment">// initialise it.</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span> <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a><span class="op">&gt;</span><span class="ident">::zeroed</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#121">STORAGE_SIZE</a>;
-        <a class="ident" href="../../src/socket2/sockaddr.rs.html#117">init</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#127">storage</a>.<span class="ident">as_mut_ptr</span>(), <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#128">len</a>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#122">STORAGE_SIZE</a>;
+        <a class="ident" href="../../src/socket2/sockaddr.rs.html#118">init</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#128">storage</a>.<span class="ident">as_mut_ptr</span>(), <span class="kw-2">&amp;mut</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#129">len</a>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">res</span><span class="op">|</span> {
             <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert.html">debug_assert!</a>(<span class="ident">len</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">STORAGE_SIZE</span>, <span class="string">&quot;overflown address storage&quot;</span>);
-            <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
+            <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
                 <span class="comment">// Safety: zeroed-out `sockaddr_storage` is valid, caller must</span>
                 <span class="comment">// ensure at least `len` bytes are valid.</span>
-                <span class="ident">storage</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#127">storage</a>.<span class="ident">assume_init</span>(),
-                <a class="ident" href="../../src/socket2/sockaddr.rs.html#128">len</a>,
+                <span class="ident">storage</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#128">storage</a>.<span class="ident">assume_init</span>(),
+                <a class="ident" href="../../src/socket2/sockaddr.rs.html#129">len</a>,
             };
-            (<a class="ident" href="../../src/socket2/sockaddr.rs.html#129">res</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#131">addr</a>)
+            (<a class="ident" href="../../src/socket2/sockaddr.rs.html#130">res</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#132">addr</a>)
         })
     }
 
     <span class="doccomment">/// Returns this address&#39;s family.</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">family</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../libc/unix/linux_like/type.sa_family_t.html">sa_family_t</a> {
-        <a class="self" href="../../src/socket2/sockaddr.rs.html#142">self</a>.<span class="ident">storage</span>.<span class="ident">ss_family</span>
+        <a class="self" href="../../src/socket2/sockaddr.rs.html#143">self</a>.<span class="ident">storage</span>.<span class="ident">ss_family</span>
     }
 
     <span class="doccomment">/// Returns the size of this address in bytes.</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a> {
-        <a class="self" href="../../src/socket2/sockaddr.rs.html#147">self</a>.<span class="ident">len</span>
+        <a class="self" href="../../src/socket2/sockaddr.rs.html#148">self</a>.<span class="ident">len</span>
     }
 
     <span class="doccomment">/// Returns a raw pointer to the address.</span>
     <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">as_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">*const</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr.html">sockaddr</a> {
-        <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#152">self</a>.<span class="ident">storage</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>
+        <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#153">self</a>.<span class="ident">storage</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>
     }
 
     <span class="doccomment">/// Returns a raw pointer to the address storage.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">unix</span>, <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>)))]</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">as_storage_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">*const</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a> {
-        <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#158">self</a>.<span class="ident">storage</span>
+        <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#159">self</a>.<span class="ident">storage</span>
     }
 
     <span class="doccomment">/// Returns this address as a `SocketAddr` if it is in the `AF_INET` (IPv4)</span>
@@ -512,23 +514,23 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_socket</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">storage</span>.<span class="ident">ss_family</span> <span class="op">==</span> <span class="ident">AF_INET</span> <span class="kw">as</span> <span class="ident">sa_family_t</span> {
             <span class="comment">// Safety: if the ss_family field is AF_INET then storage must be a sockaddr_in.</span>
-            <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#164">self</a>.<span class="ident">storage</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*const</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in.html">sockaddr_in</a>) };
+            <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#165">self</a>.<span class="ident">storage</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*const</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in.html">sockaddr_in</a>) };
 
-            <span class="kw">let</span> <span class="ident">ip</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#989"><span class="kw">crate</span>::sys::from_in_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#167">addr</a>.<span class="ident">sin_addr</span>);
-            <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">u16::from_be</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#167">addr</a>.<span class="ident">sin_port</span>);
-            <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V4</span>(<span class="ident">SocketAddrV4::new</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#169">ip</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#170">port</a>)))
+            <span class="kw">let</span> <span class="ident">ip</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#1007"><span class="kw">crate</span>::sys::from_in_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#168">addr</a>.<span class="ident">sin_addr</span>);
+            <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">u16::from_be</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#168">addr</a>.<span class="ident">sin_port</span>);
+            <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V4</span>(<span class="ident">SocketAddrV4::new</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#170">ip</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#171">port</a>)))
         } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">storage</span>.<span class="ident">ss_family</span> <span class="op">==</span> <span class="ident">AF_INET6</span> <span class="kw">as</span> <span class="ident">sa_family_t</span> {
             <span class="comment">// Safety: if the ss_family field is AF_INET6 then storage must be a sockaddr_in6.</span>
-            <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#164">self</a>.<span class="ident">storage</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*const</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in6.html">sockaddr_in6</a>) };
+            <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#165">self</a>.<span class="ident">storage</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*const</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in6.html">sockaddr_in6</a>) };
 
-            <span class="kw">let</span> <span class="ident">ip</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#999"><span class="kw">crate</span>::sys::from_in6_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#174">addr</a>.<span class="ident">sin6_addr</span>);
-            <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">u16::from_be</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#174">addr</a>.<span class="ident">sin6_port</span>);
+            <span class="kw">let</span> <span class="ident">ip</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#1017"><span class="kw">crate</span>::sys::from_in6_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#175">addr</a>.<span class="ident">sin6_addr</span>);
+            <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">u16::from_be</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#175">addr</a>.<span class="ident">sin6_port</span>);
             <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V6</span>(<span class="ident">SocketAddrV6::new</span>(
-                <a class="ident" href="../../src/socket2/sockaddr.rs.html#176">ip</a>,
-                <a class="ident" href="../../src/socket2/sockaddr.rs.html#177">port</a>,
-                <a class="ident" href="../../src/socket2/sockaddr.rs.html#174">addr</a>.<span class="ident">sin6_flowinfo</span>,
+                <a class="ident" href="../../src/socket2/sockaddr.rs.html#177">ip</a>,
+                <a class="ident" href="../../src/socket2/sockaddr.rs.html#178">port</a>,
+                <a class="ident" href="../../src/socket2/sockaddr.rs.html#175">addr</a>.<span class="ident">sin6_flowinfo</span>,
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
-                <a class="ident" href="../../src/socket2/sockaddr.rs.html#174">addr</a>.<span class="ident">sin6_scope_id</span>,
+                <a class="ident" href="../../src/socket2/sockaddr.rs.html#175">addr</a>.<span class="ident">sin6_scope_id</span>,
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
                 <span class="kw">unsafe</span> {
                     <span class="kw-2">*</span><span class="ident">addr</span>.<span class="ident">u</span>.<span class="ident">sin6_scope_id</span>()
@@ -542,8 +544,8 @@
     <span class="doccomment">/// Returns this address as a [`SocketAddrV4`] if it is in the `AF_INET`</span>
     <span class="doccomment">/// family.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_socket_ipv4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV4.html">SocketAddrV4</a><span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="self" href="../../src/socket2/sockaddr.rs.html#196">self</a>.<a class="ident" href="../../src/socket2/sockaddr.rs.html#164">as_socket</a>() {
-            <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V4</span>(<span class="ident">addr</span>)) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#198">addr</a>),
+        <span class="kw">match</span> <a class="self" href="../../src/socket2/sockaddr.rs.html#197">self</a>.<a class="ident" href="../../src/socket2/sockaddr.rs.html#165">as_socket</a>() {
+            <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V4</span>(<span class="ident">addr</span>)) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#199">addr</a>),
             <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         }
     }
@@ -551,28 +553,28 @@
     <span class="doccomment">/// Returns this address as a [`SocketAddrV6`] if it is in the `AF_INET6`</span>
     <span class="doccomment">/// family.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_socket_ipv6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV6.html">SocketAddrV6</a><span class="op">&gt;</span> {
-        <span class="kw">match</span> <a class="self" href="../../src/socket2/sockaddr.rs.html#205">self</a>.<a class="ident" href="../../src/socket2/sockaddr.rs.html#164">as_socket</a>() {
-            <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V6</span>(<span class="ident">addr</span>)) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#207">addr</a>),
+        <span class="kw">match</span> <a class="self" href="../../src/socket2/sockaddr.rs.html#206">self</a>.<a class="ident" href="../../src/socket2/sockaddr.rs.html#165">as_socket</a>() {
+            <span class="prelude-val">Some</span>(<span class="ident">SocketAddr::V6</span>(<span class="ident">addr</span>)) =&gt; <span class="prelude-val">Some</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#208">addr</a>),
             <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-        <span class="kw">match</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#214">addr</a> {
-            <span class="ident">SocketAddr::V4</span>(<span class="ident">addr</span>) =&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#216">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
-            <span class="ident">SocketAddr::V6</span>(<span class="ident">addr</span>) =&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#217">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html">SocketAddr</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+        <span class="kw">match</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#215">addr</a> {
+            <span class="ident">SocketAddr::V4</span>(<span class="ident">addr</span>) =&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#217">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
+            <span class="ident">SocketAddr::V6</span>(<span class="ident">addr</span>) =&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#218">addr</a>.<a class="ident" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>(),
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV4.html">SocketAddrV4</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV4.html">SocketAddrV4</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV4.html">SocketAddrV4</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV4.html">SocketAddrV4</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
         <span class="kw">let</span> <span class="ident">sockaddr_in</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in.html">sockaddr_in</a> {
             <span class="ident">sin_family</span>: <a class="ident" href="../../libc/unix/linux_like/constant.AF_INET.html">AF_INET</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/linux_like/type.sa_family_t.html">sa_family_t</a>,
-            <span class="ident">sin_port</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#223">addr</a>.<span class="ident">port</span>().<span class="ident">to_be</span>(),
-            <span class="ident">sin_addr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#980"><span class="kw">crate</span>::sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#223">addr</a>.<span class="ident">ip</span>()),
+            <span class="ident">sin_port</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#224">addr</a>.<span class="ident">port</span>().<span class="ident">to_be</span>(),
+            <span class="ident">sin_addr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998"><span class="kw">crate</span>::sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#224">addr</a>.<span class="ident">ip</span>()),
             <span class="ident">sin_zero</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default::default</a>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
                 <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>,
@@ -587,16 +589,16 @@
         };
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span> <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a><span class="op">&gt;</span><span class="ident">::zeroed</span>();
         <span class="comment">// Safety: A `sockaddr_in` is memory compatible with a `sockaddr_storage`</span>
-        <span class="kw">unsafe</span> { (<a class="ident" href="../../src/socket2/sockaddr.rs.html#240">storage</a>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in.html">sockaddr_in</a>).<span class="ident">write</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#224">sockaddr_in</a>) };
-        <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-            <span class="ident">storage</span>: <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sockaddr.rs.html#240">storage</a>.<span class="ident">assume_init</span>() },
+        <span class="kw">unsafe</span> { (<a class="ident" href="../../src/socket2/sockaddr.rs.html#241">storage</a>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in.html">sockaddr_in</a>).<span class="ident">write</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#225">sockaddr_in</a>) };
+        <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+            <span class="ident">storage</span>: <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sockaddr.rs.html#241">storage</a>.<span class="ident">assume_init</span>() },
             <span class="ident">len</span>: <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in.html">sockaddr_in</a><span class="op">&gt;</span>() <span class="kw">as</span> <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a>,
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV6.html">SocketAddrV6</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV6.html">SocketAddrV6</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV6.html">SocketAddrV6</a><span class="op">&gt;</span> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">addr</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/addr/struct.SocketAddrV6.html">SocketAddrV6</a>) -&gt; <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
         <span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">mem::zeroed</span>::<span class="op">&lt;</span><span class="ident">SOCKADDR_IN6_LH_u</span><span class="op">&gt;</span>();
@@ -606,11 +608,11 @@
 
         <span class="kw">let</span> <span class="ident">sockaddr_in6</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in6.html">sockaddr_in6</a> {
             <span class="ident">sin6_family</span>: <a class="ident" href="../../libc/unix/linux_like/constant.AF_INET6.html">AF_INET6</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/linux_like/type.sa_family_t.html">sa_family_t</a>,
-            <span class="ident">sin6_port</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#251">addr</a>.<span class="ident">port</span>().<span class="ident">to_be</span>(),
-            <span class="ident">sin6_addr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#993"><span class="kw">crate</span>::sys::to_in6_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#251">addr</a>.<span class="ident">ip</span>()),
-            <span class="ident">sin6_flowinfo</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#251">addr</a>.<span class="ident">flowinfo</span>(),
+            <span class="ident">sin6_port</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#252">addr</a>.<span class="ident">port</span>().<span class="ident">to_be</span>(),
+            <span class="ident">sin6_addr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#1011"><span class="kw">crate</span>::sys::to_in6_addr</a>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#252">addr</a>.<span class="ident">ip</span>()),
+            <span class="ident">sin6_flowinfo</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#252">addr</a>.<span class="ident">flowinfo</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
-            <span class="ident">sin6_scope_id</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#251">addr</a>.<span class="ident">scope_id</span>(),
+            <span class="ident">sin6_scope_id</span>: <a class="ident" href="../../src/socket2/sockaddr.rs.html#252">addr</a>.<span class="ident">scope_id</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
             <span class="ident">u</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
@@ -628,17 +630,17 @@
         };
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span> <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_storage.html">sockaddr_storage</a><span class="op">&gt;</span><span class="ident">::zeroed</span>();
         <span class="comment">// Safety: A `sockaddr_in6` is memory compatible with a `sockaddr_storage`</span>
-        <span class="kw">unsafe</span> { (<a class="ident" href="../../src/socket2/sockaddr.rs.html#281">storage</a>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in6.html">sockaddr_in6</a>).<span class="ident">write</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#259">sockaddr_in6</a>) };
-        <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
-            <span class="ident">storage</span>: <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sockaddr.rs.html#281">storage</a>.<span class="ident">assume_init</span>() },
+        <span class="kw">unsafe</span> { (<a class="ident" href="../../src/socket2/sockaddr.rs.html#282">storage</a>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in6.html">sockaddr_in6</a>).<span class="ident">write</span>(<a class="ident" href="../../src/socket2/sockaddr.rs.html#260">sockaddr_in6</a>) };
+        <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
+            <span class="ident">storage</span>: <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sockaddr.rs.html#282">storage</a>.<span class="ident">assume_init</span>() },
             <span class="ident">len</span>: <span class="ident">mem::size_of</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/linux_like/struct.sockaddr_in6.html">sockaddr_in6</a><span class="op">&gt;</span>() <span class="kw">as</span> <a class="ident" href="../../libc/unix/linux_like/linux/type.socklen_t.html">socklen_t</a>,
         }
     }
 }
 
-<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a> {
+<span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#292">fmt</a>.<span class="ident">debug_struct</span>(<span class="string">&quot;SockAddr&quot;</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sockaddr.rs.html#293">fmt</a>.<span class="ident">debug_struct</span>(<span class="string">&quot;SockAddr&quot;</span>);
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
             <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;dragonfly&quot;</span>,
             <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
@@ -651,8 +653,8 @@
             <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;vxworks&quot;</span>,
         ))]</span>
         <span class="ident">f</span>.<span class="ident">field</span>(<span class="string">&quot;ss_len&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">storage</span>.<span class="ident">ss_len</span>);
-        <a class="ident" href="../../src/socket2/sockaddr.rs.html#293">f</a>.<span class="ident">field</span>(<span class="string">&quot;ss_family&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#292">self</a>.<span class="ident">storage</span>.<span class="ident">ss_family</span>)
-            .<span class="ident">field</span>(<span class="string">&quot;len&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#292">self</a>.<span class="ident">len</span>)
+        <a class="ident" href="../../src/socket2/sockaddr.rs.html#294">f</a>.<span class="ident">field</span>(<span class="string">&quot;ss_family&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#293">self</a>.<span class="ident">storage</span>.<span class="ident">ss_family</span>)
+            .<span class="ident">field</span>(<span class="string">&quot;len&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/sockaddr.rs.html#293">self</a>.<span class="ident">len</span>)
             .<span class="ident">finish</span>()
     }
 }

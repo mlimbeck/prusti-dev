@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/socket2-0.4.4/src/socket.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>socket.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../socket2/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/socket2-0.4.6/src/socket.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>socket.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../socket2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../socket2/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1779,11 +1779,127 @@
 <span id="1779">1779</span>
 <span id="1780">1780</span>
 <span id="1781">1781</span>
+<span id="1782">1782</span>
+<span id="1783">1783</span>
+<span id="1784">1784</span>
+<span id="1785">1785</span>
+<span id="1786">1786</span>
+<span id="1787">1787</span>
+<span id="1788">1788</span>
+<span id="1789">1789</span>
+<span id="1790">1790</span>
+<span id="1791">1791</span>
+<span id="1792">1792</span>
+<span id="1793">1793</span>
+<span id="1794">1794</span>
+<span id="1795">1795</span>
+<span id="1796">1796</span>
+<span id="1797">1797</span>
+<span id="1798">1798</span>
+<span id="1799">1799</span>
+<span id="1800">1800</span>
+<span id="1801">1801</span>
+<span id="1802">1802</span>
+<span id="1803">1803</span>
+<span id="1804">1804</span>
+<span id="1805">1805</span>
+<span id="1806">1806</span>
+<span id="1807">1807</span>
+<span id="1808">1808</span>
+<span id="1809">1809</span>
+<span id="1810">1810</span>
+<span id="1811">1811</span>
+<span id="1812">1812</span>
+<span id="1813">1813</span>
+<span id="1814">1814</span>
+<span id="1815">1815</span>
+<span id="1816">1816</span>
+<span id="1817">1817</span>
+<span id="1818">1818</span>
+<span id="1819">1819</span>
+<span id="1820">1820</span>
+<span id="1821">1821</span>
+<span id="1822">1822</span>
+<span id="1823">1823</span>
+<span id="1824">1824</span>
+<span id="1825">1825</span>
+<span id="1826">1826</span>
+<span id="1827">1827</span>
+<span id="1828">1828</span>
+<span id="1829">1829</span>
+<span id="1830">1830</span>
+<span id="1831">1831</span>
+<span id="1832">1832</span>
+<span id="1833">1833</span>
+<span id="1834">1834</span>
+<span id="1835">1835</span>
+<span id="1836">1836</span>
+<span id="1837">1837</span>
+<span id="1838">1838</span>
+<span id="1839">1839</span>
+<span id="1840">1840</span>
+<span id="1841">1841</span>
+<span id="1842">1842</span>
+<span id="1843">1843</span>
+<span id="1844">1844</span>
+<span id="1845">1845</span>
+<span id="1846">1846</span>
+<span id="1847">1847</span>
+<span id="1848">1848</span>
+<span id="1849">1849</span>
+<span id="1850">1850</span>
+<span id="1851">1851</span>
+<span id="1852">1852</span>
+<span id="1853">1853</span>
+<span id="1854">1854</span>
+<span id="1855">1855</span>
+<span id="1856">1856</span>
+<span id="1857">1857</span>
+<span id="1858">1858</span>
+<span id="1859">1859</span>
+<span id="1860">1860</span>
+<span id="1861">1861</span>
+<span id="1862">1862</span>
+<span id="1863">1863</span>
+<span id="1864">1864</span>
+<span id="1865">1865</span>
+<span id="1866">1866</span>
+<span id="1867">1867</span>
+<span id="1868">1868</span>
+<span id="1869">1869</span>
+<span id="1870">1870</span>
+<span id="1871">1871</span>
+<span id="1872">1872</span>
+<span id="1873">1873</span>
+<span id="1874">1874</span>
+<span id="1875">1875</span>
+<span id="1876">1876</span>
+<span id="1877">1877</span>
+<span id="1878">1878</span>
+<span id="1879">1879</span>
+<span id="1880">1880</span>
+<span id="1881">1881</span>
+<span id="1882">1882</span>
+<span id="1883">1883</span>
+<span id="1884">1884</span>
+<span id="1885">1885</span>
+<span id="1886">1886</span>
+<span id="1887">1887</span>
+<span id="1888">1888</span>
+<span id="1889">1889</span>
+<span id="1890">1890</span>
+<span id="1891">1891</span>
+<span id="1892">1892</span>
+<span id="1893">1893</span>
+<span id="1894">1894</span>
+<span id="1895">1895</span>
+<span id="1896">1896</span>
+<span id="1897">1897</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright 2015 The Rust Project Developers.</span>
 <span class="comment">//</span>
 <span class="comment">// Licensed under the Apache License, Version 2.0 &lt;LICENSE-APACHE or</span>
-<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
-<span class="comment">// &lt;LICENSE-MIT or http://opensource.org/licenses/MIT&gt;, at your</span>
+<span class="comment">// https://www.apache.org/licenses/LICENSE-2.0&gt; or the MIT license</span>
+<span class="comment">// &lt;LICENSE-MIT or https://opensource.org/licenses/MIT&gt;, at your</span>
 <span class="comment">// option. This file may not be copied, modified, or distributed</span>
 <span class="comment">// except according to those terms.</span>
 
@@ -1799,8 +1915,8 @@
 <span class="kw">use</span> <span class="ident">std::os::windows::io</span>::{<span class="ident">FromRawSocket</span>, <span class="ident">IntoRawSocket</span>};
 <span class="kw">use</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">std::time::Duration</a>;
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sys</span>::{<a class="self" href="../../src/socket2/lib.rs.html#124">self</a>, <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>, <a class="ident" href="../../src/socket2/sys/unix.rs.html#945">getsockopt</a>, <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>, <a class="ident" href="../../src/socket2/sys/unix.rs.html#138">Bool</a>};
-<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/socket2/lib.rs.html#154">Domain</a>, <a class="ident" href="../../src/socket2/lib.rs.html#238">Protocol</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>, <a class="ident" href="../../src/socket2/lib.rs.html#329">TcpKeepalive</a>, <a class="ident" href="../../src/socket2/lib.rs.html#194">Type</a>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sys</span>::{<a class="self" href="../../src/socket2/lib.rs.html#124">self</a>, <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>, <a class="ident" href="../../src/socket2/sys/unix.rs.html#963">getsockopt</a>, <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>, <a class="ident" href="../../src/socket2/sys/unix.rs.html#156">Bool</a>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/socket2/lib.rs.html#154">Domain</a>, <a class="ident" href="../../src/socket2/lib.rs.html#238">Protocol</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>, <a class="ident" href="../../src/socket2/lib.rs.html#329">TcpKeepalive</a>, <a class="ident" href="../../src/socket2/lib.rs.html#194">Type</a>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
 <span class="kw">use</span> <span class="kw">crate</span>::{<a class="ident" href="../../src/socket2/lib.rs.html#292">MaybeUninitSlice</a>, <a class="ident" href="../../src/socket2/lib.rs.html#272">RecvFlags</a>};
 
@@ -1864,7 +1980,7 @@
     <span class="doccomment">/// this should really be marked `unsafe`, but this being an internal</span>
     <span class="doccomment">/// function, often passed as mapping function, it&#39;s makes it very</span>
     <span class="doccomment">/// inconvenient to mark it as `unsafe`.</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">raw</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#560">sys::Socket</a>) -&gt; <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">raw</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#578">sys::Socket</a>) -&gt; <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
         <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
             <span class="ident">inner</span>: <span class="kw">unsafe</span> {
                 <span class="comment">// SAFETY: the caller must ensure that `raw` is a valid file</span>
@@ -1882,17 +1998,17 @@
                 <span class="comment">// `assert!`.</span>
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
                 <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(<span class="ident">raw</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;tried to create a `Socket` with an invalid fd&quot;</span>);
-                <a class="ident" href="../../src/socket2/sys/unix.rs.html#562">sys::socket_from_raw</a>(<a class="ident" href="../../src/socket2/socket.rs.html#86">raw</a>)
+                <a class="ident" href="../../src/socket2/sys/unix.rs.html#580">sys::socket_from_raw</a>(<a class="ident" href="../../src/socket2/socket.rs.html#86">raw</a>)
             },
         }
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">as_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/socket2/sys/unix.rs.html#560">sys::Socket</a> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#566">sys::socket_as_raw</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#109">self</a>.<span class="ident">inner</span>)
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">as_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="ident" href="../../src/socket2/sys/unix.rs.html#578">sys::Socket</a> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#584">sys::socket_as_raw</a>(<span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#109">self</a>.<span class="ident">inner</span>)
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">into_raw</span>(<span class="self">self</span>) -&gt; <a class="ident" href="../../src/socket2/sys/unix.rs.html#560">sys::Socket</a> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#570">sys::socket_into_raw</a>(<a class="self" href="../../src/socket2/socket.rs.html#113">self</a>.<span class="ident">inner</span>)
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">into_raw</span>(<span class="self">self</span>) -&gt; <a class="ident" href="../../src/socket2/sys/unix.rs.html#578">sys::Socket</a> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#588">sys::socket_into_raw</a>(<a class="self" href="../../src/socket2/socket.rs.html#113">self</a>.<span class="ident">inner</span>)
     }
 
     <span class="doccomment">/// Creates a new socket and sets common flags.</span>
@@ -1916,7 +2032,7 @@
     <span class="doccomment">/// Windows and simply creates a new socket, no other configuration is done.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_raw</span>(<span class="ident">domain</span>: <a class="ident" href="../../src/socket2/lib.rs.html#154">Domain</a>, <span class="ident">ty</span>: <a class="ident" href="../../src/socket2/lib.rs.html#194">Type</a>, <span class="ident">protocol</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/lib.rs.html#238">Protocol</a><span class="op">&gt;</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">protocol</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/socket.rs.html#136">protocol</a>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#137">p</a>.<span class="number">0</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>);
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#574">sys::socket</a>(<a class="ident" href="../../src/socket2/socket.rs.html#136">domain</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#136">ty</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#137">protocol</a>).<span class="ident">map</span>(<span class="ident">Socket::from_raw</span>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#592">sys::socket</a>(<a class="ident" href="../../src/socket2/socket.rs.html#136">domain</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#136">ty</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#137">protocol</a>).<span class="ident">map</span>(<span class="ident">Socket::from_raw</span>)
     }
 
     <span class="doccomment">/// Creates a pair of sockets which are connected to each other.</span>
@@ -1950,7 +2066,7 @@
         <span class="ident">protocol</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/lib.rs.html#238">Protocol</a><span class="op">&gt;</span>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a>, <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">protocol</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/socket.rs.html#169">protocol</a>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#171">p</a>.<span class="number">0</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>);
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#579">sys::socketpair</a>(<a class="ident" href="../../src/socket2/socket.rs.html#167">domain</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#168">ty</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#171">protocol</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#597">sys::socketpair</a>(<a class="ident" href="../../src/socket2/socket.rs.html#167">domain</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#168">ty</a>.<span class="number">0</span>, <a class="ident" href="../../src/socket2/socket.rs.html#171">protocol</a>)
             .<span class="ident">map</span>(<span class="op">|</span>[<span class="ident">a</span>, <span class="ident">b</span>]<span class="op">|</span> (<span class="ident">Socket::from_raw</span>(<a class="ident" href="../../src/socket2/socket.rs.html#173">a</a>), <span class="ident">Socket::from_raw</span>(<a class="ident" href="../../src/socket2/socket.rs.html#173">b</a>)))
     }
 
@@ -1958,8 +2074,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function directly corresponds to the `bind(2)` function on Windows</span>
     <span class="doccomment">/// and Unix.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#584">sys::bind</a>(<a class="self" href="../../src/socket2/socket.rs.html#180">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#180">address</a>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#602">sys::bind</a>(<a class="self" href="../../src/socket2/socket.rs.html#180">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#180">address</a>)
     }
 
     <span class="doccomment">/// Initiate a connection on this socket to the specified address.</span>
@@ -1976,8 +2092,8 @@
     <span class="doccomment">/// non-blocking mode before calling this function), socket option can&#39;t be</span>
     <span class="doccomment">/// set *while connecting*. This will cause errors on Windows. Socket</span>
     <span class="doccomment">/// options can be safely set before and after connecting the socket.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#588">sys::connect</a>(<a class="self" href="../../src/socket2/socket.rs.html#198">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#198">address</a>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#606">sys::connect</a>(<a class="self" href="../../src/socket2/socket.rs.html#198">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#198">address</a>)
     }
 
     <span class="doccomment">/// Initiate a connection on this socket to the specified address, only</span>
@@ -1999,7 +2115,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the connection request times out, it may still be processing in the</span>
     <span class="doccomment">/// background - a second call to `connect` or `connect_timeout` may fail.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>, <span class="ident">timeout</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>, <span class="ident">timeout</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">set_nonblocking</span>(<span class="bool-val">true</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <a class="self" href="../../src/socket2/socket.rs.html#221">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#198">connect</a>(<a class="ident" href="../../src/socket2/socket.rs.html#221">addr</a>);
         <span class="self">self</span>.<span class="ident">set_nonblocking</span>(<span class="bool-val">false</span>)<span class="question-mark">?</span>;
@@ -2012,7 +2128,7 @@
             <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<a class="ident" href="../../src/socket2/socket.rs.html#231">e</a>),
         }
 
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#592">sys::poll_connect</a>(<a class="self" href="../../src/socket2/socket.rs.html#221">self</a>, <a class="ident" href="../../src/socket2/socket.rs.html#221">timeout</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#610">sys::poll_connect</a>(<a class="self" href="../../src/socket2/socket.rs.html#221">self</a>, <a class="ident" href="../../src/socket2/socket.rs.html#221">timeout</a>)
     }
 
     <span class="doccomment">/// Mark a socket as ready to accept incoming connection requests using</span>
@@ -2024,7 +2140,7 @@
     <span class="doccomment">/// An error will be returned if `listen` or `connect` has already been</span>
     <span class="doccomment">/// called on this builder.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">listen</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">backlog</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#649">sys::listen</a>(<a class="self" href="../../src/socket2/socket.rs.html#245">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#245">backlog</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#667">sys::listen</a>(<a class="self" href="../../src/socket2/socket.rs.html#245">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#245">backlog</a>)
     }
 
     <span class="doccomment">/// Accept a new incoming connection from this listener.</span>
@@ -2034,7 +2150,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function sets the same flags as in done for [`Socket::new`],</span>
     <span class="doccomment">/// [`Socket::accept_raw`] can be used if you don&#39;t want to set those flags.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accept</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accept</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
         <span class="comment">// Use `accept4` on platforms that support it.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
             <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>,
@@ -2046,7 +2162,7 @@
             <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
             <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
         ))]</span>
-        <span class="kw">return</span> <a class="self" href="../../src/socket2/socket.rs.html#256">self</a>.<a class="ident" href="../../src/socket2/sys/unix.rs.html#1080">_accept4</a>(<span class="ident">libc::SOCK_CLOEXEC</span>);
+        <span class="kw">return</span> <a class="self" href="../../src/socket2/socket.rs.html#256">self</a>.<a class="ident" href="../../src/socket2/sys/unix.rs.html#1099">_accept4</a>(<span class="ident">libc::SOCK_CLOEXEC</span>);
 
         <span class="comment">// Fall back to `accept` on platforms that do not support `accept4`.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
@@ -2074,8 +2190,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function directly corresponds to the `accept(2)` function on</span>
     <span class="doccomment">/// Windows and Unix.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accept_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#653">sys::accept</a>(<a class="self" href="../../src/socket2/socket.rs.html#296">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>()).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">inner</span>, <span class="ident">addr</span>)<span class="op">|</span> (<span class="ident">Socket::from_raw</span>(<a class="ident" href="../../src/socket2/socket.rs.html#297">inner</a>), <a class="ident" href="../../src/socket2/socket.rs.html#297">addr</a>))
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accept_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#671">sys::accept</a>(<a class="self" href="../../src/socket2/socket.rs.html#296">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>()).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">inner</span>, <span class="ident">addr</span>)<span class="op">|</span> (<span class="ident">Socket::from_raw</span>(<a class="ident" href="../../src/socket2/socket.rs.html#297">inner</a>), <a class="ident" href="../../src/socket2/socket.rs.html#297">addr</a>))
     }
 
     <span class="doccomment">/// Returns the socket address of the local half of this socket.</span>
@@ -2086,8 +2202,8 @@
     <span class="doccomment">/// [bound].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [bound]: Socket::bind</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">local_addr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#658">sys::getsockname</a>(<a class="self" href="../../src/socket2/socket.rs.html#308">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">local_addr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a><span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#676">sys::getsockname</a>(<a class="self" href="../../src/socket2/socket.rs.html#308">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
     }
 
     <span class="doccomment">/// Returns the socket address of the remote peer of this socket.</span>
@@ -2097,8 +2213,8 @@
     <span class="doccomment">/// This returns an error if the socket is not [`connect`ed].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`connect`ed]: Socket::connect</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peer_addr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#664">sys::getpeername</a>(<a class="self" href="../../src/socket2/socket.rs.html#319">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peer_addr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a><span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#682">sys::getpeername</a>(<a class="self" href="../../src/socket2/socket.rs.html#319">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
     }
 
     <span class="doccomment">/// Returns the [`Type`] of this socket by checking the `SO_TYPE` option on</span>
@@ -2121,7 +2237,7 @@
     <span class="doccomment">/// QOS-enabled socket, see</span>
     <span class="doccomment">/// &lt;https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-wsaduplicatesocketw&gt;.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#670">sys::try_clone</a>(<a class="self" href="../../src/socket2/socket.rs.html#342">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>()).<span class="ident">map</span>(<span class="ident">Socket::from_raw</span>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#688">sys::try_clone</a>(<a class="self" href="../../src/socket2/socket.rs.html#342">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>()).<span class="ident">map</span>(<span class="ident">Socket::from_raw</span>)
     }
 
     <span class="doccomment">/// Moves this TCP stream into or out of nonblocking mode.</span>
@@ -2133,7 +2249,7 @@
     <span class="doccomment">/// On Windows this corresponds to calling `ioctlsocket` (un)setting</span>
     <span class="doccomment">/// `FIONBIO`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_nonblocking</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nonblocking</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#674">sys::set_nonblocking</a>(<a class="self" href="../../src/socket2/socket.rs.html#354">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#354">nonblocking</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#692">sys::set_nonblocking</a>(<a class="self" href="../../src/socket2/socket.rs.html#354">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#354">nonblocking</a>)
     }
 
     <span class="doccomment">/// Shuts down the read, write, or both halves of this connection.</span>
@@ -2141,7 +2257,7 @@
     <span class="doccomment">/// This function will cause all pending and future I/O on the specified</span>
     <span class="doccomment">/// portions to return immediately with an appropriate value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shutdown</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">how</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/net/enum.Shutdown.html">Shutdown</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#682">sys::shutdown</a>(<a class="self" href="../../src/socket2/socket.rs.html#362">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#362">how</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#700">sys::shutdown</a>(<a class="self" href="../../src/socket2/socket.rs.html#362">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#362">how</a>)
     }
 
     <span class="doccomment">/// Receives data on the socket from the remote address to which it is</span>
@@ -2188,7 +2304,7 @@
         <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>],
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">sys::c_int</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#691">sys::recv</a>(<a class="self" href="../../src/socket2/socket.rs.html#406">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#407">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#408">flags</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#709">sys::recv</a>(<a class="self" href="../../src/socket2/socket.rs.html#406">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#407">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#408">flags</a>)
     }
 
     <span class="doccomment">/// Receives data on the socket from the remote address to which it is</span>
@@ -2243,7 +2359,7 @@
         <span class="ident">bufs</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/lib.rs.html#272">RecvFlags</a>)<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#723-727">sys::recv_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#461">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#462">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#463">flags</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#741-745">sys::recv_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#461">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#462">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#463">flags</a>)
     }
 
     <span class="doccomment">/// Receives data on the socket from the remote adress to which it is</span>
@@ -2272,7 +2388,7 @@
     <span class="doccomment">/// [`recv`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`recv`]: Socket::recv</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_from</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_from</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
         <a class="self" href="../../src/socket2/socket.rs.html#494">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#502-506">recv_from_with_flags</a>(<a class="ident" href="../../src/socket2/socket.rs.html#494">buf</a>, <span class="number">0</span>)
     }
 
@@ -2284,8 +2400,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>],
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
-    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#701-705">sys::recv_from</a>(<a class="self" href="../../src/socket2/socket.rs.html#503">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#504">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#505">flags</a>)
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#719-723">sys::recv_from</a>(<a class="self" href="../../src/socket2/socket.rs.html#503">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#504">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#505">flags</a>)
     }
 
     <span class="doccomment">/// Receives data from the socket. Returns the amount of bytes read, the</span>
@@ -2305,7 +2421,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_from_vectored</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">bufs</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
-    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/lib.rs.html#272">RecvFlags</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/lib.rs.html#272">RecvFlags</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
         <a class="self" href="../../src/socket2/socket.rs.html#525">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#544-548">recv_from_vectored_with_flags</a>(<a class="ident" href="../../src/socket2/socket.rs.html#526">bufs</a>, <span class="number">0</span>)
     }
 
@@ -2326,8 +2442,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">bufs</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
-    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/lib.rs.html#272">RecvFlags</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#732-736">sys::recv_from_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#545">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#546">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#547">flags</a>)
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/lib.rs.html#272">RecvFlags</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#750-754">sys::recv_from_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#545">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#546">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#547">flags</a>)
     }
 
     <span class="doccomment">/// Receives data from the socket, without removing it from the queue.</span>
@@ -2344,7 +2460,7 @@
     <span class="doccomment">/// [`recv`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`recv`]: Socket::recv</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_from</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>)<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_from</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>(<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>)<span class="op">&gt;</span> {
         <a class="self" href="../../src/socket2/socket.rs.html#566">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#502-506">recv_from_with_flags</a>(<a class="ident" href="../../src/socket2/socket.rs.html#566">buf</a>, <a class="ident" href="../../libc/unix/linux_like/constant.MSG_PEEK.html">sys::MSG_PEEK</a>)
     }
 
@@ -2363,7 +2479,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`send`]: #method.send</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_with_flags</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#774">sys::send</a>(<a class="self" href="../../src/socket2/socket.rs.html#584">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#584">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#584">flags</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#792">sys::send</a>(<a class="self" href="../../src/socket2/socket.rs.html#584">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#584">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#584">flags</a>)
     }
 
     <span class="doccomment">/// Send data to the connected peer. Returns the amount of bytes written.</span>
@@ -2384,7 +2500,7 @@
         <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#785">sys::send_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#602">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#603">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#604">flags</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#803">sys::send_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#602">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#603">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#604">flags</a>)
     }
 
     <span class="doccomment">/// Sends out-of-band (OOB) data on the socket to connected peer</span>
@@ -2402,7 +2518,7 @@
     <span class="doccomment">/// number of bytes written.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is typically used on UDP or datagram-oriented sockets.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_to</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>], <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
         <a class="self" href="../../src/socket2/socket.rs.html#624">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#632-637">send_to_with_flags</a>(<a class="ident" href="../../src/socket2/socket.rs.html#624">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#624">addr</a>, <span class="number">0</span>)
     }
 
@@ -2413,17 +2529,17 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_to_with_flags</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>],
-        <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>,
+        <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>,
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#789">sys::send_to</a>(<a class="self" href="../../src/socket2/socket.rs.html#633">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#634">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#635">addr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#636">flags</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#807">sys::send_to</a>(<a class="self" href="../../src/socket2/socket.rs.html#633">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#634">buf</a>, <a class="ident" href="../../src/socket2/socket.rs.html#635">addr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#636">flags</a>)
     }
 
     <span class="doccomment">/// Send data to a peer listening on `addr`. Returns the amount of bytes</span>
     <span class="doccomment">/// written.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_to_vectored</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>], <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_to_vectored</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>], <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
         <a class="self" href="../../src/socket2/socket.rs.html#645">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#655-660">send_to_vectored_with_flags</a>(<a class="ident" href="../../src/socket2/socket.rs.html#645">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#645">addr</a>, <span class="number">0</span>)
     }
 
@@ -2436,10 +2552,10 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_to_vectored_with_flags</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>],
-        <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#16">SockAddr</a>,
+        <span class="ident">addr</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/sockaddr.rs.html#17">SockAddr</a>,
         <span class="ident">flags</span>: <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#802-807">sys::send_to_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#656">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#657">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#658">addr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#659">flags</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#820-825">sys::send_to_vectored</a>(<a class="self" href="../../src/socket2/socket.rs.html#656">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#657">bufs</a>, <a class="ident" href="../../src/socket2/socket.rs.html#658">addr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#659">flags</a>)
     }
 }
 
@@ -2458,7 +2574,7 @@
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
     ))]</span>
-    <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/socket.rs.html#668">ty</a>.<a class="ident" href="../../src/socket2/sys/unix.rs.html#331">_cloexec</a>();
+    <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/socket.rs.html#668">ty</a>.<a class="ident" href="../../src/socket2/sys/unix.rs.html#349">_cloexec</a>();
 
     <span class="comment">// On windows set `NO_HANDLE_INHERIT`.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
@@ -2537,7 +2653,7 @@
     <span class="doccomment">/// address.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_broadcast</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">broadcast</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#757">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>,
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_BROADCAST.html">sys::SO_BROADCAST</a>,
@@ -2566,7 +2682,7 @@
     <span class="doccomment">/// [`set_keepalive`]: Socket::set_keepalive</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keepalive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../src/socket2/sys/unix.rs.html#138">Bool</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#786">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_KEEPALIVE.html">sys::SO_KEEPALIVE</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../src/socket2/sys/unix.rs.html#156">Bool</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#786">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_KEEPALIVE.html">sys::SO_KEEPALIVE</a>)
                 .<span class="ident">map</span>(<span class="op">|</span><span class="ident">keepalive</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#789">keepalive</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
         }
     }
@@ -2576,7 +2692,7 @@
     <span class="doccomment">/// Enable sending of keep-alive messages on connection-oriented sockets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_keepalive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keepalive</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#796">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>,
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_KEEPALIVE.html">sys::SO_KEEPALIVE</a>,
@@ -2613,7 +2729,7 @@
     <span class="doccomment">/// On Apple platforms (e.g. macOS, iOS, etc) this uses `SO_LINGER_SEC`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_linger</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">linger</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">linger</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/socket.rs.html#994">into_linger</a>(<a class="ident" href="../../src/socket2/socket.rs.html#833">linger</a>);
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#833">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_LINGER.html">sys::SO_LINGER</a>, <a class="ident" href="../../src/socket2/socket.rs.html#834">linger</a>) }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#833">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_LINGER.html">sys::SO_LINGER</a>, <a class="ident" href="../../src/socket2/socket.rs.html#834">linger</a>) }
     }
 
     <span class="doccomment">/// Get value for the `SO_OOBINLINE` option on this socket.</span>
@@ -2640,7 +2756,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_out_of_band_inline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">oob_inline</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#860">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>,
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_OOBINLINE.html">sys::SO_OOBINLINE</a>,
@@ -2667,7 +2783,7 @@
     <span class="doccomment">/// with the socket.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_recv_buffer_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#887">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>,
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_RCVBUF.html">sys::SO_RCVBUF</a>,
@@ -2681,7 +2797,7 @@
     <span class="doccomment">/// If the returned timeout is `None`, then `read` and `recv` calls will</span>
     <span class="doccomment">/// block indefinitely.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#834">sys::timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#902">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_RCVTIMEO.html">sys::SO_RCVTIMEO</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#852">sys::timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#902">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_RCVTIMEO.html">sys::SO_RCVTIMEO</a>)
     }
 
     <span class="doccomment">/// Set value for the `SO_RCVTIMEO` option on this socket.</span>
@@ -2689,7 +2805,7 @@
     <span class="doccomment">/// If `timeout` is `None`, then `read` and `recv` calls will block</span>
     <span class="doccomment">/// indefinitely.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_read_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#849-854">sys::set_timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#910">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_RCVTIMEO.html">sys::SO_RCVTIMEO</a>, <a class="ident" href="../../src/socket2/socket.rs.html#910">duration</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#867-872">sys::set_timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#910">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_RCVTIMEO.html">sys::SO_RCVTIMEO</a>, <a class="ident" href="../../src/socket2/socket.rs.html#910">duration</a>)
     }
 
     <span class="doccomment">/// Get the value of the `SO_REUSEADDR` option on this socket.</span>
@@ -2711,7 +2827,7 @@
     <span class="doccomment">/// there&#39;s a socket already listening on this port.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_reuse_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">reuse</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#931">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>,
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_REUSEADDR.html">sys::SO_REUSEADDR</a>,
@@ -2738,7 +2854,7 @@
     <span class="doccomment">/// the socket.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_send_buffer_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">size</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#958">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>,
                 <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_SNDBUF.html">sys::SO_SNDBUF</a>,
@@ -2752,7 +2868,7 @@
     <span class="doccomment">/// If the returned timeout is `None`, then `write` and `send` calls will</span>
     <span class="doccomment">/// block indefinitely.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#834">sys::timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#973">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_SNDTIMEO.html">sys::SO_SNDTIMEO</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#852">sys::timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#973">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_SNDTIMEO.html">sys::SO_SNDTIMEO</a>)
     }
 
     <span class="doccomment">/// Set value for the `SO_SNDTIMEO` option on this socket.</span>
@@ -2760,7 +2876,7 @@
     <span class="doccomment">/// If `timeout` is `None`, then `write` and `send` calls will block</span>
     <span class="doccomment">/// indefinitely.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_write_timeout</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#849-854">sys::set_timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#981">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_SNDTIMEO.html">sys::SO_SNDTIMEO</a>, <a class="ident" href="../../src/socket2/socket.rs.html#981">duration</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#867-872">sys::set_timeout_opt</a>(<a class="self" href="../../src/socket2/socket.rs.html#981">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SOL_SOCKET.html">sys::SOL_SOCKET</a>, <a class="ident" href="../../libc/unix/linux_like/linux/arch/generic/constant.SO_SNDTIMEO.html">sys::SO_SNDTIMEO</a>, <a class="ident" href="../../src/socket2/socket.rs.html#981">duration</a>)
     }
 }
 
@@ -2820,7 +2936,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;all&quot;</span>, <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_header_included</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">included</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#1040">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_HDRINCL.html">sys::IP_HDRINCL</a>,
@@ -2862,7 +2978,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;all&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>))))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_ip_transparent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">transparent</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#1082">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <span class="ident">libc::IP_TRANSPARENT</span>,
@@ -2880,10 +2996,10 @@
     <span class="doccomment">/// an appropriate interface is chosen by the system.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">join_multicast_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">multiaddr</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>, <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">mreq</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/linux_like/struct.ip_mreq.html">sys::IpMreq</a> {
-            <span class="ident">imr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#980">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1100">multiaddr</a>),
-            <span class="ident">imr_interface</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#980">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1100">interface</a>),
+            <span class="ident">imr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1100">multiaddr</a>),
+            <span class="ident">imr_interface</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1100">interface</a>),
         };
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1100">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_ADD_MEMBERSHIP.html">sys::IP_ADD_MEMBERSHIP</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1101">mreq</a>) }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1100">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_ADD_MEMBERSHIP.html">sys::IP_ADD_MEMBERSHIP</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1101">mreq</a>) }
     }
 
     <span class="doccomment">/// Leave a multicast group using `IP_DROP_MEMBERSHIP` option on this socket.</span>
@@ -2893,11 +3009,11 @@
     <span class="doccomment">/// [`join_multicast_v4`]: Socket::join_multicast_v4</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">leave_multicast_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">multiaddr</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>, <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">mreq</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/linux_like/struct.ip_mreq.html">sys::IpMreq</a> {
-            <span class="ident">imr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#980">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1113">multiaddr</a>),
-            <span class="ident">imr_interface</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#980">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1113">interface</a>),
+            <span class="ident">imr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1113">multiaddr</a>),
+            <span class="ident">imr_interface</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1113">interface</a>),
         };
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
                 <a class="self" href="../../src/socket2/socket.rs.html#1113">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_DROP_MEMBERSHIP.html">sys::IP_DROP_MEMBERSHIP</a>,
@@ -2916,6 +3032,7 @@
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;haiku&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>,
     )))]</span>
@@ -2924,13 +3041,13 @@
         <span class="ident">multiaddr</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
         <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/socket.rs.html#728">InterfaceIndexOrAddress</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">mreqn</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#1010-1013">sys::to_mreqn</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1143">multiaddr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1144">interface</a>);
+        <span class="kw">let</span> <span class="ident">mreqn</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#1029-1032">sys::to_mreqn</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1144">multiaddr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1145">interface</a>);
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1142">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1143">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_ADD_MEMBERSHIP.html">sys::IP_ADD_MEMBERSHIP</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1146">mreqn</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1147">mreqn</a>,
             )
         }
     }
@@ -2944,6 +3061,7 @@
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;haiku&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>,
     )))]</span>
@@ -2952,13 +3070,79 @@
         <span class="ident">multiaddr</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
         <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/socket.rs.html#728">InterfaceIndexOrAddress</a>,
     ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">mreqn</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#1010-1013">sys::to_mreqn</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1171">multiaddr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1172">interface</a>);
+        <span class="kw">let</span> <span class="ident">mreqn</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#1029-1032">sys::to_mreqn</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1173">multiaddr</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1174">interface</a>);
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1170">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1172">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_DROP_MEMBERSHIP.html">sys::IP_DROP_MEMBERSHIP</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1174">mreqn</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1176">mreqn</a>,
+            )
+        }
+    }
+
+    <span class="doccomment">/// Join a multicast SSM channel using `IP_ADD_SOURCE_MEMBERSHIP` option on this socket.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This function specifies a new multicast channel for this socket to join.</span>
+    <span class="doccomment">/// The group must be a valid SSM group address, the source must be the address of the sender</span>
+    <span class="doccomment">/// and `interface` is the address of the local interface with which the system should join the</span>
+    <span class="doccomment">/// multicast group. If it&#39;s [`Ipv4Addr::UNSPECIFIED`] (`INADDR_ANY`) then</span>
+    <span class="doccomment">/// an appropriate interface is chosen by the system.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;haiku&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuchsia&quot;</span>,
+    )))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">join_ssm_v4</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">source</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
+        <span class="ident">group</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
+        <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">mreqs</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/linux_like/struct.ip_mreq_source.html">sys::IpMreqSource</a> {
+            <span class="ident">imr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1203">group</a>),
+            <span class="ident">imr_interface</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1204">interface</a>),
+            <span class="ident">imr_sourceaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1202">source</a>),
+        };
+        <span class="kw">unsafe</span> {
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1201">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+                <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
+                <a class="ident" href="../../libc/unix/linux_like/constant.IP_ADD_SOURCE_MEMBERSHIP.html">sys::IP_ADD_SOURCE_MEMBERSHIP</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1206">mreqs</a>,
+            )
+        }
+    }
+
+    <span class="doccomment">/// Leave a multicast group using `IP_DROP_SOURCE_MEMBERSHIP` option on this socket.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// For more information about this option, see [`join_ssm_v4`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`join_ssm_v4`]: Socket::join_ssm_v4</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;haiku&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuchsia&quot;</span>,
+    )))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">leave_ssm_v4</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">source</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
+        <span class="ident">group</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
+        <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>,
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">mreqs</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/linux_like/struct.ip_mreq_source.html">sys::IpMreqSource</a> {
+            <span class="ident">imr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1235">group</a>),
+            <span class="ident">imr_interface</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1236">interface</a>),
+            <span class="ident">imr_sourceaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1234">source</a>),
+        };
+        <span class="kw">unsafe</span> {
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1233">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+                <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
+                <a class="ident" href="../../libc/unix/linux_like/constant.IP_DROP_SOURCE_MEMBERSHIP.html">sys::IP_DROP_SOURCE_MEMBERSHIP</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1238">mreqs</a>,
             )
         }
     }
@@ -2970,7 +3154,7 @@
     <span class="doccomment">/// [`set_multicast_if_v4`]: Socket::set_multicast_if_v4</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast_if_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#945">getsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1190">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_IF.html">sys::IP_MULTICAST_IF</a>).<span class="ident">map</span>(<a class="ident" href="../../src/socket2/sys/unix.rs.html#989">sys::from_in_addr</a>)
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963">getsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1258">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_IF.html">sys::IP_MULTICAST_IF</a>).<span class="ident">map</span>(<a class="ident" href="../../src/socket2/sys/unix.rs.html#1007">sys::from_in_addr</a>)
         }
     }
 
@@ -2978,13 +3162,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Specifies the interface to use for routing multicast packets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_multicast_if_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv4Addr.html">Ipv4Addr</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">interface</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#980">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1199">interface</a>);
+        <span class="kw">let</span> <span class="ident">interface</span> <span class="op">=</span> <a class="ident" href="../../src/socket2/sys/unix.rs.html#998">sys::to_in_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1267">interface</a>);
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1199">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1267">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_IF.html">sys::IP_MULTICAST_IF</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1200">interface</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1268">interface</a>,
             )
         }
     }
@@ -2996,8 +3180,8 @@
     <span class="doccomment">/// [`set_multicast_loop_v4`]: Socket::set_multicast_loop_v4</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast_loop_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1216">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_LOOP.html">sys::IP_MULTICAST_LOOP</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">loop_v4</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1219">loop_v4</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1284">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_LOOP.html">sys::IP_MULTICAST_LOOP</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">loop_v4</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1287">loop_v4</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
         }
     }
 
@@ -3007,11 +3191,11 @@
     <span class="doccomment">/// Note that this may not have any affect on IPv6 sockets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_multicast_loop_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">loop_v4</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1227">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1295">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_LOOP.html">sys::IP_MULTICAST_LOOP</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1227">loop_v4</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1295">loop_v4</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3023,8 +3207,8 @@
     <span class="doccomment">/// [`set_multicast_ttl_v4`]: Socket::set_multicast_ttl_v4</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast_ttl_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1243">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_TTL.html">sys::IP_MULTICAST_TTL</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">ttl</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1246">ttl</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1311">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_TTL.html">sys::IP_MULTICAST_TTL</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">ttl</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1314">ttl</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
         }
     }
 
@@ -3037,11 +3221,11 @@
     <span class="doccomment">/// Note that this may not have any affect on IPv6 sockets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_multicast_ttl_v4</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ttl</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1257">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1325">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IP_MULTICAST_TTL.html">sys::IP_MULTICAST_TTL</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1257">ttl</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1325">ttl</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3053,7 +3237,7 @@
     <span class="doccomment">/// [`set_ttl`]: Socket::set_ttl</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ttl</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1273">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TTL.html">sys::IP_TTL</a>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">ttl</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1275">ttl</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1341">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TTL.html">sys::IP_TTL</a>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">ttl</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1343">ttl</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
         }
     }
 
@@ -3062,7 +3246,7 @@
     <span class="doccomment">/// This value sets the time-to-live field that is used in every packet sent</span>
     <span class="doccomment">/// from this socket.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_ttl</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ttl</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1283">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TTL.html">sys::IP_TTL</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1283">ttl</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>) }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1351">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TTL.html">sys::IP_TTL</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1351">ttl</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>) }
     }
 
     <span class="doccomment">/// Set the value of the `IP_TOS` option for this socket.</span>
@@ -3073,13 +3257,13 @@
     <span class="doccomment">/// NOTE: &lt;https://docs.microsoft.com/en-us/windows/win32/winsock/ipproto-ip-socket-options&gt;</span>
     <span class="doccomment">/// documents that not all versions of windows support `IP_TOS`.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
-        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuschia&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuchsia&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>,
     )))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_tos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tos</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1300">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TOS.html">sys::IP_TOS</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1300">tos</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>) }
+        <span class="kw">unsafe</span> { <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(<a class="self" href="../../src/socket2/socket.rs.html#1368">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TOS.html">sys::IP_TOS</a>, <a class="ident" href="../../src/socket2/socket.rs.html#1368">tos</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>) }
     }
 
     <span class="doccomment">/// Get the value of the `IP_TOS` option for this socket.</span>
@@ -3091,14 +3275,62 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`set_tos`]: Socket::set_tos</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
-        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuschia&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuchsia&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>,
         <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>,
     )))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1318">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TOS.html">sys::IP_TOS</a>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">tos</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1320">tos</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1386">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_TOS.html">sys::IP_TOS</a>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">tos</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1388">tos</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+        }
+    }
+
+    <span class="doccomment">/// Set the value of the `IP_RECVTOS` option for this socket.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If enabled, the IP_TOS ancillary message is passed with</span>
+    <span class="doccomment">/// incoming packets. It contains a byte which specifies the</span>
+    <span class="doccomment">/// Type of Service/Precedence field of the packet header.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuchsia&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>,
+    )))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_recv_tos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">recv_tos</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">recv_tos</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">recv_tos</span> { <span class="number">1</span> } <span class="kw">else</span> { <span class="number">0</span> };
+
+        <span class="kw">unsafe</span> {
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1406">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+                <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>,
+                <a class="ident" href="../../libc/unix/linux_like/constant.IP_RECVTOS.html">sys::IP_RECVTOS</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1407">recv_tos</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+            )
+        }
+    }
+
+    <span class="doccomment">/// Get the value of the `IP_RECVTOS` option for this socket.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// For more information about this option, see [`set_recv_tos`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`set_recv_tos`]: Socket::set_recv_tos</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;fuchsia&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;illumos&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;openbsd&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;solaris&quot;</span>,
+        <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>,
+    )))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_tos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1433">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IP.html">sys::IPPROTO_IP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IP_RECVTOS.html">sys::IP_RECVTOS</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">recv_tos</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1436">recv_tos</a> <span class="op">&gt;</span> <span class="number">0</span>)
         }
     }
 }
@@ -3118,16 +3350,16 @@
     <span class="doccomment">/// index of the interface to join/leave (or 0 to indicate any interface).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">join_multicast_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">multiaddr</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv6Addr.html">Ipv6Addr</a>, <span class="ident">interface</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">mreq</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/struct.ipv6_mreq.html">sys::Ipv6Mreq</a> {
-            <span class="ident">ipv6mr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#993">sys::to_in6_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1338">multiaddr</a>),
+            <span class="ident">ipv6mr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#1011">sys::to_in6_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1454">multiaddr</a>),
             <span class="comment">// NOTE: some OSs use `c_int`, others use `c_uint`.</span>
-            <span class="ident">ipv6mr_interface</span>: <a class="ident" href="../../src/socket2/socket.rs.html#1338">interface</a> <span class="kw">as</span> <span class="kw">_</span>,
+            <span class="ident">ipv6mr_interface</span>: <a class="ident" href="../../src/socket2/socket.rs.html#1454">interface</a> <span class="kw">as</span> <span class="kw">_</span>,
         };
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1338">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1454">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_ADD_MEMBERSHIP.html">sys::IPV6_ADD_MEMBERSHIP</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1339">mreq</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1455">mreq</a>,
             )
         }
     }
@@ -3141,16 +3373,16 @@
     <span class="doccomment">/// [`join_multicast_v6`]: Socket::join_multicast_v6</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">leave_multicast_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">multiaddr</span>: <span class="kw-2">&amp;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/net/ip/struct.Ipv6Addr.html">Ipv6Addr</a>, <span class="ident">interface</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">mreq</span> <span class="op">=</span> <a class="ident" href="../../libc/unix/struct.ipv6_mreq.html">sys::Ipv6Mreq</a> {
-            <span class="ident">ipv6mr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#993">sys::to_in6_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1361">multiaddr</a>),
+            <span class="ident">ipv6mr_multiaddr</span>: <a class="ident" href="../../src/socket2/sys/unix.rs.html#1011">sys::to_in6_addr</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1477">multiaddr</a>),
             <span class="comment">// NOTE: some OSs use `c_int`, others use `c_uint`.</span>
-            <span class="ident">ipv6mr_interface</span>: <a class="ident" href="../../src/socket2/socket.rs.html#1361">interface</a> <span class="kw">as</span> <span class="kw">_</span>,
+            <span class="ident">ipv6mr_interface</span>: <a class="ident" href="../../src/socket2/socket.rs.html#1477">interface</a> <span class="kw">as</span> <span class="kw">_</span>,
         };
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1361">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1477">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_DROP_MEMBERSHIP.html">sys::IPV6_DROP_MEMBERSHIP</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1362">mreq</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1478">mreq</a>,
             )
         }
     }
@@ -3162,8 +3394,8 @@
     <span class="doccomment">/// [`set_multicast_hops_v6`]: Socket::set_multicast_hops_v6</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast_hops_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1382">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_HOPS.html">sys::IPV6_MULTICAST_HOPS</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">hops</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1385">hops</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1498">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_HOPS.html">sys::IPV6_MULTICAST_HOPS</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">hops</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1501">hops</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
         }
     }
 
@@ -3174,11 +3406,11 @@
     <span class="doccomment">/// don&#39;t leave the local network unless explicitly requested.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_multicast_hops_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hops</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1394">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1510">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_HOPS.html">sys::IPV6_MULTICAST_HOPS</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1394">hops</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1510">hops</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3190,8 +3422,8 @@
     <span class="doccomment">/// [`set_multicast_if_v6`]: Socket::set_multicast_if_v6</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast_if_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1410">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_IF.html">sys::IPV6_MULTICAST_IF</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">interface</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1413">interface</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1526">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_IF.html">sys::IPV6_MULTICAST_IF</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">interface</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1529">interface</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
         }
     }
 
@@ -3202,11 +3434,11 @@
     <span class="doccomment">/// prefixes may overlap.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_multicast_if_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1422">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1538">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_IF.html">sys::IPV6_MULTICAST_IF</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1422">interface</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1538">interface</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3218,8 +3450,8 @@
     <span class="doccomment">/// [`set_multicast_loop_v6`]: Socket::set_multicast_loop_v6</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast_loop_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1438">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_LOOP.html">sys::IPV6_MULTICAST_LOOP</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">loop_v6</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1441">loop_v6</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1554">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_LOOP.html">sys::IPV6_MULTICAST_LOOP</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">loop_v6</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1557">loop_v6</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
         }
     }
 
@@ -3229,11 +3461,11 @@
     <span class="doccomment">/// Note that this may not have any affect on IPv4 sockets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_multicast_loop_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">loop_v6</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1449">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1565">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_MULTICAST_LOOP.html">sys::IPV6_MULTICAST_LOOP</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1449">loop_v6</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1565">loop_v6</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3243,8 +3475,8 @@
     <span class="doccomment">/// Specifies the hop limit for ipv6 unicast packets</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unicast_hops_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1463">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_UNICAST_HOPS.html">sys::IPV6_UNICAST_HOPS</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">hops</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1466">hops</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1579">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_UNICAST_HOPS.html">sys::IPV6_UNICAST_HOPS</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">hops</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1582">hops</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
         }
     }
 
@@ -3253,11 +3485,11 @@
     <span class="doccomment">/// Specifies the hop limit for ipv6 unicast packets</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_unicast_hops_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hops</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1473">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1589">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_UNICAST_HOPS.html">sys::IPV6_UNICAST_HOPS</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1473">hops</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1589">hops</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3269,8 +3501,8 @@
     <span class="doccomment">/// [`set_only_v6`]: Socket::set_only_v6</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">only_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1489">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_V6ONLY.html">sys::IPV6_V6ONLY</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">only_v6</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1492">only_v6</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1605">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>, <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_V6ONLY.html">sys::IPV6_V6ONLY</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">only_v6</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1608">only_v6</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
         }
     }
 
@@ -3284,11 +3516,11 @@
     <span class="doccomment">/// receive packets from an IPv4-mapped IPv6 address.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_only_v6</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">only_v6</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1504">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1620">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_IPV6.html">sys::IPPROTO_IPV6</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.IPV6_V6ONLY.html">sys::IPV6_V6ONLY</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1504">only_v6</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1620">only_v6</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3319,7 +3551,7 @@
         )))
     )]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keepalive_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span> {
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#876">sys::keepalive_time</a>(<a class="self" href="../../src/socket2/socket.rs.html#1540">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#894">sys::keepalive_time</a>(<a class="self" href="../../src/socket2/socket.rs.html#1656">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
     }
 
     <span class="doccomment">/// Get the value of the `TCP_KEEPINTVL` option on this socket.</span>
@@ -3359,8 +3591,8 @@
     )]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keepalive_interval</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/core/time/struct.Duration.html">Duration</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1579">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.TCP_KEEPINTVL.html">sys::TCP_KEEPINTVL</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">secs</span><span class="op">|</span> <span class="ident">Duration::from_secs</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1582">secs</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>))
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1695">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.TCP_KEEPINTVL.html">sys::TCP_KEEPINTVL</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">secs</span><span class="op">|</span> <span class="ident">Duration::from_secs</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1698">secs</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>))
         }
     }
 
@@ -3401,8 +3633,8 @@
     )]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keepalive_retries</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1621">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.TCP_KEEPCNT.html">sys::TCP_KEEPCNT</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">retries</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1624">retries</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../libc/unix/type.c_int.html">c_int</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1737">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.TCP_KEEPCNT.html">sys::TCP_KEEPCNT</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">retries</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1740">retries</a> <span class="kw">as</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
         }
     }
 
@@ -3446,7 +3678,7 @@
     <span class="doccomment">///</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_tcp_keepalive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">params</span>: <span class="kw-2">&amp;</span><a class="ident" href="../../src/socket2/lib.rs.html#329">TcpKeepalive</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">set_keepalive</span>(<span class="bool-val">true</span>)<span class="question-mark">?</span>;
-        <a class="ident" href="../../src/socket2/sys/unix.rs.html#884">sys::set_tcp_keepalive</a>(<a class="self" href="../../src/socket2/socket.rs.html#1666">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#1666">params</a>)
+        <a class="ident" href="../../src/socket2/sys/unix.rs.html#902">sys::set_tcp_keepalive</a>(<a class="self" href="../../src/socket2/socket.rs.html#1782">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../src/socket2/socket.rs.html#1782">params</a>)
     }
 
     <span class="doccomment">/// Get the value of the `TCP_NODELAY` option on this socket.</span>
@@ -3456,8 +3688,8 @@
     <span class="doccomment">/// [`set_nodelay`]: Socket::set_nodelay</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">nodelay</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../src/socket2/sys/unix.rs.html#138">Bool</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1676">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.TCP_NODELAY.html">sys::TCP_NODELAY</a>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">nodelay</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1679">nodelay</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
+            <span class="ident">getsockopt</span>::<span class="op">&lt;</span><a class="ident" href="../../src/socket2/sys/unix.rs.html#156">Bool</a><span class="op">&gt;</span>(<a class="self" href="../../src/socket2/socket.rs.html#1792">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(), <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>, <a class="ident" href="../../libc/unix/linux_like/constant.TCP_NODELAY.html">sys::TCP_NODELAY</a>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">nodelay</span><span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1795">nodelay</a> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
         }
     }
 
@@ -3470,11 +3702,11 @@
     <span class="doccomment">/// small packets.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_nodelay</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nodelay</span>: <a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
-            <a class="ident" href="../../src/socket2/sys/unix.rs.html#963-968">setsockopt</a>(
-                <a class="self" href="../../src/socket2/socket.rs.html#1690">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
+            <a class="ident" href="../../src/socket2/sys/unix.rs.html#981-986">setsockopt</a>(
+                <a class="self" href="../../src/socket2/socket.rs.html#1806">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>(),
                 <a class="ident" href="../../libc/unix/constant.IPPROTO_TCP.html">sys::IPPROTO_TCP</a>,
                 <a class="ident" href="../../libc/unix/linux_like/constant.TCP_NODELAY.html">sys::TCP_NODELAY</a>,
-                <a class="ident" href="../../src/socket2/socket.rs.html#1690">nodelay</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
+                <a class="ident" href="../../src/socket2/socket.rs.html#1806">nodelay</a> <span class="kw">as</span> <a class="ident" href="../../libc/unix/type.c_int.html">c_int</a>,
             )
         }
     }
@@ -3484,8 +3716,8 @@
     <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
         <span class="comment">// Safety: the `recv` implementation promises not to write uninitialised</span>
         <span class="comment">// bytes to the `buf`fer, so this casting is safe.</span>
-        <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1703">buf</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) };
-        <a class="self" href="../../src/socket2/socket.rs.html#1703">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#386">recv</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1706">buf</a>)
+        <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1819">buf</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) };
+        <a class="self" href="../../src/socket2/socket.rs.html#1819">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#386">recv</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1822">buf</a>)
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
@@ -3494,34 +3726,34 @@
         <span class="comment">// same layout, that of `iovec`/`WSABUF`. Furthermore `recv_vectored`</span>
         <span class="comment">// promises to not write unitialised bytes to the `bufs` and pass it</span>
         <span class="comment">// directly to the `recvmsg` system call, so this is safe.</span>
-        <span class="kw">let</span> <span class="ident">bufs</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1711">bufs</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) };
-        <a class="self" href="../../src/socket2/socket.rs.html#1711">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#440-443">recv_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1716">bufs</a>).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">n</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1717">n</a>)
+        <span class="kw">let</span> <span class="ident">bufs</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1827">bufs</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) };
+        <a class="self" href="../../src/socket2/socket.rs.html#1827">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#440-443">recv_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1832">bufs</a>).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">n</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1833">n</a>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html">Read</a> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
     <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
         <span class="comment">// Safety: see other `Read::read` impl.</span>
-        <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1722">buf</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) };
-        <a class="self" href="../../src/socket2/socket.rs.html#1722">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#386">recv</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1724">buf</a>)
+        <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1838">buf</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninit</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><span class="op">&gt;</span>]) };
+        <a class="self" href="../../src/socket2/socket.rs.html#1838">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#386">recv</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1840">buf</a>)
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
     <span class="kw">fn</span> <span class="ident">read_vectored</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">bufs</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
         <span class="comment">// Safety: see other `Read::read` impl.</span>
-        <span class="kw">let</span> <span class="ident">bufs</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1729">bufs</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) };
-        <a class="self" href="../../src/socket2/socket.rs.html#1729">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#440-443">recv_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1731">bufs</a>).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">n</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1732">n</a>)
+        <span class="kw">let</span> <span class="ident">bufs</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span>(<a class="ident" href="../../src/socket2/socket.rs.html#1845">bufs</a> <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">IoSliceMut</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>] <span class="kw">as</span> <span class="kw-2">*mut</span> [<span class="ident">MaybeUninitSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) };
+        <a class="self" href="../../src/socket2/socket.rs.html#1845">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#440-443">recv_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1847">bufs</a>).<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">n</span>, <span class="kw">_</span>)<span class="op">|</span> <a class="ident" href="../../src/socket2/socket.rs.html#1848">n</a>)
     }
 }
 
 <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">Write</a> <span class="kw">for</span> <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
     <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="self" href="../../src/socket2/socket.rs.html#1737">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#576">send</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1737">buf</a>)
+        <a class="self" href="../../src/socket2/socket.rs.html#1853">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#576">send</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1853">buf</a>)
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
     <span class="kw">fn</span> <span class="ident">write_vectored</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="self" href="../../src/socket2/socket.rs.html#1742">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#591">send_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1742">bufs</a>)
+        <a class="self" href="../../src/socket2/socket.rs.html#1858">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#591">send_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1858">bufs</a>)
     }
 
     <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
@@ -3531,12 +3763,12 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <a class="ident" href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html">Write</a> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
     <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span>[<a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="self" href="../../src/socket2/socket.rs.html#1752">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#576">send</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1752">buf</a>)
+        <a class="self" href="../../src/socket2/socket.rs.html#1868">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#576">send</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1868">buf</a>)
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;redox&quot;</span>))]</span>
     <span class="kw">fn</span> <span class="ident">write_vectored</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">bufs</span>: <span class="kw-2">&amp;</span>[<span class="ident">IoSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><a class="ident" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><span class="op">&gt;</span> {
-        <a class="self" href="../../src/socket2/socket.rs.html#1757">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#591">send_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1757">bufs</a>)
+        <a class="self" href="../../src/socket2/socket.rs.html#1873">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#591">send_vectored</a>(<a class="ident" href="../../src/socket2/socket.rs.html#1873">bufs</a>)
     }
 
     <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
@@ -3546,10 +3778,10 @@
 
 <span class="kw">impl</span> <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">fmt::Debug</a> <span class="kw">for</span> <a class="ident" href="../../src/socket2/socket.rs.html#72">Socket</a> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <a class="ident" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <a class="ident" href="../../src/socket2/socket.rs.html#1767">f</a>.<span class="ident">debug_struct</span>(<span class="string">&quot;Socket&quot;</span>)
-            .<span class="ident">field</span>(<span class="string">&quot;raw&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#1767">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
-            .<span class="ident">field</span>(<span class="string">&quot;local_addr&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#1767">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#308">local_addr</a>().<span class="ident">ok</span>())
-            .<span class="ident">field</span>(<span class="string">&quot;peer_addr&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#1767">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#319">peer_addr</a>().<span class="ident">ok</span>())
+        <a class="ident" href="../../src/socket2/socket.rs.html#1883">f</a>.<span class="ident">debug_struct</span>(<span class="string">&quot;Socket&quot;</span>)
+            .<span class="ident">field</span>(<span class="string">&quot;raw&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#1883">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#109">as_raw</a>())
+            .<span class="ident">field</span>(<span class="string">&quot;local_addr&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#1883">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#308">local_addr</a>().<span class="ident">ok</span>())
+            .<span class="ident">field</span>(<span class="string">&quot;peer_addr&quot;</span>, <span class="kw-2">&amp;</span><a class="self" href="../../src/socket2/socket.rs.html#1883">self</a>.<a class="ident" href="../../src/socket2/socket.rs.html#319">peer_addr</a>().<span class="ident">ok</span>())
             .<span class="ident">finish</span>()
     }
 }
