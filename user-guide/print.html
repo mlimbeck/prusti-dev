@@ -2762,7 +2762,7 @@ impl&lt;T&gt; Iterator for std::slice::Iter&lt;'a, T&gt; {
 <span class="boring">}
 </span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="customizable-counterexample"><a class="header" href="#customizable-counterexample">Customizable counterexample</a></h1>
-<p>A counterexample for structs and enums can be formatted by annotating the type with <code>#[print_counterexample()]</code>. This is only avaibles if the <a href="https://viperproject.github.io/prusti-dev/dev-guide/config/flags.html#unsafe_core_proof"><code>unsafe_core_proof</code></a> flag is set to <code>true</code>.</p>
+<p>A counterexample for structs and enums can be formatted by annotating the type with <code>#[print_counterexample()]</code>. This is only avaible if the <a href="https://viperproject.github.io/prusti-dev/dev-guide/config/flags.html#unsafe_core_proof"><code>unsafe_core_proof</code></a> flag is set to <code>true</code>.</p>
 <h2 id="syntax-structs"><a class="header" href="#syntax-structs">Syntax structs</a></h2>
 <p>If a struct is annotated, the macro must have at least one argument and the first argument must be of type String and can contain an arbitrary number of curly brackets. The number of curly brackets must match the number of the remaining arguments. The remaining arguments must either be a field name, if the fields are named, or an index, if the fields are unnamed. A field can be used multiple times.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -2774,7 +2774,7 @@ struct X {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<h2 id="syntax-enums"><a class="header" href="#syntax-enums">syntax enums</a></h2>
+<h2 id="syntax-enums"><a class="header" href="#syntax-enums">Syntax enums</a></h2>
 <p>If an enum is annotated, the macro must not contain any arguments. Each variant can be annotated in the exact same way as previously described. Only annotating a variant without the enum itself will result in a compile time error.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
