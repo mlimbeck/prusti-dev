@@ -1081,7 +1081,7 @@
 <span class="kw">pub mod </span><a href="../../src/prusti_specs/specifications/mod.rs.html#1-21">specifications</a>;
 <span class="kw">mod </span><a href="../../src/prusti_specs/type_model/mod.rs.html#1-548">type_model</a>;
 <span class="kw">mod </span><a href="../../src/prusti_specs/user_provided_type_params.rs.html#1-179">user_provided_type_params</a>;
-<span class="kw">mod </span><a href="../../src/prusti_specs/print_counterexample.rs.html#1-327">print_counterexample</a>;
+<span class="kw">mod </span><a href="../../src/prusti_specs/print_counterexample.rs.html#1-416">print_counterexample</a>;
 
 
 <span class="kw">use </span>proc_macro2::{<a href="../../proc_macro2/struct.Span.html">Span</a>, <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <a href="../../proc_macro2/enum.TokenTree.html">TokenTree</a>};
@@ -1949,13 +1949,13 @@
 </span><span class="kw">fn </span>generate_for_print_counterexample(attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, item: <span class="kw-2">&amp;mut </span><a href="../../syn/derive/struct.DeriveInput.html">syn::DeriveInput</a>) -&gt; <a href="../../src/prusti_specs/lib.rs.html#141">GeneratedResult</a> {
     <span class="kw">match </span>syn::Item::from(<a href="../../src/prusti_specs/lib.rs.html#889">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()) {
         syn::Item::Struct(item_struct) =&gt; {
-            <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#9">print_counterexample::rewrite_struct</a>(<a href="../../src/prusti_specs/lib.rs.html#889">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#891">item_struct</a>){
+            <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#10-13">print_counterexample::rewrite_struct</a>(<a href="../../src/prusti_specs/lib.rs.html#889">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#891">item_struct</a>){
                 <span class="prelude-val">Ok</span>(result) =&gt; <span class="prelude-val">Ok</span>((<a href="../../src/prusti_specs/lib.rs.html#893">result</a>, <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[])),
                 <span class="prelude-val">Err</span>(err) =&gt; <span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/lib.rs.html#894">err</a>),
             }
         }
         syn::Item::Enum(item_enum) =&gt; {
-            <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#18">print_counterexample::rewrite_enum</a>(<a href="../../src/prusti_specs/lib.rs.html#889">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#897">item_enum</a>){
+            <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#21">print_counterexample::rewrite_enum</a>(<a href="../../src/prusti_specs/lib.rs.html#889">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#897">item_enum</a>){
                 <span class="prelude-val">Ok</span>(result) =&gt; {
                     <span class="kw">match </span><a href="../../src/prusti_specs/lib.rs.html#899">result</a>.first() {
                         <span class="prelude-val">Some</span>(syn::Item::Enum(new_item)) =&gt; {

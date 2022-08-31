@@ -325,37 +325,127 @@
 <span id="325">325</span>
 <span id="326">326</span>
 <span id="327">327</span>
-</pre><pre class="rust"><code><span class="kw">use </span>syn::{<a href="../../syn/punctuated/struct.Punctuated.html">punctuated::Punctuated</a>, <a href="../../syn/parse/trait.Parser.html">parse::Parser</a>, <a href="../../syn/expr/enum.Expr.html">Expr</a>, <a href="../../syn/macro.Token.html">Token</a>, <a href="../../syn/pat/enum.Pat.html">Pat</a>, <a href="../../syn/pat/struct.PatLit.html">PatLit</a>, <a href="../../syn/expr/struct.ExprLit.html">ExprLit</a>, Lit, <a href="../../syn/data/enum.Fields.html">Fields</a>, <a href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned</a>, Ident, <a href="../../syn/generics/struct.Generics.html">Generics</a>};
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+</pre><pre class="rust"><code><span class="kw">use </span><a href="../../src/prusti_specs/rewriter.rs.html#13"><span class="kw">super</span>::rewriter::AstRewriter</a>;
+<span class="kw">use </span><a href="../../itertools/trait.Itertools.html">itertools::Itertools</a>;
 <span class="kw">use </span>proc_macro2::{<a href="../../proc_macro2/struct.Span.html">Span</a>, <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>};
 <span class="kw">use </span>quote::{<a href="../../quote/macro.quote_spanned.html">quote_spanned</a>, <a href="../../quote/to_tokens/trait.ToTokens.html">ToTokens</a>};
-<span class="kw">use </span><a href="../../src/prusti_specs/rewriter.rs.html#13"><span class="kw">super</span>::rewriter::AstRewriter</a>;
-<span class="kw">use </span><a href="../../itertools/trait.Itertools.html">itertools::Itertools</a>;
-<span class="kw">use </span><a href="../../syn/spanned/trait.Spanned.html">syn::spanned::Spanned</a>;
+<span class="kw">use </span>syn::{
+    <a href="../../syn/parse/trait.Parser.html">parse::Parser</a>, <a href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned</a>, <a href="../../syn/punctuated/struct.Punctuated.html">punctuated::Punctuated</a>, <a href="../../syn/spanned/trait.Spanned.html">spanned::Spanned</a>, <a href="../../syn/expr/enum.Expr.html">Expr</a>, <a href="../../syn/expr/struct.ExprLit.html">ExprLit</a>,
+    <a href="../../syn/data/enum.Fields.html">Fields</a>, <a href="../../syn/generics/struct.Generics.html">Generics</a>, Ident, Lit, <a href="../../syn/pat/enum.Pat.html">Pat</a>, <a href="../../syn/pat/struct.PatLit.html">PatLit</a>, <a href="../../syn/macro.Token.html">Token</a>,
+};
 
-
-<span class="kw">pub fn </span>rewrite_struct(attrs: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, item_struct: <a href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; syn::Result&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt;{
-
-    <span class="kw">let </span>res = <a href="../../src/prusti_specs/print_counterexample.rs.html#67">rewrite_internal_struct</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#9">attrs</a>, <a href="../../src/prusti_specs/print_counterexample.rs.html#9">item_struct</a>);
-    <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#11">res</a> {
-        <span class="prelude-val">Ok</span>(result) =&gt; <span class="prelude-val">Ok</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#13">result</a>),
-        <span class="prelude-val">Err</span>(err) =&gt; <span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#14">err</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+<span class="kw">pub fn </span>rewrite_struct(
+    attrs: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>,
+    item_struct: <a href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>,
+) -&gt; syn::Result&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt; {
+    <span class="kw">let </span>res = <a href="../../src/prusti_specs/print_counterexample.rs.html#69-72">rewrite_internal_struct</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#11">attrs</a>, <a href="../../src/prusti_specs/print_counterexample.rs.html#12">item_struct</a>);
+    <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#14">res</a> {
+        <span class="prelude-val">Ok</span>(result) =&gt; <span class="prelude-val">Ok</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#16">result</a>),
+        <span class="prelude-val">Err</span>(err) =&gt; <span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#17">err</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
     }
 }
 
 <span class="kw">pub fn </span>rewrite_enum(attrs: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, item_enum: <a href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>) -&gt; syn::Result&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt; {
-
-    <span class="kw">let </span>res = <a href="../../src/prusti_specs/print_counterexample.rs.html#150">rewrite_internal_enum</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#18">attrs</a>, <a href="../../src/prusti_specs/print_counterexample.rs.html#18">item_enum</a>);
-    <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#20">res</a> {
-        <span class="prelude-val">Ok</span>(result) =&gt; <span class="prelude-val">Ok</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#22">result</a>),
-        <span class="prelude-val">Err</span>(err) =&gt; <span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#23">err</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+    <span class="kw">let </span>res = <a href="../../src/prusti_specs/print_counterexample.rs.html#169-172">rewrite_internal_enum</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#21">attrs</a>, <a href="../../src/prusti_specs/print_counterexample.rs.html#21">item_enum</a>);
+    <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#22">res</a> {
+        <span class="prelude-val">Ok</span>(result) =&gt; <span class="prelude-val">Ok</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#24">result</a>),
+        <span class="prelude-val">Err</span>(err) =&gt; <span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#25">err</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
     }
 }
 
-<span class="kw">type </span>TypeCounterexampleResult&lt;R&gt; = <span class="prelude-ty">Result</span>&lt;R, <a href="../../src/prusti_specs/print_counterexample.rs.html#30">TypeCounterexampleError</a>&gt;;
+<span class="kw">type </span>TypeCounterexampleResult&lt;R&gt; = <span class="prelude-ty">Result</span>&lt;R, <a href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError</a>&gt;;
 
 <span class="attribute">#[derive(Debug)]
 </span><span class="kw">enum </span>TypeCounterexampleError {
-
     ArgumentsDoNotMatch(<a href="../../proc_macro2/struct.Span.html">proc_macro2::Span</a>),
     WrongFirstArgument(<a href="../../proc_macro2/struct.Span.html">proc_macro2::Span</a>),
     AtLeastOneArgument(<a href="../../proc_macro2/struct.Span.html">proc_macro2::Span</a>),
@@ -365,56 +455,67 @@
     ParsingError(<a href="../../syn/error/struct.Error.html">syn::Error</a>),
 }
 
-<span class="kw">impl </span>std::convert::From&lt;<a href="../../src/prusti_specs/print_counterexample.rs.html#30">TypeCounterexampleError</a>&gt; <span class="kw">for </span><a href="../../syn/error/struct.Error.html">syn::Error</a> {
-    <span class="kw">fn </span>from(err: <a href="../../src/prusti_specs/print_counterexample.rs.html#30">TypeCounterexampleError</a>) -&gt; <span class="self">Self </span>{
-        <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#42">err</a> {
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError::ArgumentsDoNotMatch</a>(span) =&gt; {
-                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#44">span</a>, <span class="string">&quot;Number of arguments and number of {} do not match&quot;</span>)
+<span class="kw">impl </span>std::convert::From&lt;<a href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError</a>&gt; <span class="kw">for </span><a href="../../syn/error/struct.Error.html">syn::Error</a> {
+    <span class="kw">fn </span>from(err: <a href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError</a>) -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#43">err</a> {
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#33">TypeCounterexampleError::ArgumentsDoNotMatch</a>(span) =&gt; {
+                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#45">span</a>, <span class="string">&quot;Number of arguments and number of {} do not match&quot;</span>)
             }
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#33">TypeCounterexampleError::WrongFirstArgument</a>(span) =&gt; {
-                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#47">span</a>, <span class="string">&quot;First argument must be a string literal&quot;</span>)
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::WrongFirstArgument</a>(span) =&gt; {
+                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#48">span</a>, <span class="string">&quot;First argument must be a string literal&quot;</span>)
             }
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::AtLeastOneArgument</a>(span) =&gt; {
-                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#50">span</a>, <span class="string">&quot;At least one argument is expected&quot;</span>)
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::AtLeastOneArgument</a>(span) =&gt; {
+                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#51">span</a>, <span class="string">&quot;At least one argument is expected&quot;</span>)
             }
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::InvalidName</a>(span) =&gt; {
-                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#53">span</a>, <span class="string">&quot;Invalid argument name&quot;</span>)
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::InvalidName</a>(span) =&gt; {
+                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#54">span</a>, <span class="string">&quot;Invalid argument name&quot;</span>)
             }
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::InvalidArgument</a>(span, name, arg ) =&gt; {
-                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#56">span</a>, <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;`{}` does not have a field named {}&quot;</span>, name, arg))
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::InvalidArgument</a>(span, name, arg) =&gt; syn::Error::new(
+                <a href="../../src/prusti_specs/print_counterexample.rs.html#57">span</a>,
+                <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;`{}` does not have a field named {}&quot;</span>, name, arg),
+            ),
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::WrongNumberOfArguemnts</a>(span) =&gt; {
+                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#61">span</a>, <span class="string">&quot;Number of arguments are incorrect&quot;</span>)
             }
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongNumberOfArguemnts</a>(span) =&gt; {
-                syn::Error::new(<a href="../../src/prusti_specs/print_counterexample.rs.html#59">span</a>, <span class="string">&quot;Number of arguments are incorrect&quot;</span>)
-            }
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::ParsingError</a>(parse_err) =&gt; <a href="../../src/prusti_specs/print_counterexample.rs.html#62">parse_err</a>,
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#39">TypeCounterexampleError::ParsingError</a>(parse_err) =&gt; <a href="../../src/prusti_specs/print_counterexample.rs.html#64">parse_err</a>,
         }
     }
 }
 
-<span class="kw">fn </span>rewrite_internal_struct(attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, item_struct: <a href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>) -&gt; TypeCounterexampleResult&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt; {
+<span class="kw">fn </span>rewrite_internal_struct(
+    attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>,
+    item_struct: <a href="../../syn/item/struct.ItemStruct.html">syn::ItemStruct</a>,
+) -&gt; TypeCounterexampleResult&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt; {
     <span class="kw">let </span>parser = Punctuated::&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;::parse_terminated;
-    <span class="kw">let </span>attrs = <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#68">parser</a>.<a href="../../syn/parse/trait.Parser.html">parse</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#67">attr</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()){
-        <span class="prelude-val">Ok</span>(result) =&gt; <a href="../../src/prusti_specs/print_counterexample.rs.html#70">result</a>,
-        <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::ParsingError</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#71">err</a>)),
+    <span class="kw">let </span>attrs = <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#73">parser</a>.<a href="../../syn/parse/trait.Parser.html">parse</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#70">attr</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()) {
+        <span class="prelude-val">Ok</span>(result) =&gt; <a href="../../src/prusti_specs/print_counterexample.rs.html#75">result</a>,
+        <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#39">TypeCounterexampleError::ParsingError</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#76">err</a>)),
     };
-    <span class="kw">let </span>len = <a href="../../src/prusti_specs/print_counterexample.rs.html#69">attrs</a>.len();
-    
+    <span class="kw">let </span>len = <a href="../../src/prusti_specs/print_counterexample.rs.html#74">attrs</a>.len();
+
     <span class="kw">let </span>(first_arg, args) = process_attr(<span class="kw-2">&amp;</span>attrs, len)<span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>rewriter = AstRewriter::new();
-    <span class="kw">let </span>spec_id = <a href="../../src/prusti_specs/print_counterexample.rs.html#76">rewriter</a>.<a href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
-    <span class="kw">let </span>spec_id_str = <a href="../../src/prusti_specs/print_counterexample.rs.html#77">spec_id</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
-    <span class="kw">let </span>item_span = <a href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>();
+    <span class="kw">let </span>spec_id = <a href="../../src/prusti_specs/print_counterexample.rs.html#81">rewriter</a>.<a href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
+    <span class="kw">let </span>spec_id_str = <a href="../../src/prusti_specs/print_counterexample.rs.html#82">spec_id</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
+    <span class="kw">let </span>item_span = <a href="../../src/prusti_specs/print_counterexample.rs.html#71">item_struct</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>();
     <span class="kw">let </span>item_name = syn::Ident::new(
-        <span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;prusti_print_counterexample_item_{}_{}&quot;</span>, item_struct.ident, spec_id),
-        <a href="../../src/prusti_specs/print_counterexample.rs.html#79">item_span</a>,
+        <span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(
+            <span class="string">&quot;prusti_print_counterexample_item_{}_{}&quot;</span>,
+            item_struct.ident, spec_id
+        ),
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#84">item_span</a>,
     );
-    <span class="kw">let </span><span class="kw-2">mut </span>args2: Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt; = <a href="../../src/prusti_specs/print_counterexample.rs.html#69">attrs</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">skip</a>(<span class="number">1</span>).<a href="../../itertools/trait.Itertools.html">unique</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::&lt;Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;&gt;();
+    <span class="kw">let </span><span class="kw-2">mut </span>args2: Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt; = <a href="../../src/prusti_specs/print_counterexample.rs.html#74">attrs</a>
+        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>()
+        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">skip</a>(<span class="number">1</span>)
+        .<a href="../../itertools/trait.Itertools.html">unique</a>()
+        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::&lt;Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;&gt;();
     <span class="comment">//add trailing punctuation
-    </span><span class="kw">if </span>!args2.empty_or_trailing(){
-        <a href="../../src/prusti_specs/print_counterexample.rs.html#84">args2</a>.push_punct(&lt;<a class="macro" href="../../syn/macro.Token.html">syn::Token!</a>[,]&gt;::default());
+    </span><span class="kw">if </span>!args2.empty_or_trailing() {
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#92">args2</a>.push_punct(&lt;<a class="macro" href="../../syn/macro.Token.html">syn::Token!</a>[,]&gt;::default());
     }
-    <span class="kw">let </span>typ = <a href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
-    <span class="kw">let </span>spec_item = <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.fields{
+    <span class="kw">let </span>typ = <a href="../../src/prusti_specs/print_counterexample.rs.html#71">item_struct</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let </span>spec_item = <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#71">item_struct</a>.fields {
         Fields::Named(<span class="kw">_</span>) =&gt; {
             <span class="kw">let </span>spec_item: <a href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a> = <a class="macro" href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned! </a>{item_span=&gt;
                 <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
@@ -428,13 +529,16 @@
                     }
                 }
             };
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#92">spec_item</a>
-        },
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#104">spec_item</a>
+        }
         Fields::Unnamed(<span class="kw-2">ref </span>fields_unnamed) =&gt; {
-                    
             <span class="comment">//check if all args are correct
-            </span>check_validity_of_args(args2, fields_unnamed.unnamed.len() <span class="kw">as </span>u32, <span class="kw-2">&amp;</span>item_struct.ident.to_string())<span class="question-mark">?</span>;
-                
+            </span>check_validity_of_args(
+                args2,
+                fields_unnamed.unnamed.len() <span class="kw">as </span>u32,
+                <span class="kw-2">&amp;</span>item_struct.ident.to_string(),
+            )<span class="question-mark">?</span>;
+
             <span class="kw">let </span>spec_item: <a href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a> = <a class="macro" href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned! </a>{item_span=&gt;
                 <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
                 #[prusti::spec_only]
@@ -447,10 +551,10 @@
                     }
                 }
             };
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#111">spec_item</a>
-        },
+            <a href="../../src/prusti_specs/print_counterexample.rs.html#126">spec_item</a>
+        }
         Fields::Unit =&gt; {
-            <span class="kw">if </span>len == <span class="number">1</span>{
+            <span class="kw">if </span>len == <span class="number">1 </span>{
                 <span class="kw">let </span>spec_item: <a href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a> = <a class="macro" href="../../syn/macro.parse_quote_spanned.html">parse_quote_spanned! </a>{item_span=&gt;
                     <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
                     #[prusti::spec_only]
@@ -462,172 +566,241 @@
                         }
                     }
                 };
-                <a href="../../src/prusti_specs/print_counterexample.rs.html#127">spec_item</a>
+                <a href="../../src/prusti_specs/print_counterexample.rs.html#142">spec_item</a>
             } <span class="kw">else </span>{
-                <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#67">attr</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>()));
+                <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#70">attr</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>()));
             }
-        },
+        }
     };
-    
-    <span class="kw">let </span>item_impl = <a href="../../src/prusti_specs/print_counterexample.rs.html#312">generate_generics</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>(), <a href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="kw-2">&amp;</span><a href="../../src/prusti_specs/print_counterexample.rs.html#67">item_struct</a>.generics, <a href="../../src/prusti_specs/print_counterexample.rs.html#90">spec_item</a>.<a href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>());
+
+    <span class="kw">let </span>item_impl = <a href="../../src/prusti_specs/print_counterexample.rs.html#396-401">generate_generics</a>(
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#71">item_struct</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>(),
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#71">item_struct</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+        <span class="kw-2">&amp;</span><a href="../../src/prusti_specs/print_counterexample.rs.html#71">item_struct</a>.generics,
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#102">spec_item</a>.<a href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>(),
+    );
     <span class="prelude-val">Ok</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[syn::Item::Impl(item_impl)])
 }
 
-
-<span class="kw">fn </span>rewrite_internal_enum(attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, item_enum: <a href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>) -&gt; TypeCounterexampleResult&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt; {
-    <span class="kw">let </span>parser = Punctuated::&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;::parse_terminated; 
-    <span class="kw">let </span>attrs = <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#151">parser</a>.<a href="../../syn/parse/trait.Parser.html">parse</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#150">attr</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()){
-        <span class="prelude-val">Ok</span>(result) =&gt; <a href="../../src/prusti_specs/print_counterexample.rs.html#153">result</a>,
-        <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#38">TypeCounterexampleError::ParsingError</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#154">err</a>)),
+<span class="kw">fn </span>rewrite_internal_enum(
+    attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>,
+    item_enum: <a href="../../syn/item/struct.ItemEnum.html">syn::ItemEnum</a>,
+) -&gt; TypeCounterexampleResult&lt;Vec&lt;<a href="../../syn/item/enum.Item.html">syn::Item</a>&gt;&gt; {
+    <span class="kw">let </span>parser = Punctuated::&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;::parse_terminated;
+    <span class="kw">let </span>attrs = <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#173">parser</a>.<a href="../../syn/parse/trait.Parser.html">parse</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#170">attr</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()) {
+        <span class="prelude-val">Ok</span>(result) =&gt; <a href="../../src/prusti_specs/print_counterexample.rs.html#175">result</a>,
+        <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#39">TypeCounterexampleError::ParsingError</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#176">err</a>)),
     };
-    <span class="kw">let </span>item_span = <a href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>();
-    <span class="kw">let </span>len = <a href="../../src/prusti_specs/print_counterexample.rs.html#152">attrs</a>.len();
-    <span class="kw">if </span>len != <span class="number">0</span>{
-        <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#156">item_span</a>));
+    <span class="kw">let </span>item_span = <a href="../../src/prusti_specs/print_counterexample.rs.html#171">item_enum</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>();
+    <span class="kw">let </span>len = <a href="../../src/prusti_specs/print_counterexample.rs.html#174">attrs</a>.len();
+    <span class="kw">if </span>len != <span class="number">0 </span>{
+        <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::WrongNumberOfArguemnts</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#178">item_span</a>));
     }
-    <span class="kw">let </span><span class="kw-2">mut </span>spec_items:Vec&lt;<a href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a>&gt; = <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[]; 
-    <span class="kw">let </span>enum_name = <a href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
+    <span class="kw">let </span><span class="kw-2">mut </span>spec_items: Vec&lt;<a href="../../syn/item/struct.ItemFn.html">syn::ItemFn</a>&gt; = <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[];
+    <span class="kw">let </span>enum_name = <a href="../../src/prusti_specs/print_counterexample.rs.html#171">item_enum</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
     <span class="kw">let </span><span class="kw-2">mut </span>rewriter = AstRewriter::new();
-    <span class="kw">let </span>spec_id = <a href="../../src/prusti_specs/print_counterexample.rs.html#163">rewriter</a>.<a href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
-    <span class="kw">let </span>spec_id_str = <a href="../../src/prusti_specs/print_counterexample.rs.html#164">spec_id</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>(); <span class="comment">//Does this have to be unique?
-    
-    </span><span class="kw">for </span>variant <span class="kw">in </span><span class="kw-2">&amp;</span>item_enum.variants{
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(custom_print) = variant.attrs.iter().find( |attr| attr.path.get_ident().map(| x | x.to_string()) == <span class="prelude-val">Some</span>(<span class="string">&quot;print_counterexample&quot;</span>.to_string())){
+    <span class="kw">let </span>spec_id = <a href="../../src/prusti_specs/print_counterexample.rs.html#185">rewriter</a>.<a href="../../src/prusti_specs/rewriter.rs.html#43">generate_spec_id</a>();
+    <span class="kw">let </span>spec_id_str = <a href="../../src/prusti_specs/print_counterexample.rs.html#186">spec_id</a>.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>(); <span class="comment">//Does this have to be unique?
+
+    </span><span class="kw">for </span>variant <span class="kw">in </span><span class="kw-2">&amp;</span>item_enum.variants {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(custom_print) = variant.attrs.iter().find(|attr| {
+            attr.path.get_ident().map(|x| x.to_string()) == <span class="prelude-val">Some</span>(<span class="string">&quot;print_counterexample&quot;</span>.to_string())
+        }) {
             <span class="kw">let </span>variant_name = variant.ident.clone();
             <span class="kw">let </span>item_span = variant.ident.span();
             <span class="kw">let </span>item_name = syn::Ident::new(
-                <span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;prusti_print_counterexample_variant_{}_{}&quot;</span>, variant.ident, spec_id),
+                <span class="kw-2">&amp;</span><span class="macro">format!</span>(
+                    <span class="string">&quot;prusti_print_counterexample_variant_{}_{}&quot;</span>,
+                    variant.ident, spec_id
+                ),
                 item_span,
             );
             <span class="kw">let </span>variant_name_str = variant_name.to_string();
             <span class="kw">let </span>parser = Punctuated::&lt;Pat, <span class="macro">Token!</span>[,]&gt;::parse_terminated; <span class="comment">//parse_separated_nonempty;
-            </span><span class="kw">let </span>attrs = <span class="kw">match </span>custom_print.parse_args_with(parser){
+            </span><span class="kw">let </span>attrs = <span class="kw">match </span>custom_print.parse_args_with(parser) {
                 <span class="prelude-val">Ok</span>(result) =&gt; result,
                 <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::ParsingError(err)),
             };
 
             <span class="kw">let </span>len = attrs.len();
             <span class="kw">let </span>(first_arg, args) = process_attr(<span class="kw-2">&amp;</span>attrs, len)<span class="question-mark">?</span>;
-                <span class="kw">match </span><span class="kw-2">&amp;</span>variant.fields{
-                    Fields::Named(<span class="kw">_</span>) =&gt; {
-                        <span class="kw">let </span><span class="kw-2">mut </span>args2: Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt; = attrs.into_iter().skip(<span class="number">1</span>).unique().collect::&lt;Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt;&gt;();
-                        <span class="kw">if </span>!args2.empty_or_trailing(){
-                            args2.push_punct(&lt;<span class="macro">syn::Token!</span>[,]&gt;::default());
+            <span class="kw">match </span><span class="kw-2">&amp;</span>variant.fields {
+                Fields::Named(<span class="kw">_</span>) =&gt; {
+                    <span class="kw">let </span><span class="kw-2">mut </span>args2: Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt; = attrs
+                        .into_iter()
+                        .skip(<span class="number">1</span>)
+                        .unique()
+                        .collect::&lt;Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt;&gt;(
+                    );
+                    <span class="kw">if </span>!args2.empty_or_trailing() {
+                        args2.push_punct(&lt;<span class="macro">syn::Token!</span>[,]&gt;::default());
+                    }
+                    <span class="kw">let </span>spec_item: syn::ItemFn = <span class="macro">parse_quote_spanned! </span>{item_span=&gt;
+                        <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
+                        #[prusti::spec_only]
+                        #[prusti::counterexample_print  = #variant_name_str]
+                        #[prusti::spec_id = #spec_id_str]
+                        </span><span class="kw">fn </span>#item_name(<span class="self">self</span>) {
+                            <span class="kw">if let </span>#enum_name::#variant_name{#args2 ..} = <span class="self">self</span>{
+                                #first_arg
+                                #args
+                            }
                         }
+                    };
+                    spec_items.push(spec_item);
+                }
+                Fields::Unnamed(fields_unnamed) =&gt; {
+                    <span class="kw">let </span>args2: Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt; = attrs
+                        .into_iter()
+                        .skip(<span class="number">1</span>)
+                        .unique()
+                        .collect::&lt;Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt;&gt;(
+                    );
+
+                    <span class="comment">//check if all args are correct
+                    </span>check_validity_of_args(
+                        args2,
+                        fields_unnamed.unnamed.len() <span class="kw">as </span>u32,
+                        <span class="kw-2">&amp;</span>item_enum.ident.to_string(),
+                    )<span class="question-mark">?</span>;
+                    <span class="kw">let </span>spec_item: syn::ItemFn = <span class="macro">parse_quote_spanned! </span>{item_span=&gt;
+                        <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
+                        #[prusti::spec_only]
+                        #[prusti::counterexample_print = #variant_name_str]
+                        #[prusti::spec_id = #spec_id_str]
+                        </span><span class="kw">fn </span>#item_name(<span class="self">self</span>) {
+                            <span class="kw">if let </span>#enum_name::#variant_name(..) = <span class="self">self</span>{
+                                #first_arg
+                                #args
+                            }
+                        }
+                    };
+                    spec_items.push(spec_item);
+                }
+                Fields::Unit =&gt; {
+                    <span class="kw">if </span>len == <span class="number">1 </span>{
                         <span class="kw">let </span>spec_item: syn::ItemFn = <span class="macro">parse_quote_spanned! </span>{item_span=&gt;
                             <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
                             #[prusti::spec_only]
-                            #[prusti::counterexample_print  = #variant_name_str]
+                            #[prusti::counterexample_print = #variant_name_str]
                             #[prusti::spec_id = #spec_id_str]
                             </span><span class="kw">fn </span>#item_name(<span class="self">self</span>) {
-                                <span class="kw">if let </span>#enum_name::#variant_name{#args2 ..} = <span class="self">self</span>{
+                                <span class="kw">if let </span>#enum_name::#variant_name = <span class="self">self</span>{
                                     #first_arg
-                                    #args
                                 }
                             }
                         };
                         spec_items.push(spec_item);
-                    },
-                    Fields::Unnamed(fields_unnamed) =&gt; {
-                        <span class="kw">let </span>args2: Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt; = attrs.into_iter().skip(<span class="number">1</span>).unique().collect::&lt;Punctuated&lt;Pat, <span class="macro">Token!</span>[,]&gt;&gt;();
-                            
-                            <span class="comment">//check if all args are correct
-                            </span>check_validity_of_args(args2, fields_unnamed.unnamed.len() <span class="kw">as </span>u32, <span class="kw-2">&amp;</span>item_enum.ident.to_string())<span class="question-mark">?</span>;
-                            <span class="kw">let </span>spec_item: syn::ItemFn = <span class="macro">parse_quote_spanned! </span>{item_span=&gt;
-                                <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
-                                #[prusti::spec_only]
-                                #[prusti::counterexample_print = #variant_name_str]
-                                #[prusti::spec_id = #spec_id_str]
-                                </span><span class="kw">fn </span>#item_name(<span class="self">self</span>) {
-                                    <span class="kw">if let </span>#enum_name::#variant_name(..) = <span class="self">self</span>{
-                                        #first_arg
-                                        #args
-                                    }
-                                }
-                            };
-                        spec_items.push(spec_item);
-                    },
-                    Fields::Unit =&gt; {
-                        <span class="kw">if </span>len == <span class="number">1</span>{
-                            <span class="kw">let </span>spec_item: syn::ItemFn = <span class="macro">parse_quote_spanned! </span>{item_span=&gt;
-                                <span class="attribute">#[allow(unused_must_use, unused_parens, unused_variables, dead_code, non_snake_case, irrefutable_let_patterns)]
-                                #[prusti::spec_only]
-                                #[prusti::counterexample_print = #variant_name_str]
-                                #[prusti::spec_id = #spec_id_str]
-                                </span><span class="kw">fn </span>#item_name(<span class="self">self</span>) {
-                                    <span class="kw">if let </span>#enum_name::#variant_name = <span class="self">self</span>{
-                                        #first_arg
-                                    }
-                                }
-                            };
-                            spec_items.push(spec_item);
-                        } <span class="kw">else </span>{
-                            <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::WrongNumberOfArguemnts(attr.span()));
-                        }
-                    },
+                    } <span class="kw">else </span>{
+                        <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::WrongNumberOfArguemnts(attr.span()));
+                    }
                 }
-        } 
+            }
+        }
     }
     <span class="kw">let </span><span class="kw-2">mut </span>spec_item_as_tokens = TokenStream::new();
-    <span class="kw">for </span>x <span class="kw">in </span>spec_items{
+    <span class="kw">for </span>x <span class="kw">in </span>spec_items {
         x.to_tokens(<span class="kw-2">&amp;mut </span>spec_item_as_tokens);
-    }      
-
-    <span class="kw">let </span>item_impl = <a href="../../src/prusti_specs/print_counterexample.rs.html#312">generate_generics</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>(), <a href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(), <span class="kw-2">&amp;</span><a href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>.generics, <a href="../../src/prusti_specs/print_counterexample.rs.html#244">spec_item_as_tokens</a>.<a href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>());
-    <span class="kw">let </span><span class="kw-2">mut </span>item_enum_new = <a href="../../src/prusti_specs/print_counterexample.rs.html#150">item_enum</a>;
-    <span class="kw">for </span>variant <span class="kw">in </span><span class="kw-2">&amp;mut </span>item_enum_new.variants{
-        <span class="comment">//remove all macros inside the enum
-        </span>variant.attrs.retain( |attr| attr.path.get_ident().map(| x | x.to_string()) != <span class="prelude-val">Some</span>(<span class="string">&quot;print_counterexample&quot;</span>.to_string()));
     }
-    <span class="prelude-val">Ok</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[syn::Item::Enum(item_enum_new) , syn::Item::Impl(item_impl)])
+
+    <span class="kw">let </span>item_impl = <a href="../../src/prusti_specs/print_counterexample.rs.html#396-401">generate_generics</a>(
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#171">item_enum</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>(),
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#171">item_enum</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+        <span class="kw-2">&amp;</span><a href="../../src/prusti_specs/print_counterexample.rs.html#171">item_enum</a>.generics,
+        <a href="../../src/prusti_specs/print_counterexample.rs.html#285">spec_item_as_tokens</a>.<a href="../../quote/to_tokens/trait.ToTokens.html">into_token_stream</a>(),
+    );
+    <span class="kw">let </span><span class="kw-2">mut </span>item_enum_new = <a href="../../src/prusti_specs/print_counterexample.rs.html#171">item_enum</a>;
+    <span class="kw">for </span>variant <span class="kw">in </span><span class="kw-2">&amp;mut </span>item_enum_new.variants {
+        <span class="comment">//remove all macros inside the enum
+        </span>variant.attrs.retain(|attr| {
+            attr.path.get_ident().map(|x| x.to_string()) != <span class="prelude-val">Some</span>(<span class="string">&quot;print_counterexample&quot;</span>.to_string())
+        });
+    }
+    <span class="prelude-val">Ok</span>(<a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.vec.html">vec!</a>[
+        syn::Item::Enum(item_enum_new),
+        syn::Item::Impl(item_impl),
+    ])
 }
 
-<span class="kw">fn </span>process_attr(attrs: <span class="kw-2">&amp;</span>Punctuated::&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;, len: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; TypeCounterexampleResult&lt;(<a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>)&gt;{
-    <span class="kw">let </span><span class="kw-2">mut </span>attrs_iter = <a href="../../src/prusti_specs/print_counterexample.rs.html#258">attrs</a>.iter();
+<span class="kw">fn </span>process_attr(
+    attrs: <span class="kw-2">&amp;</span>Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;,
+    len: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+) -&gt; TypeCounterexampleResult&lt;(<a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>)&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>attrs_iter = <a href="../../src/prusti_specs/print_counterexample.rs.html#310">attrs</a>.iter();
     <span class="kw">let </span>callsite_span = Span::call_site();
     <span class="comment">//first arg
-    </span><span class="kw">let </span>first_as_token = <span class="kw">if let </span><span class="prelude-val">Some</span>(text) = <a href="../../src/prusti_specs/print_counterexample.rs.html#259">attrs_iter</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>(){
-        <span class="kw">let </span>span = <a href="../../src/prusti_specs/print_counterexample.rs.html#262">text</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>();
-        <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#262">text</a> {
-            Pat::Lit(<a href="../../syn/pat/struct.PatLit.html">PatLit</a> { attrs: <span class="kw">_</span>, expr: <span class="kw">box </span>Expr::Lit(<a href="../../syn/expr/struct.ExprLit.html">ExprLit</a> { attrs: <span class="kw">_</span>, lit: Lit::Str(lit_str) }) }) =&gt; {
-                <span class="kw">let </span>value = <a href="../../src/prusti_specs/print_counterexample.rs.html#265">lit_str</a>.value();
-                <span class="kw">let </span>count = <a href="../../src/prusti_specs/print_counterexample.rs.html#266">value</a>.matches(<span class="string">&quot;{}&quot;</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">count</a>();
-                <span class="kw">if </span>count != len-<span class="number">1</span>{
-                    <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#32">TypeCounterexampleError::ArgumentsDoNotMatch</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#263">span</a>));
+    </span><span class="kw">let </span>first_as_token = <span class="kw">if let </span><span class="prelude-val">Some</span>(text) = <a href="../../src/prusti_specs/print_counterexample.rs.html#313">attrs_iter</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">next</a>() {
+        <span class="kw">let </span>span = <a href="../../src/prusti_specs/print_counterexample.rs.html#316">text</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>();
+        <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#316">text</a> {
+            Pat::Lit(<a href="../../syn/pat/struct.PatLit.html">PatLit</a> {
+                attrs: <span class="kw">_</span>,
+                expr:
+                    <span class="kw">box </span>Expr::Lit(<a href="../../syn/expr/struct.ExprLit.html">ExprLit</a> {
+                        attrs: <span class="kw">_</span>,
+                        lit: Lit::Str(lit_str),
+                    }),
+            }) =&gt; {
+                <span class="kw">let </span>value = <a href="../../src/prusti_specs/print_counterexample.rs.html#324">lit_str</a>.value();
+                <span class="kw">let </span>count = <a href="../../src/prusti_specs/print_counterexample.rs.html#327">value</a>.matches(<span class="string">&quot;{}&quot;</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">count</a>();
+                <span class="kw">if </span>count != len - <span class="number">1 </span>{
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#33">TypeCounterexampleError::ArgumentsDoNotMatch</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#317">span</a>));
                 }
                 <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned! </a>{callsite_span=&gt; #value;}
-            },
-            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#33">TypeCounterexampleError::WrongFirstArgument</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#263">span</a>)),
+            }
+            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::WrongFirstArgument</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#317">span</a>)),
         }
     } <span class="kw">else </span>{
-       <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#34">TypeCounterexampleError::AtLeastOneArgument</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#258">attrs</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>()));
+        <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#35">TypeCounterexampleError::AtLeastOneArgument</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#310">attrs</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>()));
     };
     <span class="comment">//other args
-    </span><span class="kw">let </span>args_as_token = <a href="../../src/prusti_specs/print_counterexample.rs.html#259">attrs_iter</a>.<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|pat | {
-        <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#279">pat</a> {
+    </span><span class="kw">let </span>args_as_token = <a href="../../src/prusti_specs/print_counterexample.rs.html#313">attrs_iter</a>
+        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|pat| <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#341">pat</a> {
             Pat::Ident(pat_ident) =&gt; {
                 <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned! </a>{callsite_span=&gt; #pat_ident; }
-            },
-            Pat::Lit(<a href="../../syn/pat/struct.PatLit.html">PatLit</a> { attrs: <span class="kw">_</span>, expr: <span class="kw">box </span>Expr::Lit(<a href="../../syn/expr/struct.ExprLit.html">ExprLit</a> { attrs: <span class="kw">_</span>, lit: Lit::Int(lit_int)})}) =&gt; {
+            }
+            Pat::Lit(<a href="../../syn/pat/struct.PatLit.html">PatLit</a> {
+                attrs: <span class="kw">_</span>,
+                expr:
+                    <span class="kw">box </span>Expr::Lit(<a href="../../syn/expr/struct.ExprLit.html">ExprLit</a> {
+                        attrs: <span class="kw">_</span>,
+                        lit: Lit::Int(lit_int),
+                    }),
+            }) =&gt; {
                 <a class="macro" href="../../quote/macro.quote_spanned.html">quote_spanned! </a>{callsite_span=&gt; #lit_int; }
-            },
+            }
             <span class="kw">_ </span>=&gt; {
-            <span class="kw">let </span>err: <a href="../../syn/error/struct.Error.html">syn::Error</a> = <a href="../../src/prusti_specs/print_counterexample.rs.html#36">TypeCounterexampleError::InvalidName</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#260">callsite_span</a>).<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
-            <a href="../../src/prusti_specs/print_counterexample.rs.html#288">err</a>.to_compile_error()
-        },  
-        }
-    }).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::&lt;<a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>&gt;();
-    <span class="prelude-val">Ok</span>((<a href="../../src/prusti_specs/print_counterexample.rs.html#262">first_as_token</a>, <a href="../../src/prusti_specs/print_counterexample.rs.html#279">args_as_token</a>))
+                <span class="kw">let </span>err: <a href="../../syn/error/struct.Error.html">syn::Error</a> = <a href="../../src/prusti_specs/print_counterexample.rs.html#37">TypeCounterexampleError::InvalidName</a>(<a href="../../src/prusti_specs/print_counterexample.rs.html#314">callsite_span</a>).<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>();
+                <a href="../../src/prusti_specs/print_counterexample.rs.html#356">err</a>.to_compile_error()
+            }
+        })
+        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::&lt;<a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>&gt;();
+    <span class="prelude-val">Ok</span>((<a href="../../src/prusti_specs/print_counterexample.rs.html#316">first_as_token</a>, <a href="../../src/prusti_specs/print_counterexample.rs.html#340">args_as_token</a>))
 }
-<span class="kw">fn </span>check_validity_of_args(args: Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;, len: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>) -&gt; TypeCounterexampleResult&lt;()&gt;{
+<span class="kw">fn </span>check_validity_of_args(
+    args: Punctuated&lt;<a href="../../syn/pat/enum.Pat.html">Pat</a>, <a class="macro" href="../../syn/macro.Token.html">Token!</a>[,]&gt;,
+    len: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
+) -&gt; TypeCounterexampleResult&lt;()&gt; {
     <span class="kw">for </span>arg <span class="kw">in </span><span class="kw-2">&amp;</span>args {
-        <span class="kw">if let </span>Pat::Lit(PatLit { attrs: <span class="kw">_</span>, expr: <span class="kw">box </span>Expr::Lit(ExprLit { attrs: <span class="kw">_</span>, lit: Lit::Int(lit_int)})}) = arg{
-            <span class="kw">let </span>value: u32 = <span class="kw">match </span>lit_int.base10_parse(){
+        <span class="kw">if let </span>Pat::Lit(PatLit {
+            attrs: <span class="kw">_</span>,
+            expr:
+                <span class="kw">box </span>Expr::Lit(ExprLit {
+                    attrs: <span class="kw">_</span>,
+                    lit: Lit::Int(lit_int),
+                }),
+        }) = arg
+        {
+            <span class="kw">let </span>value: u32 = <span class="kw">match </span>lit_int.base10_parse() {
                 <span class="prelude-val">Ok</span>(result) =&gt; result,
-                <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::ParsingError(err))
+                <span class="prelude-val">Err</span>(err) =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::ParsingError(err)),
             };
             <span class="kw">if </span>value &gt;= len {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::InvalidArgument(arg.span(), name.to_string(), value.to_string()));
+                <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::InvalidArgument(
+                    arg.span(),
+                    name.to_string(),
+                    value.to_string(),
+                ));
             }
         } <span class="kw">else </span>{
             <span class="kw">return </span><span class="prelude-val">Err</span>(TypeCounterexampleError::InvalidName(arg.span()));
@@ -636,12 +809,17 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">fn </span>generate_generics(item_span: <a href="../../proc_macro2/struct.Span.html">Span</a>, typ: <a href="../../proc_macro2/struct.Ident.html">Ident</a>, generics: <span class="kw-2">&amp;</span><a href="../../syn/generics/struct.Generics.html">Generics</a>, spec_item: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a href="../../syn/item/struct.ItemImpl.html">syn::ItemImpl</a>{
-    <span class="kw">let </span>generics_idents = <a href="../../src/prusti_specs/print_counterexample.rs.html#312">generics</a>
+<span class="kw">fn </span>generate_generics(
+    item_span: <a href="../../proc_macro2/struct.Span.html">Span</a>,
+    typ: <a href="../../proc_macro2/struct.Ident.html">Ident</a>,
+    generics: <span class="kw-2">&amp;</span><a href="../../syn/generics/struct.Generics.html">Generics</a>,
+    spec_item: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>,
+) -&gt; <a href="../../syn/item/struct.ItemImpl.html">syn::ItemImpl</a> {
+    <span class="kw">let </span>generics_idents = <a href="../../src/prusti_specs/print_counterexample.rs.html#399">generics</a>
         .params
         .iter()
-        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter_map</a>(|generic_param| <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#316">generic_param</a> {
-            syn::GenericParam::Type(type_param) =&gt; <span class="prelude-val">Some</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#317">type_param</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
+        .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">filter_map</a>(|generic_param| <span class="kw">match </span><a href="../../src/prusti_specs/print_counterexample.rs.html#405">generic_param</a> {
+            syn::GenericParam::Type(type_param) =&gt; <span class="prelude-val">Some</span>(<a href="../../src/prusti_specs/print_counterexample.rs.html#406">type_param</a>.ident.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         })
         .<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>::&lt;syn::punctuated::Punctuated&lt;<span class="kw">_</span>, <a class="macro" href="../../syn/macro.Token.html">syn::Token!</a>[,]&gt;&gt;();
@@ -650,6 +828,7 @@
             #spec_item
         }
     };
-    <a href="../../src/prusti_specs/print_counterexample.rs.html#321">item_impl</a>
-}</code></pre></div>
+    <a href="../../src/prusti_specs/print_counterexample.rs.html#410">item_impl</a>
+}
+</code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="prusti_specs" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (bc4b39c27 2022-08-29)" ></div></body></html>
