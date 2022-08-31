@@ -29,8 +29,9 @@
 <span id="29">29</span>
 <span id="30">30</span>
 <span id="31">31</span>
-</pre><pre class="rust"><code><span class="kw">use </span>rustc_hash::{<a href="../../../../rustc_hash/type.FxHashMap.html">FxHashMap</a>};
-<span class="kw">use </span><a href="../../../../prusti_interface/data/type.ProcedureDefId.html">prusti_interface::data::ProcedureDefId</a>;
+<span id="32">32</span>
+</pre><pre class="rust"><code><span class="kw">use </span><a href="../../../../prusti_interface/data/type.ProcedureDefId.html">prusti_interface::data::ProcedureDefId</a>;
+<span class="kw">use </span><a href="../../../../rustc_hash/type.FxHashMap.html">rustc_hash::FxHashMap</a>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html">std::cell::RefCell</a>;
 
 <span class="attribute">#[derive(Default)]
@@ -38,8 +39,8 @@
     discriminants_info: RefCell&lt;FxHashMap&lt;(<a href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>, <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>), Vec&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;&gt;&gt;,
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait  </span>DiscriminantsStateInterface {
-    <span class="kw">fn </span>add_discriminant_info(<span class="kw-2">&amp;</span><span class="self">self</span>, enum_id: <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, discr_id: <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, proc_def_id: <a href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>); 
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>DiscriminantsStateInterface {
+    <span class="kw">fn </span>add_discriminant_info(<span class="kw-2">&amp;</span><span class="self">self</span>, enum_id: <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, discr_id: <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>, proc_def_id: <a href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>);
     <span class="kw">fn </span>discriminants_info(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FxHashMap&lt;(<a href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>, <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>), Vec&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;&gt;;
 }
 
@@ -50,14 +51,16 @@
         discr_id: <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>,
         proc_def_id: <a href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>,
     ) {
-        <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#17">self</a>.discriminants_state.discriminants_info
+        <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#17">self</a>.discriminants_state
+            .discriminants_info
             .borrow_mut()
             .entry((<a href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#20">proc_def_id</a>, <a href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#18">enum_id</a>))
             .or_default()
             .push(<a href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#19">discr_id</a>);
     }
     <span class="kw">fn </span>discriminants_info(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FxHashMap&lt;(<a href="../../../../prusti_interface/data/type.ProcedureDefId.html">ProcedureDefId</a>, <a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>), Vec&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;&gt; {
-        <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#28">self</a>.discriminants_state.discriminants_info.borrow().<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()
+        <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#29">self</a>.discriminants_state.discriminants_info.borrow().<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()
     }
-}</code></pre></div>
+}
+</code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="prusti_viper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (bc4b39c27 2022-08-29)" ></div></body></html>

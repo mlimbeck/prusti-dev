@@ -805,23 +805,6 @@
 <span id="805">805</span>
 <span id="806">806</span>
 <span id="807">807</span>
-<span id="808">808</span>
-<span id="809">809</span>
-<span id="810">810</span>
-<span id="811">811</span>
-<span id="812">812</span>
-<span id="813">813</span>
-<span id="814">814</span>
-<span id="815">815</span>
-<span id="816">816</span>
-<span id="817">817</span>
-<span id="818">818</span>
-<span id="819">819</span>
-<span id="820">820</span>
-<span id="821">821</span>
-<span id="822">822</span>
-<span id="823">823</span>
-<span id="824">824</span>
 </pre><pre class="rust"><code><span class="comment">// © 2019, ETH Zurich
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -884,7 +867,7 @@
     }
 };
 <span class="kw">use </span><span class="kw">super</span>::high::types::{<a href="../../../src/prusti_viper/encoder/high/types/interface.rs.html#22">HighTypeEncoderState</a>, <a href="../../../src/prusti_viper/encoder/high/types/interface.rs.html#127">HighTypeEncoderInterface</a>};
-<span class="kw">use </span><span class="kw">super</span>::counterexamples::{<a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#77">MirProcedureMappingInterface</a>, <a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#5">MirProcedureMapping</a>};
+<span class="kw">use </span><span class="kw">super</span>::counterexamples::{<a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#89">MirProcedureMappingInterface</a>, <a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#8">MirProcedureMapping</a>};
 <span class="kw">use </span><a href="../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#6"><span class="kw">super</span>::counterexamples::DiscriminantsState</a>;
 <span class="kw">use </span><a href="../../../src/prusti_viper/encoder/high/to_typed/types/interface.rs.html#9"><span class="kw">super</span>::high::to_typed::types::HighToTypedTypeEncoderState</a>;
 
@@ -919,7 +902,7 @@
     name_interner: RefCell&lt;<a href="../../../src/prusti_viper/encoder/name_interner.rs.html#13">NameInterner</a>&gt;,
     <span class="doccomment">/// Maps locals to the local of their discriminant.
     </span><span class="kw">pub</span>(<span class="kw">super</span>) discriminants_state: <a href="../../../src/prusti_viper/encoder/counterexamples/discriminants_interface.rs.html#6">DiscriminantsState</a>,
-    <span class="kw">pub</span>(<span class="kw">super</span>) mir_procedure_mapping: <a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#5">MirProcedureMapping</a>,
+    <span class="kw">pub</span>(<span class="kw">super</span>) mir_procedure_mapping: <a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#8">MirProcedureMapping</a>,
     <span class="doccomment">/// Whether the current pure expression that&#39;s being encoded sits inside a trigger closure.
     /// Viper limits the type of expressions that are allowed in quantifier triggers and
     /// this requires special care when encoding array/slice accesses which may come with
@@ -1054,7 +1037,7 @@
         <span class="kw">if </span>config::counterexample() &amp;&amp; config::unsafe_core_proof(){
             <a class="self" href="../../../src/prusti_viper/encoder/encoder.rs.html#229">self</a>.<a href="../../../src/prusti_viper/encoder/middle/core_proof/interface.rs.html#24">take_core_proof_programs</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">into_iter</a>().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(
                 | program | {
-                    <a class="self" href="../../../src/prusti_viper/encoder/encoder.rs.html#229">self</a>.<a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#78">add_mapping</a>(<span class="kw-2">&amp;</span><a href="../../../src/prusti_viper/encoder/encoder.rs.html#232">program</a>);
+                    <a class="self" href="../../../src/prusti_viper/encoder/encoder.rs.html#229">self</a>.<a href="../../../src/prusti_viper/encoder/counterexamples/interface.rs.html#90">add_mapping</a>(<span class="kw-2">&amp;</span><a href="../../../src/prusti_viper/encoder/encoder.rs.html#232">program</a>);
                     prusti_common::vir::program::Program::Low(<a href="../../../src/prusti_viper/encoder/encoder.rs.html#232">program</a>)
             }).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>()
         } <span class="kw">else </span>{
@@ -1628,23 +1611,6 @@
         <span class="kw">let </span>field = <a href="../../../src/prusti_viper/encoder/encoder.rs.html#800">strct</a>.field(<span class="self">self</span>.encode_struct_field(field_name, ty)<span class="question-mark">?</span>);
         <a class="self" href="../../../src/prusti_viper/encoder/encoder.rs.html#799">self</a>.<a href="../../../src/prusti_viper/encoder/encoder.rs.html#313">encode_value_expr</a>(<a href="../../../src/prusti_viper/encoder/encoder.rs.html#804">field</a>, <a href="../../../src/prusti_viper/encoder/encoder.rs.html#802">ty</a>)
     }
-    <span class="comment">/*
-    pub fn add_discriminant_info(
-        &amp;self,
-        enum_id: String,
-        discr_id: String,
-        proc_def_id: ProcedureDefId,
-    ) {
-        self.discriminants_info
-            .borrow_mut()
-            .entry((proc_def_id, enum_id))
-            .or_default()
-            .push(discr_id);
-    }
-
-    pub fn discriminants_info(&amp;self) -&gt; FxHashMap&lt;(ProcedureDefId, String), Vec&lt;String&gt;&gt; {
-        self.discriminants_info.borrow().clone()
-    }*/
-</span>}
+}
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="prusti_viper" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0-nightly (bc4b39c27 2022-08-29)" ></div></body></html>
