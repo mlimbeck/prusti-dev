@@ -1077,7 +1077,7 @@
 <span class="kw">mod </span><a href="../../src/prusti_specs/predicate.rs.html#1-188">predicate</a>;
 <span class="kw">mod </span><a href="../../src/prusti_specs/rewriter.rs.html#1-288">rewriter</a>;
 <span class="kw">mod </span><a href="../../src/prusti_specs/span_overrider.rs.html#1-20">span_overrider</a>;
-<span class="kw">mod </span><a href="../../src/prusti_specs/spec_attribute_kind.rs.html#1-54">spec_attribute_kind</a>;
+<span class="kw">mod </span><a href="../../src/prusti_specs/spec_attribute_kind.rs.html#1-39">spec_attribute_kind</a>;
 <span class="kw">pub mod </span><a href="../../src/prusti_specs/specifications/mod.rs.html#1-21">specifications</a>;
 <span class="kw">mod </span><a href="../../src/prusti_specs/type_model/mod.rs.html#1-548">type_model</a>;
 <span class="kw">mod </span><a href="../../src/prusti_specs/user_provided_type_params.rs.html#1-179">user_provided_type_params</a>;
@@ -1654,7 +1654,7 @@
     <span class="comment">// `#[trusted]` can be applied to both types and to methods, figure out
     // which one by trying to parse a `DeriveInput`.
     </span><span class="kw">if </span>syn::parse2::&lt;syn::DeriveInput&gt;(tokens.clone()).is_ok() {
-        <a href="../../src/prusti_specs/lib.rs.html#752-756">rewrite_prusti_attributes_for_types</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#11">SpecAttributeKind::Trusted</a>, <a href="../../src/prusti_specs/lib.rs.html#585">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#585">tokens</a>)
+        <a href="../../src/prusti_specs/lib.rs.html#752-756">rewrite_prusti_attributes_for_types</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#13">SpecAttributeKind::Trusted</a>, <a href="../../src/prusti_specs/lib.rs.html#585">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#585">tokens</a>)
         <span class="comment">// // TODO: reduce duplication with `invariant`
         // let mut rewriter = rewriter::AstRewriter::new();
         // let spec_id = rewriter.generate_spec_id();
@@ -1730,7 +1730,7 @@
         //     #item_impl
         // }
     </span>} <span class="kw">else </span>{
-        <a href="../../src/prusti_specs/lib.rs.html#105-109">rewrite_prusti_attributes</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#11">SpecAttributeKind::Trusted</a>, <a href="../../src/prusti_specs/lib.rs.html#585">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#585">tokens</a>)
+        <a href="../../src/prusti_specs/lib.rs.html#105-109">rewrite_prusti_attributes</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#13">SpecAttributeKind::Trusted</a>, <a href="../../src/prusti_specs/lib.rs.html#585">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#585">tokens</a>)
     }
 }
 
@@ -1978,7 +1978,7 @@
 
 <span class="kw">pub fn </span>type_model(attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, tokens: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">if </span>syn::parse2::&lt;syn::DeriveInput&gt;(tokens.clone()).is_ok() {
-        <a href="../../src/prusti_specs/lib.rs.html#752-756">rewrite_prusti_attributes_for_types</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#15">SpecAttributeKind::Model</a>, <a href="../../src/prusti_specs/lib.rs.html#919">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#919">tokens</a>)
+        <a href="../../src/prusti_specs/lib.rs.html#752-756">rewrite_prusti_attributes_for_types</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#7">SpecAttributeKind::Model</a>, <a href="../../src/prusti_specs/lib.rs.html#919">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#919">tokens</a>)
     } <span class="kw">else </span>{
         syn::Error::new(
             <a href="../../src/prusti_specs/lib.rs.html#919">attr</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>(),
@@ -1990,7 +1990,7 @@
 
 <span class="kw">pub fn </span>print_counterexample(attr: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>, tokens: <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a>) -&gt; <a href="../../proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">if </span>syn::parse2::&lt;syn::DeriveInput&gt;(tokens.clone()).is_ok() {
-        <a href="../../src/prusti_specs/lib.rs.html#752-756">rewrite_prusti_attributes_for_types</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#16">SpecAttributeKind::PrintCounterexample</a>, <a href="../../src/prusti_specs/lib.rs.html#931">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#931">tokens</a>)
+        <a href="../../src/prusti_specs/lib.rs.html#752-756">rewrite_prusti_attributes_for_types</a>(<a href="../../src/prusti_specs/spec_attribute_kind.rs.html#17">SpecAttributeKind::PrintCounterexample</a>, <a href="../../src/prusti_specs/lib.rs.html#931">attr</a>, <a href="../../src/prusti_specs/lib.rs.html#931">tokens</a>)
     } <span class="kw">else </span>{
         syn::Error::new(
             <a href="../../src/prusti_specs/lib.rs.html#931">attr</a>.<a href="../../syn/spanned/trait.Spanned.html">span</a>(),
