@@ -953,7 +953,7 @@
                         <span class="kw">if </span><span class="self">self
                             </span>.encoder
                             .get_type_specs(adt_def.did())
-                            .and_then(|p| p.has_model)
+                            .and_then(|p| p.model)
                             .is_some()
                         {
                             <span class="kw">let </span>entry = <span class="self">self</span>.translate_snapshot_entry(model_entry, <span class="prelude-val">Some</span>(ty), <span class="bool-val">false</span>); <span class="comment">//extract the counterexample of the original type
@@ -1153,7 +1153,7 @@
                     <span class="kw">if let </span><span class="prelude-val">Some</span>((to_model, model_id)) = <span class="self"><a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#312">self</a>
                         </span>.encoder
                         .<a href="../../../../src/prusti_viper/encoder/mir/specifications/interface.rs.html#91">get_type_specs</a>(<a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#397">adt_def</a>.did())
-                        .and_then(|p| <a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#425">p</a>.has_model)
+                        .and_then(|p| <a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#425">p</a>.model)
                     {
                         <span class="kw">let </span>entry =
                             <a class="self" href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#312">self</a>.<a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#677-683">extract_model</a>(<a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#313">model_entry</a>, <a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#396">domain_name</a>, <a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#422">to_model</a>, <a href="../../../../src/prusti_viper/encoder/counterexamples/counterexample_translation_refactored.rs.html#422">model_id</a>);
