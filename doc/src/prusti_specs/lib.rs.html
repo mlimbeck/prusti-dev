@@ -1831,7 +1831,7 @@
         .to_compile_error();
     }
 
-    <span class="comment">//we order die attributes to ensure a model attribute is processed first
+    <span class="comment">// we order the attributes to ensure a model attribute is processed first
     </span><a href="../../src/prusti_specs/lib.rs.html#759">prusti_attributes</a>.sort_by(|(ak1, <span class="kw">_</span>), (ak2, <span class="kw">_</span>)| <a href="../../src/prusti_specs/lib.rs.html#776">ak1</a>.<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html">cmp</a>(<a href="../../src/prusti_specs/lib.rs.html#776">ak2</a>));
 
     <span class="kw">let </span>(generated_spec_items, generated_attributes) =
